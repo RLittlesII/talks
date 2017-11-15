@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediator.Demo", "Mediator.Demo\Mediator.Demo.csproj", "{8537A044-4028-496B-878B-B0CD22590C3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediator.Demo.UnitTests", "Mediator.Demo.UnitTests\Mediator.Demo.UnitTests.csproj", "{8B11DB7E-8CB7-4F8C-AA84-7FB1292B6D44}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8537A044-4028-496B-878B-B0CD22590C3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8537A044-4028-496B-878B-B0CD22590C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8537A044-4028-496B-878B-B0CD22590C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8537A044-4028-496B-878B-B0CD22590C3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B11DB7E-8CB7-4F8C-AA84-7FB1292B6D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B11DB7E-8CB7-4F8C-AA84-7FB1292B6D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B11DB7E-8CB7-4F8C-AA84-7FB1292B6D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B11DB7E-8CB7-4F8C-AA84-7FB1292B6D44}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {785E2B7F-8B41-42FE-AEC2-8869A5106C1C}
+	EndGlobalSection
+EndGlobal
