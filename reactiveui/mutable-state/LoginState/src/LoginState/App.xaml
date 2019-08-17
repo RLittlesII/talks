@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LoginState.App">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--Global Styles-->
+            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+            <Color x:Key="SwordBlue">#169ee1</Color>
+            <Color x:Key="ButtonColor">#169ee1</Color>
+            <Color x:Key="ButtonTextColor">#ffffff</Color>
+
+            <Style TargetType="Button">
+                <Setter Property="FontSize" Value="Default" />
+                <Setter Property="BackgroundColor" Value="{StaticResource ButtonColor}" />
+                <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

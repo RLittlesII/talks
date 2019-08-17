@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<loginState:ContentPageBase x:TypeArguments="loginState:LoginViewModel" 
+                                xmlns="http://xamarin.com/schemas/2014/forms"
+                                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                                xmlns:loginState="clr-namespace:LoginState;assembly=LoginState"
+                                x:Class="LoginState.LoginPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <Entry x:Name="EmailEntry" Placeholder="Email" PlaceholderColor="Black" />
+            <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" />
+
+            <loginState:TappableActivity x:Name="Activity" VerticalOptions="CenterAndExpand" Color="Green"  />
+
+            <Button x:Name="LoginButton" HeightRequest="48" WidthRequest="90" Margin="8" VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</loginState:ContentPageBase>
