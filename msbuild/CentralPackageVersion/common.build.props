@@ -1,0 +1,10 @@
+<Project>
+    <PropertyGroup>
+        <Authors>RLittlesII</Authors>
+        <Company>RLittlesII</Company>
+        <Copyright>Copyright Rodney Littles, II © 2019</Copyright>
+        <RepositoryType>git</RepositoryType>
+        <LangVersion>latest</LangVersion>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    </PropertyGroup>
+</Project>

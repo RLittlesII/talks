@@ -1,0 +1,40 @@
+<Project>
+    <ItemGroup>
+        <PackageReference Update="DynamicData" Version="6.*" />
+        <PackageReference Update="Microsoft.AppCenter.Analytics" Version="2.5.0" />
+        <PackageReference Update="ReactiveUI" Version="11.*" />
+        <PackageReference Update="ReactiveUI.Events" Version="11.*" />
+        <PackageReference Update="ReactiveUI.XamForms" Version="11.*" />
+        <PackageReference Update="ReactiveUI.Events.XamForms" Version="11.*" />
+        <PackageReference Update="Rocket.Surgery.Reactive.Extensions" Version="2.0.1" />
+        <PackageReference Update="Rocket.Surgery.Airframe.Forms" Version="0.4.*" />
+        <PackageReference Update="Rocket.Surgery.Airframe.ViewModels" Version="0.4.*" />
+        <PackageReference Update="Rocket.Surgery.Airframe.Configuration" Version="0.4.*" />
+        <PackageReference Update="Sextant" Version="2.*" />
+        <PackageReference Update="Sextant.XamForms" Version="2.*" />
+        <PackageReference Update="Serilog.Sinks.AppCenter.Crash" Version="1.*" />
+        <PackageReference Update="Splat" Version="9.*" />
+        <PackageReference Update="Splat.Serilog" Version="9.2.11" />
+        <PackageReference Update="System.Reactive" Version="4.*" />
+        <PackageReference Update="System.Runtime.InteropServices.WindowsRuntime" Version="4.3.0" />
+        <PackageReference Update="System.Threading.Tasks.Extensions" Version="4.5.2" />
+        <PackageReference Update="Xamarin.Essentials" Version="1.*" />
+        <PackageReference Update="Xamarin.FFImageLoading.Forms" Version="2.4.*" />
+        <PackageReference Update="Xamarin.FFImageLoading.Transformations"  Version="2.4.*" />
+        <PackageReference Update="Xamarin.Forms" Version="4.*" />
+        <PackageReference Update="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Update="coverlet.msbuild" Version="2.5.1" />
+        <PackageReference Update="FluentAssertions" Version="5.6.0" />
+        <PackageReference Update="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+        <PackageReference Update="Microsoft.Reactive.Testing" Version="4.0.0" />
+        <PackageReference Update="NSubstitute" Version="3.1.0" />
+        <PackageReference Update="ReactiveUI.Testing" Version="11.*" />
+        <PackageReference Update="Rocket.Surgery.Extensions.Testing.Fixtures " Version="1.0.0" />
+        <PackageReference Update="xunit" Version="2.4.1" />
+        <PackageReference Update="xunit.runner.visualstudio" Version="2.4.1" />
+        <PackageReference Update="XunitXml.TestLogger" Version="2.1.26" />
+        <DotNetCliToolReference Update="dotnet-xunit" Version="2.3.1" />
+    </ItemGroup>
+</Project>

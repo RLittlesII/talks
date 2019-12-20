@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.52" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AppCenter.Analytics" />
+    <PackageReference Include="ReactiveUI.XamForms" />
+    <PackageReference Include="ReactiveUI.Events.XamForms" />
+    <PackageReference Include="Rocket.Surgery.Reactive.Extensions" />
+    <PackageReference Include="Rocket.Surgery.Airframe.Forms" />
+    <PackageReference Include="Rocket.Surgery.Airframe.ViewModels" />
+    <PackageReference Include="Rocket.Surgery.Airframe.Configuration" />
+    <PackageReference Include="Sextant.XamForms" />
+    <PackageReference Include="Serilog.Sinks.AppCenter.Crash" />
+    <PackageReference Include="Splat.Serilog" />
+    <PackageReference Include="Xamarin.Forms" />
+    <PackageReference Include="Xamarin.Essentials" />
+  </ItemGroup>
+</Project>
