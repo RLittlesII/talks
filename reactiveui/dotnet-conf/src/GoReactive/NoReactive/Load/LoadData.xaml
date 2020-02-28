@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<goReactive:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                            xmlns:goReactive="clr-namespace:NoReactive;assembly=NoReactive"
+                            xmlns:load="clr-namespace:NoReactive.Load;assembly=NoReactive"
+                            x:Class="NoReactive.Load.LoadData"
+                            x:TypeArguments="load:LoadDataViewModel">
+    <ContentPage.Content>
+        <ListView>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</goReactive:ContentPageBase>

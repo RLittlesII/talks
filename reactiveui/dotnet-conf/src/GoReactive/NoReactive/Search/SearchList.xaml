@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<goReactive:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                            xmlns:goReactive="clr-namespace:NoReactive;assembly=NoReactive"
+                            xmlns:search="clr-namespace:NoReactive.Search;assembly=NoReactive"
+                            x:Class="NoReactive.Search.SearchList"
+                            x:TypeArguments="search:SearchListViewModel">
+    <StackLayout>
+        <SearchBar x:Name="SearchBar" />
+        <ListView x:Name="SearchListView"
+                  HasUnevenRows="True"
+                  RowHeight="80"
+                  IsPullToRefreshEnabled="True">
+        </ListView>
+    </StackLayout>
+</goReactive:ContentPageBase>
