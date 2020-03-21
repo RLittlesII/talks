@@ -22,8 +22,7 @@ namespace GoReactive.Services.Orders
 
         public async Task GetOrders()
         {
-            var orderDetails = await _client.InvokeAsync<IEnumerable<OrderDetailDto>>("GetOrders").ConfigureAwait(false);
-            _orders.AddOrUpdate(orderDetails);
+            var orderDetails = await _client.InvokeAsync<OrderDetailDto>("GetOrders").ConfigureAwait(false);
         }
 
         public void Dispose()

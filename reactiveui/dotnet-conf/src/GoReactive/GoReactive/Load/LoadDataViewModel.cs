@@ -25,7 +25,7 @@ namespace GoReactive.Load
                 .Connect()
                 .Publish()
                 .RefCount()
-                .Transform(x =>  new LoadDataItemViewModel { Name = x.Name, Ordered = x.DrinkName, Size = x.Size.ToString()})
+                .Transform(x =>  new LoadDataItemViewModel { Name = x.Name, Ordered = x.DrinkName, Size = x.Size.ToString() })
                 .Bind(out _orders)
                 .DisposeMany()
                 .Subscribe();
@@ -37,6 +37,6 @@ namespace GoReactive.Load
 
         public ReactiveCommand<Unit, Unit> InitializeData { get; set; }
 
-        private async Task ExecuteInitialize() => await Task.CompletedTask;
+        private async Task ExecuteInitialize() => await _hubConnectionService.GetOrders();
     }
 }

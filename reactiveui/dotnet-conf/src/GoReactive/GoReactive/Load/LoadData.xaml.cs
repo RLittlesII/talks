@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
@@ -12,21 +13,16 @@ namespace GoReactive.Load
         {
             InitializeComponent();
 
-            var connected =
-                Observable.FromEvent<EventHandler<ConnectivityChangedEventArgs>, ConnectivityChangedEventArgs>(
-                    eventHandler =>
-                    {
-                        void Handler(object sender, ConnectivityChangedEventArgs connectivityChangedEventArgs) =>
-                            eventHandler(connectivityChangedEventArgs);
-
-                        return Handler;
-                    },
-                    x => Connectivity.ConnectivityChanged += x,
-                    x => Connectivity.ConnectivityChanged += x);
-
             this.WhenAnyValue(x => x.ViewModel.Orders)
-                .Where((x => x != null))
+                .Where(x => x != null)
                 .BindTo(this, x => x.LoadDataListView.ItemsSource)
+                .DisposeWith(ViewBindings);
+
+            this.WhenAnyValue(x => x.ViewModel)
+                .Where(x => x != null)
+                .Select(x => Unit.Default)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .InvokeCommand(this, x => x.ViewModel.InitializeData)
                 .DisposeWith(ViewBindings);
         }
     }

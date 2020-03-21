@@ -24,5 +24,10 @@ namespace NoReactive.Search
             // How can we time shift this?  Delay processing with some sort of buffer 
             model?.Search.Execute(e.NewTextValue);
         }
+
+        public void Dispose()
+        {
+            SearchBar.TextChanged -= SearchBarOnTextChanged; // This avoids the memory leak
+        }
     }
 }

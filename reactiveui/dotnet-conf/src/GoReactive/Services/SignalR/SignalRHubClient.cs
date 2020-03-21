@@ -1,3 +1,5 @@
+using System;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using GoReactive.Services.Client;
@@ -18,6 +20,8 @@ namespace GoReactive.Services.SignalR
         }
 
         public override async Task Connect() => await _connection.StartAsync().ConfigureAwait(false);
+
+        public IObservable<OrderDetailDto> OrderDetails => _orderDetailDto.AsObservable();
 
         public override async Task<T> InvokeAsync<T>(string methodName) =>
             await _connection.InvokeAsync<T>(methodName).ConfigureAwait(false);

@@ -54,17 +54,17 @@ namespace GoReactive.Search
                     .ToProperty(this, x => x.IsRefreshing);
         }
 
-        public ReactiveCommand<Unit, Unit> Refresh { get; set; }
-
-        public ReactiveCommand<string, Unit> Search { get; set; }
-
-        public bool IsRefreshing => _isRefreshing.Value;
-
         public string SearchText
         {
             get => _searchText;
             set => this.RaiseAndSetIfChanged(ref _searchText, value);
         }
+
+        public ReactiveCommand<Unit, Unit> Refresh { get; set; }
+
+        public ReactiveCommand<string, Unit> Search { get; set; }
+
+        public bool IsRefreshing => _isRefreshing.Value;
 
         public SearchResultViewModel CurrentResult => _currentResult.Value;
 

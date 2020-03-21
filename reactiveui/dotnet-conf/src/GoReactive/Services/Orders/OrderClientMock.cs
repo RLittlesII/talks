@@ -21,7 +21,7 @@ namespace GoReactive.Services.Orders
 
         public override Task Connect() => Task.CompletedTask;
 
-        public override Task<T> InvokeAsync<T>(string methodName) => Task.FromResult(default(T));
+        public override Task<T> InvokeAsync<T>(string methodName) => Task.FromResult((T)(object)GenerateOrderDetail());
 
         public IObservable<OrderDetailDto> Orders { get; }
         

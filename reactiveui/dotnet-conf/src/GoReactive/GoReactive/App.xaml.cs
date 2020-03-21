@@ -16,7 +16,8 @@ namespace GoReactive
 
             var startup = new Startup();
 
-            MainPage = startup.NavigateToStart<LoadDataViewModel>();
+            MainPage = startup.NavigateToStart<SearchListViewModel>();
+            // MainPage = startup.NavigateToStart<LoadDataViewModel>();
         }
 
         protected override void OnStart()

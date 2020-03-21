@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using ReactiveUI;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace GoReactive.Search
@@ -13,6 +14,7 @@ namespace GoReactive.Search
         {
             InitializeComponent();
 
+            #region bindings
             this.BindCommand(ViewModel, x => x.Refresh, x => x.SearchListView, nameof(SearchListView.Refreshing))
                 .DisposeWith(ViewBindings);
 
@@ -26,9 +28,9 @@ namespace GoReactive.Search
                 .Where(x => x != null)
                 .BindTo(this, x => x.SearchListView.ItemsSource)
                 .DisposeWith(ViewBindings);
+            #endregion
 
-            var textChangedEvents = Observable
-                .FromEvent<EventHandler<TextChangedEventArgs>, TextChangedEventArgs>(eventHandler =>
+            var textChangedEvents = Observable.FromEvent<EventHandler<TextChangedEventArgs>, TextChangedEventArgs>(eventHandler =>
                     {
                         void Handler(object sender, TextChangedEventArgs args) => eventHandler(args);
                         return Handler;
@@ -36,21 +38,41 @@ namespace GoReactive.Search
                     x => SearchBar.TextChanged += x,
                     x => SearchBar.TextChanged -= x);
 
-            // textChangedEvents
-            //     .Select(x => x.NewTextValue)
-            //     .Throttle(TimeSpan.FromMilliseconds(750))
-            //     .Where(x => !string.IsNullOrWhiteSpace(x))
-            //     .DistinctUntilChanged()
-            //     .InvokeCommand(this, x => x.ViewModel.Search);
+            textChangedEvents
+                .Throttle(TimeSpan.FromMilliseconds(750), RxApp.TaskpoolScheduler)
+                .Select(x => x.NewTextValue.Trim())
+                .DistinctUntilChanged()
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .InvokeCommand(this, x => x.ViewModel.Search)
+                .DisposeWith(ViewBindings);
 
             SearchBar
                 .Events()
                 .TextChanged
-                .Select(x => x.NewTextValue)
-                .Throttle(TimeSpan.FromMilliseconds(750))
-                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Throttle(TimeSpan.FromMilliseconds(750), RxApp.TaskpoolScheduler)
+                .Select(x => x.NewTextValue.Trim())
                 .DistinctUntilChanged()
-                .InvokeCommand(this, x =>  x.ViewModel.Search);
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .InvokeCommand(this, x =>  x.ViewModel.Search)
+                .DisposeWith(ViewBindings);
+
+
+            var connected =
+                Observable.FromEvent<EventHandler<ConnectivityChangedEventArgs>, ConnectivityChangedEventArgs>(
+                    eventHandler =>
+                    {
+                        void Handler(object sender, ConnectivityChangedEventArgs connectivityChangedEventArgs) =>
+                            eventHandler(connectivityChangedEventArgs);
+
+                        return Handler;
+                    },
+                    x => Connectivity.ConnectivityChanged += x,
+                    x => Connectivity.ConnectivityChanged += x);
+
+            Events.ConnectivityConnectivityChanged.Subscribe();
+
         }
     }
 }
