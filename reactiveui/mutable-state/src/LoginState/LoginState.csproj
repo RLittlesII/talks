@@ -10,11 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rocket.Surgery.Reactive.Extensions" Version="1.0.5" />
-    <PackageReference Include="Xamarin.Forms" Version="4.1.*" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
-    <PackageReference Include="ReactiveUI.XamForms" Version="9.*" />
-    <PackageReference Include="ReactiveUI.Events.XamForms" Version="9.*" />
+    <PackageReference Include="Rocket.Surgery.Reactive.Extensions" Version="2.3.1" />
+    <PackageReference Include="ReactiveUI.XamForms" Version="11.*" />
+    <PackageReference Include="ReactiveUI.Events.XamForms" Version="11.*" />
+    <PackageReference Include="Xamarin.Forms" Version="4.4.*" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.2" />
   </ItemGroup>
 
   <ItemGroup>
