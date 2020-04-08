@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -9,31 +10,65 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using LoginState.Services;
 using Splat;
+using Xamarin.Essentials;
 
 namespace LoginState
 {
     public class LoginViewModel : RoutableViewModelBase
     {
         private readonly IAuthenticator _authenticator;
+        private readonly IConnectivity _connectivity;
         private string _loginText;
         private string _password;
         private string _emailAddress;
         private readonly ObservableAsPropertyHelper<bool> _isLoading;
+        private ObservableAsPropertyHelper<bool> _isConnected;
+        private ObservableAsPropertyHelper<bool> _isWirelessConnection;
 
-        public LoginViewModel(IAuthenticator authenticator)
+        public LoginViewModel(IAuthenticator authenticator, IConnectivity connectivity)
         {
             _authenticator = authenticator;
+            _connectivity = connectivity;
+
             LoginText = "Login";
 
             IsValid = this.WhenAnyValue(x => x.EmailAddress, x => x.Password, (email, pass) => Validate(email, pass));
 
-            Login = ReactiveCommand.CreateFromObservable(() => Observable.FromAsync(ExecuteLogin).TakeUntil(Cancel), IsValid);
-            Cancel = ReactiveCommand.CreateFromTask(ExecuteCancel, Login.IsExecuting);
+            Login = ReactiveCommand.CreateFromObservable(() => Observable.FromAsync(() => ExecuteLogin()).TakeUntil(Cancel), IsValid);
+            Cancel = ReactiveCommand.Create(() => { });
 
-            _isLoading = this.WhenAnyObservable(x => x.Login.IsExecuting)
-                .ToProperty(this, x => x.IsLoading, false)
-                .DisposeWith(Subscriptions);
+            _isLoading =
+                this.WhenAnyObservable(x => x.Login.IsExecuting)
+                    .ToProperty(this, x => x.IsLoading, false)
+                    .DisposeWith(Subscriptions);
+
+            var connectionState = _connectivity.ConnectionStateChanges;
+
+            _isConnected = 
+                connectionState
+                .Select(x => x.NetworkAccess == NetworkAccess.Internet)
+                .StartWith(true)
+                .DistinctUntilChanged()
+                .ToProperty(this, x => x.IsConnected);
+
+            _isWirelessConnection =
+                connectionState
+                    .SelectMany(x => x.ConnectionProfiles)
+                    .Select(x => x != ConnectionProfile.WiFi)
+                    .DistinctUntilChanged()
+                    .ToProperty(this, x => x.IsWirelessConnection);
+
+            connectionState
+                .Where(x => x.NetworkAccess != NetworkAccess.Internet)
+                .Subscribe(_ =>
+                    Interactions
+                        .AlertInteraction
+                        .Handle(("Network Activity", "Oops! You appear to have lost internet!", "Okay")).Subscribe());
         }
+
+        public bool IsWirelessConnection { get; set; }
+
+        public bool IsConnected { get; set; }
 
         public override bool IsLoading => _isLoading.Value;
 
@@ -63,10 +98,10 @@ namespace LoginState
 
         private async Task ExecuteLogin() => await _authenticator.Authenticate(_emailAddress, _password);
 
-        private async Task ExecuteCancel()
+        private Task ExecuteCancel()
         {
             this.Log().Debug(nameof(ExecuteCancel));
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
         private bool Validate(string email, string pass) => ValidateEmail(email) && ValidatePassword(pass);

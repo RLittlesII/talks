@@ -18,11 +18,12 @@ namespace LoginState
         public static void RegisterServices()
         {
             _registrar.Register<IAuthenticator>(() => new Authenticator());
+            _registrar.Register<IConnectivity>(() => new ConnectivityServiceMock());
         }
 
         public static void RegisterViewModels()
         {
-            _registrar.Register(() => new LoginViewModel(Locator.Current.GetService<IAuthenticator>()));
+            _registrar.Register(() => new LoginViewModel(Locator.Current.GetService<IAuthenticator>(), Locator.Current.GetService<IConnectivity>()));
         }
 
         public static void RegisterPlatform() { }

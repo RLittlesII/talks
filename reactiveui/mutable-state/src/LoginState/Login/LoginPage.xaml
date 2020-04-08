@@ -9,9 +9,9 @@
             <Entry x:Name="EmailEntry" Placeholder="Email" PlaceholderColor="Black" />
             <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" />
 
-            <loginState:TappableActivity x:Name="Activity" VerticalOptions="CenterAndExpand" Color="Green"  />
+            <loginState:TappableActivity x:Name="Activity" VerticalOptions="CenterAndExpand" Color="Green" HeightRequest="25" WidthRequest="25" />
 
-            <Button x:Name="LoginButton" HeightRequest="48" WidthRequest="90" Margin="8" VerticalOptions="CenterAndExpand" />
+            <Button x:Name="LoginButton" HeightRequest="48" WidthRequest="90" Margin="8" VerticalOptions="EndAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </loginState:ContentPageBase>
