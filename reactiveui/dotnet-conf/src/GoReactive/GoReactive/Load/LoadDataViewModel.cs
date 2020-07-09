@@ -26,6 +26,7 @@ namespace GoReactive.Load
                 .Publish()
                 .RefCount()
                 .Transform(x =>  new LoadDataItemViewModel { Name = x.Name, Ordered = x.DrinkName, Size = x.Size.ToString() })
+                .Sort(SortExpressionComparer<LoadDataItemViewModel>.Ascending(x => x.Size))
                 .Bind(out _orders)
                 .DisposeMany()
                 .Subscribe();
