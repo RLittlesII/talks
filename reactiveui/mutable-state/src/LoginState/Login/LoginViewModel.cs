@@ -16,14 +16,14 @@ namespace LoginState
 {
     public class LoginViewModel : RoutableViewModelBase
     {
+        private readonly ObservableAsPropertyHelper<bool> _isLoading;
+        private readonly ObservableAsPropertyHelper<bool> _isConnected;
+        private readonly ObservableAsPropertyHelper<bool> _isWirelessConnection;
         private readonly IAuthenticator _authenticator;
         private readonly IConnectivity _connectivity;
         private string _loginText;
         private string _password;
         private string _emailAddress;
-        private readonly ObservableAsPropertyHelper<bool> _isLoading;
-        private ObservableAsPropertyHelper<bool> _isConnected;
-        private ObservableAsPropertyHelper<bool> _isWirelessConnection;
 
         public LoginViewModel(IAuthenticator authenticator, IConnectivity connectivity)
         {
@@ -32,14 +32,14 @@ namespace LoginState
 
             LoginText = "Login";
 
-            IsValid = this.WhenAnyValue(x => x.EmailAddress, x => x.Password, (email, pass) => Validate(email, pass));
+            IsValid = this.WhenAnyValue(x => x.EmailAddress, x => x.Password, Validate);
 
-            Login = ReactiveCommand.CreateFromObservable(() => Observable.FromAsync(() => ExecuteLogin()).TakeUntil(Cancel), IsValid);
+            Login = ReactiveCommand.CreateFromObservable(() => Observable.FromAsync(ExecuteLogin).TakeUntil(Cancel), IsValid);
             Cancel = ReactiveCommand.Create(() => { });
 
             _isLoading =
                 this.WhenAnyObservable(x => x.Login.IsExecuting)
-                    .ToProperty(this, x => x.IsLoading, false)
+                    .ToProperty(this, nameof(Login), false, scheduler: RxApp.TaskpoolScheduler, deferSubscription: true)
                     .DisposeWith(Subscriptions);
 
             var connectionState = _connectivity.ConnectionStateChanges;
@@ -49,7 +49,8 @@ namespace LoginState
                 .Select(x => x.NetworkAccess == NetworkAccess.Internet)
                 .StartWith(true)
                 .DistinctUntilChanged()
-                .ToProperty(this, x => x.IsConnected);
+                .ToProperty(this, x => x.IsConnected)
+                .DisposeWith(Subscriptions);
 
             _isWirelessConnection =
                 connectionState
@@ -65,18 +66,6 @@ namespace LoginState
                         .AlertInteraction
                         .Handle(("Network Activity", "Oops! You appear to have lost internet!", "Okay")).Subscribe());
         }
-
-        public bool IsWirelessConnection { get; set; }
-
-        public bool IsConnected { get; set; }
-
-        public override bool IsLoading => _isLoading.Value;
-
-        public IObservable<bool> IsValid { get; set; }
-
-        public ReactiveCommand<Unit, Unit> Login { get; set; }
-
-        public ReactiveCommand<Unit, Unit> Cancel { get; set; }
 
         public string EmailAddress
         {
@@ -95,6 +84,18 @@ namespace LoginState
             get => _loginText;
             set => this.RaiseAndSetIfChanged(ref _loginText, value);
         }
+
+        public bool IsWirelessConnection => _isWirelessConnection.Value;
+
+        public bool IsConnected => _isConnected.Value;
+
+        public override bool IsLoading => _isLoading.Value;
+
+        public IObservable<bool> IsValid { get; set; }
+
+        public ReactiveCommand<Unit, Unit> Login { get; set; }
+
+        public ReactiveCommand<Unit, Unit> Cancel { get; set; }
 
         private async Task ExecuteLogin() => await _authenticator.Authenticate(_emailAddress, _password);
 

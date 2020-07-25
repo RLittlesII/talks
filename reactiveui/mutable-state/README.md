@@ -1,3 +1,9 @@
+Difficulty: Beginner
+Prerequisites:
+    - INofityPropertyChanged
+    - Xamarin
+---
+
 # Taming Mutable State using ReactiveUI
 
 ## Abstract

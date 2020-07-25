@@ -62,7 +62,7 @@ namespace LoginState
                 .Events()
                 .Clicked
                 .Do(_ => this.Log().Debug("Activity Clicked"))
-                .Select(_ => Unit.Default) // Explain why this isn't TappedEventArgs
+                .Select(_ => Unit.Default)// Explain why this isn't TappedEventArgs
                 .InvokeCommand(this, x => x.ViewModel.Cancel);
 
             Interactions.AlertInteraction.RegisterHandler(DisplayAlert);
