@@ -1,0 +1,81 @@
+@using System.Reactive.Threading.Tasks
+@inherits ReactiveComponentBase<SearchViewModel>
+@inject SearchViewModel _searchViewModel
+@page "/Search"
+<div class="container-fluid mt-5">
+    <div class="mat-layout-grid" style="max-width: 1200px;">
+        <div class="mat-layout-grid-inner">
+
+            <CardView/>
+
+            <CardView/>
+
+            <CardView/>
+        </div>
+    </div>
+    <h3>Search</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <input id="searchText"
+                   type="text"
+                   class="form-control"
+                   placeholder="Search the interwebs"
+                   @bind-value="ViewModel.SearchText"
+                   @bind-value:event="oninput" />
+            <button class="btn btn-info" 
+                    disabled="@(!ViewModel.CanClear)"
+                    @onclick="Clear">
+                Clear
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        @if (ViewModel.SearchResults.Any())
+        {
+            <MatList SingleSelection="true" TwoLine="true">
+                @foreach (var relatedTopic in ViewModel.SearchResults)
+                {
+                    <MatListItem>
+                        <MatListItemText>
+                            <MatListItemPrimaryText><a href="@relatedTopic.FirstUrl">@relatedTopic.Text</a></MatListItemPrimaryText>
+                            <MatListItemSecondaryText></MatListItemSecondaryText>
+                        </MatListItemText>
+                        <div>
+                            @if (@relatedTopic.Topics != null && @relatedTopic.Topics.Any())
+                            {
+                                <ul>
+                                    @foreach (var topic in relatedTopic.Topics)
+                                    {
+                                        <li><a href="@topic.FirstUrl">@topic.Text</a></li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </MatListItem>
+                }
+            </MatList>
+        }
+        else
+        {
+            <div></div>
+        }
+    </div>
+</div>
+@code
+{
+    async Task Clear() => await ViewModel.Clear.Execute().ToTask();
+}
+
+<style>
+    .demo-mat-card {
+        max-width: 400px;
+    }
+
+    .demo-mat-card-content {
+        padding: 1rem;
+    }
+
+    .demo-mat-card-clean-margin {
+        margin: 0px;
+    }
+</style>
