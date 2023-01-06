@@ -1,4 +1,0 @@
-# Xamarin, MAUI and the reactive MVVM between them
-
-## Abstract
-Xamarin Forms is the .NET cross platform technology that allows you to write an application in C# and target various operating systems, primarily mobile.  The recommended architectural approach for .NET applications adhering to SOLID principles is [Model-View-ViewModel](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) (MVVM).  ReactiveUI is a MVVM framework based on Reactive Extensions, which are a cross language approach to functional programming.  During this talk we will take a trip through Xamarin, MVVM, ReactiveUI and show the future state of Xamarin, MAUI.
