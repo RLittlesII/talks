@@ -1,4 +1,4 @@
 Who am I: Rodney Littles, II
 ---
 
-Rodney Littles, II is a Senior Software Engineer and has been working on .NET technologies since 2004. Rodney is currently working with Xamarin mobile and Azure cloud infrastructure.  Rodney is a Microsoft MVP and ReactiveUI maintainer who has been a vocal functional advocate.  He recently started streaming Rx concepts on [Twitch](https://twitch.tv/rlittlesii).  Outside of the daily he is a Kung Fu instructor spreading the arts, and breaking his brain trying to become a full fledged Rx Wizard!
+Rodney Littles, II is a Senior Software Engineer with over 17 years of experience in .NET technologies. He currently specializes in MAUI mobile and Azure cloud infrastructure, is a Microsoft MVP and ReactiveUI maintainer. He is a vocal advocate for reactive programming and streams Rx concepts on [Twitch](https://twitch.tv/rlittlesii). All on the journey to becoming a full-fledged Rx Wizard. When not observing changes over time Rodney spreads his system of Kung Fu and Tai Chi.
