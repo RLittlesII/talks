@@ -4,13 +4,9 @@
 
 - [Null, The absence of a C# reference](./%20csharp/language/nullability/README.md)
 
-## Reactive Programming
-
-- [Taming Mutable State](./functional-programming/reactiveui/mutable-state/README.md)
-
 ## Functional Programming
 
-- [Functional Object Oriented Programming](./functional-programming/reactiveui/object-functional-programming/README.md)
+- [Taming Mutable State: Applying Functional Programming in an Object-Oriented Language](./functional-programming/reactiveui/object-functional-programming/README.md)
 
 ## Build Automation
 
