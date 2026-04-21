@@ -1,13 +1,22 @@
+Difficulty: Intermediate
+Prerequisites:
+    - C#
+    - Language Version 13
+    - Composition
+    - Inheritance
+    - Testability
+    - Abstractions
+---
 
 # C# Abstractions, the lies they tell us, and the fact your likely still doing it wrong
 
 ## Abstract
 
-In this session, we'll talk about the fundemental theorm of software engineering.
+In this session, we'll talk about the fundamental theorem of software engineering.
 Techniques to get there inheritance and composition
 what you need an abstraction
 why you don't need an abstraction
-why your likely building your interfaces wrong
+why you're likely building your interfaces wrong
 what you can do to get more lift
 all based on SRP, LSP, ISP from the principles you are tired of hearing about SOLID
 
@@ -24,7 +33,7 @@ You'll leave with sharper instincts. Your codebase will thank you.
 
 We are going to side step the abstraction mess most of us pretend we've solved.
 
-We'll talk about what abstraction *actually* is: the art of hiding complexity behind a boundary so the rest of your system doesn't have to care. Sounds simple. It isn't. Because we have two major weapons in our arsenal — **inheritance** and **composition** — and most of us are wielding them like a toddler with a lightsaber.
+Let's talk about what abstraction *actually* is: the art of hiding complexity behind a boundary so the rest of your system doesn't have to care. Sounds simple. It isn't. Because we have two major weapons in our arsenal — **inheritance** and **composition** — and most of us are wielding them like a toddler with a lightsaber.
 
 Inheritance looked smart six months ago. Composition turned into wiring chaos. And somewhere in between, your interfaces became a junk drawer of method signatures that nobody can explain and everybody's afraid to touch.
 

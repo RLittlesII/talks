@@ -1,0 +1,11 @@
+# install  <platform>  <scope>
+install  claude-code  local
+
+# --- Skills ---
+# github  skill  [name]  <owner/repo>  <path-or-dir>  [ref]
+
+github  skill  antfu/skills  skills/slidev
+
+github  skill  yoanbernabeu/slidev-skills  skills/getting-started/slidev-project-structure
+github  skill  yoanbernabeu/slidev-skills  skills/presentation/slidev-drawings
+github  skill  yoanbernabeu/slidev-skills  skills/visuals/slidev-mermaid

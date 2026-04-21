@@ -295,3 +295,12 @@ __pycache__/
 **/*.Droid/**/[Rr]esource.[Dd]esigner.cs
 **/Android/**/[Rr]esource.[Dd]esigner.cs
 **/Droid/**/[Rr]esource.[Dd]esigner.cs
+ csharp/language/abstractions/composition/.junie/memory/
+
+.junie/memory/
+
+# skillfile
+.skillfile/cache/
+.skillfile/conflict
+
+.claude/
