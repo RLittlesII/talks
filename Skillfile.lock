@@ -1,0 +1,18 @@
+{
+  "github/skill/slidev": {
+    "sha": "c35a5588a5158b5b404a14fb10469b2b6dc1952b",
+    "raw_url": "https://api.github.com/repos/antfu/skills/contents/skills/slidev?ref=c35a5588a5158b5b404a14fb10469b2b6dc1952b"
+  },
+  "github/skill/slidev-drawings": {
+    "sha": "db69c86909b5b18ceb5dad18ded20c8ef26d2929",
+    "raw_url": "https://api.github.com/repos/yoanbernabeu/slidev-skills/contents/skills/presentation/slidev-drawings?ref=db69c86909b5b18ceb5dad18ded20c8ef26d2929"
+  },
+  "github/skill/slidev-mermaid": {
+    "sha": "db69c86909b5b18ceb5dad18ded20c8ef26d2929",
+    "raw_url": "https://api.github.com/repos/yoanbernabeu/slidev-skills/contents/skills/visuals/slidev-mermaid?ref=db69c86909b5b18ceb5dad18ded20c8ef26d2929"
+  },
+  "github/skill/slidev-project-structure": {
+    "sha": "db69c86909b5b18ceb5dad18ded20c8ef26d2929",
+    "raw_url": "https://api.github.com/repos/yoanbernabeu/slidev-skills/contents/skills/getting-started/slidev-project-structure?ref=db69c86909b5b18ceb5dad18ded20c8ef26d2929"
+  }
+}
