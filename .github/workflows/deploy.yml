@@ -2,8 +2,7 @@ name: Deploy Slidev Talks to GitHub Pages
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
   workflow_dispatch:
 
 permissions:
@@ -20,110 +19,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v5
 
-      - name: Discover and build all Slidev talks
-        run: |
-          set -euo pipefail
-          STAGING_DIR="${{ runner.temp }}/pages"
-          mkdir -p "$STAGING_DIR"
+      - uses: actions/cache@v4
+        with:
+          path: .cache/talks
+          key: talks-${{ github.sha }}
+          restore-keys: talks-
 
-          TALK_LIST=$(find . -name "package.json" \
-            -not -path "*/node_modules/*" \
-            -not -path "*/.git/*" \
-            -exec grep -l '"@slidev/cli"' {} \;)
+      - run: .github/scripts/sync-talks.sh .cache/talks
 
-          if [ -z "$TALK_LIST" ]; then
-            echo "No Slidev talks found."
-            exit 1
-          fi
+      - run: .github/scripts/generate-site.sh .cache/talks ${{ runner.temp }}/pages
 
-          TALK_NAMES_FILE="${{ runner.temp }}/talks.txt"
-          : > "$TALK_NAMES_FILE"
-
-          echo "$TALK_LIST" | while IFS= read -r PKG_JSON; do
-            TALK_DIR=$(dirname "$PKG_JSON")
-            TALK_NAME=$(jq -r '.name' "$PKG_JSON")
-            BASE_PATH="/talks/${TALK_NAME}/"
-
-            echo "Building talk: ${TALK_NAME} from ${TALK_DIR} with base ${BASE_PATH}"
-
-            npm ci --prefix "$TALK_DIR"
-            npm run build --prefix "$TALK_DIR" -- --base "$BASE_PATH"
-
-            mkdir -p "$STAGING_DIR/${TALK_NAME}"
-            cp -r "${TALK_DIR}/dist/." "$STAGING_DIR/${TALK_NAME}/"
-
-            echo "$TALK_NAME" >> "$TALK_NAMES_FILE"
-          done
-
-          python3 -c "
-          import os
-
-          talks_file = '${TALK_NAMES_FILE}'
-          staging_dir = '${STAGING_DIR}'
-
-          with open(talks_file) as f:
-              talks = [line.strip() for line in f if line.strip()]
-
-          items = '\n'.join(
-              f'      <li><a href=\"/talks/{t}/\">{t}</a></li>'
-              for t in sorted(talks)
-          )
-
-          html = f'''<!DOCTYPE html>
-          <html lang=\"en\">
-          <head>
-            <meta charset=\"UTF-8\" />
-            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
-            <title>Talks — RLittlesII</title>
-            <style>
-              body {{ font-family: system-ui, sans-serif; max-width: 700px; margin: 4rem auto; padding: 0 1.5rem; line-height: 1.6; }}
-              h1 {{ font-size: 2rem; margin-bottom: 0.5rem; }}
-              p  {{ color: #555; margin-bottom: 2rem; }}
-              ul {{ list-style: none; padding: 0; }}
-              li {{ margin-bottom: 0.75rem; }}
-              a  {{ color: #0969da; text-decoration: none; font-size: 1.1rem; }}
-              a:hover {{ text-decoration: underline; }}
-            </style>
-          </head>
-          <body>
-            <h1>Talks</h1>
-            <p>Slide decks by Rodney Littles II</p>
-            <ul>
-          {items}
-            </ul>
-          </body>
-          </html>'''
-
-          with open(os.path.join(staging_dir, 'index.html'), 'w') as f:
-              f.write(html)
-
-          print('Index page written.')
-          "
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ runner.temp }}/pages
 
   deploy:
-    runs-on: ubuntu-latest
     needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy to GitHub Pages
+      - uses: actions/deploy-pages@v4
         id: deployment
-        uses: actions/deploy-pages@v4
