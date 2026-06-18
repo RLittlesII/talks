@@ -361,59 +361,6 @@ public class UserDto : IUser
 - Final content will map mixed contracts to role-based interfaces.
 -->
 ---
-layout: two-cols-header
----
-
-# Traditional vs. Composition
-
-::left::
-
-__Traditional (Class Contract)__
-
-<div class="p-4 border border-gray-500/10 rounded-lg h-full">
-
-```csharp
-public interface IUserService 
-{
-    User GetUser(Guid id);
-    void Save(User user);
-    void Delete(Guid id);
-    void Notify(User user);
-}
-```
-
-</div>
-
-<p class="text-sm opacity-50">Representing the whole class contract as a single "double".</p>
-
-::right::
-
-__Composition Approach__
-
-<div class="p-4 border border-gray-500/10 rounded-lg h-full">
-
-```csharp
-public interface ICanGetUsers { 
-    User GetUser(Guid id); 
-}
-
-public interface ICanSaveUsers { 
-    void Save(User user); 
-}
-
-// ... Role-based interfaces
-```
-
-</div>
-
-<p class="text-sm opacity-50">Representing atomic behaviors and capabilities.</p>
-
-<!--
-- Direct comparison: One big interface (Traditional) vs. Many small interfaces (Composition).
-- Traditional approach often leads to "God objects" and mocking pain.
-- Composition approach allows for granular dependencies and easier testing.
--->
----
 
 # Domain Composition Approach
 
@@ -433,8 +380,8 @@ public interface ICanSaveUsers {
 
 ##### This is about relationships
 
-- “Have A”
-- “Am A”
+- "Have A"
+- "Am A"
 - Both are ways to share behaviors
 
 <!--
@@ -489,6 +436,59 @@ public interface ICanSaveUsers {
 - The "Secret Sauce": This fuels the lift from SOLID.
 - Smaller interfaces mean more granular and reusable components.
 - Standard Definition: "Clients should not be forced to depend on methods it does not use." — [Microsoft Learn]
+-->
+---
+layout: two-cols-header
+---
+
+# Traditional vs. Composition
+
+::left::
+
+__Traditional (Class Contract)__
+
+<div class="p-4 border border-gray-500/10 rounded-lg h-full">
+
+```csharp
+public interface IUserService 
+{
+    User GetUser(Guid id);
+    void Save(User user);
+    void Delete(Guid id);
+    void Notify(User user);
+}
+```
+
+</div>
+
+<p class="text-sm opacity-50">Representing the whole class contract as a single "double".</p>
+
+::right::
+
+__Composition Approach__
+
+<div class="p-4 border border-gray-500/10 rounded-lg h-full">
+
+```csharp
+public interface ICanGetUsers { 
+    User GetUser(Guid id); 
+}
+
+public interface ICanSaveUsers { 
+    void Save(User user); 
+}
+
+// ... Role-based interfaces
+```
+
+</div>
+
+<p class="text-sm opacity-50">Representing atomic behaviors and capabilities.</p>
+
+<!--
+- Direct comparison: One big interface (Traditional) vs. Many small interfaces (Composition).
+- Traditional approach often leads to "God objects" and mocking pain.
+- Composition approach allows for granular dependencies and easier testing.
 -->
 ---
 
@@ -646,37 +646,6 @@ public class SessionContext : ICreateSession, IFindById, IFindByToken, IFindByEm
 - Notice the explicit interface implementation to keep the public surface of `SessionContext` minimal.
 -->
 ---
-
-# Third-Party API Seams (Nuke via ISP)
-
-```csharp
-public interface IHaveSolution : IHave
-{
-    [Solution]
-    Solution Solution => TryGetValue(() => Solution)!;
-}
-
-public interface IHaveGitRepository : IHave
-{
-    GitRepository? GitRepository { get; }
-}
-
-internal partial class Pipeline : NukeBuild, IHaveSolution, IHaveGitRepository
-{
-    [Solution] private Solution Solution { get; } = null!;
-    Nuke.Common.ProjectModel.Solution IHaveSolution.Solution => Solution;
-    
-    [OptionalGitRepository] public GitRepository? GitRepository { get; }
-}
-```
-
-<!--
-- Interfaces let us adapt third-party APIs without inheriting from abstract base wrappers.
-- Apply ISP to expose only the role we need (`IHaveSolution`) instead of leaking the full `NukeBuild` object.
-- Consumers stay build-agnostic; tests can use tiny fakes/stubs for that one role.
-- Real-world example from: https://github.com/RocketSurgeonsGuild/Nuke
--->
----
 layout: two-cols-header
 ---
 
@@ -710,6 +679,16 @@ __Composition Approach__
 -->
 ---
 
+# The Build System Example
+
+- A practical walkthrough of abstractions and shared behaviors
+
+<!--
+- Moving from theory to practice with a Build System example.
+- This demonstrates how all the concepts we've discussed (ISP, LSP, Traits, DIMs) come together.
+-->
+---
+
 # Why this pattern?
 
 - __Granular Roles__: `IHaveSolution`, `IHaveGitVersion`, `IHaveArtifacts`.
@@ -723,13 +702,34 @@ __Composition Approach__
 -->
 ---
 
-# The Build System Example
+# Third-Party API Seams (Nuke via ISP)
 
-- A practical walkthrough of abstractions and shared behaviors
+```csharp
+public interface IHaveSolution : IHave
+{
+    [Solution]
+    Solution Solution => TryGetValue(() => Solution)!;
+}
+
+public interface IHaveGitRepository : IHave
+{
+    GitRepository? GitRepository { get; }
+}
+
+internal partial class Pipeline : NukeBuild, IHaveSolution, IHaveGitRepository
+{
+    [Solution] private Solution Solution { get; } = null!;
+    Nuke.Common.ProjectModel.Solution IHaveSolution.Solution => Solution;
+    
+    [OptionalGitRepository] public GitRepository? GitRepository { get; }
+}
+```
 
 <!--
-- Moving from theory to practice with a Build System example.
-- This demonstrates how all the concepts we've discussed (ISP, LSP, Traits, DIMs) come together.
+- Interfaces let us adapt third-party APIs without inheriting from abstract base wrappers.
+- Apply ISP to expose only the role we need (`IHaveSolution`) instead of leaking the full `NukeBuild` object.
+- Consumers stay build-agnostic; tests can use tiny fakes/stubs for that one role.
+- Real-world example from: https://github.com/RocketSurgeonsGuild/Nuke
 -->
 ---
 
