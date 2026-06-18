@@ -304,3 +304,9 @@ __pycache__/
 .skillfile/conflict
 
 .claude/
+
+# Slidev build output
+dist/
+
+# Local talk build cache
+.cache/
