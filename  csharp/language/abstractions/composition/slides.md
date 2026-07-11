@@ -455,21 +455,21 @@ public interface ICanSaveUsers {
 # SOLID for Composition (SRP, LSP, ISP)
 
 <div class="grid grid-cols-3 gap-10 mt-10">
-  <div>
+  <div v-click>
     <h3 class="mb-4 text-primary">SRP</h3>
     <p class="font-bold">Single Interface, Singular Behavior.</p>
     <p class="text-sm opacity-80 mt-2">Keep interface surface area minimal and focused on one task.</p>
     <hr class="my-4 opacity-20" />
     <p class="text-xs italic opacity-60">"A class should have only one reason to change."</p>
   </div>
-  <div>
+  <div v-click>
     <h3 class="mb-4 text-primary">LSP</h3>
     <p class="font-bold">The Lift. Cleanly inject behavior.</p>
     <p class="text-sm opacity-80 mt-2">Inject into a subsystem without fear of leaking details.</p>
     <hr class="my-4 opacity-20" />
     <p class="text-xs italic opacity-60">"Subtypes must be substitutable for their base types."</p>
   </div>
-  <div>
+  <div v-click>
     <h3 class="mb-4 text-primary">ISP</h3>
     <p class="font-bold">The Secret Sauce. Segregate roles.</p>
     <p class="text-sm opacity-80 mt-2">Segregate into specific roles to fuel the lift from SOLID.</p>
@@ -478,7 +478,7 @@ public interface ICanSaveUsers {
   </div>
 </div>
 
-<div class="mt-12 text-center">
+<div class="mt-12 text-center" v-click>
   <p class="text-xl font-semibold">Together, these principles fuel <u>Domain Composition</u>.</p>
 </div>
 
@@ -734,11 +734,13 @@ __Composition Approach__
 # The Build System Example
 
 - A practical walkthrough of abstractions and shared behaviors
+- Because I can share build components across builds, I can share behaviors across builds
 
 <!--
 - Moving from theory to practice with a Build System example.
 - This demonstrates how all the concepts we've discussed (ISP, LSP, Traits, DIMs) come together.
 -->
+
 ---
 
 # Stacked Like LEGO Blocks
@@ -815,9 +817,11 @@ public interface ICanRestoreWithDotNetCore : IHaveSolution, ICan
 
 <!--
 - Defining build targets (behaviors) as DIMs.
+- This shows composition at it's best, we are defining `ICanRestoreWithDotNetCore` only with the behaviors and state it needs to achieve it's purpose
 - `ICanRestoreWithDotNetCore` requires `IHaveSolution`.
 - This enforces that any build that can "Restore" must also "Have a Solution".
 -->
+
 ---
 
 # Chaining Behaviors: Target Dependencies
@@ -841,10 +845,12 @@ public interface ICanBuildWithDotNetCore :
 ```
 
 <!--
+- This interface aligns with reality, `dotnet build` does a `dotnet restore`
 - Chaining behaviors using `.DependsOn()`.
 - The `Build` target depends on the `Restore` target.
 - This creates an executable pipeline where order is guaranteed.
 -->
+
 ---
 
 # Cross-Cutting Concerns
@@ -1034,7 +1040,7 @@ public class Pipeline : NukeBuild, IHaveBuildVersion { /* ... */ }
 
 - **Abstract with Purpose**: Only add indirection to manage complexity and change—avoid the "Dependency Escape Room."
 - **Composition over Inheritance**: Build systems using small, composable traits (`IHave...`, `ICan...`) instead of deep hierarchies.
-- **Interface Segregation**: Keep abstractions granular to ensure objects only pull in what they truly need.
+- **Interface Segregation**: Keep abstractions granular to ensure objects only depend on what they truly need.
 - **Liskov Substitution**: Ensure that your implementations never break the contract defined by the abstraction.
 - **Leverage Modern C#**: Use Default Interface Methods (DIMs) to encapsulate shared behavior directly within interfaces.
 
