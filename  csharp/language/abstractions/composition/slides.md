@@ -422,21 +422,6 @@ public interface ICanSaveUsers {
 -->
 ---
 
-# Domain Composition Approach
-
-- It's about "What I Have" vs "What I Can Do"
-
-- I Have
-- I Can
-
-<!--
-- This is about purpose defining object
-- Shifting the mindset from "What am I?" to "What do I have?" and "What can I do?".
-- This is the foundation of domain composition.
--->
-
----
-
 # Composition vs Inheritance
 
 ##### This is about relationships
@@ -449,6 +434,21 @@ public interface ICanSaveUsers {
 - Contrast "Have A" (Composition) and "Am A" (Inheritance).
 - Both are legitimate ways to share behavior, but they have different trade-offs.
 - In modern C#, we tend to favor composition for its flexibility.
+-->
+
+---
+
+# Domain Composition Approach
+
+- It's about "What I Have" vs "What I Can Do"
+
+- I Have
+- I Can
+
+<!--
+- This is about purpose defining object
+- Shifting the mindset from "What am I?" to "What do I have?" and "What can I do?".
+- This is the foundation of domain composition.
 -->
 ---
 
