@@ -2,6 +2,8 @@
 
 This repository contains a collection of talks, samples, and demos covering various topics in software development, focusing on .NET, Functional Programming, and Mobile DevOps.
 
+🔗 **[Browse the talks site](https://rlittlesii.github.io/talks/)**
+
 ## C# & .NET
 
 ### [C# Abstractions, the lies they tell us, and the fact your likely still doing it wrong](./%20csharp/language/abstractions/README.md)
