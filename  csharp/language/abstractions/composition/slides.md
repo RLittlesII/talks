@@ -80,7 +80,10 @@ class: text-center
 
 <!--
 The plan is to show you techniques that if you want to start using, you can slowly integrate and strangle old approaches.
+
+All of this comes from real mistakes I have made, and had to fix.  This is not coming from "on high" where I dazzle you with buzz words.  This comes from a guy who was in the trenches moving mud and bricks to get the job done.  Often learning the technique I needed after I had implemented a feature.
 -->
+
 ---
 
 # Why should we abstract?
@@ -126,7 +129,9 @@ How do we know why we do something if we don't know what it is?!
 <!--
 - Summarize the "What" of abstractions.
 - Emphasize boundary management, extensibility, and testability.
+- High level Policy (a contract) low-level implementation (how the contract is implemented)
 -->
+
 ---
 
 # C# Interfaces
@@ -355,11 +360,13 @@ public class UserDto : IUser
 </div>
 
 <!--
+- The interface should be a contract between one boundary and another 
 - "object-shaped" interfaces often mix reads, writes, notifications, and orchestration.
 - This breaks SRP and forces clients to depend on unrelated members (ISP).
 - Better: slice by behavior (`ICanRead...`, `ICanWrite...`, `ICanNotify...`).
 - Final content will map mixed contracts to role-based interfaces.
 -->
+
 ---
 layout: two-cols-header
 ---
@@ -417,16 +424,17 @@ public interface ICanSaveUsers {
 
 # Domain Composition Approach
 
-- Composition isn't just for build systems
 - It's about "What I Have" vs "What I Can Do"
 
 - I Have
 - I Can
 
 <!--
+- This is about purpose defining object
 - Shifting the mindset from "What am I?" to "What do I have?" and "What can I do?".
 - This is the foundation of domain composition.
 -->
+
 ---
 
 # Composition vs Inheritance
