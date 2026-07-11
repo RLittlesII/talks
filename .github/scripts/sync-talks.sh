@@ -12,8 +12,9 @@ source_hash() {
     -not -path "*/node_modules/*" \
     -not -path "*/dist/*" \
     -type f \
-    | sort \
-    | xargs sha256sum 2>/dev/null \
+    -print0 \
+    | sort -z \
+    | xargs -0 sha256sum 2>/dev/null \
     | sha256sum \
     | cut -d' ' -f1
 }
