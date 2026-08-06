@@ -10,6 +10,9 @@ on:
       - ".junie/**"
       - ".skillfile/**"
 
+permissions:
+  contents: read
+
 jobs:
   discover:
     runs-on: ubuntu-latest
