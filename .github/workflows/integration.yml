@@ -1,0 +1,49 @@
+name: Integration
+
+on:
+  pull_request:
+    branches: [master]
+    paths-ignore:
+      - "**.md"
+      - ".idea/**"
+      - ".claude/**"
+      - ".junie/**"
+      - ".skillfile/**"
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.list.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: list
+        run: echo "matrix=$(.github/scripts/list-talks-matrix.sh | jq -c .)" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: discover
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.discover.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
+
+      - run: .github/scripts/build-talk.sh "${{ matrix.dir }}" "${{ runner.temp }}/cache"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: talk-${{ matrix.name }}
+          path: ${{ matrix.dir }}/dist
+          retention-days: 7
