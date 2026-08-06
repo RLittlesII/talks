@@ -9,8 +9,6 @@ on:
       - ".claude/**"
       - ".junie/**"
       - ".skillfile/**"
-  push:
-    branches: [ci/pr-integration-build]
 
 permissions:
   contents: read
