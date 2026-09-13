@@ -164,8 +164,8 @@ How do we know why we do something if we don't know what it is?!
   - Default behavior with enforcement of a contract.
 - __When to use__:
   - Closely related types sharing state or internal logic.
+  - Forcing a specific behavior or structure.
   - Evolving a hierarchy without breaking derived types.
-  - Forcing a specific lifecycle or structure.
 
 <!--
 - Define Abstract Classes as base types for closely related objects.
@@ -579,11 +579,13 @@ public interface ICanSaveUsers {
 - __Explicit impl callout__: Keep role members off the concrete type surface and force role-based consumption.
 - __What it is NOT__: Not multiple inheritance of state; not a conflict to be avoided.
 - __When to use__: Satisfying multiple consumers; disambiguating members; keeping public APIs clean.
+- __Real-world seam__: `IHaveSolution`/`IHaveGitRepository` in Nuke builds — more on this in the Build System example.
 
 <!--
 - Implementing multiple small interfaces is a sign of role-based design.
 - Use explicit implementation to keep the concrete class surface clean.
 - This forces consumers to use the object through a specific role/interface.
+- The Nuke seam example moved to the Build System section (Composable Interfaces: Properties) to avoid showing the same IHaveSolution/IHaveGitRepository snippet twice.
 -->
 ---
 
@@ -652,37 +654,6 @@ public class SessionContext : ICreateSession, IFindById, IFindByToken, IFindByEm
 - Example of a real-world pattern: QueryObject.
 - The `SessionContext` handles multiple roles but exposes them individually.
 - Notice the explicit interface implementation to keep the public surface of `SessionContext` minimal.
--->
----
-
-# Third-Party API Seams (Nuke via ISP)
-
-```csharp
-public interface IHaveSolution : IHave
-{
-    [Solution]
-    Solution Solution => TryGetValue(() => Solution)!;
-}
-
-public interface IHaveGitRepository : IHave
-{
-    GitRepository? GitRepository { get; }
-}
-
-internal partial class Pipeline : NukeBuild, IHaveSolution, IHaveGitRepository
-{
-    [Solution] private Solution Solution { get; } = null!;
-    Nuke.Common.ProjectModel.Solution IHaveSolution.Solution => Solution;
-    
-    [OptionalGitRepository] public GitRepository? GitRepository { get; }
-}
-```
-
-<!--
-- Interfaces let us adapt third-party APIs without inheriting from abstract base wrappers.
-- Apply ISP to expose only the role we need (`IHaveSolution`) instead of leaking the full `NukeBuild` object.
-- Consumers stay build-agnostic; tests can use tiny fakes/stubs for that one role.
-- Real-world example from: https://github.com/RocketSurgeonsGuild/Nuke
 -->
 ---
 layout: two-cols-header
@@ -844,11 +815,27 @@ public interface ICanBuildWithDotNetCore :
 }
 ```
 
+```csharp
+public interface IHaveBuildVersion : IHaveGitVersion, IHaveSolution
+{
+    Target BuildVersion => d => d
+        .Executes(() =>
+        {
+            Log.Information(
+                "Building version {Version} of {Solution}",
+                GitVersion.NuGetVersionV2,
+                Solution.Name
+            );
+        });
+}
+```
+
 <!--
 - This interface aligns with reality, `dotnet build` does a `dotnet restore`
 - Chaining behaviors using `.DependsOn()`.
 - The `Build` target depends on the `Restore` target.
 - This creates an executable pipeline where order is guaranteed.
+- `IHaveBuildVersion` is the same chaining idea from a different angle: it composes two property traits (`IHaveGitVersion`, `IHaveSolution`) into one behavior, no deep hierarchy required.
 -->
 
 ---
@@ -868,11 +855,21 @@ public interface IHaveConfiguration : IHave
 {
     string Configuration { get; }
 }
+
+public interface IHaveArtifacts : IHave
+{
+    [Parameter("The artifacts directory", Name = "Artifacts")]
+    AbsolutePath ArtifactsDirectory =>
+        EnvironmentInfo.GetVariable<AbsolutePath>("Artifacts")
+        ?? TryGetValue(() => ArtifactsDirectory)
+        ?? NukeBuild.RootDirectory / "artifacts";
+}
 ```
 
 <!--
 - Handling cross-cutting concerns like versioning and configuration.
 - These are also just `IHave...` roles that can be mixed in wherever needed.
+- `IHaveArtifacts` shows the same trait falling back through env var, stored value, then a default — one more shape of the same pattern, not a new mechanic.
 -->
 ---
 
@@ -977,61 +974,6 @@ public interface ICanUpdateSolution : IHaveSolution
 <!--
 The important note here.  Because interfaces have no instances state it's difficult to asign values.
 -->
----
-
-# Example: Composable Parameters
-
-- Composing parameter discovery via traits
-
-```csharp
-public interface IHaveArtifacts : IHave
-{
-    [Parameter("The artifacts directory", Name = "Artifacts")]
-    AbsolutePath ArtifactsDirectory => 
-        EnvironmentInfo.GetVariable<AbsolutePath>("Artifacts")
-        ?? TryGetValue(() => ArtifactsDirectory)
-        ?? NukeBuild.RootDirectory / "artifacts";
-}
-
-public class Build : NukeBuild, IHaveArtifacts { }
-```
-
-<!--
-- Practical example: Using interfaces to add "traits" to data objects.
-- `IHaveArtifacts` provides logic to locate a directory that any implementer gets for free.
-- This keeps the `Build` class clean and focused on targets.
-- Real-world example from Rocket.Surgery.Nuke.
--->
----
-
-# Example: Composable Behaviors
-
-- Composing role-based behaviors
-
-```csharp
-public interface IHaveBuildVersion : IHaveGitVersion, IHaveSolution
-{
-    Target BuildVersion => d => d
-        .Executes(() =>
-        {
-            Log.Information(
-                "Building version {Version} of {Solution}",
-                GitVersion.NuGetVersionV2,
-                Solution.Name
-            );
-        });
-}
-
-public class Pipeline : NukeBuild, IHaveBuildVersion { /* ... */ }
-```
-
-<!--
-- Another example of composition: `Pipeline` pulls in `IHaveBuildVersion`.
-- It automatically gets the `BuildVersion` target and all necessary dependencies.
-- No deep inheritance hierarchy required.
-- Real-world example from Rocket.Surgery.Nuke.
--->
-
 ---
 
 # Summary & Lessons Learned
