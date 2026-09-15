@@ -815,11 +815,15 @@ public interface ICanRestoreWithDotNetCore : IHaveSolution, ICan
 -->
 
 ---
+layout: two-cols-header
+---
 
 # Chaining Behaviors: Target Dependencies
 
 - Interfaces can depend on other interfaces to enforce build order
 - Use `.DependsOn()` to chain targets across interfaces
+
+::left::
 
 ```csharp
 public interface ICanBuildWithDotNetCore : 
@@ -835,6 +839,8 @@ public interface ICanBuildWithDotNetCore :
         });
 }
 ```
+
+::right::
 
 ```csharp
 public interface IHaveBuildVersion : IHaveGitVersion, IHaveSolution
