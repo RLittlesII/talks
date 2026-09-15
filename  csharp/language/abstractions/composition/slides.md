@@ -711,13 +711,14 @@ __Composition Approach__
 
 # Why this pattern?
 
-- __Granular Roles__: `IHaveSolution`, `IHaveGitVersion`, `IHaveArtifacts`.
+- __Granular Roles__: `ICreateSession`, `IFindById`, `IFindByToken`, `IFindByEmail` — `SessionContext` only exposes the roles it plays.
 - __Behaviors as Traits__: Logic stays in the interface (DIMs).
 - __No Dependency Hell__: Objects only pull in what they need.
 - __Testability__: Interfaces are naturally mockable.
 
 <!--
 - Final summary of the benefits of the composition pattern.
+- Callback to the SessionContext/QueryObject example rather than teasing new names.
 - Emphasize how it leads to a more flexible and testable architecture.
 -->
 ---
