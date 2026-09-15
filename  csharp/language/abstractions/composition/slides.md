@@ -82,6 +82,8 @@ All of this comes from real mistakes I have made, and had to fix.  This is not c
 
 # What are abstractions?
 
+<v-clicks>
+
 - __Fundamental Theorem of Software Engineering (FTSE)__
   - "We can solve any problem by introducing an extra level of indirection." — [David Wheeler](https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering)
   - _"...except for the problem of too many levels of indirection."_
@@ -90,6 +92,8 @@ All of this comes from real mistakes I have made, and had to fix.  This is not c
   - __Abuse is costly__: Over-engineering leads to cognitive load and "dependency escape rooms".
   - __Non-adherence is costly__: Tightly coupled systems are rigid, fragile, and untestable.
   - Mastery is knowing when *not* to add the layer.
+
+</v-clicks>
 
 <!--
 - Reference David Wheeler's quote on indirection.
@@ -101,10 +105,14 @@ All of this comes from real mistakes I have made, and had to fix.  This is not c
 
 # What are abstractions for?
 
+<v-clicks>
+
 - __Hide complexity__ behind a stable boundary.
 - __Enable extensibility__ (composable elements, shared behavior).
 - __Improve testability__ (mocking and isolation).
 - __Decouple__ high-level policy from low-level implementation.
+
+</v-clicks>
 
 <!--
 - Summarize the "What" of abstractions.
@@ -118,17 +126,29 @@ All of this comes from real mistakes I have made, and had to fix.  This is not c
 
 #### Hint: The lies begin
 
+<v-clicks>
+
 - Testability
 - Maintainability
 - Clean Architecture
 - The Seniors said so
 
+</v-clicks>
+
 <!--
 How do we know why we do something if we don't know what it is?!
+
+- We have to test this thing™ so we need an abstraction ... when truth is we should likely test coupled "units" together.
+- We have to maintain it; which indirection makes more difficult ...
+- I read this book and the smart guy said this is how you should do it.  The "smart" guy that doesn't get paid to write YOUR software.
+- The Senior who's been here 20 years said so ... who's whole understanding of software is the system he's hacked together
 -->
+
 ---
 
 # C# Interfaces
+
+<v-clicks>
 
 - __What is an interface?__
   - A contract defining a set of signatures (methods, properties, events, indexers).
@@ -140,6 +160,8 @@ How do we know why we do something if we don't know what it is?!
   - Capabilities shared across unrelated classes.
   - Supporting multiple inheritance of behavior.
 
+</v-clicks>
+
 <!--
 - An Interface is a thin veneer 
 - Define Interfaces as "contracts" for roles or capabilities.
@@ -149,6 +171,8 @@ How do we know why we do something if we don't know what it is?!
 ---
 
 # C# Abstract Classes
+
+<v-clicks>
 
 - __What is an abstract class?__
   - A base class that cannot be instantiated.
@@ -160,6 +184,8 @@ How do we know why we do something if we don't know what it is?!
   - Closely related types sharing state or internal logic.
   - Forcing a specific behavior or structure.
   - Evolving a hierarchy without breaking derived types.
+
+</v-clicks>
 
 <!--
 - Define Abstract Classes as base types for closely related objects.
