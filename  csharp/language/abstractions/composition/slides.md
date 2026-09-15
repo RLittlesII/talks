@@ -99,7 +99,7 @@ All of this comes from real mistakes I have made, and had to fix.  This is not c
 -->
 ---
 
-# Abstractions
+# What are abstractions for?
 
 - __Hide complexity__ behind a stable boundary.
 - __Enable extensibility__ (composable elements, shared behavior).
