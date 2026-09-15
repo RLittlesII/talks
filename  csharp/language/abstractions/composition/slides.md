@@ -48,7 +48,7 @@ layout: two-cols
 # Agenda
 
 - Abstractions
-- Dependency Escape Room
+- The Lies
 - The Guidelines
 - Modern C#
 - The Build System
@@ -649,8 +649,6 @@ public class Thing : IThingV1, IThingV2
 ```csharp
 public class SessionContext : ICreateSession, IFindById, IFindByToken, IFindByEmail
 {
-    private readonly DbContext _db;
-
     public SessionContext(DbContext db)
     {
         _db = db;
@@ -667,6 +665,8 @@ public class SessionContext : ICreateSession, IFindById, IFindByToken, IFindByEm
 
     Task<OnboardingSession?> IFindByEmail.Find(string email, CancellationToken cancellationToken) =>
      throw new NotImplementedException();
+
+    private readonly DbContext _db;
 }
 ```
 
@@ -714,7 +714,7 @@ __Composition Approach__
 - __Granular Roles__: `ICreateSession`, `IFindById`, `IFindByToken`, `IFindByEmail` — `SessionContext` only exposes the roles it plays.
 - __Behaviors as Traits__: Logic stays in the interface (DIMs).
 - __No Dependency Hell__: Objects only pull in what they need.
-- __Testability__: Interfaces are naturally mockable.
+- __Testability__: Interfaces are mockable without the need for strict fakes.
 
 <!--
 - Final summary of the benefits of the composition pattern.
@@ -725,17 +725,7 @@ __Composition Approach__
 
 # The Build System Example
 
-- A practical walkthrough of abstractions and shared behaviors
-- Because I can share build components across builds, I can share behaviors across builds
-
-<!--
-- Moving from theory to practice with a Build System example.
-- This demonstrates how all the concepts we've discussed (ISP, LSP, Traits, DIMs) come together.
--->
-
----
-
-# Stacked Like LEGO Blocks
+#### Stacked Like LEGO Blocks
 
 ```mermaid
 graph LR
@@ -757,6 +747,7 @@ graph LR
 ```
 
 <!--
+- Because I can share build components across builds, I can share behaviors across builds.
 - Compose build capabilities by stacking small `IHave...` + `ICan...` blocks.
 - Each new block adds one concern without rewriting existing blocks.
 - `Build` becomes an assembly of roles, not a giant inheritance hierarchy.
@@ -768,6 +759,7 @@ graph LR
 
 - Define shared build properties using interfaces and attributes
 - Use `IHave...` naming convention
+- Same shape covers cross-cutting traits too: GitVersion, Configuration, Artifacts, CI params
 
 ```csharp
 public interface IHaveSolution : IHave
@@ -786,6 +778,7 @@ public interface IHaveGitRepository : IHave
 - Using interfaces to define shared properties.
 - Attributes like `[Solution]` and `[GitRepository]` are used by the build engine to inject values.
 - Notice the `IHave...` naming convention.
+- Same pattern, different name: IHaveGitVersion, IHaveConfiguration, IHaveArtifacts. IHaveArtifacts is a good example — it falls back through env var, stored value, then a default.
 -->
 ---
 
@@ -867,39 +860,6 @@ public interface IHaveBuildVersion : IHaveGitVersion, IHaveSolution
 
 ---
 
-# Cross-Cutting Concerns
-
-- Shared properties and parameters that all interfaces can use
-- `IHave...` interfaces for GitVersion, Artifacts, and CI
-
-```csharp
-public interface IHaveGitVersion : IHave
-{
-    GitVersion GitVersion { get; }
-}
-
-public interface IHaveConfiguration : IHave
-{
-    string Configuration { get; }
-}
-
-public interface IHaveArtifacts : IHave
-{
-    [Parameter("The artifacts directory", Name = "Artifacts")]
-    AbsolutePath ArtifactsDirectory =>
-        EnvironmentInfo.GetVariable<AbsolutePath>("Artifacts")
-        ?? TryGetValue(() => ArtifactsDirectory)
-        ?? NukeBuild.RootDirectory / "artifacts";
-}
-```
-
-<!--
-- Handling cross-cutting concerns like versioning and configuration.
-- These are also just `IHave...` roles that can be mixed in wherever needed.
-- `IHaveArtifacts` shows the same trait falling back through env var, stored value, then a default — one more shape of the same pattern, not a new mechanic.
--->
----
-
 # Explicit Overrides
 
 - Use explicit interface implementation to customize inherited behaviors
@@ -954,49 +914,6 @@ internal partial class Pipeline : NukeBuild,
 - This is the power of composition in action.
 -->
 ---
-zoom: 0.83
----
-
-# ICanDoStuff
-
-```csharp
-namespace Rocket.Surgery.Nuke;
-
-[PublicAPI]
-public interface ICanUpdateSolution : IHaveSolution
-{
-    Target GenerateSolutionItems =>
-        d => d
-            .Unlisted()
-            .OnlyWhenStatic(() => IsLocalBuild)
-            .TryTriggeredBy<ICanLint>(z => z.PostLint)
-            .TryAfter<ICanLint>(z => z.PostLint)
-            .Executes(
-                 () =>
-                 {
-                     TargetAttributeCache.BuildCache();
-                     var attributes = GetType()
-                                     .GetCustomAttributes(true)
-                                     .OfType<SolutionUpdaterConfigurationAttribute>()
-                                     .ToArray();
-                     SolutionUpdater.UpdateSolution(
-                         Solution,
-                         SolutionConfigFolderName,
-                         attributes.SelectMany(z => z.AdditionalRelativeFolderFilePatterns),
-                         attributes.SelectMany(z => z.AdditionalConfigFolderFilePatterns),
-                         attributes.SelectMany(z => z.AdditionalIgnoreFolderFilePatterns)
-                     );
-                 }
-             );
-
-    string SolutionConfigFolderName => "config";
-}
-```
-
-<!--
-The important note here.  Because interfaces have no instances state it's difficult to asign values.
--->
----
 
 # Summary & Lessons Learned
 
@@ -1027,6 +944,8 @@ class: text-center
 
 [github.com/rlittlesii/talks](https://github.com/rlittlesii/talks)
 
+[github.com/RocketSurgeonsGuild/Nuke](https://github.com/RocketSurgeonsGuild/Nuke)
+
 [@rlittlesii](https://twitter.com/rlittlesii)
 
 [twitch.tv/rlittlesii](https://twitch.tv/rlittlesii)
@@ -1034,6 +953,10 @@ class: text-center
 </div>
 
 <!--
+Danke, dass du mich engeladen hast!
+
+Fragen?
+
 - Wrap up the talk.
 - Open the floor for questions.
 - Provide links for further resources and contact.
