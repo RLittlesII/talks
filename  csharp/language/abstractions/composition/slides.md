@@ -954,7 +954,7 @@ internal partial class Pipeline : NukeBuild,
 - This is the power of composition in action.
 -->
 ---
-zoom: 0.70
+zoom: 0.83
 ---
 
 # ICanDoStuff
@@ -962,16 +962,12 @@ zoom: 0.70
 ```csharp
 namespace Rocket.Surgery.Nuke;
 
-// A tool to ensure the solution is updated with relevant files that exist on disk but not in projects.
 [PublicAPI]
 public interface ICanUpdateSolution : IHaveSolution
 {
-    // The solution updater that ensures that all the files are in the solution.
     Target GenerateSolutionItems =>
         d => d
             .Unlisted()
-            // Does not work well on the linting runner
-            // always seems to produce a commit against the solution
             .OnlyWhenStatic(() => IsLocalBuild)
             .TryTriggeredBy<ICanLint>(z => z.PostLint)
             .TryAfter<ICanLint>(z => z.PostLint)
@@ -993,7 +989,6 @@ public interface ICanUpdateSolution : IHaveSolution
                  }
              );
 
-    // The name of the folder that contains the solution configuration files in the solution
     string SolutionConfigFolderName => "config";
 }
 ```
