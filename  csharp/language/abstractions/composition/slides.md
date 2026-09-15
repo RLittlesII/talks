@@ -16,12 +16,6 @@ presenter: true
 
 Modern C# abstractions for real design problems
 
-<div class="mt-6 text-sm opacity-80">
-
-Use <kbd>→</kbd> / <kbd>←</kbd> to navigate slides
-
-</div>
-
 <!--
 - Welcome the audience and introduce yourself.
 - Hook: Most of us build abstractions by habit, often leading to over-engineered "dependency escape rooms".
@@ -81,23 +75,9 @@ class: text-center
 <!--
 The plan is to show you techniques that if you want to start using, you can slowly integrate and strangle old approaches.
 
-All of this comes from real mistakes I have made, and had to fix.  This is not coming from "on high" where I dazzle you with buzz words.  This comes from a guy who was in the trenches moving mud and bricks to get the job done.  Often learning the technique I needed after I had implemented a feature.
+All of this comes from real mistakes I have made, and had to fix.  This is not coming from "on high" where I dazzle you with buzz words.  This comes from a guy who was in the trenches moving mud and bricks to get the job done.  Often learning the technique I needed after I implementing a failed approach.
 -->
 
----
-
-# Why should we abstract?
-
-#### Hint: The lies begin
-
-- Testability
-- Maintainability
-- Clean Architecture
-- The Seniors said so
-
-<!--
-How do we know why we do something if we don't know what it is?!
--->
 ---
 
 # What are abstractions?
@@ -132,6 +112,20 @@ How do we know why we do something if we don't know what it is?!
 - High level Policy (a contract) low-level implementation (how the contract is implemented)
 -->
 
+---
+
+# Why should we abstract?
+
+#### Hint: The lies begin
+
+- Testability
+- Maintainability
+- Clean Architecture
+- The Seniors said so
+
+<!--
+How do we know why we do something if we don't know what it is?!
+-->
 ---
 
 # C# Interfaces
