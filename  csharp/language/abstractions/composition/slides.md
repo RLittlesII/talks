@@ -16,12 +16,6 @@ presenter: true
 
 Modern C# abstractions for real design problems
 
-<div class="mt-6 text-sm opacity-80">
-
-Use <kbd>→</kbd> / <kbd>←</kbd> to navigate slides
-
-</div>
-
 <!--
 - Welcome the audience and introduce yourself.
 - Hook: Most of us build abstractions by habit, often leading to over-engineered "dependency escape rooms".
@@ -54,7 +48,7 @@ layout: two-cols
 # Agenda
 
 - Abstractions
-- Dependency Escape Room
+- The Lies
 - The Guidelines
 - Modern C#
 - The Build System
@@ -81,26 +75,14 @@ class: text-center
 <!--
 The plan is to show you techniques that if you want to start using, you can slowly integrate and strangle old approaches.
 
-All of this comes from real mistakes I have made, and had to fix.  This is not coming from "on high" where I dazzle you with buzz words.  This comes from a guy who was in the trenches moving mud and bricks to get the job done.  Often learning the technique I needed after I had implemented a feature.
+All of this comes from real mistakes I have made, and had to fix.  This is not coming from "on high" where I dazzle you with buzz words.  This comes from a guy who was in the trenches moving mud and bricks to get the job done.  Often learning the technique I needed after I implementing a failed approach.
 -->
 
----
-
-# Why should we abstract?
-
-#### Hint: The lies begin
-
-- Testability
-- Maintainability
-- Clean Architecture
-- The Seniors said so
-
-<!--
-How do we know why we do something if we don't know what it is?!
--->
 ---
 
 # What are abstractions?
+
+<v-clicks>
 
 - __Fundamental Theorem of Software Engineering (FTSE)__
   - "We can solve any problem by introducing an extra level of indirection." — [David Wheeler](https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering)
@@ -111,6 +93,8 @@ How do we know why we do something if we don't know what it is?!
   - __Non-adherence is costly__: Tightly coupled systems are rigid, fragile, and untestable.
   - Mastery is knowing when *not* to add the layer.
 
+</v-clicks>
+
 <!--
 - Reference David Wheeler's quote on indirection.
 - The "Core Why": Managing complexity and change.
@@ -119,12 +103,16 @@ How do we know why we do something if we don't know what it is?!
 -->
 ---
 
-# Abstractions
+# What are abstractions for?
+
+<v-clicks>
 
 - __Hide complexity__ behind a stable boundary.
 - __Enable extensibility__ (composable elements, shared behavior).
 - __Improve testability__ (mocking and isolation).
 - __Decouple__ high-level policy from low-level implementation.
+
+</v-clicks>
 
 <!--
 - Summarize the "What" of abstractions.
@@ -134,7 +122,33 @@ How do we know why we do something if we don't know what it is?!
 
 ---
 
+# Why should we abstract?
+
+#### Hint: The lies begin
+
+<v-clicks>
+
+- Testability
+- Maintainability
+- Clean Architecture
+- The Seniors said so
+
+</v-clicks>
+
+<!--
+How do we know why we do something if we don't know what it is?!
+
+- We have to test this thing™ so we need an abstraction ... when truth is we should likely test coupled "units" together.
+- We have to maintain it; which indirection makes more difficult ...
+- I read this book and the smart guy said this is how you should do it.  The "smart" guy that doesn't get paid to write YOUR software.
+- The Senior who's been here 20 years said so ... who's whole understanding of software is the system he's hacked together
+-->
+
+---
+
 # C# Interfaces
+
+<v-clicks>
 
 - __What is an interface?__
   - A contract defining a set of signatures (methods, properties, events, indexers).
@@ -146,6 +160,8 @@ How do we know why we do something if we don't know what it is?!
   - Capabilities shared across unrelated classes.
   - Supporting multiple inheritance of behavior.
 
+</v-clicks>
+
 <!--
 - An Interface is a thin veneer 
 - Define Interfaces as "contracts" for roles or capabilities.
@@ -156,6 +172,8 @@ How do we know why we do something if we don't know what it is?!
 
 # C# Abstract Classes
 
+<v-clicks>
+
 - __What is an abstract class?__
   - A base class that cannot be instantiated.
   - Represents an **"is-a"** relationship (partial).
@@ -164,8 +182,10 @@ How do we know why we do something if we don't know what it is?!
   - Default behavior with enforcement of a contract.
 - __When to use__:
   - Closely related types sharing state or internal logic.
+  - Forcing a specific behavior or structure.
   - Evolving a hierarchy without breaking derived types.
-  - Forcing a specific lifecycle or structure.
+
+</v-clicks>
 
 <!--
 - Define Abstract Classes as base types for closely related objects.
@@ -579,11 +599,13 @@ public interface ICanSaveUsers {
 - __Explicit impl callout__: Keep role members off the concrete type surface and force role-based consumption.
 - __What it is NOT__: Not multiple inheritance of state; not a conflict to be avoided.
 - __When to use__: Satisfying multiple consumers; disambiguating members; keeping public APIs clean.
+- __Real-world seam__: `IHaveSolution`/`IHaveGitRepository` in Nuke builds — more on this in the Build System example.
 
 <!--
 - Implementing multiple small interfaces is a sign of role-based design.
 - Use explicit implementation to keep the concrete class surface clean.
 - This forces consumers to use the object through a specific role/interface.
+- The Nuke seam example moved to the Build System section (Composable Interfaces: Properties) to avoid showing the same IHaveSolution/IHaveGitRepository snippet twice.
 -->
 ---
 
@@ -627,8 +649,6 @@ public class Thing : IThingV1, IThingV2
 ```csharp
 public class SessionContext : ICreateSession, IFindById, IFindByToken, IFindByEmail
 {
-    private readonly DbContext _db;
-
     public SessionContext(DbContext db)
     {
         _db = db;
@@ -645,6 +665,8 @@ public class SessionContext : ICreateSession, IFindById, IFindByToken, IFindByEm
 
     Task<OnboardingSession?> IFindByEmail.Find(string email, CancellationToken cancellationToken) =>
      throw new NotImplementedException();
+
+    private readonly DbContext _db;
 }
 ```
 
@@ -652,37 +674,6 @@ public class SessionContext : ICreateSession, IFindById, IFindByToken, IFindByEm
 - Example of a real-world pattern: QueryObject.
 - The `SessionContext` handles multiple roles but exposes them individually.
 - Notice the explicit interface implementation to keep the public surface of `SessionContext` minimal.
--->
----
-
-# Third-Party API Seams (Nuke via ISP)
-
-```csharp
-public interface IHaveSolution : IHave
-{
-    [Solution]
-    Solution Solution => TryGetValue(() => Solution)!;
-}
-
-public interface IHaveGitRepository : IHave
-{
-    GitRepository? GitRepository { get; }
-}
-
-internal partial class Pipeline : NukeBuild, IHaveSolution, IHaveGitRepository
-{
-    [Solution] private Solution Solution { get; } = null!;
-    Nuke.Common.ProjectModel.Solution IHaveSolution.Solution => Solution;
-    
-    [OptionalGitRepository] public GitRepository? GitRepository { get; }
-}
-```
-
-<!--
-- Interfaces let us adapt third-party APIs without inheriting from abstract base wrappers.
-- Apply ISP to expose only the role we need (`IHaveSolution`) instead of leaking the full `NukeBuild` object.
-- Consumers stay build-agnostic; tests can use tiny fakes/stubs for that one role.
-- Real-world example from: https://github.com/RocketSurgeonsGuild/Nuke
 -->
 ---
 layout: two-cols-header
@@ -720,30 +711,21 @@ __Composition Approach__
 
 # Why this pattern?
 
-- __Granular Roles__: `IHaveSolution`, `IHaveGitVersion`, `IHaveArtifacts`.
+- __Granular Roles__: `ICreateSession`, `IFindById`, `IFindByToken`, `IFindByEmail` — `SessionContext` only exposes the roles it plays.
 - __Behaviors as Traits__: Logic stays in the interface (DIMs).
 - __No Dependency Hell__: Objects only pull in what they need.
-- __Testability__: Interfaces are naturally mockable.
+- __Testability__: Interfaces are mockable without the need for strict fakes.
 
 <!--
 - Final summary of the benefits of the composition pattern.
+- Callback to the SessionContext/QueryObject example rather than teasing new names.
 - Emphasize how it leads to a more flexible and testable architecture.
 -->
 ---
 
 # The Build System Example
 
-- A practical walkthrough of abstractions and shared behaviors
-- Because I can share build components across builds, I can share behaviors across builds
-
-<!--
-- Moving from theory to practice with a Build System example.
-- This demonstrates how all the concepts we've discussed (ISP, LSP, Traits, DIMs) come together.
--->
-
----
-
-# Stacked Like LEGO Blocks
+#### Stacked Like LEGO Blocks
 
 ```mermaid
 graph LR
@@ -765,6 +747,7 @@ graph LR
 ```
 
 <!--
+- Because I can share build components across builds, I can share behaviors across builds.
 - Compose build capabilities by stacking small `IHave...` + `ICan...` blocks.
 - Each new block adds one concern without rewriting existing blocks.
 - `Build` becomes an assembly of roles, not a giant inheritance hierarchy.
@@ -776,6 +759,7 @@ graph LR
 
 - Define shared build properties using interfaces and attributes
 - Use `IHave...` naming convention
+- Same shape covers cross-cutting traits too: GitVersion, Configuration, Artifacts, CI params
 
 ```csharp
 public interface IHaveSolution : IHave
@@ -794,6 +778,7 @@ public interface IHaveGitRepository : IHave
 - Using interfaces to define shared properties.
 - Attributes like `[Solution]` and `[GitRepository]` are used by the build engine to inject values.
 - Notice the `IHave...` naming convention.
+- Same pattern, different name: IHaveGitVersion, IHaveConfiguration, IHaveArtifacts. IHaveArtifacts is a good example — it falls back through env var, stored value, then a default.
 -->
 ---
 
@@ -823,11 +808,15 @@ public interface ICanRestoreWithDotNetCore : IHaveSolution, ICan
 -->
 
 ---
+layout: two-cols-header
+---
 
 # Chaining Behaviors: Target Dependencies
 
 - Interfaces can depend on other interfaces to enforce build order
 - Use `.DependsOn()` to chain targets across interfaces
+
+::left::
 
 ```csharp
 public interface ICanBuildWithDotNetCore : 
@@ -844,36 +833,31 @@ public interface ICanBuildWithDotNetCore :
 }
 ```
 
+::right::
+
+```csharp
+public interface IHaveBuildVersion : IHaveGitVersion, IHaveSolution
+{
+    Target BuildVersion => d => d
+        .Executes(() =>
+        {
+            Log.Information(
+                "Building version {Version} of {Solution}",
+                GitVersion.NuGetVersionV2,
+                Solution.Name
+            );
+        });
+}
+```
+
 <!--
 - This interface aligns with reality, `dotnet build` does a `dotnet restore`
 - Chaining behaviors using `.DependsOn()`.
 - The `Build` target depends on the `Restore` target.
 - This creates an executable pipeline where order is guaranteed.
+- `IHaveBuildVersion` is the same chaining idea from a different angle: it composes two property traits (`IHaveGitVersion`, `IHaveSolution`) into one behavior, no deep hierarchy required.
 -->
 
----
-
-# Cross-Cutting Concerns
-
-- Shared properties and parameters that all interfaces can use
-- `IHave...` interfaces for GitVersion, Artifacts, and CI
-
-```csharp
-public interface IHaveGitVersion : IHave
-{
-    GitVersion GitVersion { get; }
-}
-
-public interface IHaveConfiguration : IHave
-{
-    string Configuration { get; }
-}
-```
-
-<!--
-- Handling cross-cutting concerns like versioning and configuration.
-- These are also just `IHave...` roles that can be mixed in wherever needed.
--->
 ---
 
 # Explicit Overrides
@@ -930,109 +914,6 @@ internal partial class Pipeline : NukeBuild,
 - This is the power of composition in action.
 -->
 ---
-zoom: 0.70
----
-
-# ICanDoStuff
-
-```csharp
-namespace Rocket.Surgery.Nuke;
-
-// A tool to ensure the solution is updated with relevant files that exist on disk but not in projects.
-[PublicAPI]
-public interface ICanUpdateSolution : IHaveSolution
-{
-    // The solution updater that ensures that all the files are in the solution.
-    Target GenerateSolutionItems =>
-        d => d
-            .Unlisted()
-            // Does not work well on the linting runner
-            // always seems to produce a commit against the solution
-            .OnlyWhenStatic(() => IsLocalBuild)
-            .TryTriggeredBy<ICanLint>(z => z.PostLint)
-            .TryAfter<ICanLint>(z => z.PostLint)
-            .Executes(
-                 () =>
-                 {
-                     TargetAttributeCache.BuildCache();
-                     var attributes = GetType()
-                                     .GetCustomAttributes(true)
-                                     .OfType<SolutionUpdaterConfigurationAttribute>()
-                                     .ToArray();
-                     SolutionUpdater.UpdateSolution(
-                         Solution,
-                         SolutionConfigFolderName,
-                         attributes.SelectMany(z => z.AdditionalRelativeFolderFilePatterns),
-                         attributes.SelectMany(z => z.AdditionalConfigFolderFilePatterns),
-                         attributes.SelectMany(z => z.AdditionalIgnoreFolderFilePatterns)
-                     );
-                 }
-             );
-
-    // The name of the folder that contains the solution configuration files in the solution
-    string SolutionConfigFolderName => "config";
-}
-```
-
-<!--
-The important note here.  Because interfaces have no instances state it's difficult to asign values.
--->
----
-
-# Example: Composable Parameters
-
-- Composing parameter discovery via traits
-
-```csharp
-public interface IHaveArtifacts : IHave
-{
-    [Parameter("The artifacts directory", Name = "Artifacts")]
-    AbsolutePath ArtifactsDirectory => 
-        EnvironmentInfo.GetVariable<AbsolutePath>("Artifacts")
-        ?? TryGetValue(() => ArtifactsDirectory)
-        ?? NukeBuild.RootDirectory / "artifacts";
-}
-
-public class Build : NukeBuild, IHaveArtifacts { }
-```
-
-<!--
-- Practical example: Using interfaces to add "traits" to data objects.
-- `IHaveArtifacts` provides logic to locate a directory that any implementer gets for free.
-- This keeps the `Build` class clean and focused on targets.
-- Real-world example from Rocket.Surgery.Nuke.
--->
----
-
-# Example: Composable Behaviors
-
-- Composing role-based behaviors
-
-```csharp
-public interface IHaveBuildVersion : IHaveGitVersion, IHaveSolution
-{
-    Target BuildVersion => d => d
-        .Executes(() =>
-        {
-            Log.Information(
-                "Building version {Version} of {Solution}",
-                GitVersion.NuGetVersionV2,
-                Solution.Name
-            );
-        });
-}
-
-public class Pipeline : NukeBuild, IHaveBuildVersion { /* ... */ }
-```
-
-<!--
-- Another example of composition: `Pipeline` pulls in `IHaveBuildVersion`.
-- It automatically gets the `BuildVersion` target and all necessary dependencies.
-- No deep inheritance hierarchy required.
-- Real-world example from Rocket.Surgery.Nuke.
--->
-
----
 
 # Summary & Lessons Learned
 
@@ -1063,6 +944,8 @@ class: text-center
 
 [github.com/rlittlesii/talks](https://github.com/rlittlesii/talks)
 
+[github.com/RocketSurgeonsGuild/Nuke](https://github.com/RocketSurgeonsGuild/Nuke)
+
 [@rlittlesii](https://twitter.com/rlittlesii)
 
 [twitch.tv/rlittlesii](https://twitch.tv/rlittlesii)
@@ -1070,6 +953,10 @@ class: text-center
 </div>
 
 <!--
+Danke, dass er mich engeladen hapt!
+
+Fragen?
+
 - Wrap up the talk.
 - Open the floor for questions.
 - Provide links for further resources and contact.
