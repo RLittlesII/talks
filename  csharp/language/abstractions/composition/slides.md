@@ -953,7 +953,7 @@ class: text-center
 </div>
 
 <!--
-Danke, dass du mich engeladen hast!
+Danke, dass er mich engeladen hapt!
 
 Fragen?
 
