@@ -1,0 +1,20 @@
+packages:
+  - "**"
+
+# Single source of truth for every deck's dependency versions.
+# Decks reference these with `"catalog:"` instead of a literal range, so a
+# version bump happens here once rather than once per talk.
+catalog:
+  "@slidev/cli": ^52.17.0
+  "@slidev/theme-default": ^0.25.0
+  "@slidev/theme-seriph": ^0.25.0
+  "slidev-theme-nord": ^0.0.6
+  "vue": ^3.5.33
+
+shamefullyHoist: true
+
+# `playwright-chromium` is needed for `slidev export` (PDF/PNG/PPTX) and has a
+# postinstall script that downloads the browser. pnpm v11 errors on unapproved
+# build scripts by default (`strictDepBuilds: true`), so allowlist it up-front.
+allowBuilds:
+  playwright-chromium: true
