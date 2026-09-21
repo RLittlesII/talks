@@ -10,7 +10,7 @@ This repository contains a collection of talks, samples, and demos covering vari
 Most of us build abstractions like we're hoarding for winter, then act surprised when the codebase turns into a dependency escape room. In this session, we'll cut through the noise on abstraction's two major techniques — inheritance and composition — and why most of us reach for the wrong one out of habit.
 - **Slides**: [composition](npm%20run%20dev)
   ```bash
-  npm --prefix "./ csharp/language/abstractions/composition" run dev
+  pnpm --filter composition run dev
   ```
 
 ### [Null, The absence of a C# reference](./%20csharp/language/nullability/README.md)
