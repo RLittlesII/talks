@@ -60,13 +60,18 @@ Solving for team complexity, increasing velocity, and automate testing of your X
 Good practices around how to Version, Build, Test, Sign and Release your mobile applications across an enterprise.
 - **Slides**: [PowerPoint](./mobile/devops/slides/Mobile.Dev.Ops.Scale.pptx)
 
-### [Behavior Driven Practices](./mobile/bdd/README.MD)
-How Behavior Driven Design and Development can address concerns and reduce friction. Evolving designs, ensuring objects answer questions, and encapsulating concerns to make boundaries more explicit.
-- **Slides**: [Keynote](./mobile/bdd/slides/behavior.driven.software.key)
-
 ### [Fastlane Demo](./mobile/fastlane/README.md)
 Show the power of fastlane to super charge your ability to interact with iOS build configuration.
 - **Slides**: [Keynote](./mobile/fastlane/slides/fastlane.key)
+
+## SDLC
+
+### [Behavior Driven Practices](./sdlc/bdd/README.MD)
+How Behavior Driven Design and Development can address concerns and reduce friction. Evolving designs, ensuring objects answer questions, and encapsulating concerns to make boundaries more explicit.
+- **Slides**: [Keynote](./sdlc/bdd/slides/behavior.driven.software.key)
+
+### [Specification Driven Development](./sdlc/sdd/README.md)
+Old and busted: the 1998 requirements spec. New hotness: vibe coding. Newer hotness: the 1998 requirements spec. What goes in a spec an agent can build from, and the loop of tests, lessons, and skills that keeps it honest.
 
 ## Samples & Demos
 
