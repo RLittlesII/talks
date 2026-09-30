@@ -1,11 +1,12 @@
 ---
 title: Specification Driven Development
 description: From old and busted to new hotness, we'll rediscover SDD in an AI powered world
-Difficulty: Beginner
-Prerequisites:
+difficulty: Beginner
+prerequisites:
     - Artificial Intelligence
     - Software Engineering
-    - 
+    - TDD
+    - BDD
 ---
 
 ## Abstract
