@@ -1,5 +1,5 @@
 ---
-theme: nord
+theme: dracula
 title: Bridging IEnumerable and IObservable with Dynamic Data
 description: How Dynamic Data brings reactive operators to collections
 class: text-center
@@ -660,11 +660,11 @@ _heroCache.Connect()
 Join heroes and villains by group, while keeping **multiple characters per group**.
 
 <div class="flex items-center gap-3 text-sm font-semibold tracking-wide mt-3 mb-1">
-  <span class="text-sky-600">HEROES</span>
+  <span class="text-[var(--cyan)]">HEROES</span>
   <span class="opacity-50">→</span>
-  <span class="text-violet-600">GROUP AFFILIATION</span>
+  <span class="text-[var(--purple)]">GROUP AFFILIATION</span>
   <span class="opacity-50">←</span>
-  <span class="text-rose-500">VILLAINS</span>
+  <span class="text-[var(--pink)]">VILLAINS</span>
 </div>
 
 ```csharp {all|1|3-4|5-6|8-9|10-13|14-16|all}
