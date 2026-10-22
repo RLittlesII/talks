@@ -82,7 +82,7 @@ class: text-center
 
 # The Problem
 
-You bound a list. An item's property changed. The UI didn't update.
+You bound a list. An item's property changed. Your collection-level sort or filter didn't update.
 
 ```csharp
 public ObservableCollection<Hero> Heroes { get; } = new();
@@ -90,7 +90,7 @@ public ObservableCollection<Hero> Heroes { get; } = new();
 // Adding works fine...
 Heroes.Add(new Hero { Name = "Batman", Alignment = "Good" });
 
-// But this? The UI has no idea.
+// This does not raise CollectionChanged.
 Heroes[0].Alignment = "Bad";
 ```
 
@@ -104,6 +104,7 @@ Heroes[0].Alignment = "Bad";
 - This is the moment every developer hits.
 - They assign a new value on an item and wonder why the UI is stale.
 - The confusion comes from conflating two different notification contracts.
+- An item's INPC can update a bound cell. It does not make ObservableCollection re-run collection-level filtering or sorting.
 -->
 
 ---
@@ -263,7 +264,7 @@ The key in `SourceCache` can be any type: a property, a `ValueTuple`, or a struc
 
 # Declaring a SourceCache
 
-```csharp {all|1|2-3|all}
+```csharp {2|all}
 private readonly SourceCache<Hero, int> _heroCache
     = new SourceCache<Hero, int>(hero => hero.Id);
 ```
@@ -288,6 +289,7 @@ The cache is private. The outside world only sees what you project from it.
 <!--
 - The key selector lambda runs once per item when it enters the cache.
 - Composite keys work because ValueTuple implements structural equality.
+- I have not tested it with C#15 Discriminated Unions
 -->
 
 ---
@@ -328,7 +330,7 @@ public HeroesViewModel(IEnumerable<Hero> initialHeroes)
 
 <div>
 
-### `AddOrUpdate` — appends
+### `AddOrUpdate` — upserts
 
 ```csharp
 // Adds or upserts items.
@@ -361,6 +363,7 @@ Good for search results where the entire result set replaces the previous one.
 <!--
 - AddOrUpdate is cumulative. EditDiff is a replace-with-diff operation.
 - The equality function on EditDiff lets you define what "same item" means — useful when your DTO doesn't implement IEquatable.
+- Keys determine identity; the equality function decides whether a matching item needs an update. This Id-only example assumes same-ID items are equivalent. Compare their content when same-ID values can change.
 -->
 
 ---
@@ -463,7 +466,7 @@ _heroCache.Connect()
 
 <v-click>
 
-Works exactly like LINQ `.Where()` — but it re-evaluates as items enter or leave the cache.
+Same filtering intent as LINQ `.Where()`, while maintaining a live result as items are added, updated, or removed.
 
 </v-click>
 
@@ -739,7 +742,7 @@ The <code>*JoinMany</code> variants handle multiple right-side items per left ke
 
 Everything together in a view model constructor:
 
-```csharp {all|2|3|4|5|6|7|8|all}
+```csharp {all|1|2|3|4|5|6|7|8|9-10|all}
 _heroCache.Connect()
     .AutoRefresh(h => h.RealName)
     .Filter(alignmentFilter)
@@ -817,7 +820,7 @@ The search + filter + sort + auto-refresh view model from the demo: **~60 lines*
 
 **Dynamic Data**
 
-- GitHub: `reactive-ui/DynamicData`
+- GitHub: [reactiveMarbles/DynamicData](https://github.com/reactiveMarbles/DynamicData)
 - Created by **Roland Pheasant**
 - NuGet: `DynamicData`
 - Snippets: `RolandPheasant/DynamicData.Snippets`
@@ -873,6 +876,8 @@ class: text-center
 # Questions?
 
 [@rlittlesii](https://twitter.com/rlittlesii) · [github.com/rlittlesii](https://github.com/rlittlesii) · [twitch.tv/rlittlesii](https://twitch.tv/rlittlesii)
+
+[https://github.com/RLittlesII/Transporter](https://github.com/RLittlesII/Transporter)
 
 <!--
 - Open the floor.
