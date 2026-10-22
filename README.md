@@ -13,6 +13,13 @@ Most of us build abstractions like we're hoarding for winter, then act surprised
   pnpm --filter composition run dev
   ```
 
+### [Bridging IEnumerable and IObservable with Dynamic Data](./%20csharp/libraries/dynamic.data/README.md)
+Learn how Dynamic Data turns collection changes into observable change sets, so view models can filter, transform, sort, and refresh lists as their data changes.
+- **Slides**: [Dynamic Data](./%20csharp/libraries/dynamic.data/slides.md)
+  ```bash
+  pnpm --filter dynamic.data run dev
+  ```
+
 ### [Null, The absence of a C# reference](./%20csharp/language/nullability/README.md)
 Have you ever encountered a "possible deference of null reference" in your code and ignored it? During this talk we will explore what null is, how C# handles it, and some tools and practices to keep you from having failing code in production.
 - **Slides**: [Keynote](./%20csharp/language/nullability/csharp.nullability.key)
