@@ -1,0 +1,23 @@
+version: 2
+
+updates:
+  # One workspace, one lockfile, one catalog — so one grouped PR per interval
+  # instead of a PR per talk per package.
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      slidev:
+        patterns:
+          - "*"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns:
+          - "*"

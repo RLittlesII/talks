@@ -1,0 +1,17 @@
+{
+  "name": "dynamic.data",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "catalog:",
+    "@slidev/theme-default": "catalog:",
+    "@slidev/theme-seriph": "catalog:",
+    "slidev-theme-dracula": "catalog:",
+    "vue": "catalog:"
+  }
+}

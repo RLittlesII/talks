@@ -1,0 +1,23 @@
+/* Muted Darcula-inspired palette. Text pairs meet WCAG AA on #2b2b2b. */
+html:root {
+  --background: #2b2b2b;
+  --current-line: #363636;
+  --foreground: #b0b0b0;
+  --comment: #969696;
+  --cyan: #91b4d5;
+  --green: #8aaa79;
+  --orange: #cc9a71;
+  --pink: #c79b91;
+  --purple: #b2a0c7;
+  --red: #c79b91;
+  --yellow: #b6ad86;
+}
+
+#app :is(.slidev-slide-content, .print-slide-container) pre.slidev-code.shiki {
+  background: #2b2b2b !important;
+  border: 1px solid #454545;
+}
+
+#app .slidev-layout.cover h1 {
+  color: #91a9bf;
+}

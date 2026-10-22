@@ -10,7 +10,14 @@ This repository contains a collection of talks, samples, and demos covering vari
 Most of us build abstractions like we're hoarding for winter, then act surprised when the codebase turns into a dependency escape room. In this session, we'll cut through the noise on abstraction's two major techniques — inheritance and composition — and why most of us reach for the wrong one out of habit.
 - **Slides**: [composition](npm%20run%20dev)
   ```bash
-  npm --prefix "./ csharp/language/abstractions/composition" run dev
+  pnpm --filter composition run dev
+  ```
+
+### [Bridging IEnumerable and IObservable with Dynamic Data](./%20csharp/libraries/dynamic.data/README.md)
+Learn how Dynamic Data turns collection changes into observable change sets, so view models can filter, transform, sort, and refresh lists as their data changes.
+- **Slides**: [Dynamic Data](./%20csharp/libraries/dynamic.data/slides.md)
+  ```bash
+  pnpm --filter dynamic.data run dev
   ```
 
 ### [Null, The absence of a C# reference](./%20csharp/language/nullability/README.md)
