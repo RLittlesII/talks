@@ -309,6 +309,36 @@ The cache is private. The outside world only sees what you project from it.
 
 ---
 
+# The Hard Part
+
+> “For the longest time I didn't understand how to use Dynamic Data. I understood observables and how to get data **out**. I just couldn't find the door marked **IN**.”
+
+```csharp
+public HeroesViewModel(IEnumerable<Hero> initialHeroes)
+{
+    // TOP: define the pipeline that gets data out
+    _heroCache.Connect()
+        .ObserveOn(RxApp.MainThreadScheduler)
+        .Bind(out _heroes)
+        .Subscribe()
+        .DisposeWith(Disposables);
+
+    // BOTTOM: load data into the source cache
+    _heroCache.AddOrUpdate(initialHeroes);
+}
+```
+
+**Build the pipeline first. Then load the cache.** The subscription sees the initial data and every later change.
+
+<!--
+- I understood observables and the output pipeline, but the missing piece was how data enters the object.
+- Connect defines the stream of changes coming out of the source cache. Subscribe activates it.
+- AddOrUpdate puts the initial items into the cache. Later calls to AddOrUpdate, Remove, or EditDiff flow through the same pipeline.
+- In a view model constructor, set up the pipeline at the top and load the data at the bottom so the subscription is ready for the initial load.
+-->
+
+---
+
 # Loading Data: AddOrUpdate vs EditDiff
 
 <div class="grid grid-cols-2 gap-8 mt-4">
@@ -425,8 +455,15 @@ Works exactly like LINQ `.Where()` — but it re-evaluates as items enter or lea
 
 </v-click>
 
+<v-click>
+
+`Connect(hero => hero.Alignment == "Good")` also accepts a predicate. In my testing, changing a value captured by that predicate does **not** re-filter existing items; use the observable `Filter` overload for that.
+
+</v-click>
+
 <!--
 - Fine for filters that don't change at runtime.
+- Connect(predicate) is another fixed-predicate option. Changing captured state alone does not emit a change set or re-evaluate existing items in my testing.
 - For user-controlled filters, you need the dynamic overload on the next slide.
 -->
 
@@ -618,6 +655,43 @@ _heroCache.Connect()
 
 ---
 
+# Join — Group Affiliation
+
+Join heroes and villains by group, while keeping **multiple characters per group**.
+
+```csharp
+record GroupMatchup(string Group, Hero[] Heroes, Villain[] Villains);
+
+var heroGroups = _heroCache.Connect()
+    .GroupWithImmutableState(h => h.GroupAffiliation);
+var villainGroups = _villainCache.Connect()
+    .GroupWithImmutableState(v => v.GroupAffiliation);
+
+heroGroups
+    .InnerJoin(villainGroups, group => group.Key,
+        (heroes, villains) => new GroupMatchup(
+            heroes.Key,
+            heroes.Items.ToArray(),
+            villains.Items.ToArray()))
+    .ObserveOn(RxApp.MainThreadScheduler)
+    .Bind(out _matchups)
+    .Subscribe();
+```
+
+<v-click>
+
+Katana + Rick Flag and Harley Quinn + Deadshot in **Task Force X** → one matchup containing both sides. Adding or removing a character updates that group.
+
+</v-click>
+
+<!--
+- Both source caches stay keyed by each character's unique Id; GroupWithImmutableState produces one snapshot per affiliation.
+- InnerJoin matches those group keys and emits only affiliations represented on both sides.
+- Replacing a character in its cache re-groups it if its affiliation changes. For in-place property changes, use AutoRefresh or GroupOnPropertyWithImmutableState.
+-->
+
+---
+
 # Composing the Full Pipeline
 
 Everything together in a view model constructor:
@@ -627,8 +701,8 @@ _heroCache.Connect()
     .AutoRefresh(h => h.RealName)
     .Filter(alignmentFilter)
     .Transform(h => new HeroViewModel(h))
-    .Sort(SortExpressionComparer<HeroViewModel>.Ascending(h => h.RealName))
     .Batch(TimeSpan.FromSeconds(1))
+    .Sort(SortExpressionComparer<HeroViewModel>.Ascending(h => h.RealName))
     .ObserveOn(RxApp.MainThreadScheduler)
     .Bind(out _heroes)
     .Subscribe()
@@ -637,12 +711,13 @@ _heroCache.Connect()
 
 <v-click>
 
-Read it left to right: *watch for property changes → filter by alignment → project to view models → sort → batch → deliver to the UI thread → bind → subscribe → clean up on disposal.*
+Read it left to right: *watch for property changes → filter by alignment → project to view models → batch → sort → deliver to the UI thread → bind → subscribe → clean up on disposal.*
 
 </v-click>
 
 <!--
 - This is the complete pipeline. ~10 lines to get property-level reactive updates, dynamic filtering, type projection, dynamic sorting, and batching.
+- Keep Sort last among change-set operators, immediately before ObserveOn and Bind, so nothing downstream disturbs the final order.
 - You'd need 3x this in imperative code and you'd have to debug event handler lifecycle issues.
 -->
 
