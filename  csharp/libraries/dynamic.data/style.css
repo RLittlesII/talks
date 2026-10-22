@@ -18,6 +18,6 @@ html:root {
   border: 1px solid #454545;
 }
 
-#app :is(.slidev-slide-content, .print-slide-container) .slidev-layout.cover h1 {
+#app .slidev-layout.cover h1 {
   color: #91a9bf;
 }

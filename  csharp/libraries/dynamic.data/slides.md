@@ -162,70 +162,53 @@ Scope: **the collection itself**
 -->
 
 ---
-layout: center
----
 
 # What is Dynamic Data?
 
 > A library that bridges `IEnumerable` and `IObservable` by projecting **change sets** out of collections.
 
+<div class="grid grid-cols-2 gap-8 mt-4">
+
+<div>
+
+### Reactive collections
+
+- Observe adds, updates, removals, moves, and refreshes
+- Compose Filter, Transform, Sort, AutoRefresh, Batch, Join…
+- Works across .NET
+
+</div>
+
+<div>
+
 <v-click>
 
-- Created by **Roland Pheasant** for high-frequency day-trading applications
-- Every mutation (add, update, delete, move, refresh) becomes an observable event
-- Full operator surface: Filter, Transform, Sort, AutoRefresh, Batch, Join, Page…
-- Works everywhere .NET works
+### Find it
+
+**NuGet:** `DynamicData`
+
+**GitHub:** [reactiveMarbles/DynamicData](https://github.com/reactiveMarbles/DynamicData)
+
+Use with **ReactiveUI** or on its own.
+
+</v-click>
+
+</div>
+
+</div>
+
+<v-click>
+
+Created by **Roland Pheasant** for high-frequency day-trading applications.
 
 </v-click>
 
 <!--
-- Roland needed to handle thousands of price updates per second, update sorted lists, filter by multiple criteria, all without thrashing the UI.
+- Roland needed to handle thousands of price updates per second, update sorted lists, and filter by multiple criteria without thrashing the UI.
 - The answer was to make collection mutations a first-class observable concern.
--->
-
----
-
-# Where Does It Live?
-
-<div class="grid grid-cols-2 gap-8 mt-6">
-
-<div>
-
-**NuGet**
-
-```
-DynamicData
-```
-
-</div>
-
-<div>
-
-**GitHub**
-
-`reactiveMarbles/DynamicData`
-
-(formerly `reactive-ui/DynamicData`)
-
-</div>
-
-</div>
-
-<v-click>
-
-**Batteries included with ReactiveUI** — if you already use ReactiveUI, Dynamic Data is already in your project.
-
-</v-click>
-
-<v-click>
-
-**JavaScript port** — David Driscoll loved it enough to port it. Dynamic Data concepts work in the JS ecosystem too.
-
-</v-click>
-
-<!--
-- If you use ReactiveUI you get DynamicData for free as a transitive dependency.
-- It's also a standalone library — you don't need ReactiveUI to use it.
+- DynamicData is a standalone library; ReactiveUI is not required.
+- The repository was formerly reactive-ui/DynamicData.
+- David Driscoll also created a JavaScript port; the collection change-set concepts carry across ecosystems.
 -->
 
 ---
@@ -863,6 +846,23 @@ The maintainers are extremely approachable. Put an issue on the repo. Join the S
 - Roland is active on GitHub and Slack.
 - The Slack channel is the fastest way to get answers.
 - David Driscoll's talk is a great next step — he shows Dynamic Data + SignalR streaming data from a server in real time.
+-->
+
+---
+
+# OpenSky Credit
+
+Matthias Schäfer, Martin Strohmeier, Vincent Lenders, Ivan Martinovic, and Matthias Wilhelm.
+
+**[Bringing Up OpenSky: A Large-scale ADS-B Sensor Network for Research](https://s3.opensky-network.org/website-public-files/publications/ipsn2014.pdf)**
+
+In *Proceedings of the 13th IEEE/ACM International Symposium on Information Processing in Sensor Networks (IPSN)*, pages 83–94, April 2014.
+
+[The OpenSky Network](https://opensky-network.org)
+
+<!--
+- OpenSky's requested citation for publicly available presentations using its data.
+- Citation guidance: https://opensky-network.org/about/publications
 -->
 
 ---
