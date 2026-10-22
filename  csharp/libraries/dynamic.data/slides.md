@@ -203,9 +203,9 @@ DynamicData
 
 **GitHub**
 
-`reactive-ui/DynamicData`
+`reactiveMarbles/DynamicData`
 
-(formerly `reactiveMarbles/DynamicData`)
+(formerly `reactive-ui/DynamicData`)
 
 </div>
 
@@ -659,7 +659,15 @@ _heroCache.Connect()
 
 Join heroes and villains by group, while keeping **multiple characters per group**.
 
-```csharp
+<div class="flex items-center gap-3 text-sm font-semibold tracking-wide mt-3 mb-1">
+  <span class="text-sky-600">HEROES</span>
+  <span class="opacity-50">→</span>
+  <span class="text-violet-600">GROUP AFFILIATION</span>
+  <span class="opacity-50">←</span>
+  <span class="text-rose-500">VILLAINS</span>
+</div>
+
+```csharp {all|1|3-4|5-6|8-9|10-13|14-16|all}
 record GroupMatchup(string Group, Hero[] Heroes, Villain[] Villains);
 
 var heroGroups = _heroCache.Connect()
@@ -688,6 +696,29 @@ Katana + Rick Flag and Harley Quinn + Deadshot in **Task Force X** → one match
 - Both source caches stay keyed by each character's unique Id; GroupWithImmutableState produces one snapshot per affiliation.
 - InnerJoin matches those group keys and emits only affiliations represented on both sides.
 - Replacing a character in its cache re-groups it if its affiliation changes. For in-place property changes, use AutoRefresh or GroupOnPropertyWithImmutableState.
+-->
+
+---
+
+# Available Joins
+
+| Operator | Groups in the result | Many variant |
+| --- | --- | --- |
+| `InnerJoin` | Heroes **and** villains | `InnerJoinMany` |
+| `LeftJoin` | All hero affiliations | `LeftJoinMany` |
+| `RightJoin` | All villain affiliations | `RightJoinMany` |
+| `FullJoin` | All affiliations from either side | `FullJoinMany` |
+
+<div class="mt-6 text-sm opacity-80">
+
+The <code>*JoinMany</code> variants handle multiple right-side items per left key. This example groups both sides first, then uses <code>InnerJoin</code>.
+
+</div>
+
+<!--
+- Inner retains only matching group keys; left and right retain every key from the named side; full retains the union.
+- Outer joins supply Optional values for a missing side, so the result selector must handle that case.
+- DynamicData also offers InnerJoinMany, LeftJoinMany, RightJoinMany, and FullJoinMany when several right-side items map to one left key.
 -->
 
 ---
