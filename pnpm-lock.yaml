@@ -15,6 +15,9 @@ catalogs:
     '@slidev/theme-seriph':
       specifier: ^0.25.0
       version: 0.25.0
+    slidev-theme-dracula:
+      specifier: ^0.2.5
+      version: 0.2.5
     slidev-theme-nord:
       specifier: ^0.0.6
       version: 0.0.6
@@ -53,6 +56,9 @@ importers:
       '@slidev/theme-seriph':
         specifier: 'catalog:'
         version: 0.25.0
+      slidev-theme-dracula:
+        specifier: 'catalog:'
+        version: 0.2.5(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
       vue:
         specifier: 'catalog:'
         version: 3.5.43(typescript@6.0.3)
@@ -2507,6 +2513,10 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
+  slidev-theme-dracula@0.2.5:
+    resolution: {integrity: sha512-MLRjGzO1gUEAk0uRY3H4WzlUs564RMgC14yS2YGcDZn3YH5ZPGun7bh3PbezXmWX9LYR6kQZieB9prT8QPcs9A==}
+    engines: {node: '>=20.0.0', slidev: '>=52.0.0'}
+
   slidev-theme-nord@0.0.6:
     resolution: {integrity: sha512-RDNYP6LEKVRI2vaq9YnFknC/3wq/fT7385MWpf7wvV6jfusVfhNiroFwt5ZyQ1+Sr2yLCaArMhkC4Jq/NdBpnQ==}
     engines: {node: '>=18.0.0'}
@@ -2572,6 +2582,10 @@ packages:
   super-regex@0.2.0:
     resolution: {integrity: sha512-WZzIx3rC1CvbMDloLsVw0lkZVKJWbrkJ0k1ghKFmcnPrW1+jWbgTkTEWVtD9lMdmI4jZEz40+naBxl1dCUhXXw==}
     engines: {node: '>=14.16'}
+
+  theme-vitesse@1.0.0:
+    resolution: {integrity: sha512-y2aMepBGqt9NLCulpAZic5cleF/wc33tstLa2v7uyi6hVvMSO8RMi+xBj0QlgfoI9R2SL15ke3GBBBfl3njfbg==}
+    engines: {vscode: ^1.43.0}
 
   time-span@5.1.0:
     resolution: {integrity: sha512-75voc/9G4rDIJleOo4jPvN4/YC4GRZrY8yy1uU4lwrB3XEQbWve8zXoO5No4eFrGcTAMYyoY67p8jRQdtA1HbA==}
@@ -3506,7 +3520,7 @@ snapshots:
       '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.5
 
-  '@shikijs/vitepress-twoslash@4.4.3(@nuxt/kit@3.21.11)(typescript@6.0.3)':
+  '@shikijs/vitepress-twoslash@4.4.3(typescript@6.0.3)':
     dependencies:
       '@shikijs/twoslash': 4.4.3(typescript@6.0.3)
       floating-vue: 5.4.0(@nuxt/kit@3.21.11)(vue@3.5.43(typescript@6.0.3))
@@ -3542,9 +3556,9 @@ snapshots:
       '@shikijs/magic-move': 4.4.3(shiki@4.4.3)(vue@3.5.43(typescript@6.0.3))
       '@shikijs/markdown-it': 4.4.3
       '@shikijs/twoslash': 4.4.3(typescript@6.0.3)
-      '@shikijs/vitepress-twoslash': 4.4.3(@nuxt/kit@3.21.11)(typescript@6.0.3)
+      '@shikijs/vitepress-twoslash': 4.4.3(typescript@6.0.3)
       '@slidev/client': 52.20.1(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@oxc-project/types@0.150.0)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.0.0)(cac@7.0.0)(srvx@1.0.5)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(lightningcss@1.33.0)(markdown-it@14.3.2)(oxc-parser@0.150.0)(rolldown@1.2.9)(srvx@1.0.5)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
-      '@slidev/parser': 52.20.1(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
+      '@slidev/parser': 52.20.1(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
       '@slidev/types': 52.20.1(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
       '@unocss/extractor-mdc': 66.10.5
       '@unocss/reset': 66.10.5
@@ -3665,8 +3679,8 @@ snapshots:
       '@shikijs/engine-javascript': 4.4.3
       '@shikijs/magic-move': 4.4.3(shiki@4.4.3)(vue@3.5.43(typescript@6.0.3))
       '@shikijs/monaco': 4.4.3
-      '@shikijs/vitepress-twoslash': 4.4.3(@nuxt/kit@3.21.11)(typescript@6.0.3)
-      '@slidev/parser': 52.20.1(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
+      '@shikijs/vitepress-twoslash': 4.4.3(typescript@6.0.3)
+      '@slidev/parser': 52.20.1(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
       '@slidev/rough-notation': 0.1.0
       '@slidev/types': 52.20.1(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
       '@typescript/ata': 0.9.8(typescript@6.0.3)
@@ -3737,7 +3751,7 @@ snapshots:
       - vite
       - webpack
 
-  '@slidev/parser@52.20.1(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))':
+  '@slidev/parser@52.20.1(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))':
     dependencies:
       '@antfu/utils': 9.3.0
       '@slidev/types': 52.20.1(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
@@ -5950,6 +5964,44 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
+  slidev-theme-dracula@0.2.5(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1)):
+    dependencies:
+      '@slidev/types': 52.20.1(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
+      codemirror-theme-vars: 0.1.2
+      prism-theme-vars: 0.2.5
+      theme-vitesse: 1.0.0
+    transitivePeerDependencies:
+      - '@devframes/agentic'
+      - '@farmfe/core'
+      - '@modelcontextprotocol/client'
+      - '@modelcontextprotocol/server'
+      - '@nuxt/kit'
+      - '@pinia/colada'
+      - '@rsbuild/core'
+      - '@rspack/core'
+      - '@svgr/core'
+      - '@svgx/core'
+      - '@unocss/astro'
+      - '@unocss/postcss'
+      - '@unocss/webpack'
+      - '@vue/compiler-sfc'
+      - '@vue/compiler-vapor'
+      - bun-types-no-globals
+      - cac
+      - esbuild
+      - markdown-it-async
+      - ocache
+      - pinia
+      - rolldown
+      - rollup
+      - srvx
+      - supports-color
+      - svelte
+      - typescript
+      - unloader
+      - vite
+      - webpack
+
   slidev-theme-nord@0.0.6(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1)):
     dependencies:
       '@slidev/types': 52.20.1(@modelcontextprotocol/server@2.0.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.9)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.0(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
@@ -6045,6 +6097,8 @@ snapshots:
       clone-regexp: 3.0.0
       function-timeout: 0.1.1
       time-span: 5.1.0
+
+  theme-vitesse@1.0.0: {}
 
   time-span@5.1.0:
     dependencies:

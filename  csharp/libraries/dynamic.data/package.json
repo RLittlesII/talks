@@ -11,6 +11,7 @@
     "@slidev/cli": "catalog:",
     "@slidev/theme-default": "catalog:",
     "@slidev/theme-seriph": "catalog:",
+    "slidev-theme-dracula": "catalog:",
     "vue": "catalog:"
   }
 }
