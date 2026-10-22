@@ -438,6 +438,35 @@ _heroCache.Connect()
 
 ---
 
+# DynamicData's Operator API
+
+DynamicData adds its own operators to the **change-set stream**.
+
+| Familiar job | LINQ / Rx | DynamicData |
+| --- | --- | --- |
+| Filter items | `Where(...)` | `Filter(...)` |
+| Project items | `Select(...)` | `Transform(...)` |
+| Order items | LINQ `OrderBy(...)` | `Sort(...)` |
+
+Rx operators see each emitted **change set**. DynamicData's collection operators track the **item changes inside it**.
+
+<v-click>
+
+**Easy to mix up when you're new:** similar purpose, different names and overloads. Check the receiver type and which API IntelliSense is showing you.
+
+</v-click>
+
+<!--
+- This is a vocabulary bridge before we walk through the operators.
+- After Connect(), Rx Where receives an IChangeSet, not a Hero. Rejecting that emission drops the entire batch of changes.
+- DynamicData Filter evaluates heroes and maintains the filtered collection as items are added, updated, or removed. Transform projects the items while preserving change-set semantics.
+- The table compares familiar jobs, not interchangeable calls. LINQ OrderBy orders an enumerable; DynamicData Sort maintains collection order over time.
+- Names can also overlap: DynamicData has a cache-aware RefCount, unlike Rx RefCount on a connectable observable. Inspect the receiver and overload.
+- API reference: https://www.reactiveui.net/api/DynamicData/DynamicData/ObservableCacheEx/
+-->
+
+---
+
 # Filter — Static
 
 Simple predicate. Fixed at pipeline construction time.
