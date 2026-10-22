@@ -5,12 +5,12 @@ packages:
 # Decks reference these with `"catalog:"` instead of a literal range, so a
 # version bump happens here once rather than once per talk.
 catalog:
-  "@slidev/cli": ^52.17.0
+  "@slidev/cli": ^53.0.0
   "@slidev/theme-default": ^0.25.0
   "@slidev/theme-seriph": ^0.25.0
   "slidev-theme-dracula": ^0.2.5
   "slidev-theme-nord": ^0.0.6
-  "vue": ^3.5.33
+  "vue": ^3.5.44
 
 shamefullyHoist: true
 
