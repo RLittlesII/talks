@@ -169,6 +169,58 @@ The new constraint: the agent won't Slack you "wait, what does this mean?" It wi
 transition: fade-out
 ---
 
+# The Spec Is Back
+
+<div style="margin: 0.75rem 0 0.5rem;">
+  <img
+    src="/images/specification-old-busted-hotness.png"
+    alt="Three scenes with fictional agents in black suits and sunglasses: a dusty specification binder, dazzling but tangled AI chat prompts, then the specification returning as a digital document that guides an AI assistant through tests and code."
+    style="display: block; width: 100%; height: auto;"
+  />
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; text-align: center;">
+  <div>
+    <div style="color: #e2b96f; font-weight: 700;">Old busted</div>
+    <div style="font-size: 0.95rem; font-weight: 600;">The specification</div>
+    <div style="font-size: 0.85rem; opacity: 0.8;">Write it. File it. Forget it.</div>
+  </div>
+  <div>
+    <div style="color: #e2b96f; font-weight: 700;">New hotness</div>
+    <div style="font-size: 0.95rem; font-weight: 600;">AI chat</div>
+    <div style="font-size: 0.85rem; opacity: 0.8;">Prompt it. Patch it. Repeat.</div>
+  </div>
+  <div>
+    <div style="color: #e2b96f; font-weight: 700;">Old busted hotness</div>
+    <div style="font-size: 0.95rem; font-weight: 600;">The spec drives the agent</div>
+    <div style="font-size: 0.85rem; opacity: 0.8;">Specify it. Test it. Regenerate.</div>
+  </div>
+</div>
+
+<div style="margin-top: 1rem; text-align: center; font-style: italic;">
+  Same discipline. New reader.
+</div>
+
+<!--
+
+Visual riff on the Men in Black old-gear/new-gear joke. These are fictional agents, not depictions of the actors. The third label is the talk's punchline: "old busted hotness."
+
+Old busted: the specification we just opened. Useful structure, but maintaining it by hand was expensive. The dusty binder is the failure mode, not the goal.
+
+New hotness: ask AI for code. It feels like a superpower. But when intent lives only in a chat, you keep steering, patching, and repeating yourself. The middle panel satirizes that prompt-first workflow, not every use of AI chat.
+
+Old busted hotness: the spec comes back as a versioned artifact the agent actually consumes. Numbered claims, acceptance criteria, constraints, and out of scope. Scenarios and tests check the implementation against those claims. Update the spec, review the delta, and run the workflow again.
+
+The comeback is not a return to a binder nobody reads. It is the return of explicit intent with an automated downstream workflow. Humans still decide what the system should do and review whether the artifacts agree.
+
+Pause on the third label, then land: same discipline, new reader. Next slide puts TDD, BDD, and SDD on that continuum.
+
+-->
+
+---
+transition: fade-out
+---
+
 # TDD, BDD, SDD
 
 <v-clicks>
