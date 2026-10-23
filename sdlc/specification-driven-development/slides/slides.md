@@ -380,7 +380,7 @@ transition: fade
   “Claude Max ate a week's worth of tokens<br/>trying to review a pull request.”
 </div>
 
-<div style="margin-top: 1.5rem; opacity: 0.75;">The real story: hooked PRs #214 and #215</div>
+<div style="margin-top: 1.5rem; opacity: 0.75;">A real review loop in one of my projects</div>
 
 <!--
 Timing: 1 minute. The token horror story: 10 minutes total, slides 11–14.
@@ -396,7 +396,7 @@ transition: fade-out
 
 # The Spec Started Drifting
 
-**Actual PR evidence: hooked #214 · `0005-F5b`**
+**Actual review evidence: a replay command**
 
 | Same failure: store busy or unreadable | Exit category |
 | --- | --- |
@@ -410,20 +410,17 @@ transition: fade-out
 
 The incorrect claim propagated into the test scaffold.
 
-[Review finding and spec diff](https://github.com/RLittlesII/hooked/pull/214#discussion_r4147821721) · [Stub finding](https://github.com/RLittlesII/hooked/pull/214#discussion_r4147831386)
 
 <!--
 Timing: 3 minutes.
 
-This is actual PR evidence, replacing the checkout reconstruction. hooked was changing its replay write path to an append-only request consumed later by the daemon. The domain detail we need: a busy or unreadable store is an environment failure, which the design maps to exit category 3.
+This is actual PR evidence from a private project. The project was changing its replay write path to an append-only request consumed later by the daemon. The domain detail we need: a busy or unreadable store is an environment failure, which the design maps to exit category 3.
 
 At reviewed commit fdbae932c81169920f2e3d2eba0f8b2f676e838f, feature 0005-F5b's revised B-011 included store/config preconditions and busy-timeout in category 1. The same spec's § 7 R3/R13, domain row, and diagrams mapped StoreBusy/StoreUnreadable to category 3. The staged test copied the category-1 expectation. The line on screen is verbatim from ReplayCommandHandler.Unit.Tests.cs:153 at that commit. This was a scaffold: its body called Assert.Fail("not implemented — scaffold only"). Do not describe it as a passing executable test or a shipped production bug.
 
 The review explicitly identified that the stub inherited the wrong reading. It caught this contradiction; the evidence does not show that every reviewer blindly accepted the spec. My account supplies the broader author/reviewer cycle and token cost. GitHub supplies concrete contradictory artifacts and remediation history.
 
-Sources: https://github.com/RLittlesII/hooked/pull/214#discussion_r4147821721 ; https://github.com/RLittlesII/hooked/pull/214#discussion_r4147831386
-Pinned spec: https://github.com/RLittlesII/hooked/blob/fdbae932c81169920f2e3d2eba0f8b2f676e838f/epics/0005-cli/F5b-event-inspection-recovery/spec.md#L66
-Pinned stub: https://github.com/RLittlesII/hooked/blob/fdbae932c81169920f2e3d2eba0f8b2f676e838f/epics/0005-cli/F5b-event-inspection-recovery/scaffold-stubs/ReplayCommandHandler.Unit.Tests.cs#L153
+Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
 -->
 
 ---
@@ -432,13 +429,13 @@ transition: slide-up
 
 # The References Drifted Too
 
-**Actual PR evidence: hooked #214 → #215**
+**Actual review evidence: the original and follow-up PRs**
 
-- **#214:** five accepted claims, zero traceability rows
-- **#215:** scenario tagged `@B-011`; the spec says `B-003` governs it
-- **#215:** the scenario appeared under neither claim in § 9
+- **Original PR:** five accepted claims, zero traceability rows
+- **Follow-up PR:** scenario tagged `@B-011`; the spec says `B-003` governs it
+- **Follow-up PR:** the scenario appeared under neither claim in § 9
 
-**Verified correction in `90ab1fe`**
+**The verified correction**
 
 ```diff
 -    @B-011
@@ -447,7 +444,6 @@ transition: slide-up
 
 The correction also added the scenario to `B-003`'s traceability row.
 
-[Missing rows: #214](https://github.com/RLittlesII/hooked/pull/214#discussion_r4150139963) · [Broken chain: #215](https://github.com/RLittlesII/hooked/pull/215#discussion_r4212758817) · [Correction](https://github.com/RLittlesII/hooked/commit/90ab1fed669bcae50b5bafad159bc59583a2f1cd)
 
 <!--
 Timing: 3 minutes.
@@ -460,8 +456,7 @@ At reviewed commit 4e95b5b7bdddeab266f8d0f7631b0a13307ca76d, the feature tag was
 
 This shows the distinction needed for Specht: missing required rows can be checked mechanically. Determining which valid claim describes a scenario's meaning still needs review. Do not claim Specht automatically diagnoses the semantic misassignment just because it can validate references.
 
-Sources: https://github.com/RLittlesII/hooked/pull/214#discussion_r4150139963 ; https://github.com/RLittlesII/hooked/pull/215#discussion_r4212758817 ; https://github.com/RLittlesII/hooked/commit/90ab1fed669bcae50b5bafad159bc59583a2f1cd
-Pinned scenario: https://github.com/RLittlesII/hooked/blob/4e95b5b7bdddeab266f8d0f7631b0a13307ca76d/epics/0005-cli/F5b-event-inspection-recovery/event-inspection-recovery.feature#L110
+Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
 -->
 
 ---
@@ -474,29 +469,30 @@ transition: fade
 
 | The visible repair history | What followed |
 | --- | --- |
-| #214: review fixes, traceability repairs, lesson corrections | Closed without merging |
-| #215: further review and corrections | Merged October 7, 2026 |
+| Original PR: repeated spec and traceability repairs | Closed without merging |
+| Follow-up PR: further review and corrections | Eventually merged |
 
 <div style="margin-top: 1rem; font-size: 1.3rem; color: #e2b96f;">My precious tokens were disappearing.</div>
 
 <v-click>
 
-> “#214 will forever be a reminder of what to do when AI goes rogue!”
+> “…a reminder of what to do when AI goes rogue!”
 
-[My closing comment on #214](https://github.com/RLittlesII/hooked/pull/214#issuecomment-5962821855)
+My closing comment on the original PR
+
 
 </v-click>
 
 <!--
 Timing: 3 minutes.
 
-The repair history is visible; the token bill is my reported experience. PR #214 contains repeated review-remediation commits, including d25739a (review feedback), 0aa4962 (traceability rows), and d953cac (lesson-register integrity collapse). It was closed without merging. My closing comment on October 2, 2026 contains the exact sentence shown on screen.
+The repair history is visible; the token bill is my reported experience. PR #214 contains repeated review-remediation commits, including d25739a (review feedback), 0aa4962 (traceability rows), and d953cac (lesson-register integrity collapse). It was closed without merging. The slide quotes an excerpt of my closing comment, omitting the PR identifier. The full comment is preserved in pr-evidence.md.
 
 PR #215 continued with spec, feature-file, and scaffold changes, received further change requests, and ultimately merged on October 7, 2026. This was not an endless unresolved PR: show the eventual outcome as well as the failure. Do not equate the number of GitHub review events, replies, or commit messages with a verified count of internal model-review rounds. The retained history includes rewritten/squashed material.
 
 I had used SDD to build software and encountered a failure in that very process. I then used SDD again to build a tool for SDD. That is the Inception connection coming next. A deterministic checker would take repeated explicit relationship checks out of the model conversation; it would not settle the exit-category semantics or guarantee a smaller token bill.
 
-Sources: https://github.com/RLittlesII/hooked/pull/214#issuecomment-5962821855 ; https://github.com/RLittlesII/hooked/pull/214/commits ; https://github.com/RLittlesII/hooked/pull/215
+Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
 -->
 
 ---
@@ -504,6 +500,10 @@ transition: slide-up
 ---
 
 # Meet Specht
+
+<img src="/images/specht-book-logo-dark.svg" alt="Specht logo: a woodpecker perched on a book above the SPECHT wordmark" style="position: absolute; right: 60px; top: 115px; width: 250px; height: auto;" />
+
+<div style="max-width: 530px;">
 
 A .NET tool for checking a repository's `.spec/` tree.
 
@@ -520,6 +520,8 @@ A .NET tool for checking a repository's `.spec/` tree.
 
 [github.com/RLittlesII/specht](https://github.com/RLittlesII/specht)
 
+</div>
+
 <!--
 Timing: 2 minutes. Building a way out: 12 minutes total, slides 15–20.
 
@@ -530,6 +532,7 @@ Keep the description narrow. It does not understand whether accepting expired co
 The callback: my precious tokens should go toward reasoning that needs a model, while a deterministic checker handles the rules it can enforce. This is a design choice about the workflow, not a measured claim about savings.
 
 Source: https://github.com/RLittlesII/specht (README: checker, pinned schema, supported checks).
+Logo: existing dark-background SVG from Specht's .assets/logos/specht-book-logo-dark.svg, reused unchanged.
 -->
 
 ---
@@ -562,7 +565,6 @@ The need was concrete: preserve the structural contract so agents could proceed 
 
 The checker is software too. Its rules can be wrong or incomplete, so those rules need review and tests. Moving a check out of an LLM gives us a reproducible verdict for that rule; it does not make the rule infallible.
 
-Source for origin: Rodney's account supplied for this talk. Evidence of the motivating failures: https://github.com/RLittlesII/hooked/pull/214 ; https://github.com/RLittlesII/hooked/pull/215 . Tool behavior: https://github.com/RLittlesII/specht
 -->
 
 ---
@@ -834,7 +836,6 @@ level: 2
 - `L-0007`: review found no historical incident matching its example
 - `L-0009`: a lesson about signature consistency misquoted the signatures
 
-[Lesson review: #214](https://github.com/RLittlesII/hooked/pull/214#discussion_r4169482854) · [Signature finding](https://github.com/RLittlesII/hooked/pull/214#discussion_r4169840082)
 
 <v-clicks>
 
@@ -853,8 +854,7 @@ L-0009, a lesson about keeping port signatures consistent, misquoted both signat
 
 A useful lesson preserves its evidence. A skill gives the agent a reusable procedure: retrieve the relevant claims and lessons, verify citations against current artifacts, run applicable checks, and return current results. Merely writing a lesson does not make the next run learn it. Factual and semantic lesson claims still need review; automate specific checks where possible rather than promising a general truth detector.
 
-Sources: https://github.com/RLittlesII/hooked/pull/214#discussion_r4169482854 ; https://github.com/RLittlesII/hooked/pull/214#discussion_r4169839937 ; https://github.com/RLittlesII/hooked/pull/214#discussion_r4169840082
-Recorded incident: https://github.com/RLittlesII/hooked/blob/d953cac46391bdf2fbfdcecd30bb6cc44819fc3a/docs/lessons/L-0012-lesson-register-integrity-collapse-during-pr-214-review.md
+Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
 -->
 
 ---
