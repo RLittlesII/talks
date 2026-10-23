@@ -336,7 +336,7 @@ layoutClass: gap-8
 
 # One Claim Through the Loop
 
-**Claim `B-002`**
+**Claim `AC-002`**
 
 Reject an expired discount code and show an expired-code message.
 
@@ -347,7 +347,7 @@ Reject an expired discount code and show an expired-code message.
 ::right::
 
 ```gherkin
-@B-002
+@AC-002
 Scenario: Reject an expired code
   Given a cart worth $50
   And SAVE10 expired yesterday
@@ -363,7 +363,7 @@ Timing: 3 minutes.
 
 This is the condensed spec anatomy and Gherkin example. The business goal is clear checkout pricing. The user needs feedback when a code cannot be used. The claim is falsifiable, the constraint sets a boundary, and out of scope limits what the agent should add. We are keeping the checkout example from the existing talk.
 
-For the modern examples, B-002 is our short claim identifier for the expired-code requirement previously shown as REQ-3.2.4.2. This is an explicit presentation mapping, not an instruction to renumber real requirements. The tag carries that identity into the scenario. The test needs assertions for both the unchanged total and the message. A descriptive test name alone proves neither.
+For the modern examples, AC-002 is our short claim identifier for the expired-code requirement previously shown as REQ-3.2.4.2. This is an explicit presentation mapping, not an instruction to renumber real requirements. The tag carries that identity into the scenario. The test needs assertions for both the unchanged total and the message. A descriptive test name alone proves neither.
 
 Ask the audience to consider what happens if the tag disappears, then what happens if the author changes 'reject' to 'accept.' Those are different failures. One concerns the relationship; the other concerns the intent. Next comes the story of trusting this loop too far.
 -->
@@ -383,11 +383,84 @@ transition: fade
 <div style="margin-top: 1.5rem; opacity: 0.75;">A real review loop in one of my projects</div>
 
 <!--
-Timing: 1 minute. The token horror story: 10 minutes total, slides 11–14.
+Timing: 1 minute. The token horror story: 10 minutes total, slides 11–16.
 
 This is my account of what happened. The quote describes my experience with the review cycle, not a benchmark of Claude or a measured comparison between tools. Do not add a dollar amount, an iteration count, or a claim about how long the PR ran.
 
 Pause after 'my precious tokens.' I had the spec. I had an author. I had a reviewer. And the thing consuming my tokens was the process that was supposed to keep the work honest. This is the horror story promised in the opening.
+-->
+
+---
+transition: slide-up
+---
+
+# The Files Behind the Workflow
+
+Each feature keeps a **`.spec/` folder beside its code**.
+
+| Artifact | What the agent learns |
+| --- | --- |
+| `README.md` | Claims, constraints, scope, and traceability |
+| `*.feature` | Concrete behavior scenarios linked to claims |
+| `adr/` | Architecture Decision Records: the technical choice and why |
+| `decisions/` | Product and scope choices, including rejected options |
+| `lessons/` | What failed, why, and what changed in the spec or procedure |
+
+**`.specht/` is separate:** checker configuration, schemas, and starter templates.
+
+Agents read the agreements and reasoning. Specht checks explicit rules.
+
+<!--
+Timing: 1.5 minutes.
+
+Before introducing the checker, give the audience a map of the files it works around. These are two different folder names: dot-spec contains the specification and its supporting records; dot-specht contains the tool's configuration, schemas, and templates. Neither is a .NET SDK installation folder. A .NET tool is the packaging mechanism for the checker.
+
+A feature's .spec/README.md is its agreement: numbered claims, constraints, out of scope, design, traceability, and sign-off. Its companion .feature file gives concrete behavior examples linked to those claims. Those scenarios become executable checks when test bindings implement them and the runner executes them.
+
+ADR means Architecture Decision Record. It keeps the context, alternatives, technical decision, and consequences so the next agent does not reopen a settled design as an unexplained gap. A product decision record instead preserves what we chose to build or exclude and why. A lesson records an observed failure, root cause, and follow-through: a product lesson changes the relevant claim/scenario when needed; a process lesson changes the reusable procedure or skill. Agents must retrieve and apply the relevant records; their existence alone does not change model behavior.
+
+These paths are relative to a feature's .spec/ folder. Records that apply across features belong in the repository-root .spec/adr/ or .spec/lessons/ instead. Scope determines where the record lives. This is an orientation, not a tour of every required heading.
+
+.specht/manifest.json configures the checker and its schema selection; .specht/schema/ stores schemas; .specht/templates/ stores starter documents supplied by init --all. Templates are blanks to fill and place with the relevant feature, not finished specifications. Installing Specht does not author the requirements, bind scenarios, run behavioral tests, or configure agent handoffs for us. The base checker validates selected rules on specifications and their relationships; it does not read adr/, decisions/, or lessons/ to establish their truth.
+
+Sources: https://github.com/RLittlesII/specht/blob/main/docs/setup.md ; https://github.com/RLittlesII/specht/blob/main/docs/what-it-checks.md ; https://github.com/RLittlesII/specht/tree/main/.specht/templates
+-->
+
+---
+transition: slide-up
+---
+
+# What Is a Claim?
+
+A **numbered, testable acceptance criterion**: what the system must do.
+
+**Example phrasing — the intended replay behavior**
+
+```text
+AC-011: If the store is busy or unreadable, report an
+       environment failure and exit with category 3.
+```
+
+- **ID:** `AC-011` gives that agreement a stable reference
+- **Scenario:** a concrete example that exercises the claim
+- **Traceability:** the links from the claim to its scenarios and tests
+
+The ID names the agreement. It does not prove the wording is right.
+
+<!--
+Timing: 1.5 minutes.
+
+AC stands for acceptance criterion. For consistent presentation, the audience-facing deck uses AC- identifiers; the source repository uses B-. Thus B-011 is displayed as AC-011, and B-003 as AC-003. This is a presentation mapping, not a recommendation to renumber existing repository IDs. Original identifiers remain in pr-evidence.md and the source-specific notes.
+
+A claim is an individual requirement we can challenge with evidence, not a vague aspiration such as 'replay should work well.' Its identifier lets authors, scenarios, tests, and reviewers refer to the same agreement. IDs are stable within their feature; a full reference includes the feature when we cross its boundary. B-011 in one feature need not mean B-011 in another.
+
+The displayed wording is a simplified explanation of the intended behavior, not a verbatim historical excerpt. The actual replay case distinguishes an environment failure, category 3, from a rejected request, category 1. We need only that distinction to understand the next slide. We are not teaching the entire replay design.
+
+A scenario gives a concrete input and expected result. A traceability row records which scenarios and tests relate to the claim. An existing row is not proof that its test runs, passes, or asserts the right thing. Likewise, a valid ID cannot make incorrect wording true.
+
+Set up the drift: what happens if the claim says category 1 while the design says category 3, and a downstream test author copies the claim? That is the actual incident on the next slide. Keep the reference stable, review changes to meaning, and check the relationships mechanically where possible.
+
+Source provenance for the actual exit-category contradiction: pr-evidence.md, 'A wrong claim propagated into a scaffold.' This slide's short requirement sentence is explanatory phrasing.
 -->
 
 ---
@@ -400,7 +473,7 @@ transition: fade-out
 
 | Same failure: store busy or unreadable | Exit category |
 | --- | --- |
-| Revised claim `B-011` | **1** |
+| Revised claim `AC-011` | **1** |
 | Design § 7, `R3` / `R13` | **3** |
 | Test stub's expected result | **1** |
 
@@ -412,7 +485,7 @@ The incorrect claim propagated into the test scaffold.
 
 
 <!--
-Timing: 3 minutes.
+Timing: 2 minutes.
 
 This is actual PR evidence from a private project. The project was changing its replay write path to an append-only request consumed later by the daemon. The domain detail we need: a busy or unreadable store is an environment failure, which the design maps to exit category 3.
 
@@ -432,27 +505,27 @@ transition: slide-up
 **Actual review evidence: the original and follow-up PRs**
 
 - **Original PR:** five accepted claims, zero traceability rows
-- **Follow-up PR:** scenario tagged `@B-011`; the spec says `B-003` governs it
+- **Follow-up PR:** scenario tagged `@AC-011`; the spec says `AC-003` governs it
 - **Follow-up PR:** the scenario appeared under neither claim in § 9
 
-**The verified correction**
+**The verified correction — IDs shown as `AC-`**
 
 ```diff
--    @B-011
-+    @B-003
+-    @AC-011
++    @AC-003
 ```
 
-The correction also added the scenario to `B-003`'s traceability row.
+The correction also added the scenario to `AC-003`'s traceability row.
 
 
 <!--
-Timing: 3 minutes.
+Timing: 2 minutes.
 
 These are separate findings across the two PRs, not one invented diff. In #214, the review of 0001-F4 found five accepted claims B-001–B-005 with no § 9 rows. The document argued that rows would wait for scenarios, but the contract required one row per claim even when its test was marked Missing. An explicit gap and an absent row are different states.
 
 In #215, the replayed-secret-failure scenario had already been rewritten to describe a later listing of an attempt's failure. Its tag still said B-011. The spec's own B-011 text now assigned that behavior to B-003, yet neither claim's § 9 entry listed the scenario. Both IDs existed. Merely checking whether a tag resolves would not catch assignment to the wrong claim; the human semantic finding determines the intended assignment.
 
-At reviewed commit 4e95b5b7bdddeab266f8d0f7631b0a13307ca76d, the feature tag was @B-011 at line 110, and the two matrix rows omitted the scenario. Correction commit 90ab1fed669bcae50b5bafad159bc59583a2f1cd retagged it @B-003, added the scenario title to B-003's row, and reconciled related citations. The diff on screen is the actual tag hunk, with the unchanged scenario title omitted for readability.
+At reviewed commit 4e95b5b7bdddeab266f8d0f7631b0a13307ca76d, the feature tag was @B-011 at line 110, and the two matrix rows omitted the scenario. Correction commit 90ab1fed669bcae50b5bafad159bc59583a2f1cd retagged it @B-003, added the scenario title to B-003's row, and reconciled related citations. The diff on screen preserves the actual tag correction, with B- prefixes displayed as AC- and the unchanged scenario title omitted for readability.
 
 This shows the distinction needed for Specht: missing required rows can be checked mechanically. Determining which valid claim describes a scenario's meaning still needs review. Do not claim Specht automatically diagnoses the semantic misassignment just because it can validate references.
 
@@ -484,7 +557,7 @@ My closing comment on the original PR
 </v-click>
 
 <!--
-Timing: 3 minutes.
+Timing: 2 minutes.
 
 The repair history is visible; the token bill is my reported experience. PR #214 contains repeated review-remediation commits, including d25739a (review feedback), 0aa4962 (traceability rows), and d953cac (lesson-register integrity collapse). It was closed without merging. The slide quotes an excerpt of my closing comment, omitting the PR identifier. The full comment is preserved in pr-evidence.md.
 
@@ -505,7 +578,7 @@ transition: slide-up
 
 <div style="max-width: 530px;">
 
-A .NET tool for checking a repository's `.spec/` tree.
+A .NET tool that checks your feature specifications and their relationships.
 
 <v-clicks>
 
@@ -523,7 +596,7 @@ A .NET tool for checking a repository's `.spec/` tree.
 </div>
 
 <!--
-Timing: 2 minutes. Building a way out: 12 minutes total, slides 15–20.
+Timing: 2 minutes. Building a way out: 12 minutes total, slides 17–22.
 
 Specht grew from my need to stop this cycle. It checks explicit rules against the spec tree and reports violations. The checker runs offline; pinning the tool and schema versions keeps the rule set reproducible across machines and CI.
 
@@ -577,14 +650,14 @@ transition: fade-out
 
 ```markdown
 ## 3. Behavior
-B-002: Reject expired codes and show an expired-code message.
+AC-002: Reject expired codes and show an expired-code message.
 ```
 
 ```diff
  ## 9. Traceability
  | Claim | Test |
  | --- | --- |
-- | B-002 | RejectExpiredCode |
+- | AC-002 | RejectExpiredCode |
 ```
 
 The claim survives. Its test relationship disappears.
@@ -596,7 +669,7 @@ Use the same expired-code claim. We are showing excerpts, not a complete valid S
 
 Walk through the loss slowly. The requirement still exists in section 3. The row connecting it to its test disappears from section 9. This is different from a test failing. We have lost a declared relationship before we even ask what the test does.
 
-This is the kind of mechanically detectable drift we can stop passing between author and reviewer. The following slide shows the documented diagnostic shape for this class of error. Its example identifier comes from the documentation, not our illustrative checkout file.
+This is the kind of mechanically detectable drift we can stop passing between author and reviewer. The following slide shows the documented diagnostic shape for this class of error. Its example identifier follows the documentation, with its B- prefix displayed as AC- for consistency.
 
 Source: https://github.com/RLittlesII/specht/blob/main/docs/cli.md (SPEC031 example).
 -->
@@ -611,7 +684,7 @@ transition: fade-out
 dotnet specht
 ```
 
-**Documented example — file and line**
+**Documentation example — IDs shown as `AC-`**
 
 ```text
 src/specht/.spec/README.md(214)
@@ -621,7 +694,7 @@ src/specht/.spec/README.md(214)
 
 ```text
 error SPEC031:
-§ 9 has no row for claim B-007 [B-007]
+§ 9 has no row for claim AC-007 [AC-007]
 ```
 
 <v-click>
@@ -635,11 +708,11 @@ Timing: 2 minutes.
 
 The README documents one diagnostic line containing the file, line, severity, rule ID, message, and claim identifier. It is split here to make it readable from the back of the room. It is not captured output from a command run for this talk.
 
-The documented example names B-007; our checkout reconstruction uses B-002. Do not imply these are the same source file or a historical run. They illustrate the same missing-row rule. Point at each part: where to edit, which rule failed, and which claim is affected.
+The documented example names B-007, displayed here as AC-007; our checkout reconstruction uses AC-002. Do not imply these are the same source file or a historical run. They illustrate the same missing-row rule. Point at each part: where to edit, which rule failed, and which claim is affected.
 
 The finding is concrete enough to give the author a bounded task. The orchestrator or CI must honor the failed check; merely printing a diagnostic does not stop another agent from continuing. We will make that handoff explicit in the workflow.
 
-Source: https://github.com/RLittlesII/specht#readme (documented SPEC031 line). Only the diagnostic message is quoted; display wrapping is added.
+Source: https://github.com/RLittlesII/specht#readme (documented SPEC031 line). The diagnostic is adapted with display wrapping and the B- claim prefix shown as AC-.
 -->
 
 ---
@@ -654,7 +727,7 @@ transition: fade-out
  ## 9. Traceability
  | Claim | Test |
  | --- | --- |
-+ | B-002 | RejectExpiredCode |
++ | AC-002 | RejectExpiredCode |
 ```
 
 <v-clicks>
@@ -731,7 +804,7 @@ A well-formed instruction to accept expired codes is still the wrong instruction
 </v-click>
 
 <!--
-Timing: 1.5 minutes. Keeping the workflow focused: 9 minutes total, slides 21–27.
+Timing: 1.5 minutes. Keeping the workflow focused: 9 minutes total, slides 23–29.
 
 Return to B-011 from the actual PR. It remained a valid claim identifier even while its exit-category wording contradicted the design. A structural checker cannot decide which category expresses the intended behavior. Likewise, B-011 and B-003 were both valid IDs in #215; choosing the right one for the scenario required understanding its meaning.
 
@@ -957,7 +1030,7 @@ dotnet specht
 [Current installation and authentication steps](https://github.com/RLittlesII/specht#quick-start)
 
 <!--
-Timing: 1 minute. Closing and questions: 5 minutes total, slides 28–30.
+Timing: 1 minute. Closing and questions: 5 minutes total, slides 30–32.
 
 State this clearly: you can install Specht today and start using it for SDD in your repository. The current README documents publication on GitHub Packages. The older docs/setup.md still contains a 'not published yet' notice, so use the README quick start for installation and authentication.
 
