@@ -4,7 +4,9 @@ Presenter provenance: these source links support the case study. The audience-fa
 
 The story slides use hooked PRs [#214](https://github.com/RLittlesII/hooked/pull/214) and [#215](https://github.com/RLittlesII/hooked/pull/215). The findings below distinguish reviewed artifacts, review observations, and subsequent corrections. The account of a week's worth of Claude Max tokens comes from Rodney; these PRs do not measure token consumption.
 
-## A wrong claim propagated into a scaffold — slide 12
+The slides display claim prefixes as `AC-` (acceptance criterion): source `B-011` becomes `AC-011`, for example. The tag correction and diagnostic are labeled as adapted identifiers. All original identifiers below remain unchanged.
+
+## A wrong claim propagated into a scaffold — slide 14
 
 At reviewed commit [`fdbae93`](https://github.com/RLittlesII/hooked/commit/fdbae932c81169920f2e3d2eba0f8b2f676e838f), `0005-F5b` claim `B-011` included store/config precondition and busy-timeout failures in exit category **1**. The same spec's design mapped `StoreBusy` and `StoreUnreadable` to category **3**.
 
@@ -29,7 +31,7 @@ Assert.Fail("not implemented — scaffold only");
 
 This is a specification-to-scaffold propagation error. It is not evidence of a passing test or a released runtime defect. The review caught the contradiction; it does not establish that every reviewer accepted the incorrect claim.
 
-## Missing rows and a mismatched claim tag — slide 13
+## Missing rows and a mismatched claim tag — slide 15
 
 In #214, the [F4 review finding](https://github.com/RLittlesII/hooked/pull/214#discussion_r4150139963) identified five accepted claims (`B-001`–`B-005`) with no traceability rows. The requirement was one row per claim, permitting an explicit `Missing` value rather than omitting a row. This is distinct from deleting the claims themselves.
 
@@ -48,7 +50,7 @@ The [review finding](https://github.com/RLittlesII/hooked/pull/215#discussion_r4
 
 The [follow-up reply](https://github.com/RLittlesII/hooked/pull/215#discussion_r4212833570) identifies the same correction. Both IDs existed: reference resolution alone would not decide which claim expresses the scenario's meaning.
 
-## The visible review and repair cycle — slide 14
+## The visible review and repair cycle — slide 16
 
 PR #214 was opened September 30, 2026 and closed without merging on October 2. Its retained commit history includes review corrections, traceability repairs, and a lesson-register audit. Selected commits:
 
@@ -66,7 +68,7 @@ PR #215 was opened October 3, received further change requests, and merged Octob
 
 GitHub reply counts and references to review rounds are not a verified count of internal agent iterations. The retained history contains squashed or rewritten material. The PRs show the corrections and eventual outcome; Rodney supplies the internal workflow and token-cost account.
 
-## The lessons drifted too — slide 25
+## The lessons drifted too — slide 27
 
 The [L-0007 review](https://github.com/RLittlesII/hooked/pull/214#discussion_r4169482854) reports that searches for the lesson's claimed `Table C` / `row 2 of` incident found only the commit adding the lesson. It also identifies the lesson's incorrect treatment of stable `C-n` IDs as positional references. Attribute this history audit to the review; the slide revision did not independently repeat a search of every git branch.
 
@@ -78,4 +80,4 @@ A [later reply](https://github.com/RLittlesII/hooked/pull/214#discussion_r416983
 
 The origin is **SDD Inception**: Rodney used SDD to build software, encountered drift in that process, then used SDD to build a tool for SDD. These PRs evidence the motivating failures; they do not document every step of Specht's construction.
 
-Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. The separate checkout walkthrough in slides 17–20 remains an illustrative explanation of the checker, not a replay of either hooked PR.
+Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. The separate checkout walkthrough in slides 19–22 remains an illustrative explanation of the checker, not a replay of either hooked PR.
