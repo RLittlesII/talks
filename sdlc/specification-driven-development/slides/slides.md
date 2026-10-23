@@ -40,6 +40,57 @@ transition: slide-up
 transition: fade-out
 ---
 
+# In the Before Times
+
+<div style="margin: 0.75rem 0 0.5rem;">
+  <img
+    src="/images/development-before-times.png"
+    alt="Four illustrated eras: a developer writes a program on paper, operates a keypunch machine, presents an enormous 1990s specification binder, then watches its pages get shredded beside a board of scattered tickets."
+    style="display: block; width: 100%; height: auto;"
+  />
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; text-align: center;">
+  <div>
+    <div style="color: #e2b96f; font-weight: 700;">Paper</div>
+    <div style="font-size: 0.85rem; opacity: 0.8;">Think it through. Write it down.</div>
+  </div>
+  <div>
+    <div style="color: #e2b96f; font-weight: 700;">Punch cards</div>
+    <div style="font-size: 0.85rem; opacity: 0.8;">Make every card count.</div>
+  </div>
+  <div>
+    <div style="color: #e2b96f; font-weight: 700;">The '90s spec</div>
+    <div style="font-size: 0.85rem; opacity: 0.8;">The whole system. In a binder.</div>
+  </div>
+  <div>
+    <div style="color: #e2b96f; font-weight: 700;">The Agile era</div>
+    <div style="font-size: 0.85rem; opacity: 0.8;">The binder becomes a backlog.</div>
+  </div>
+</div>
+
+<div style="margin-top: 1.25rem; text-align: center; font-style: italic;">
+  Somewhere along the way, we lost the whole picture.
+</div>
+
+<!--
+
+A deliberately compressed, satirical history of the artifacts around development, not four mutually exclusive eras. Paper coding sheets and punched cards were often parts of the same workflow. Formal specifications predate the 1990s; that is the era this talk is recalling.
+
+Start with the developer: when running the program was expensive, you thought it through on paper. Then you encoded it on cards. By the '90s, the specification binder promised a complete account of what the system should do. Requirements, constraints, traceability, sign-off. Behold the binder.
+
+Then comes the shredder. This is the joke about what happened in some shops: the binder disappeared, the tickets survived, and the whole-system intent got scattered. Agile itself did not demand the destruction of specifications. The 2001 manifesto values working software over comprehensive documentation and explicitly retains value in documentation.
+
+Source: https://agilemanifesto.org/
+
+Bridge: before we bring the spec back as an agent's input, let's open that old binder and see what was actually useful. Next slide: A Spec, 1998.
+
+-->
+
+---
+transition: fade-out
+---
+
 # A Spec, 1998
 
 ```text
