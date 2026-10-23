@@ -1,3 +1,5 @@
+Original generation prompt (committed in d40a2e4; wardrobe superseded by edit below)
+
 Use case: infographic-diagram
 Asset type: three-panel editorial infographic illustration strip for a technical conference presentation.
 Primary request: a playful Men in Black-inspired "old busted / new hotness / old busted hotness" visual joke about the specification returning in AI-assisted software development. Use generic fictional suited agents with sunglasses, not actor likenesses. Three stages: dusty paper specification, dazzling but chaotic AI chat prompting, then the specification returning as an actively used input to AI agents and executable checks.
@@ -9,3 +11,13 @@ Right panel: the SAME old binder returns as a sharp, glowing digital specificati
 Style/medium: match the reference's polished hand-drawn editorial comic illustration, expressive faces, strong ink lines, subtle grain and restrained painterly shading, funny and intelligent rather than corporate clip art. Keep clear silhouettes and physical props.
 Color palette: deep charcoal navy #161b26 background, parchment cream paper, warm gold #e2b96f, muted teal, cyan concentrated in the middle scene. Warm golden glow concentrated on the returned specification at right.
 Constraints: three panels only; no words, no letters, no numbers, no captions, no title, no logos, no watermarks. No weapons. Do not reproduce a film still or recognizable actors. This is a new software-development parody of the contrast between old gear and new gear.
+
+Final wardrobe edit prompt (built-in image generator)
+
+Use case: precise-object-edit
+Edit target: the referenced three-panel specification-comeback infographic.
+Primary request: remove the entire Men in Black costume look. Change ONLY clothing and eyewear to ordinary developer attire appropriate to each era and the character's age. Preserve the three-panel joke and all other visual content.
+Left panel, 1990s: the older gray-haired developer wears a muted teal patterned knitted sweater over a pale collared shirt, like a veteran 1990s programmer. Replace opaque sunglasses with ordinary clear-lens reading glasses, eyes visible, same weary amused expression.
+Middle panel, contemporary AI chat: the young brown-haired developer wears an informal muted teal hoodie over a plain unbranded T-shirt. Remove sunglasses entirely, eyes visible and lively. Preserve the excited pose.
+Right panel, contemporary specification-driven AI: the older gray-haired developer wears a casual rust/brown cardigan over a simple pale crew-neck shirt, ordinary clear-lens reading glasses, eyes visible and same approving expression. The robot assistant has NO suit, tie, collar, clothing, or secret-agent styling: simply its clean cream-and-metal robot body with subtle teal accents.
+Invariants: preserve the exact wide 3:1 canvas and equal three panels, dividing rules, faces and ages apart from removal of sunglasses, character positions and gestures, dusty binder and CRT at left, cyan AI chat bubbles and laptop at center, glowing specification and test/code pictograms and robot at right, all desks and props, warm-gold/navy/cyan palette, detailed hand-drawn comic illustration style. No added text or labels, no logos, no watermarks. No black business suits, ties, dark sunglasses, movie-agent costumes, or actor likenesses anywhere. The only changes should be wardrobe and eyewear.

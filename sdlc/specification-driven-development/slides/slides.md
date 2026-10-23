@@ -174,7 +174,7 @@ transition: fade-out
 <div style="margin: 0.75rem 0 0.5rem;">
   <img
     src="/images/specification-old-busted-hotness.png"
-    alt="Three scenes with fictional agents in black suits and sunglasses: a dusty specification binder, dazzling but tangled AI chat prompts, then the specification returning as a digital document that guides an AI assistant through tests and code."
+    alt="Three scenes with developers in era-appropriate casual clothes: an older programmer in a patterned sweater beside a dusty specification binder, a young programmer in a hoodie surrounded by AI chat prompts, then an older developer in a cardigan using the specification to guide an AI assistant through tests and code."
     style="display: block; width: 100%; height: auto;"
   />
 </div>
@@ -203,7 +203,7 @@ transition: fade-out
 
 <!--
 
-Visual riff on the Men in Black old-gear/new-gear joke. These are fictional agents, not depictions of the actors. The third label is the talk's punchline: "old busted hotness."
+Verbal riff on the Men in Black old-gear/new-gear joke, illustrated with ordinary developers in clothes appropriate to their era and age. The third label is the talk's punchline: "old busted hotness."
 
 Old busted: the specification we just opened. Useful structure, but maintaining it by hand was expensive. The dusty binder is the failure mode, not the goal.
 
