@@ -596,7 +596,7 @@ A .NET tool that checks your feature specifications and their relationships.
 </div>
 
 <!--
-Timing: 2 minutes. Building a way out: 12 minutes total, slides 17–22.
+Timing: 1.5 minutes. Building a way out: 11 minutes total, slides 17–22.
 
 Specht grew from my need to stop this cycle. It checks explicit rules against the spec tree and reports violations. The checker runs offline; pinning the tool and schema versions keeps the rule set reproducible across machines and CI.
 
@@ -630,7 +630,7 @@ C --> D["Use Specht<br/>to check SDD artifacts"]
 </v-clicks>
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
 This is SDD Inception: I used specification-driven development, discovered drift in the process, then used specification-driven development to create a tool for specification-driven development. Let that nesting be the joke. The point is the method being applied to improve the method itself.
 
@@ -804,7 +804,7 @@ A well-formed instruction to accept expired codes is still the wrong instruction
 </v-click>
 
 <!--
-Timing: 1.5 minutes. Keeping the workflow focused: 9 minutes total, slides 23–29.
+Timing: 1.5 minutes. Keeping the workflow focused: 10 minutes total, slides 23–30.
 
 Return to B-011 from the actual PR. It remained a valid claim identifier even while its exit-category wording contradicted the design. A structural checker cannot decide which category expresses the intended behavior. Likewise, B-011 and B-003 were both valid IDs in #215; choosing the right one for the scenario required understanding its meaning.
 
@@ -997,13 +997,46 @@ Start with one feature and one recurring failure you can check.
 </v-click>
 
 <!--
-Timing: 1.5 minutes.
+Timing: 1 minute.
 
 These are expected advantages of the workflow, not measured Specht outcomes. Clear inputs and checks can let an agent proceed farther within an agreed scope. They also introduce artifacts and rules that somebody must maintain.
 
 Avoid turning this into a new binder ceremony. Start with a real feature and a failure that keeps recurring. Decide what evidence would expose it, automate the deterministic part, and retain the human decision where meaning matters. Expand when the checks are useful.
 
 That is the SDD Inception story: SDD exposed a problem in the process, and I used SDD to build a tool for that process. Next, make it concrete for someone who wants to try it today.
+-->
+
+---
+transition: slide-up
+---
+
+# SDD in a Brownfield Codebase
+
+I'm using this on a large existing project today.
+
+<v-clicks>
+
+- Start with the requirements already written down
+- When you fix a bug or touch an area, clarify its intended behavior
+- Add acceptance criteria, scenarios, and checks for that change
+- Fill gaps as the work reaches them; record what you learn
+
+</v-clicks>
+
+<div style="margin-top: 1.5rem; color: #e2b96f; font-size: 1.2rem;">You do not need to backfill the whole system before you start.</div>
+
+<!--
+Timing: 1.5 minutes.
+
+Head off the greenfield question directly. Does this work in brownfield? Not as smoothly as starting with a clean slate, but you do not need a greenfield project to get value. I am using it on a large existing project right now. The information is at least written down and we have requirements, so there is something to start from.
+
+We are not stopping delivery to reverse-engineer and specify every feature. When we encounter a problem, fix a bug, or change an area of code, we use that work to clarify the local requirements, add acceptance criteria and scenarios, and introduce relevant checks. We backfill as we go. Areas we have not touched do not need to be documented before the first area can benefit.
+
+Use existing requirements, tests, and code as evidence. Do not assume current behavior is automatically intended behavior: an existing bug should not become a requirement merely because an agent observed it. Resolve that question with the people who own the behavior, then record the agreement and the regression evidence for the change.
+
+Be candid about the limitation. This produces partial coverage, and existing code carries context and dependencies the documents may not yet capture. A passing check for the area we specified does not certify the entire legacy system. It still gives the next person or agent a better starting point in that area.
+
+Source: Rodney's account of current use on a large existing project, supplied for this talk. No project identity, size metric, adoption rate, or measured benefit is claimed.
 -->
 
 ---
@@ -1030,7 +1063,7 @@ dotnet specht
 [Current installation and authentication steps](https://github.com/RLittlesII/specht#quick-start)
 
 <!--
-Timing: 1 minute. Closing and questions: 5 minutes total, slides 30–32.
+Timing: 1 minute. Closing and questions: 5 minutes total, slides 31–33.
 
 State this clearly: you can install Specht today and start using it for SDD in your repository. The current README documents publication on GitHub Packages. The older docs/setup.md still contains a 'not published yet' notice, so use the README quick start for installation and authentication.
 

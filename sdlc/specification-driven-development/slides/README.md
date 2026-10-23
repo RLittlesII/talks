@@ -19,9 +19,9 @@ The deck is timed for 50 minutes: 45 minutes of teaching and walkthrough, two mi
 | 1–6 | The specification returns | 6 |
 | 7–10 | How agents use the spec | 8 |
 | 11–16 | The token horror story | 10 |
-| 17–22 | Building a way out | 12 |
-| 23–29 | Keeping the workflow focused | 9 |
-| 30–32 | Start today and questions | 5 |
+| 17–22 | Building a way out | 11 |
+| 23–30 | Keeping the workflow focused | 10 |
+| 31–33 | Start today and questions | 5 |
 
 The horror story uses actual review evidence from a private project: a contradictory claim copied into a scaffold, missing traceability, a mismatched scenario tag, and corrupted lessons. See [the evidence notes](./pr-evidence.md) for pinned artifacts and correction history. The separate checkout validation walkthrough remains illustrative; it is not output from those PRs. The SPEC031 diagnostic is adapted from Specht's README, split for readability, with claim prefixes shown as `AC-`. The walkthrough is slide-only; no live demo or installation is required during delivery.
 
@@ -38,3 +38,5 @@ Slide 12, “The Files Behind the Workflow,” introduces feature-local `.spec/`
 Slide 13, “What Is a Claim?”, defines the stable requirement ID, testable behavior, scenarios, and traceability before the actual drift evidence on slides 14–16. The replay wording is explanatory phrasing; the following drift slide retains the actual findings.
 
 Audience-facing claim IDs use `AC-` (acceptance criterion). The original evidence uses `B-`; prefixes are mapped consistently in teaching examples, PR excerpts, and the diagnostic, with original IDs retained in the evidence notes.
+
+Slide 30 addresses brownfield adoption using Rodney's current experience on a large existing project: start with available requirements, clarify and specify areas when changing them or fixing bugs, and fill gaps incrementally. Whole-system backfilling is not a prerequisite. Existing behavior is evidence to examine, not automatically the intended requirement.
