@@ -10,6 +10,45 @@ Edit the [slides.md](./slides.md) to see the changes.
 
 Learn more about Slidev at the [documentation](https://sli.dev/).
 
+## SDD Charcoal theme
+
+This talk uses its own local theme in `theme/`: a dark charcoal canvas, soft
+warm-gray text, muted teal structure, and copper emphasis. The dark background
+supports the presenter's preference for lower screen brightness. Examples retain
+the flat excerpt style and presentation typography. Colors, typography, and
+spacing live in `theme/styles/theme.css`; Mermaid colors live in
+`theme/setup/mermaid.ts` because Slidev renders diagrams inside shadow roots.
+No theme publication or additional package installation is needed.
+
+The theme targets the visual and interaction requirements in the
+[Section 508 web guidance](https://www.section508.gov/develop/guide-accessible-web-design-development/).
+Measured contrast against the charcoal background (`#202425`):
+
+| Use | Color | Contrast |
+| --- | --- | --- |
+| Main text | `#d5d7d2` | 10.80:1 |
+| Teal headings and links | `#83bdb7` | 7.41:1 |
+| Copper emphasis | `#dca58a` | 7.30:1 |
+| Secondary text | `#acb5b2` | 7.46:1 |
+
+Code text has 9.22:1 contrast against its excerpt background (`#2b3031`);
+teal inline code has 6.32:1 contrast against that background.
+Links stay underlined, diff examples retain their `+`/`-` markers, keyboard focus
+has a visible outline, and transitions honor reduced-motion preferences. Fonts
+use local system fallbacks. Illustrations retain descriptive alt text, and all
+four diagrams have accessible titles and descriptions.
+
+The audience controls provide Previous/Next steps, a titled slide chooser with
+an explicit Go action, fullscreen, and a presenter link. **Reading layout** makes
+the slide fluid for browser zoom: text wraps, columns stack, and diagrams can be
+scrolled with the keyboard.
+
+The [accessibility review](accessibility-review.md) records the 99-state browser
+scan, structural checks, keyboard tests, real Safari 200% zoom, contrast results,
+and a repeatable check script. VoiceOver testing remains pending at the
+presenter's request. PDF/PPTX exports need separate review if distributed.
+No full Section 508 conformance claim is made.
+
 ## Delivery notes
 
 The deck is timed for 50 minutes: 45 minutes of teaching and walkthrough, two minutes of closing takeaways, and three minutes for questions. Per-slide timing and narration are in the Slidev speaker notes.

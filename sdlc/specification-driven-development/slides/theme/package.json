@@ -1,0 +1,25 @@
+{
+  "name": "slidev-theme-sdd-charcoal",
+  "private": true,
+  "version": "0.1.0",
+  "keywords": [
+    "slidev",
+    "slidev-theme"
+  ],
+  "slidev": {
+    "colorSchema": "dark",
+    "defaults": {
+      "colorSchema": "dark",
+      "aspectRatio": "16/9",
+      "selectable": true,
+      "fonts": {
+        "sans": "Arial",
+        "mono": "Consolas",
+        "local": [
+          "Arial",
+          "Consolas"
+        ]
+      }
+    }
+  }
+}

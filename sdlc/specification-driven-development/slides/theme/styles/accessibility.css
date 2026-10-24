@@ -1,0 +1,174 @@
+/* Replace the upstream audience toolbar with native, separately focusable controls. */
+html.sdd-audience #slide-container > div:has(> nav) {
+  display: none;
+}
+
+html.sdd-audience #page-root {
+  height: calc(100dvh - var(--sdd-navigation-height, 74px));
+}
+
+#slidev-goto-dialog.op0 {
+  visibility: hidden;
+}
+
+.sdd-navigation {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--sdd-background);
+  color: var(--sdd-text);
+  border-top: 1px solid var(--sdd-muted);
+  font: 16px/1.4 Arial, Helvetica, sans-serif;
+}
+
+.sdd-navigation nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sdd-navigation :is(button, select, a) {
+  padding: 7px 10px;
+  min-height: 38px;
+  border: 1px solid var(--sdd-muted);
+  border-radius: 3px;
+  background: var(--sdd-excerpt);
+  color: var(--sdd-text);
+  font: inherit;
+}
+
+.sdd-navigation button[aria-pressed="true"] {
+  border-color: var(--sdd-teal);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.sdd-navigation button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.sdd-navigation a {
+  color: var(--sdd-teal);
+  text-decoration: underline;
+}
+
+.sdd-navigation select {
+  max-width: min(26vw, 320px);
+}
+
+html.sdd-audience .slidev-code-copy:focus-visible {
+  opacity: 1 !important;
+}
+
+.sdd-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* A fluid slide supplies text enlargement instead of cancelling browser zoom. */
+html.sdd-reading,
+html.sdd-reading body,
+html.sdd-reading #app,
+html.sdd-reading #page-root {
+  height: auto;
+  overflow: auto;
+  background: var(--sdd-background);
+}
+
+html.sdd-reading #slide-container {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  overflow: visible;
+}
+
+html.sdd-reading #page-root {
+  display: block;
+  width: 100%;
+}
+
+html.sdd-reading #slide-content {
+  position: relative;
+  inset: auto;
+  width: 100% !important;
+  min-width: 0;
+  height: auto !important;
+  transform: none !important;
+  overflow: visible;
+}
+
+html.sdd-reading .slidev-page {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  scale: none;
+}
+
+html.sdd-reading .slidev-page[aria-hidden="true"] {
+  display: none !important;
+}
+
+html.sdd-reading .slidev-layout {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 100dvh;
+  padding: 48px clamp(24px, 5vw, 72px) calc(var(--sdd-navigation-height, 130px) + 48px);
+}
+
+html.sdd-reading .slidev-layout :is(h1, h2, p, li, div) {
+  overflow-wrap: anywhere;
+}
+
+html.sdd-reading .slidev-layout.two-columns,
+html.sdd-reading .slidev-layout [grid],
+html.sdd-reading .slidev-layout [style*="display: grid"] {
+  display: block;
+}
+
+html.sdd-reading .slidev-layout .col-right {
+  margin-top: 24px;
+}
+
+html.sdd-reading .slidev-layout table {
+  table-layout: fixed;
+}
+
+html.sdd-reading .slidev-layout :is(th, td) {
+  overflow-wrap: anywhere;
+}
+
+html.sdd-reading .slidev-layout .sdd-logo {
+  position: static;
+  display: block;
+  margin: 24px 0;
+}
+
+html.sdd-reading .slidev-layout .mermaid {
+  max-width: 100%;
+  overflow: auto;
+}
+
+@media (max-width: 900px) {
+  .sdd-navigation select {
+    max-width: 45vw;
+  }
+}
+
+@media print {
+  .sdd-navigation {
+    display: none;
+  }
+}
