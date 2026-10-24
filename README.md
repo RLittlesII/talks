@@ -4,18 +4,31 @@ This repository contains a collection of talks, samples, and demos covering vari
 
 🔗 **[Browse the talks site](https://rlittlesii.github.io/talks/)**
 
+## Present from any laptop
+
+The Slidev decks are built and published to GitHub Pages on each push to `master`. Open **Presentation** on the audience display and **Presenter view** on your laptop in two windows of the same browser profile. Slide navigation stays in sync, and the presenter view includes your speaker notes. No local checkout or development server is needed. See [Slidev's presenter guide](https://sli.dev/guide/ui#presenter-mode) for the controls.
+
+| Talk | Presentation | Presenter view |
+| --- | --- | --- |
+| C# Abstractions | [Presentation](https://rlittlesii.github.io/talks/composition/) | [Presenter view](https://rlittlesii.github.io/talks/composition/#/presenter/1) |
+| Bridging IEnumerable and IObservable with Dynamic Data | [Presentation](https://rlittlesii.github.io/talks/dynamic.data/) | [Presenter view](https://rlittlesii.github.io/talks/dynamic.data/#/presenter/1) |
+
+The site automatically lists both links for every published Slidev deck. Other talks below currently provide source decks or demos; they will appear on the site when converted to Slidev workspaces.
+
+Published builds use hash routing (`#/presenter/1`) so direct links and refreshes work on GitHub Pages. When adding a deck, keep `presenter: true` in its `slides.md` headmatter to include presenter mode in the published build.
+
 ## C# & .NET
 
 ### [C# Abstractions, the lies they tell us, and the fact your likely still doing it wrong](./%20csharp/language/abstractions/README.md)
 Most of us build abstractions like we're hoarding for winter, then act surprised when the codebase turns into a dependency escape room. In this session, we'll cut through the noise on abstraction's two major techniques — inheritance and composition — and why most of us reach for the wrong one out of habit.
-- **Slides**: [composition](npm%20run%20dev)
+- **Slides**: [Presentation](https://rlittlesii.github.io/talks/composition/) | [Presenter view](https://rlittlesii.github.io/talks/composition/#/presenter/1) | [Source](./%20csharp/language/abstractions/composition/slides.md)
   ```bash
   pnpm --filter composition run dev
   ```
 
 ### [Bridging IEnumerable and IObservable with Dynamic Data](./%20csharp/libraries/dynamic.data/README.md)
 Learn how Dynamic Data turns collection changes into observable change sets, so view models can filter, transform, sort, and refresh lists as their data changes.
-- **Slides**: [Dynamic Data](./%20csharp/libraries/dynamic.data/slides.md)
+- **Slides**: [Presentation](https://rlittlesii.github.io/talks/dynamic.data/) | [Presenter view](https://rlittlesii.github.io/talks/dynamic.data/#/presenter/1) | [Source](./%20csharp/libraries/dynamic.data/slides.md)
   ```bash
   pnpm --filter dynamic.data run dev
   ```

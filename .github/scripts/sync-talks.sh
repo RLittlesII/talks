@@ -8,7 +8,8 @@ mkdir -p "$CACHE_DIR"
 
 source_hash() {
   local dir="$1"
-  find "$dir" \
+  # Shared build settings and dependencies affect every deck's output.
+  find "$dir" "$SCRIPT_DIR/build-talk.sh" package.json pnpm-workspace.yaml pnpm-lock.yaml \
     -not -path "*/node_modules/*" \
     -not -path "*/dist/*" \
     -type f \
