@@ -1,0 +1,277 @@
+:root {
+  color-scheme: dark;
+  --sdd-background: #202425;
+  --sdd-text: #d5d7d2;
+  --sdd-teal: #83bdb7;
+  --sdd-copper: #dca58a;
+  --sdd-muted: #acb5b2;
+  --sdd-excerpt: #2b3031;
+  --slidev-theme-primary: var(--sdd-teal);
+  --slidev-code-background: var(--sdd-excerpt);
+  --slidev-code-foreground: var(--sdd-text);
+  --slidev-code-font-size: 18px;
+  --slidev-code-line-height: 1.4;
+  --slidev-code-padding: 14px 18px;
+  --slidev-code-radius: 0;
+  --slidev-code-margin: 12px 0;
+  --slidev-slide-container-background: var(--sdd-background);
+}
+
+.slidev-layout {
+  position: relative;
+  padding: 42px 56px;
+  background: var(--sdd-background);
+  color: var(--sdd-text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  line-height: 1.45;
+  text-align: left;
+}
+
+/* A short printed rule anchors the composition without application chrome. */
+.slidev-layout::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 56px;
+  width: 52px;
+  height: 4px;
+  background: var(--sdd-teal);
+}
+
+.slidev-layout h1 {
+  margin: 0 0 24px;
+  color: var(--sdd-text);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.slidev-layout h2,
+.slidev-layout h3 {
+  color: var(--sdd-teal);
+  font-weight: 700;
+}
+
+.slidev-layout p {
+  margin: 14px 0;
+  line-height: 1.45;
+}
+
+.slidev-layout h1 + p {
+  opacity: 1;
+}
+
+.slidev-layout li {
+  margin-top: 8px;
+  line-height: 1.45;
+}
+
+.slidev-layout li::marker {
+  color: var(--sdd-teal);
+}
+
+.slidev-layout a {
+  color: var(--sdd-teal);
+  border: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+
+.slidev-layout a:hover {
+  color: var(--sdd-copper);
+}
+
+/* Preserve a visible, two-tone indicator on light and dark surfaces. */
+:focus-visible {
+  outline: 3px solid var(--sdd-teal);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 7px var(--sdd-background);
+}
+
+.slidev-layout :not(pre) > code {
+  padding: 0.08em 0.22em;
+  background: var(--sdd-excerpt);
+  color: var(--sdd-teal);
+  font-size: 0.9em;
+  border-radius: 0;
+}
+
+/* Examples read as printed excerpts. Diff signs still carry their meaning. */
+.slidev-layout pre.slidev-code {
+  border-left: 3px solid var(--sdd-teal);
+  border-radius: 0;
+  background: var(--sdd-excerpt) !important;
+  box-shadow: none;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+}
+
+.slidev-layout pre.slidev-code,
+.slidev-layout pre.slidev-code span {
+  color: var(--sdd-text) !important;
+  font-style: normal;
+}
+
+.slidev-layout table {
+  margin: 18px 0;
+  font-size: 20px;
+  line-height: 1.35;
+  border-collapse: collapse;
+}
+
+.slidev-layout th {
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--sdd-teal);
+  color: var(--sdd-teal);
+  font-weight: 700;
+}
+
+.slidev-layout td {
+  padding: 12px;
+}
+
+.slidev-layout tr {
+  border-bottom: 1px solid #58605e;
+}
+
+.slidev-layout blockquote {
+  padding: 8px 0 8px 20px;
+  border-left: 3px solid var(--sdd-copper);
+  border-radius: 0;
+  background: transparent;
+  color: var(--sdd-text);
+  font-size: 24px;
+}
+
+.slidev-layout.cover,
+.slidev-layout.center {
+  display: flex;
+  align-items: center;
+}
+
+.slidev-layout.cover::before {
+  top: 76px;
+  width: 110px;
+  height: 7px;
+}
+
+.slidev-layout.cover h1 {
+  max-width: 830px;
+  margin-bottom: 36px;
+  font-size: 72px;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+}
+
+.slidev-layout.cover .sdd-subtitle {
+  max-width: 710px;
+  color: var(--sdd-copper);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.center-content {
+  width: 100%;
+}
+
+.slidev-layout.center h1 {
+  font-size: 48px;
+  color: var(--sdd-teal);
+}
+
+.slidev-layout.two-columns {
+  column-gap: 36px;
+}
+
+.slidev-layout.two-columns h1 {
+  font-size: 34px;
+}
+
+.slidev-layout.agenda {
+  grid-template-columns: 0.7fr 1.7fr;
+  align-items: center;
+}
+
+.slidev-layout.agenda h1 {
+  font-size: 48px;
+}
+
+.slidev-layout.claim-example {
+  grid-template-columns: 0.95fr 1.05fr;
+}
+
+.slidev-layout.claim-example h1 {
+  font-size: 32px;
+}
+
+.slidev-layout.claim-example pre.slidev-code {
+  --slidev-code-padding: 14px 12px;
+  --slidev-code-font-size: 16px;
+}
+
+.slidev-layout.archive pre.slidev-code {
+  --slidev-code-font-size: 16px;
+  --slidev-code-line-height: 1.3;
+}
+
+.slidev-layout.artifacts table {
+  margin: 12px 0;
+}
+
+.slidev-layout.artifacts td,
+.slidev-layout.artifacts th {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.slidev-layout.artifacts p {
+  margin: 10px 0;
+}
+
+.slidev-layout.illustrated {
+  font-size: 20px;
+}
+
+.slidev-layout.illustrated h1 {
+  margin-bottom: 18px;
+}
+
+.slidev-layout .sdd-logo {
+  position: absolute;
+  right: 56px;
+  top: 118px;
+  width: 230px;
+  height: 310px;
+  padding: 14px;
+  background: #1c2021;
+  object-fit: contain;
+}
+
+.slidev-layout .mermaid {
+  margin: 24px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep the off-screen Mermaid measurement tree out of animation overrides. */
+  :is(.slidev-slide-content, .print-slide-container),
+  :is(.slidev-slide-content, .print-slide-container) *,
+  :is(.slidev-slide-content, .print-slide-container) *::before,
+  :is(.slidev-slide-content, .print-slide-container) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline-color: Highlight;
+  }
+}

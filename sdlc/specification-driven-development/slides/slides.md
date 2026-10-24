@@ -1,10 +1,14 @@
 ---
-theme: seriph
-background: https://cover.sli.dev
+theme: ./theme
+colorSchema: dark
+htmlAttrs:
+  lang: en
 title: Specification Driven Development
-class: text-center
 drawings:
   persist: false
+  presenterOnly: true
+record: false
+contextMenu: false
 transition: slide-left
 comark: true
 duration: 50min
@@ -12,7 +16,7 @@ duration: 50min
 
 # Specification Driven Development
 
-<div v-click style="margin-top: 1.5rem; font-style: italic; color: #e2b96f; font-size: 1.1rem;">
+<div v-click class="sdd-subtitle">
   The spec is the prompt. Who checks the spec?
 </div>
 
@@ -27,6 +31,7 @@ Keep the published promise in view: explicit specifications guide agents, and te
 ---
 layout: two-cols
 layoutClass: gap-16
+class: agenda
 transition: slide-up
 ---
 
@@ -52,6 +57,7 @@ We will keep the history brief, follow one checkout claim through the agent work
 
 ---
 transition: fade-out
+class: illustrated
 ---
 
 # In the Before Times
@@ -66,20 +72,20 @@ transition: fade-out
 
 <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; text-align: center;">
   <div>
-    <div style="color: #e2b96f; font-weight: 700;">Paper</div>
-    <div style="font-size: 0.85rem; opacity: 0.8;">Think it through. Write it down.</div>
+    <div style="color: var(--sdd-copper); font-weight: 700;">Paper</div>
+    <div style="font-size: 18px; color: var(--sdd-muted);">Think it through. Write it down.</div>
   </div>
   <div>
-    <div style="color: #e2b96f; font-weight: 700;">Punch cards</div>
-    <div style="font-size: 0.85rem; opacity: 0.8;">Make every card count.</div>
+    <div style="color: var(--sdd-copper); font-weight: 700;">Punch cards</div>
+    <div style="font-size: 18px; color: var(--sdd-muted);">Make every card count.</div>
   </div>
   <div>
-    <div style="color: #e2b96f; font-weight: 700;">The '90s spec</div>
-    <div style="font-size: 0.85rem; opacity: 0.8;">The whole system. In a binder.</div>
+    <div style="color: var(--sdd-copper); font-weight: 700;">The '90s spec</div>
+    <div style="font-size: 18px; color: var(--sdd-muted);">The whole system. In a binder.</div>
   </div>
   <div>
-    <div style="color: #e2b96f; font-weight: 700;">The Agile era</div>
-    <div style="font-size: 0.85rem; opacity: 0.8;">The binder becomes a backlog.</div>
+    <div style="color: var(--sdd-copper); font-weight: 700;">The Agile era</div>
+    <div style="font-size: 18px; color: var(--sdd-muted);">The binder becomes a backlog.</div>
   </div>
 </div>
 
@@ -105,6 +111,7 @@ Bridge: before we bring the spec back as an agent's input, let's open that old b
 
 ---
 transition: fade-out
+class: archive
 ---
 
 # A Spec, 1998
@@ -189,6 +196,7 @@ Source: https://agilemanifesto.org/
 
 ---
 transition: fade-out
+class: illustrated
 ---
 
 # The Spec Is Back
@@ -203,19 +211,19 @@ transition: fade-out
 
 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; text-align: center;">
   <div>
-    <div style="color: #e2b96f; font-weight: 700;">Old busted</div>
-    <div style="font-size: 0.95rem; font-weight: 600;">The specification</div>
-    <div style="font-size: 0.85rem; opacity: 0.8;">Write it. File it. Forget it.</div>
+    <div style="color: var(--sdd-copper); font-weight: 700;">Old busted</div>
+    <div style="font-size: 20px; font-weight: 600;">The specification</div>
+    <div style="font-size: 18px; color: var(--sdd-muted);">Write it. File it. Forget it.</div>
   </div>
   <div>
-    <div style="color: #e2b96f; font-weight: 700;">New hotness</div>
-    <div style="font-size: 0.95rem; font-weight: 600;">AI chat</div>
-    <div style="font-size: 0.85rem; opacity: 0.8;">Prompt it. Patch it. Repeat.</div>
+    <div style="color: var(--sdd-copper); font-weight: 700;">New hotness</div>
+    <div style="font-size: 20px; font-weight: 600;">AI chat</div>
+    <div style="font-size: 18px; color: var(--sdd-muted);">Prompt it. Patch it. Repeat.</div>
   </div>
   <div>
-    <div style="color: #e2b96f; font-weight: 700;">Old busted hotness</div>
-    <div style="font-size: 0.95rem; font-weight: 600;">The spec drives the agent</div>
-    <div style="font-size: 0.85rem; opacity: 0.8;">Specify it. Test it. Regenerate.</div>
+    <div style="color: var(--sdd-copper); font-weight: 700;">Old busted hotness</div>
+    <div style="font-size: 20px; font-weight: 600;">The spec drives the agent</div>
+    <div style="font-size: 18px; color: var(--sdd-muted);">Specify it. Test it. Regenerate.</div>
   </div>
 </div>
 
@@ -275,8 +283,10 @@ transition: slide-up
 
 # Same Document, New Reader
 
-```mermaid {theme: 'neutral', scale: 0.7}
+```mermaid {scale: 0.7}
 graph LR
+accTitle: One requirement across four artifacts
+accDescr: A claim that expired codes are rejected links to a scenario, a test asserting rejection, and the discount-service code.
 R["Claim<br/>expired code rejected"] --> S["Scenario<br/>expired code applied"]
 S --> T["Test<br/>rejection asserted"]
 T --> C["Code<br/>discount service"]
@@ -332,6 +342,7 @@ For now, this looks reasonable. We have roles, files, tests, and a review. We ha
 ---
 layout: two-cols
 layoutClass: gap-8
+class: claim-example
 ---
 
 # One Claim Through the Loop
@@ -376,11 +387,11 @@ transition: fade
 
 # My Precious Tokens
 
-<div style="margin-top: 2rem; font-size: 1.8rem; line-height: 1.5; color: #e2b96f;">
+<div style="margin-top: 2rem; font-size: 1.8rem; line-height: 1.5; color: var(--sdd-copper);">
   “Claude Max ate a week's worth of tokens<br/>trying to review a pull request.”
 </div>
 
-<div style="margin-top: 1.5rem; opacity: 0.75;">A real review loop in one of my projects</div>
+<div style="margin-top: 1.5rem; color: var(--sdd-muted);">A real review loop in one of my projects</div>
 
 <!--
 Timing: 1 minute. The token horror story: 10 minutes total, slides 11–16.
@@ -392,6 +403,7 @@ Pause after 'my precious tokens.' I had the spec. I had an author. I had a revie
 
 ---
 transition: slide-up
+class: artifacts
 ---
 
 # The Files Behind the Workflow
@@ -545,7 +557,7 @@ transition: fade
 | Original PR: repeated spec and traceability repairs | Closed without merging |
 | Follow-up PR: further review and corrections | Eventually merged |
 
-<div style="margin-top: 1rem; font-size: 1.3rem; color: #e2b96f;">My precious tokens were disappearing.</div>
+<div style="margin-top: 1rem; font-size: 1.3rem; color: var(--sdd-copper);">My precious tokens were disappearing.</div>
 
 <v-click>
 
@@ -574,7 +586,7 @@ transition: slide-up
 
 # Meet Specht
 
-<img src="/images/specht-book-logo-dark.svg" alt="Specht logo: a woodpecker perched on a book above the SPECHT wordmark" style="position: absolute; right: 60px; top: 115px; width: 250px; height: auto;" />
+<img src="/images/specht-book-logo-dark.svg" alt="Specht logo: a woodpecker perched on a book above the SPECHT wordmark" class="sdd-logo" />
 
 <div style="max-width: 530px;">
 
@@ -589,7 +601,7 @@ A .NET tool that checks your feature specifications and their relationships.
 
 </v-clicks>
 
-<div style="margin-top: 1.5rem; color: #e2b96f;">Same inputs and pinned rules. Repeatable findings.</div>
+<div style="margin-top: 1.5rem; color: var(--sdd-copper);">Same inputs and pinned rules. Repeatable findings.</div>
 
 [github.com/RLittlesII/specht](https://github.com/RLittlesII/specht)
 
@@ -614,8 +626,10 @@ transition: slide-up
 
 # SDD Inception
 
-```mermaid {theme: 'neutral', scale: 0.75}
+```mermaid {scale: 0.75}
 graph LR
+accTitle: How Specht grew out of SDD
+accDescr: Using SDD to build software exposed drift in the process. SDD then guided the development of Specht, which checks SDD artifacts.
 A["Use SDD<br/>to build software"] --> B["Discover drift<br/>in the SDD process"]
 B --> C["Use SDD<br/>to build Specht"]
 C --> D["Use Specht<br/>to check SDD artifacts"]
@@ -819,8 +833,10 @@ transition: slide-up
 
 # The Loop, With Gates
 
-```mermaid {theme: 'neutral', scale: 0.68}
+```mermaid {scale: 0.68, flowchart: {padding: 10, rankSpacing: 20, wrappingWidth: 140}}
 graph LR
+accTitle: The agent workflow with validation and review gates
+accDescr: Human-approved intent guides agent edits. Failed validation returns to editing. Passing validation proceeds to scenarios, tests and code, then review. Review either approves completion or returns corrections to the agent.
 H["Human-approved<br/>intent"] --> A["Agent edits"]
 A --> V{"Validation"}
 V -->|fail| A
@@ -888,7 +904,7 @@ level: 2
 
 </v-clicks>
 
-<div style="margin-top: 1.5rem; color: #e2b96f;">Traceability makes gaps visible. Testing judgment decides what fills them.</div>
+<div style="margin-top: 1.5rem; color: var(--sdd-copper);">Traceability makes gaps visible. Testing judgment decides what fills them.</div>
 
 <!--
 Timing: 1 minute.
@@ -936,8 +952,10 @@ level: 2
 
 # Give the Agent Code Context
 
-```mermaid {theme: 'neutral', scale: 0.7}
+```mermaid {scale: 0.7}
 graph LR
+accTitle: Code context for a requirement
+accDescr: A claim links to a scenario, its test, and existing code. The existing code links to dependencies and a canonical example.
 R[Claim] --> S[Scenario]
 S --> T[Test]
 T --> C["Existing code"]
@@ -1023,7 +1041,7 @@ I'm using this on a large existing project today.
 
 </v-clicks>
 
-<div style="margin-top: 1.5rem; color: #e2b96f; font-size: 1.2rem;">You do not need to backfill the whole system before you start.</div>
+<div style="margin-top: 1.5rem; color: var(--sdd-copper); font-size: 1.2rem;">You do not need to backfill the whole system before you start.</div>
 
 <!--
 Timing: 1.5 minutes.
@@ -1084,7 +1102,7 @@ transition: slide-up
 
 # Make the Checks Deterministic
 
-<div style="margin: 1.25rem 0; font-size: 1.6rem; color: #e2b96f;">You do not have to use my tool.</div>
+<div style="margin: 1.25rem 0; font-size: 1.6rem; color: var(--sdd-copper);">You do not have to use my tool.</div>
 
 Use deterministic checks to catch mechanically detectable drift in your SDD workflow.
 
@@ -1117,7 +1135,7 @@ transition: fade-out
 
 # Questions
 
-<div style="margin-top: 1.5rem; color: #e2b96f; font-size: 1.2rem;">
+<div style="margin-top: 1.5rem; color: var(--sdd-copper); font-size: 1.2rem;">
   Which recurring review finding could a program check in your workflow?
 </div>
 
