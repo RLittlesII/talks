@@ -2,6 +2,11 @@
   "name": "dynamic.data",
   "type": "module",
   "private": true,
+  "talk": {
+    "title": "Bridging IEnumerable and IObservable with Dynamic Data",
+    "description": "Turn collection changes into observable change sets. Filter, transform, sort, and refresh lists as their data changes with Dynamic Data.",
+    "category": "Reactive programming"
+  },
   "scripts": {
     "build": "slidev build",
     "dev": "slidev --open",

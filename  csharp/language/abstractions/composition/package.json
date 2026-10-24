@@ -2,6 +2,11 @@
   "name": "composition",
   "type": "module",
   "private": true,
+  "talk": {
+    "title": "C# Abstractions, the lies they tell us, and the fact you're likely still doing it wrong",
+    "description": "Inheritance, composition, and the abstractions we reach for out of habit. Explore how modern C# helps us build more composable designs.",
+    "category": "C# & .NET"
+  },
   "scripts": {
     "build": "slidev build",
     "dev": "slidev --open",

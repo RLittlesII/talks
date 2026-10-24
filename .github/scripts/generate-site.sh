@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 mkdir -p "$OUTPUT_DIR"
 
-talk_names=()
+talk_dirs=()
 
 while IFS= read -r talk_dir; do
   name=$(jq -r .name "${talk_dir}/package.json")
@@ -19,43 +19,12 @@ while IFS= read -r talk_dir; do
 
   mkdir -p "${OUTPUT_DIR}/${name}"
   cp -r "${CACHE_DIR}/${name}/." "${OUTPUT_DIR}/${name}/"
-  talk_names+=("$name")
+  talk_dirs+=("$talk_dir")
   echo "==> Assembled ${name}"
 done < <("$SCRIPT_DIR/find-talks.sh")
 
-IFS=$'\n' sorted_names=($(sort <<<"${talk_names[*]}")); unset IFS
-
-list_items=""
-for name in "${sorted_names[@]}"; do
-  list_items+="    <li><h2>${name}</h2><a href=\"/talks/${name}/\" aria-label=\"Presentation for ${name}\">Presentation</a> · <a href=\"/talks/${name}/#/presenter/1\" aria-label=\"Presenter view for ${name}\">Presenter view</a></li>"$'\n'
-done
-
-cat > "${OUTPUT_DIR}/index.html" <<HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Talks — RLittlesII</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 700px; margin: 4rem auto; padding: 0 1.5rem; line-height: 1.6; }
-    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    p  { color: #555; margin-bottom: 2rem; }
-    ul { list-style: none; padding: 0; }
-    li { margin-bottom: 1.5rem; }
-    h2 { font-size: 1.25rem; margin-bottom: 0.25rem; }
-    a  { color: #0969da; text-decoration: none; font-size: 1.1rem; }
-    a:hover { text-decoration: underline; }
-  </style>
-</head>
-<body>
-  <h1>Talks</h1>
-  <p>Slide decks by Rodney Littles II</p>
-  <p>Open Presentation on the audience display and Presenter view on your laptop in the same browser profile. Slide navigation stays in sync between the two windows.</p>
-  <ul>
-${list_items}  </ul>
-</body>
-</html>
-HTML
-
-echo "==> Generated index with ${#sorted_names[@]} talk(s): ${sorted_names[*]}"
+if [ "${#talk_dirs[@]}" -gt 0 ]; then
+  node "$SCRIPT_DIR/render-talk-index.mjs" "$OUTPUT_DIR" "${talk_dirs[@]}"
+else
+  node "$SCRIPT_DIR/render-talk-index.mjs" "$OUTPUT_DIR"
+fi

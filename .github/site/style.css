@@ -1,0 +1,90 @@
+:root {
+  color-scheme: dark;
+  --background: #141a20;
+  --surface: #1c252d;
+  --text: #dce5e6;
+  --muted: #a3b2bb;
+  --line: #3c4c59;
+  --accent: #e8a16a;
+  --accent-hover: #f0b685;
+  --on-accent: #141a20;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--background);
+  font-synthesis: none;
+}
+* { box-sizing: border-box; }
+body { margin: 0; line-height: 1.6; }
+a { color: inherit; text-underline-offset: .22em; }
+a:hover { color: var(--accent); }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+.page { max-width: 1184px; margin: auto; padding: 0 48px; }
+.skip-link { position: absolute; top: -100px; left: 16px; padding: 12px; background: var(--surface); z-index: 1; }
+.skip-link:focus { top: 16px; }
+.masthead { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.identity { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 650; font-size: 15px; }
+.monogram { display: flex; align-items: baseline; font-weight: 800; letter-spacing: -.08em; font-size: 24px; border-right: 1px solid var(--line); padding-right: 16px; }
+.monogram span { font-size: 13px; color: var(--accent); margin-left: 3px; }
+.repository { font-size: 13px; text-decoration: none; }
+.intro { padding: 48px 0 40px; max-width: 750px; }
+.eyebrow { font-size: 11px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 18px; color: var(--accent); }
+h1 { font-size: clamp(38px, 5.4vw, 64px); line-height: 1.08; letter-spacing: -.045em; font-weight: 650; margin: 0 0 24px; }
+.lede { max-width: 570px; font-size: 17px; color: var(--muted); margin: 0; }
+.collection-count { font-size: 12px; color: var(--muted); margin: 24px 0 0; }
+.library { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 56px; border-top: 1px solid var(--line); padding-top: 34px; }
+.sidebar { align-self: start; position: sticky; top: 32px; }
+.sidebar .eyebrow { color: var(--muted); }
+.topic-nav, .talk-list { list-style: none; padding: 0; margin: 0; }
+.topic-nav a { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; text-decoration: none; font-size: 14px; border-bottom: 1px solid var(--line); }
+.topic-count { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 6px; }
+.presenting-guide { margin-top: 32px; font-size: 13px; color: var(--muted); }
+summary { cursor: pointer; color: var(--text); font-weight: 600; padding: 8px 0; }
+.presenting-guide p { margin: 8px 0 0; }
+.talks { min-width: 0; }
+.topic-section { margin-bottom: 36px; }
+.section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 16px; }
+.section-heading h2 { font-size: 19px; font-weight: 650; letter-spacing: -.02em; margin: 0; scroll-margin-top: 24px; }
+.section-heading > span { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.talk-list { display: grid; gap: 16px; }
+.talk-card { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 28px; }
+.talk-card h3 { font-size: 23px; font-weight: 600; line-height: 1.3; letter-spacing: -.025em; margin: 0 0 14px; overflow-wrap: anywhere; }
+.talk-card h3 a { text-decoration: none; }
+.talk-card p { margin: 0; font-size: 14px; color: var(--muted); max-width: 62ch; }
+.talk-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 26px; font-size: 13px; }
+.button { display: inline-flex; align-items: center; gap: 20px; padding: 10px 16px; border-radius: 4px; text-decoration: none; background: var(--accent); color: var(--on-accent); font-weight: 550; }
+.button:hover { background: var(--accent-hover); color: var(--on-accent); }
+.presenter { font-weight: 550; text-decoration: none; padding: 10px 0; }
+.presenter span { margin-left: 6px; }
+.source { margin-left: auto; color: var(--muted); }
+.archive { display: flex; align-items: center; justify-content: space-between; gap: 40px; border-top: 1px solid var(--line); padding: 36px 0; margin-top: 16px; }
+.archive .eyebrow { margin-bottom: 8px; }
+.archive h2 { font-size: 24px; letter-spacing: -.03em; margin: 0 0 8px; font-weight: 600; }
+.archive p:last-child { margin: 0; max-width: 65ch; color: var(--muted); font-size: 14px; }
+.archive > a { font-size: 13px; font-weight: 600; flex-shrink: 0; }
+footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding: 24px 0 32px; font-size: 11px; color: var(--muted); }
+.empty-state { color: var(--muted); margin-top: 0; }
+@media (max-width: 850px) {
+  .page { padding: 0 28px; }
+  .library { grid-template-columns: 180px minmax(0, 1fr); gap: 28px; }
+  .archive { align-items: start; flex-direction: column; gap: 20px; }
+  .talk-actions { gap: 18px; }
+}
+@media (max-width: 620px) {
+  .page { padding: 0 20px; }
+  .masthead { gap: 12px; padding: 20px 0; }
+  .identity { font-size: 13px; gap: 8px; }
+  .monogram { padding-right: 10px; }
+  .repository { font-size: 11px; }
+  .intro { padding: 44px 0 32px; }
+  .lede { font-size: 16px; }
+  .library { display: block; padding-top: 24px; }
+  .sidebar { position: static; margin-bottom: 32px; }
+  .topic-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+  .topic-nav a { border: 1px solid var(--line); padding: 8px 12px; border-radius: 4px; font-size: 12px; }
+  .presenting-guide { margin-top: 16px; }
+  .talk-card { padding: 22px; }
+  .talk-card h3 { font-size: 21px; }
+  .talk-actions { gap: 12px 20px; }
+  .source { margin-left: 0; }
+  footer { flex-direction: column; gap: 4px; }
+}
