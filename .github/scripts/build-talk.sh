@@ -12,7 +12,7 @@ pnpm --dir "$REPO_ROOT" install --frozen-lockfile
 
 echo "==> Building ${name}"
 # NOTE: no `--` separator — pnpm swallows it and the flag never reaches slidev.
-pnpm --filter "$name" run build --base "/talks/${name}/"
+pnpm --filter "$name" run build --base "/talks/${name}/" --router-mode hash
 
 mkdir -p "${CACHE_DIR}/${name}"
 cp -r "${TALK_DIR}/dist/." "${CACHE_DIR}/${name}/"
