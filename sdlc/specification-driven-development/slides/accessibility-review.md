@@ -186,3 +186,14 @@ headless Chromium reported `Wake Lock permission request denied`; this run is
 therefore not recorded as a fully passing harness run. The browser was Chromium
 151.0.7922.34. Temporary evidence: `/tmp/sdd-polish-audit/audit.json` and slide
 screenshots in the same directory. No new Safari or VoiceOver review was run.
+
+### Narrative follow-up
+
+After moving the origin request before the tool introduction and tightening the
+process/human-role transitions, the production build and table lint passed again.
+All 33 fully revealed slides passed the bounding-box overflow check. Slides 12,
+16–18, 23–25, and 27–32 were checked with axe in fully revealed and 640-pixel
+reading layouts: 26 states, zero violations. Revised transition slides were
+visually inspected. These targeted checks do not replace the full interaction
+harness or its wake-lock limitation recorded above. The deck remains 33 slides
+with 50 minutes allocated in speaker notes.

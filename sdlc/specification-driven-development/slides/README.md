@@ -88,3 +88,29 @@ code fences follow the same column shapes. Verified with markdownlint-cli2 0.24.
 MD055, MD056, MD058, and MD060 (`aligned` style): zero issues. Fenced examples
 were extracted and linted separately after removing diff markers. Slidev frontmatter, reveal components, and speaker notes
 are outside this table-only lint scope.
+
+## Narrative and delivery arc
+
+The 33-slide, 50-minute sequence follows six beats:
+
+1. Slides 1–6 recover the useful parts of specifications and introduce AI as
+   a new reader and author whose edits also need checking.
+2. Slides 7–10 connect SDD to BDD and TDD, then follow one checkout claim
+   through scenarios, assertions, and agent handoffs.
+3. Slides 11–16 show the actual review nightmare: the artifacts, contradictory
+   claim, drifting references, and reported review effort.
+4. Slide 17 gives the initiating request: fix the affected repository by thinking
+   of the spec like a JSON Schema. Slide 18 introduces the resulting Specht tool;
+   slides 19–22 return to checkout to explain one repair and the rules' limits.
+5. Slides 23–28 return to the SDD process: a passing check is not acceptance,
+   repeated failures need human diagnosis, people own decisions, testers challenge
+   behavior, lessons must change procedures, and handoffs carry inspectable evidence.
+6. Slides 29–33 cover maintenance, incremental brownfield adoption, monitoring,
+   building focused checks, and questions. The closing asks what to verify and
+   who acts on the evidence.
+
+Bridge from the real replay incident back to checkout explicitly: the missing-row
+mechanism is the same; the worked example is illustrative. Keep the schema
+request before the tool introduction. Distinguish a reproducible structural
+finding from semantic judgment, and describe a human escalation route so the
+proposed workflow does not reproduce the original unbounded review loop.

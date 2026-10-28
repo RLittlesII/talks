@@ -422,12 +422,12 @@ Each feature keeps a **`.spec/` folder beside its code**.
 
 **`.specht/` is separate:** checker configuration, schemas, and starter templates.
 
-Agents read the agreements and reasoning. Specht checks explicit rules.
+These are the artifacts the author and reviewer were trying to keep aligned.
 
 <!--
 Timing: 1.5 minutes.
 
-Before introducing the checker, give the audience a map of the files it works around. These are two different folder names: dot-spec contains the specification and its supporting records; dot-specht contains the tool's configuration, schemas, and templates. Neither is a .NET SDK installation folder. A .NET tool is the packaging mechanism for the checker.
+To explain the review nightmare, first show the artifacts the author and reviewer were trying to reconcile. These are two different folder names: dot-spec contains the specification and its supporting records; dot-specht contains the tool's configuration, schemas, and templates. Neither is a .NET SDK installation folder. A .NET tool is the packaging mechanism for the checker.
 
 A feature's .spec/README.md is its agreement: numbered claims, constraints, out of scope, design, traceability, and sign-off. Its companion .feature file gives concrete behavior examples linked to those claims. Those scenarios become executable checks when test bindings implement them and the runner executes them.
 
@@ -472,7 +472,7 @@ The displayed wording is a simplified explanation of the intended behavior, not 
 
 A scenario gives a concrete input and expected result. A traceability row records which scenarios and tests relate to the claim. An existing row is not proof that its test runs, passes, or asserts the right thing. Likewise, a valid ID cannot make incorrect wording true.
 
-Set up the drift: what happens if the claim says category 1 while the design says category 3, and a downstream test author copies the claim? That is the actual incident on the next slide. Keep the reference stable, review changes to meaning, and check the relationships mechanically where possible.
+Bridge from the checkout example to the incident: the mechanism is the same, but the real repository was handling replay failures. Set up the drift: what happens if the claim says category 1 while the design says category 3, and a downstream test author copies the claim? That is the actual incident on the next slide. Keep the reference stable, review changes to meaning, and check the relationships mechanically where possible.
 
 Source provenance for the actual exit-category contradiction: pr-evidence.md, 'A wrong claim propagated into a scaffold.' This slide's short requirement sentence is explanatory phrasing.
 -->
@@ -572,9 +572,47 @@ The repair history is visible; the token bill and review-effort figures are my r
 
 PR #215 continued with spec, feature-file, and scaffold changes, received further change requests, and ultimately merged on October 7, 2026. This was not an endless unresolved PR: show the eventual outcome as well as the failure. Do not equate the number of GitHub review events, replies, or commit messages with a verified count of internal model-review rounds. The retained history includes rewritten/squashed material.
 
-I was trying to fix this problem in the repository where it had happened. In the request for the fix, I asked the agent to think of the spec like a JSON Schema: express the contract as rules a program can validate. And Specht was born. I then used SDD to develop that tool for SDD process failures. That is the Inception connection coming next. A deterministic checker would take repeated explicit relationship checks out of the model conversation; it would not settle the exit-category semantics or guarantee a smaller token bill.
+The follow-up eventually merged, but getting to a merge had exposed a process problem. I needed to fix the repository workflow that had produced this loop. Which findings needed judgment, and which explicit rules was I repeatedly paying a model to rediscover? That question led to the request on the next slide.
 
 Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
+-->
+
+---
+transition: slide-up
+---
+
+# SDD Inception
+
+```mermaid {scale: 0.75}
+graph LR
+accTitle: How Specht grew out of SDD
+accDescr: Using SDD to build software exposed drift in the process. SDD then guided the development of Specht, which checks SDD artifacts.
+A["Use SDD<br/>to build software"] --> B["Discover drift<br/>in the SDD process"]
+B --> C["Use SDD<br/>to build Specht"]
+C --> D["Use Specht<br/>to check SDD artifacts"]
+```
+
+<v-clicks>
+
+- Fix the repository where the drift happened
+- My request: **“Think of the spec like a JSON Schema.”**
+- **And Specht was born.**
+
+</v-clicks>
+
+<!--
+Timing: 1.5 minutes. Building a way out: 11 minutes total, slides 17–22.
+
+This is SDD Inception: I used specification-driven development, discovered drift in the process, and asked for a fix in the affected repository. My instruction was to think of the spec like a JSON Schema. That request gave rise to Specht; SDD then guided development of the tool for specification-driven development. The origin was a concrete repository problem.
+
+The analogy is a checkable contract: required structure, identities, and relationships with reproducible diagnostics. It does not mean every Markdown claim is literally JSON Schema, or that schema validation proves the business meaning of a requirement. Let that nesting be the joke. The point is the method being applied to improve the method itself.
+
+The need was concrete: preserve the structural contract so agents could proceed with useful evidence. Specify the checks, test valid and broken inputs, build the checker, and apply it to the artifacts in the workflow. The diagram expresses that relationship, not a claim that the PRs contain every step of Specht's implementation history.
+
+Build tools like Specht to improve your own AI specification-driven process. A focused script that checks one recurring failure is a useful start. Specify the invariant, write failing examples and valid controls, implement it, then put the result in the handoff. This is BDD and TDD applied to the SDD tooling itself.
+
+The checker is software too. Its rules can be wrong or incomplete, so those rules need review and tests. Moving a check out of an LLM gives us a reproducible verdict for that rule; it does not make the rule infallible. Next, meet the tool that grew from that request, then follow one check through a repair.
+
 -->
 
 ---
@@ -605,54 +643,16 @@ A .NET tool that checks your feature specifications and their relationships.
 </div>
 
 <!--
-Timing: 1.5 minutes. Building a way out: 11 minutes total, slides 17–22.
+Timing: 1.5 minutes.
 
-Specht grew out of a request to fix this cycle in the affected repository. I asked the agent to think of the spec like a JSON Schema, and Specht was born. The idea was to make the specification contract mechanically checkable instead of repeatedly asking a model to rediscover its rules. It checks explicit rules against the spec tree and reports violations. The checker runs offline; pinning the tool and schema versions keeps the rule set reproducible across machines and CI.
+That request became Specht. Its job is to make the specification contract mechanically checkable. It checks explicit rules against the spec tree and reports violations. The checker runs offline; pinning the tool and schema versions keeps the rule set reproducible across machines and CI.
 
 Keep the description narrow. It does not understand whether accepting expired codes serves the business. It can check whether claims have the expected IDs and traceability relationships, whether feature tags resolve, and whether declared dependencies agree.
 
-The callback: my precious tokens should go toward reasoning that needs a model, while a deterministic checker handles the rules it can enforce. This is a design choice about the workflow, not a measured claim about savings.
+The callback: my precious tokens should go toward reasoning that needs a model, while a deterministic checker handles the rules it can enforce. This is a design choice about the workflow, not a measured claim about savings. Return to the checkout claim from the opening: we can demonstrate the same missing-row failure without teaching the entire private replay system.
 
 Source: https://github.com/RLittlesII/specht (README: checker, pinned schema, supported checks).
 Logo: existing dark-background SVG from Specht's .assets/logos/specht-book-logo-dark.svg, reused unchanged.
--->
-
----
-transition: slide-up
----
-
-# SDD Inception
-
-```mermaid {scale: 0.75}
-graph LR
-accTitle: How Specht grew out of SDD
-accDescr: Using SDD to build software exposed drift in the process. SDD then guided the development of Specht, which checks SDD artifacts.
-A["Use SDD<br/>to build software"] --> B["Discover drift<br/>in the SDD process"]
-B --> C["Use SDD<br/>to build Specht"]
-C --> D["Use Specht<br/>to check SDD artifacts"]
-```
-
-<v-clicks>
-
-- Fix the repository where the drift happened
-- My request: **“Think of the spec like a JSON Schema.”**
-- **And Specht was born.**
-
-</v-clicks>
-
-<!--
-Timing: 1.5 minutes.
-
-This is SDD Inception: I used specification-driven development, discovered drift in the process, and asked for a fix in the affected repository. My instruction was to think of the spec like a JSON Schema. That request gave rise to Specht; SDD then guided development of the tool for specification-driven development. The origin was a concrete repository problem.
-
-The analogy is a checkable contract: required structure, identities, and relationships with reproducible diagnostics. It does not mean every Markdown claim is literally JSON Schema, or that schema validation proves the business meaning of a requirement. Let that nesting be the joke. The point is the method being applied to improve the method itself.
-
-The need was concrete: preserve the structural contract so agents could proceed with useful evidence. Specify the checks, test valid and broken inputs, build the checker, and apply it to the artifacts in the workflow. The diagram expresses that relationship, not a claim that the PRs contain every step of Specht's implementation history.
-
-Build tools like Specht to improve your own AI specification-driven process. A focused script that checks one recurring failure is a useful start. Specify the invariant, write failing examples and valid controls, implement it, then put the result in the handoff. This is BDD and TDD applied to the SDD tooling itself.
-
-The checker is software too. Its rules can be wrong or incomplete, so those rules need review and tests. Moving a check out of an LLM gives us a reproducible verdict for that rule; it does not make the rule infallible.
-
 -->
 
 ---
@@ -801,7 +801,7 @@ Sources: Specht docs/rules/v0.2.1/SPEC030.md, SPEC031.md, SPEC021.md, and SPEC06
 transition: slide-up
 ---
 
-# What a Passing Check Establishes
+# A Passing Check Is Not Acceptance
 
 | Evidence              | Establishes                        | Still needs judgment             |
 | --------------------- | ---------------------------------- | -------------------------------- |
@@ -819,7 +819,7 @@ A well-formed instruction to accept expired codes is still the wrong instruction
 <!--
 Timing: 1.5 minutes. Keeping the workflow focused: 10 minutes total, slides 23–30.
 
-Return to B-011 from the actual PR. It remained a valid claim identifier even while its exit-category wording contradicted the design. A structural checker cannot decide which category expresses the intended behavior. Likewise, B-011 and B-003 were both valid IDs in #215; choosing the right one for the scenario required understanding its meaning.
+We have moved a repeated relationship check out of the model conversation. Now return to the process: who decides whether that relationship connects the right things? Return to AC-011 from the actual PR. It remained a valid claim identifier even while its exit-category wording contradicted the design. A structural checker cannot decide which category expresses the intended behavior. Likewise, AC-011 and AC-003 were both valid IDs in the follow-up PR; choosing the right one for the scenario required understanding its meaning.
 
 The point is to use each kind of evidence for the question it can answer. Humans must compare spec changes with approved intent. Tests must exercise meaningful behavior. The deterministic checker enforces its selected rules, consistently, without claiming to establish the truth of the business requirement.
 
@@ -845,7 +845,7 @@ R -->|approve| D[Done]
 R -->|correction| A
 ```
 
-- Validate affected artifacts before each downstream handoff
+- Validate before handoff; pause repeated failures for human diagnosis
 - Run behavioral tests and retain their results
 - Changes to intent return to human approval
 
@@ -855,6 +855,8 @@ Timing: 1.5 minutes.
 The diagram compresses downstream authoring to keep it readable. Validation repeats as scenarios, tests, and code change; it is not a one-time check on the first draft. The workflow must actually branch on the result. A required validation failure stops the downstream handoff and returns actionable findings to the responsible edit.
 
 Review findings should identify the relevant requirement, artifact, and evidence. If the implementation is wrong, fix the implementation. If the test is wrong, fix the test. If intent needs to change, review and approve the spec delta before propagating it. Do not automatically rewrite the spec to match whatever the code happens to do.
+
+Repeated failures must not become an unbounded author/reviewer loop. Agree on a review budget or escalation trigger for the task. When a finding persists or reviews conflict, pause automated retries and give a named human the baseline, latest diff, findings, and attempted repairs. Diagnose the rule, context, or requirement before restarting.
 
 This gate placement is the proposed SDD workflow for the talk, not a claim that installing Specht automatically configures agent orchestration or CI.
 -->
@@ -883,7 +885,9 @@ Agents propose and execute. Humans remain accountable for acceptance.
 <!--
 Timing: 1 minute.
 
-This keeps the original review technique, with the missing safeguard added. The reviewer must see how the spec changed. A request to implement B-002 does not authorize reversing it to make the implementation pass.
+These are human responsibilities even when agents perform much of the authoring and execution. One person may hold several roles; each decision still needs an owner. Product owns what should happen, testing challenges whether the examples and assertions expose failures, development owns the implementation and checking tools, and review decides whether the evidence supports acceptance.
+
+The reviewer must see how the spec changed. A request to implement AC-002 does not authorize reversing it to make the implementation pass. Unresolved disagreements and repeated failed repairs return to a human instead of triggering another automatic review.
 
 Review agents can reason about gaps and suggest improvements. Humans retain the decision about business intent, and ordinary code review still matters: satisfying a claim does not excuse unsafe or unmaintainable implementation. Structural reports provide evidence, leaving more attention for these substantive questions.
 -->
@@ -917,9 +921,9 @@ Exploration still matters. When it reveals a gap, determine whether the intended
 level: 2
 ---
 
-# Lessons and Skills Feed the Next Run
+# Make Lessons Change the Next Run
 
-**Actual PR evidence: the lessons drifted too**
+**The same incident exposed a gap in how the process learned**
 
 - `L-0007`: review found no historical incident matching its example
 - `L-0009`: a lesson about signature consistency misquoted the signatures
@@ -936,11 +940,11 @@ level: 2
 <!--
 Timing: 1.5 minutes.
 
-The original abstract promises tests, lessons, and skills. The actual PR gives us a stronger example than fictional rounding: even the learning artifacts were unreliable. The L-0007 review reports git-history searches for 'Table C' and 'row 2 of' that found those strings only in the commit introducing the lesson, not the feature it described. It also points out that stable C-n constraint IDs had been mischaracterized as positional references. Attribute that history audit to the review; it is not a newly rerun search of all branches for this presentation.
+Monitoring is useful only if findings change the next run. Apply that test to lessons from the same incident: even the learning artifacts needed verification. The L-0007 review reports git-history searches for 'Table C' and 'row 2 of' that found those strings only in the commit introducing the lesson, not the feature it described. It also points out that stable C-n constraint IDs had been mischaracterized as positional references. Attribute that history audit to the review; it is not a newly rerun search of all branches for this presentation.
 
 L-0009, a lesson about keeping port signatures consistent, misquoted both signatures. A later reply states that d953cac recorded the finding in L-0012 while leaving L-0009 unchanged. Tracking a correction is not performing it. The lesson-register-collapse entry documents fabricated incidents, misquoted code, reversed facts, and lessons failing to guide the review process.
 
-A useful lesson preserves its evidence. A skill gives the agent a reusable procedure: retrieve the relevant claims and lessons, verify citations against current artifacts, run applicable checks, and return current results. Merely writing a lesson does not make the next run learn it. Factual and semantic lesson claims still need review; automate specific checks where possible rather than promising a general truth detector.
+A useful lesson preserves its evidence. A skill gives the agent a reusable procedure: retrieve the relevant claims and lessons, verify citations against current artifacts, run applicable checks, and return current results. Merely writing a lesson does not make the next run learn it. A human owns verifying the lesson and changing the affected artifact or procedure. The next handoff must show that the change was applied. Factual and semantic lesson claims still need review; automate specific checks where possible rather than promising a general truth detector. Next, make that evidence useful to the agent taking over the work.
 
 Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
 -->
@@ -949,7 +953,7 @@ Source provenance: see pr-evidence.md for the reviewed artifacts, original PR id
 level: 2
 ---
 
-# Give the Agent Code Context
+# Make Every Handoff Inspectable
 
 ```mermaid {scale: 0.7}
 graph LR
@@ -964,18 +968,20 @@ C --> E["Canonical example"]
 
 <v-clicks>
 
-- Supply the existing implementation and its relationships
-- Use a graph or code-navigation tools to find affected paths
-- Carry concrete references and evidence into the handoff
+- Link the claim to existing code and affected dependencies
+- Attach the revision, diffs, check results, and test results
+- Name unresolved gaps, their owner, and the next decision
 
 </v-clicks>
 
 <!--
 Timing: 1 minute.
 
-This condenses the original graph section. The spec says what should happen; the agent also needs to discover what already exists. Otherwise, it can implement the right behavior in a duplicate service or overlook a dependent caller.
+The next person or agent needs enough evidence to inspect the handoff without reconstructing the whole conversation. The spec says what should happen; code navigation reveals what already exists and which dependencies may be affected. Otherwise, the agent can implement the right behavior in a duplicate service or overlook a dependent caller.
 
-The graph here is a conceptual map, not a Specht feature or a mandate to install a graph database. A graph can help query relationships; symbol navigation and other repository tools can supply useful evidence too. Share paths, symbols, and actual results rather than unsupported design claims. We are keeping this as supporting context rather than touring Cypher queries.
+Include the approved claim, current revision and diff, results from pinned checks and the test runner, and an owner for each unresolved gap. A useful handoff states what decision remains, not merely that the previous agent is done.
+
+The graph here is a conceptual map, not a Specht feature or a mandate to install a graph database. A graph can help query relationships; symbol navigation and other repository tools can supply useful evidence too. Share paths, symbols, and actual results rather than unsupported design claims. The point is an inspectable handoff: another reviewer can follow the claim to the implementation and assess the attached evidence.
 -->
 
 ---
@@ -1020,7 +1026,7 @@ These are expected advantages of the workflow, not measured Specht outcomes. Cle
 
 Avoid turning this into a new binder ceremony. Start with a real feature and a failure that keeps recurring. Decide what evidence would expose it, automate the deterministic part, and retain the human decision where meaning matters. Expand when the checks are useful.
 
-That is the SDD Inception story: SDD exposed a problem in the process, and I used SDD to build a tool for that process. Next, make it concrete for someone who wants to try it today.
+We have gone from the review nightmare to one deterministic check, then back to the people and evidence that keep the process working. Start at that scale. Next, apply it to a codebase that already exists, without stopping delivery for a documentation rewrite.
 -->
 
 ---
@@ -1051,7 +1057,7 @@ We are not stopping delivery to reverse-engineer and specify every feature. When
 
 Use existing requirements, tests, and code as evidence. Do not assume current behavior is automatically intended behavior: an existing bug should not become a requirement merely because an agent observed it. Resolve that question with the people who own the behavior, then record the agreement and the regression evidence for the change.
 
-Be candid about the limitation. This produces partial coverage, and existing code carries context and dependencies the documents may not yet capture. A passing check for the area we specified does not certify the entire legacy system. It still gives the next person or agent a better starting point in that area.
+The first changed area gives us a small process to monitor: are its claims stable, are tests current, and do recurring findings get resolved? Be candid about the limitation. This produces partial coverage, and existing code carries context and dependencies the documents may not yet capture. A passing check for the area we specified does not certify the entire legacy system. It still gives the next person or agent a better starting point in that area.
 
 Source: Rodney's account of current use on a large existing project, supplied for this talk. No project identity, size metric, adoption rate, or measured benefit is claimed.
 -->
@@ -1067,7 +1073,7 @@ transition: slide-up
 | Claims changed or withdrawn         | Compare with approved intent         |
 | Broken links or missing coverage    | Assign an owner; require repair      |
 | Failed, skipped, or stale test runs | Re-run on the current revision       |
-| Repeated findings or review loops   | Improve a rule, tool, or instruction |
+| Repeated findings or review loops   | Pause; assign a human to diagnose    |
 
 Keep the revision, check results, test results, and unresolved gaps together.
 
@@ -1076,7 +1082,7 @@ Timing: 1 minute. Closing and questions: 5 minutes total, slides 31–33.
 
 Monitor the process by retaining evidence per revision and per scoped handoff. A green result from yesterday or from a different diff is not evidence for this change. Record what was checked, with which tool/schema versions, what failed or was skipped, and who owns unresolved gaps. Required failures block handoff; exceptions need a named human decision and rationale.
 
-Look for patterns: are the same links repeatedly repaired, are tests disappearing, are agents changing requirements to obtain green results, or are author/reviewer rounds repeating the same finding? Use those observations to improve the workflow. Counts help identify friction; a green dashboard does not establish correct intent.
+Look for patterns: are the same links repeatedly repaired, are tests disappearing, are agents changing requirements to obtain green results, or are author/reviewer rounds repeating the same finding? When review rounds stop producing progress, pause the loop and diagnose it with the responsible human. Then improve the rule, tool, context, or instruction before resuming. This is the intervention missing from the token nightmare. Counts help identify friction; a green dashboard does not establish correct intent.
 
 This monitoring is the team's workflow responsibility. It is not a claim that Specht supplies a monitoring dashboard or detects stale test evidence through its base structural rules. Test runners and CI supply execution evidence; people review its relevance and gaps.
 -->
