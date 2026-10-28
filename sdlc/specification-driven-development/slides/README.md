@@ -60,15 +60,15 @@ The deck is timed for 50 minutes: 45 minutes of teaching and walkthrough, two mi
 | 11–16 | The token horror story | 10 |
 | 17–22 | Building a way out | 11 |
 | 23–30 | Keeping the workflow focused | 10 |
-| 31–33 | Start today and questions | 5 |
+| 31–33 | Monitor, build checks, and questions | 5 |
 
-The horror story uses actual review evidence from a private project: a contradictory claim copied into a scaffold, missing traceability, a mismatched scenario tag, and corrupted lessons. See [the evidence notes](./pr-evidence.md) for pinned artifacts and correction history. The separate checkout validation walkthrough remains illustrative; it is not output from those PRs. The SPEC031 diagnostic is adapted from Specht's README, split for readability, with claim prefixes shown as `AC-`. The walkthrough is slide-only; no live demo or installation is required during delivery.
+The horror story uses actual review evidence from a private project: a contradictory claim copied into a scaffold, missing traceability, a mismatched scenario tag, and corrupted lessons. See [the evidence notes](./pr-evidence.md) for pinned artifacts and correction history. The separate checkout validation walkthrough remains illustrative; it is not output from those PRs. The checkout excerpts use the canonical acceptance-criteria and traceability table columns. The expected SPEC031 message follows the schema 0.2.1 rule reference, wrapped for readability, and keeps `AC-002` throughout the failure and repair. These examples assume an `AC-` claim grammar in the manifest; Specht's default uses `B-`. The examples are excerpts, not complete runnable fixtures or captured CLI output. Slide 22 connects SPEC031, SPEC021, SPEC030, and SPEC060 to concrete edits and distinguishes them from the incident's valid-but-wrong tag and contradictory claim. The walkthrough is slide-only; no live demo or installation is required during delivery.
 
-The current [Specht quick start](https://github.com/RLittlesII/specht#quick-start) documents installation through authenticated GitHub Packages. Use that link for installation: the older setup page still contains a stale publication notice. Authentication details and initialization behavior are in the adoption slide's speaker notes.
+The current [Specht quick start](https://github.com/RLittlesII/specht#quick-start) documents installation through authenticated GitHub Packages. Use that link for installation: the older setup page still contains a stale publication notice. This is an optional resource for questions; installation is outside the teaching close.
 
-The closing principle is independent of Specht: use deterministic processes to catch mechanically detectable drift, while humans review intent and tests verify behavior.
+The close focuses on monitoring the SDD process: retain the revision and validation/test results at each handoff, assign gaps to people, and turn repeated findings into deterministic checks. Human responsibilities are explicit on slide 25. BDD establishes shared examples; TDD drives implementation and the tooling itself. AI helps maintain the specification, claims, and verification artifacts, while programs check explicit rules and humans own intent and acceptance.
 
-“SDD Inception” frames the tool's origin: SDD was used to build software, exposed drift in that process, and was then used to build Specht for SDD.
+“SDD Inception” frames the tool's origin: while trying to fix the affected repository, Rodney asked the agent to think of the spec like a JSON Schema, and Specht grew from that request. Slide 16 includes his reported review effort: over 200 PR comments, about half the reviews away from GitHub, 20+ AI reviews taking 10+ rounds each, and a recalled high of 18 rounds. These figures are his account, separate from the pinned artifact evidence.
 
 The audience-facing deck identifies the source as a private-project review incident. It omits the repository name, private GitHub URLs, PR numbers, and commit hashes. Original provenance stays in the separate evidence notes; the concrete claim IDs, findings, and correction remain in the slides.
 
@@ -79,3 +79,12 @@ Slide 13, “What Is a Claim?”, defines the stable requirement ID, testable be
 Audience-facing claim IDs use `AC-` (acceptance criterion). The original evidence uses `B-`; prefixes are mapped consistently in teaching examples, PR excerpts, and the diagnostic, with original IDs retained in the evidence notes.
 
 Slide 30 addresses brownfield adoption using Rodney's current experience on a large existing project: start with available requirements, clarify and specify areas when changing them or fixing bugs, and fill gaps incrementally. Whole-system backfilling is not a prerequisite. Existing behavior is evidence to examine, not automatically the intended requirement.
+
+## Table linting
+
+Slide tables use leading/trailing pipes, padded columns, matching cell counts,
+and blank lines around rendered tables. Table excerpts inside Markdown and diff
+code fences follow the same column shapes. Verified with markdownlint-cli2 0.24.0 (markdownlint 0.42.0), using table rules
+MD055, MD056, MD058, and MD060 (`aligned` style): zero issues. Fenced examples
+were extracted and linted separately after removing diff markers. Slidev frontmatter, reveal components, and speaker notes
+are outside this table-only lint scope.

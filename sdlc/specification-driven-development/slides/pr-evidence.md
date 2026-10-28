@@ -2,7 +2,7 @@
 
 Presenter provenance: these source links support the case study. The audience-facing deck uses anonymous original/follow-up PR labels and does not direct attendees to the private repository.
 
-The story slides use hooked PRs [#214](https://github.com/RLittlesII/hooked/pull/214) and [#215](https://github.com/RLittlesII/hooked/pull/215). The findings below distinguish reviewed artifacts, review observations, and subsequent corrections. The account of a week's worth of Claude Max tokens comes from Rodney; these PRs do not measure token consumption.
+The story slides use hooked PRs [#214](https://github.com/RLittlesII/hooked/pull/214) and [#215](https://github.com/RLittlesII/hooked/pull/215). The findings below distinguish reviewed artifacts, review observations, and subsequent corrections. The account of a week's worth of Claude Max tokens and the review-effort figures below come from Rodney; these PRs do not measure token consumption or capture reviews performed away from GitHub.
 
 The slides display claim prefixes as `AC-` (acceptance criterion): source `B-011` becomes `AC-011`, for example. The tag correction and diagnostic are labeled as adapted identifiers. All original identifiers below remain unchanged.
 
@@ -50,7 +50,21 @@ The [review finding](https://github.com/RLittlesII/hooked/pull/215#discussion_r4
 
 The [follow-up reply](https://github.com/RLittlesII/hooked/pull/215#discussion_r4212833570) identifies the same correction. Both IDs existed: reference resolution alone would not decide which claim expresses the scenario's meaning.
 
-## The visible review and repair cycle — slide 16
+## Reported review effort — slide 16
+
+Rodney supplied this account on October 28, 2026:
+
+- By the time the PR was done, it had more than 200 review comments.
+- About half the reviews happened away from GitHub.
+- There were 20+ AI reviews, each taking 10+ rounds.
+- The highest round count he recalls was 18.
+
+Reviews and rounds within a review are distinct units. The highest count is a
+recollection. These figures include workflow information outside GitHub and are
+attributed to Rodney, rather than presented as an independently reconstructed
+GitHub count. The artifact history below supplies the documented outcomes.
+
+## The visible review and repair cycle
 
 PR #214 was opened September 30, 2026 and closed without merging on October 2. Its retained commit history includes review corrections, traceability repairs, and a lesson-register audit. Selected commits:
 
@@ -78,6 +92,6 @@ A [later reply](https://github.com/RLittlesII/hooked/pull/214#discussion_r416983
 
 ## Connection to Specht
 
-The origin is **SDD Inception**: Rodney used SDD to build software, encountered drift in that process, then used SDD to build a tool for SDD. These PRs evidence the motivating failures; they do not document every step of Specht's construction.
+The origin is **SDD Inception**: Rodney was trying to fix the problem in the repository where the drift had occurred. In the fix request, he asked the agent to “think of the spec like a JSON Schema.” Specht grew out of that request, and SDD guided its development. This origin account was supplied by Rodney on October 28, 2026. The schema analogy means enforcing a checkable specification contract; it does not claim that schema validation establishes the meaning or truth of arbitrary claims. These PRs evidence the motivating failures; they do not document every step of Specht's construction.
 
 Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. The separate checkout walkthrough in slides 19–22 remains an illustrative explanation of the checker, not a replay of either hooked PR.

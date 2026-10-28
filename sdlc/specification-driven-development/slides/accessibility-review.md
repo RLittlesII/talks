@@ -171,3 +171,18 @@ On macOS, headless Chromium does not operate native select popups with key event
 the script tests shortcut isolation and the Go action, while the native chooser
 keyboard sequence is verified separately in Safari. Keep that native check when
 repeating a full browser review.
+
+## October 28, 2026 content revision
+
+Rechecked all 33 slides after the table and narrative polish. Production build
+and table lint pass. A rendered bounding-box check found no text, table, or
+code overflow across the 33 fully revealed slides; the revised teaching and
+closing slides were also visually inspected.
+
+The existing Playwright/axe harness completed 99 states with zero axe violations
+and all eight interaction checks. Structural and 640-pixel reading-layout
+assertions completed. Its final no-browser-errors assertion failed because
+headless Chromium reported `Wake Lock permission request denied`; this run is
+therefore not recorded as a fully passing harness run. The browser was Chromium
+151.0.7922.34. Temporary evidence: `/tmp/sdd-polish-audit/audit.json` and slide
+screenshots in the same directory. No new Safari or VoiceOver review was run.
