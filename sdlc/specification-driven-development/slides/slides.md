@@ -287,33 +287,43 @@ The important change is where the next task starts: from agreed behavior and con
 transition: slide-up
 ---
 
-# Same Document, New Reader
+# Meet the Actors and Artifacts
 
-```mermaid {scale: 0.7}
-graph LR
-accTitle: One requirement across four artifacts
-accDescr: A claim that expired codes are rejected links to a scenario, a test asserting rejection, and the discount-service code.
-R["Claim<br/>expired code rejected"] --> S["Scenario<br/>expired code applied"]
-S --> T["Test<br/>rejection asserted"]
-T --> C["Code<br/>discount service"]
-```
+<div grid="~ cols-2 gap-8" m="t-2">
+<div>
 
-<v-clicks>
+**Who acts**
 
-- **Read:** approved intent, constraints, and existing code
-- **Produce:** a scoped change linked to the claim
-- **Hand off:** the diff, check results, and unresolved questions
+- **Human:** owns intent and acceptance
+- **AI agent:** a model with instructions and tools; proposes and makes edits
+- **Programs:** test runners execute checks; validators enforce explicit rules
 
-</v-clicks>
+</div>
+<div>
+
+**What they work on**
+
+- **Feature:** a scoped capability, such as applying discount codes
+- **Specification:** the versioned agreement on behavior, constraints, and scope
+- **Claim:** one numbered, testable requirement in that agreement
+
+</div>
+</div>
+
+People decide. Agents do work. Artifacts record the agreement and evidence.
 
 <!--
-Timing: 2 minutes.
+Timing: 2.5 minutes.
 
-The requirement from the old binder still has a job. The agent reads the rule, works out scenarios, implements a test and code, and carries the reference forward. These artifacts express related things; they are not interchangeable. A scenario describes an example, a test executes an assertion, and code delivers behavior.
+Give the audience this vocabulary before showing agent handoffs. These are different kinds of participants: people and agents take actions; specifications and features are the subject of the work; deterministic programs supply particular checks. Do not imply that a document has agency or that a model owns the product decision.
 
-The contract is that each role can inspect where its input came from. The links make that inspection possible. A versioned file preserves the reference across sessions, but version control cannot tell us that a sentence is true. Keep that distinction in mind; it is where this story goes wrong.
+Human means the people responsible for product intent, design, testing, and acceptance. One person may hold several responsibilities. AI means the model; an agent puts that model in a workflow with instructions, context, and tools so it can act. An agent can draft a spec, edit code, or review a diff, but the human remains accountable for approving meaning and accepting the result.
 
-A change to the requirement triggers review of affected scenarios, tests, and code. It does not guarantee the agent will regenerate the same implementation twice.
+Feature here means a bounded product capability, such as applying discount codes. Its spec is the versioned agreement covering that capability: why it exists, testable claims, constraints, and exclusions. A claim is one acceptance criterion with a stable ID, such as AC-002. The implementation is the code that delivers the behavior; the spec describes what that behavior should be.
+
+A test runner executes test code and reports what its assertions observed. A structural checker such as the tool introduced later compares artifacts with explicit rules. Neither is a product owner. A passing structural check and a passing behavioral test answer different questions.
+
+Next assign the agent jobs, then use the checkout example to explain Gherkin, scenarios, and how their words become executable checks. Later, the file-layout slide shows where these artifacts live in this repository convention.
 -->
 
 ---
@@ -336,9 +346,9 @@ Instructions define the handoff. Tools check its explicit rules.
 </v-click>
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
-An agent role is a persona, instructions, and tools. The table describes a workflow contract, not a requirement for four separate sessions. You can use fewer agents and still preserve the responsibilities.
+The actors now have jobs. Spec author, test writer, implementer, and reviewer are responsibilities assigned to an agent through its instructions and tools. The table describes a workflow contract, not a requirement for four separate sessions. You can use fewer agents and still preserve the responsibilities.
 
 Notice that the spec author may be an agent too. I still own the intent. The author proposes changes; it does not get authority to redefine the requirement silently. The reviewer needs the approved baseline as well as the new spec. Otherwise, what prevents both roles from agreeing on a new requirement I never asked for?
 
@@ -353,6 +363,8 @@ class: claim-example
 
 # One Claim Through the Loop
 
+**Feature:** discount-code validation.
+
 **Claim `AC-002`**
 
 Reject an expired discount code and show an expired-code message.
@@ -363,26 +375,36 @@ Reject an expired discount code and show an expired-code message.
 
 ::right::
 
+**Gherkin:** a language for behavior examples.
+
 ```gherkin
-@AC-002
-Scenario: Reject an expired code
-  Given a cart worth $50
-  And SAVE10 expired yesterday
-  When SAVE10 is applied
-  Then the total remains $50
-  And an expired-code message appears
+Feature: Discount codes
+
+  @AC-002
+  Scenario: Reject an expired code
+    Given a cart worth $50
+    And SAVE10 expired yesterday
+    When SAVE10 is applied
+    Then the total remains $50
+    And an expired-code message appears
 ```
 
-The test must execute these assertions.
+A **scenario** is one example. **Bindings + a runner** execute its steps and assertions.
 
 <!--
 Timing: 3 minutes.
 
+Explain the example using the vocabulary just introduced. The feature is the capability; the spec is its agreement; AC-002 is one claim in it. Gherkin is the structured language used in the .feature file. Feature: groups related scenarios; Scenario: names one concrete example; Given sets the starting state, When describes the action, and Then describes the expected result. And adds another step of the same kind.
+
+A .feature file contains Gherkin, not application code. Step definitions (also called bindings) connect the step text to executable code. Then bindings perform assertions against observed behavior when the test runner executes them. For example, asserting both a $50 total and the expired-code message checks the two outcomes of AC-002. Writing the scenario or adding a claim tag alone does not run a test.
+
 This is the condensed spec anatomy and Gherkin example. The business goal is clear checkout pricing. The user needs feedback when a code cannot be used. The claim is falsifiable, the constraint sets a boundary, and out of scope limits what the agent should add. We are keeping the checkout example from the existing talk.
 
-For the modern examples, AC-002 is our short claim identifier for the expired-code requirement previously shown as REQ-3.2.4.2. This is an explicit presentation mapping, not an instruction to renumber real requirements. The tag carries that identity into the scenario. The test needs assertions for both the unchanged total and the message. A descriptive test name alone proves neither.
+For the modern examples, AC-002 is our short claim identifier for the expired-code requirement previously shown as REQ-3.2.4.2. This is an explicit presentation mapping, not an instruction to renumber real requirements. The @AC-002 tag carries that identity into the scenario; it is a reference, not an assertion. Traceability records the links from the claim to its scenarios and tests. The test needs assertions for both the unchanged total and the message. A descriptive test name alone proves neither.
 
-Ask the audience to consider what happens if the tag disappears, then what happens if the author changes 'reject' to 'accept.' Those are different failures. One concerns the relationship; the other concerns the intent. Next comes the story of trusting this loop too far.
+Ask the audience to consider what happens if the tag disappears, then what happens if the author changes 'reject' to 'accept.' Those are different failures. One concerns the relationship; the other concerns the intent. We now have the people, agent jobs, agreement, examples, executable checks, and implementation in view. Next comes the story of trusting this loop too far.
+
+Terminology source: https://cucumber.io/docs/gherkin/reference/ (Feature, Scenario, Given/When/Then, step definitions, and assertions).
 -->
 
 ---
@@ -416,7 +438,7 @@ class: artifacts
 
 # The Files Behind the Workflow
 
-Each feature keeps a **`.spec/` folder beside its code**.
+In this workflow, each feature keeps a **`.spec/` folder beside its code**.
 
 | Artifact     | What the agent learns                                       |
 | ------------ | ----------------------------------------------------------- |
@@ -435,7 +457,7 @@ Timing: 1.5 minutes.
 
 To explain the review nightmare, first show the artifacts the author and reviewer were trying to reconcile. These are two different folder names: dot-spec contains the specification and its supporting records; dot-specht contains the tool's configuration, schemas, and templates. Neither is a .NET SDK installation folder. A .NET tool is the packaging mechanism for the checker.
 
-A feature's .spec/README.md is its agreement: numbered claims, constraints, out of scope, design, traceability, and sign-off. Its companion .feature file gives concrete behavior examples linked to those claims. Those scenarios become executable checks when test bindings implement them and the runner executes them.
+A feature's .spec/README.md is its agreement: numbered claims, constraints, out of scope, design, traceability, and sign-off. Its companion .feature file contains the Gherkin scenarios introduced earlier, with tags linking them to claims. The product feature is the capability; the .feature file is an artifact describing examples of its behavior. Those scenarios become executable checks when test bindings implement them and the runner executes them.
 
 ADR means Architecture Decision Record. It keeps the context, alternatives, technical decision, and consequences so the next agent does not reopen a settled design as an unexplained gap. A product decision record instead preserves what we chose to build or exclude and why. A lesson records an observed failure, root cause, and follow-through: a product lesson changes the relevant claim/scenario when needed; a process lesson changes the reusable procedure or skill. Agents must retrieve and apply the relevant records; their existence alone does not change model behavior.
 

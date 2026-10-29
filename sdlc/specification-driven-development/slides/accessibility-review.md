@@ -197,3 +197,18 @@ reading layouts: 26 states, zero violations. Revised transition slides were
 visually inspected. These targeted checks do not replace the full interaction
 harness or its wake-lock limitation recorded above. The deck remains 33 slides
 with 50 minutes allocated in speaker notes.
+
+### Actor and artifact primer
+
+Slide 8 now defines humans, AI agents, checking programs, features, specifications,
+and claims; slide 10 defines Gherkin/scenarios and the role of bindings and a
+runner. The primer replaces one diagram, leaving three diagrams in 33 slides.
+The diagram keyboard test now uses slide 28.
+
+Production build and table lint pass. Slides 8–10 and 12 have no detected
+overflow and were checked in fitted and 640-pixel reading layouts: eight axe
+states, zero violations. The updated actor map and Gherkin example were visually
+inspected. All eight interaction checks completed, including diagram scrolling
+on slide 28; the harness still fails its final no-browser-errors assertion on
+the previously recorded headless wake-lock denial. This is not a fully passing
+interaction-harness run. The timing allocation remains 50 minutes.

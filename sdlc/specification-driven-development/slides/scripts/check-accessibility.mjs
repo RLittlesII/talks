@@ -174,8 +174,8 @@ try {
   assert.equal(await page.getByRole('main').getByRole('heading', { level: 1 }).count(), 1)
   checks.push('Changing slides resets reading position and removes the outgoing slide from the accessibility tree')
 
-  await page.goto(base + '/8?clicks=999', { waitUntil: 'networkidle' })
-  await ready(8)
+  await page.goto(base + '/28?clicks=999', { waitUntil: 'networkidle' })
+  await ready(28)
   await page.getByRole('button', { name: 'Reading layout', exact: true }).click()
   await page.setViewportSize({ width: 640, height: 400 })
   const diagram = page.getByRole('region', { name: /^Scrollable diagram:/ })
@@ -183,7 +183,7 @@ try {
   await page.keyboard.press('ArrowRight')
   await page.waitForTimeout(200)
   assert.ok(await diagram.evaluate(element => element.scrollLeft > 0))
-  assert.match(page.url(), /\/8\?clicks=3$/)
+  assert.match(page.url(), /\/28\?clicks=3$/)
   await page.setViewportSize({ width: 1280, height: 800 })
   checks.push('A focused enlarged diagram scrolls with arrow keys without changing the slide')
 

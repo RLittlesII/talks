@@ -36,7 +36,7 @@ teal inline code has 6.32:1 contrast against that background.
 Links stay underlined, diff examples retain their `+`/`-` markers, keyboard focus
 has a visible outline, and transitions honor reduced-motion preferences. Fonts
 use local system fallbacks. Illustrations retain descriptive alt text, and all
-four diagrams have accessible titles and descriptions.
+three diagrams have accessible titles and descriptions.
 
 The audience controls provide Previous/Next steps, a titled slide chooser with
 an explicit Go action, fullscreen, and a presenter link. **Reading layout** makes
@@ -95,8 +95,9 @@ The 33-slide, 50-minute sequence follows six beats:
 
 1. Slides 1–6 recover the useful parts of specifications and introduce AI as
    a new reader and author whose edits also need checking.
-2. Slides 7–10 connect SDD to BDD and TDD, then follow one checkout claim
-   through scenarios, assertions, and agent handoffs.
+2. Slides 7–10 connect SDD to BDD and TDD, define the actors and artifacts,
+   assign agent jobs, then follow a checkout claim into a Gherkin scenario,
+   bindings, executable assertions, and implementation.
 3. Slides 11–16 show the actual review nightmare: the artifacts, contradictory
    claim, drifting references, and reported review effort.
 4. Slide 17 gives the initiating request: fix the affected repository by thinking
@@ -114,3 +115,17 @@ mechanism is the same; the worked example is illustrative. Keep the schema
 request before the tool introduction. Distinguish a reproducible structural
 finding from semantic judgment, and describe a human escalation route so the
 proposed workflow does not reproduce the original unbounded review loop.
+
+## Vocabulary before the workflow
+
+Slide 8 distinguishes humans, AI agents, and checking programs from the artifacts
+they work on: a feature is a scoped product capability, a specification is its
+versioned agreement, and a claim is one numbered, testable requirement. Slide 9
+assigns authoring, testing, implementation, and review jobs to agents. Slide 10
+explains Gherkin, its Feature/Scenario/Given/When/Then structure, claim tags,
+and the step definitions and runner needed to execute assertions against code.
+A feature, its `.feature` file, a scenario, and an executable test are related
+but distinct. Slide 12 then maps these concepts to repository artifacts.
+
+The actor primer replaces the earlier artifact-chain diagram; the deck retains
+33 slides, three diagrams, and the 50-minute timing allocation.
