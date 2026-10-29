@@ -559,6 +559,12 @@ transition: slide-up
 
 The correction also added the scenario to `AC-003`'s traceability row.
 
+<v-click>
+
+**A wrong reading can spread into the claim, the test, and a false sense of confidence.**
+
+</v-click>
+
 
 <!--
 Timing: 2 minutes.
@@ -570,6 +576,10 @@ In #215, the replayed-secret-failure scenario had already been rewritten to desc
 At reviewed commit 4e95b5b7bdddeab266f8d0f7631b0a13307ca76d, the feature tag was @B-011 at line 110, and the two matrix rows omitted the scenario. Correction commit 90ab1fed669bcae50b5bafad159bc59583a2f1cd retagged it @B-003, added the scenario title to B-003's row, and reconciled related citations. The diff on screen preserves the actual tag correction, with B- prefixes displayed as AC- and the unchanged scenario title omitted for readability.
 
 This shows the distinction needed for Specht: missing required rows can be checked mechanically. Determining which valid claim describes a scenario's meaning still needs review. Do not claim Specht automatically diagnoses the semantic misassignment just because it can validate references.
+
+Use this slide to talk about more than broken links. AI can introduce **meaning drift** by making an ambiguous or mistaken interpretation sound precise. It can create **propagation drift** by copying that interpretation into a scenario, a test scaffold, and code; agreement across those files may only mean they inherited the same mistake. It can create **traceability drift** when references resolve but point to the wrong claim, or when coverage quietly disappears. It can create **evidence drift** when a scaffold, skipped test, stale run, or test of the wrong behavior is treated as proof. And it can create **memory drift** when it rewrites a lesson or instruction to rationalize the last mistake, setting up the next run to repeat it.
+
+These are risks, not claims that every AI edit does this. The practical danger is that AI makes authoring and synchronization convenient, so one wrong assumption can be repeated across artifacts quickly. That can make the repository look more consistent while confidence in the actual behavior gets worse. Keep the approved intent visible, inspect the diff and current test evidence, and remember that a model reviewing its own interpretation is not independent confirmation. AI is useful at the maintenance work; people still have to decide whether the maintained agreement is right.
 
 Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
 -->
