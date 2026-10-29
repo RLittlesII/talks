@@ -23,7 +23,13 @@ duration: 50min
 <!--
 Timing: 0.5 minutes. The specification returns: 6 minutes total, slides 1–6.
 
-The spec is the prompt. That was the premise of the first iteration of this talk. Using it gave me a horror story: a review loop that ate a week's worth of tokens. My precious tokens. We will get to what happened and why I built Specht as a result.
+I like talking about my failures. They’re a surprisingly reliable source of conference material.
+
+Pause, then turn toward the lesson:
+
+This is a talk about something awesome I learned the hard way: how badly SDD can go when you aren’t watching the process.
+
+The spec is the prompt. But who checks the spec? My answer involved a review nightmare, a week's worth of tokens. My precious tokens. And the request that became Specht.
 
 Keep the published promise in view: explicit specifications guide agents, and tests, lessons, and skills keep the workflow honest. The new question is how we check the reference the agents rely on.
 -->
