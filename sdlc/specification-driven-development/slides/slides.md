@@ -29,7 +29,7 @@ Pause, then turn toward the lesson:
 
 This is a talk about something awesome I learned the hard way: how badly SDD can go when you aren’t watching the process.
 
-The spec is the prompt. But who checks the spec? My answer involved a review nightmare, a week's worth of tokens. My precious tokens. And the request that became Specht.
+The spec is the prompt. But who checks the spec? My answer involved a review nightmare and burning a week's worth of tokens. My precious tokens. And the request that became Specht.
 
 Keep the published promise in view: explicit specifications guide agents, and tests, lessons, and skills keep the workflow honest. The new question is how we check the reference the agents rely on.
 -->
@@ -416,7 +416,7 @@ transition: fade
 # My Precious Tokens
 
 <div style="margin-top: 2rem; font-size: 1.8rem; line-height: 1.5; color: var(--sdd-copper);">
-  “Claude Max ate a week's worth of tokens<br/>trying to review a pull request.”
+  “I burned a week's worth of Claude Max tokens<br/>trying to review a pull request.”
 </div>
 
 <div style="margin-top: 1.5rem; color: var(--sdd-muted);">A real review loop in one of my projects</div>
@@ -428,7 +428,7 @@ This is my account of what happened. The quote describes my experience with the 
 
 As always, this is a story from the trenches.  This is a real story, all tokens discussed in it were burned frivolously and it was not completely the fault of the provider.
 
-I had the spec. I had an author. I had a reviewer. And the thing consuming my tokens was the process that was supposed to keep the work honest. This is the horror story promised in the opening.
+I had the spec. I had an author. I had a reviewer. And I was burning those tokens on the process that was supposed to keep the work honest. This is the horror story promised in the opening.
 -->
 
 ---
@@ -591,7 +591,13 @@ transition: fade
 | AI reviews               | 20+                                |
 | Rounds per AI review     | 10+; highest I recall: 18          |
 
-<div style="margin-top: 1rem; font-size: 1.3rem; color: var(--sdd-copper);">My precious tokens were disappearing.</div>
+<div style="margin-top: 1rem; font-size: 1.3rem; color: var(--sdd-copper);">Burning tokens like cash to keep warm.</div>
+
+<v-click>
+
+**Wait. I can build a thing to check these rules.**
+
+</v-click>
 
 <!--
 Timing: 2 minutes.
@@ -600,27 +606,36 @@ The repair history is visible; the token bill and review-effort figures are my r
 
 PR #215 continued with spec, feature-file, and scaffold changes, received further change requests, and ultimately merged on October 7, 2026. This was not an endless unresolved PR: show the eventual outcome as well as the failure. Do not equate the number of GitHub review events, replies, or commit messages with a verified count of internal model-review rounds. The retained history includes rewritten/squashed material.
 
-The follow-up eventually merged, but getting to a merge had exposed a process problem. I needed to fix the repository workflow that had produced this loop. Which findings needed judgment, and which explicit rules was I repeatedly paying a model to rediscover? That question led to the request on the next slide.
+Land the cost metaphor: I was burning tokens like cash to keep warm. The review loop kept running, but we kept paying to rediscover rules we already knew. Pause before advancing the reveal.
+
+Reveal the eureka moment: “Wait. I can build a thing to check these rules.” Let the audience sit with that change in direction: from paying for another review to engineering a check for a recurring failure. I could build something to address the mechanical part of the problem that was burning my tokens. This does not mean a checker could settle every semantic disagreement or guarantee savings.
+
+The follow-up eventually merged, but getting to a merge had exposed a process problem. I needed to fix the repository workflow that had produced this loop. Once I realized I could make those rules executable, the next step was the schema-like validation request on the following slide.
 
 Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
 -->
 
 ---
 transition: slide-up
+clicks: 4
 ---
 
 # SDD Inception
 
-```mermaid {scale: 0.75}
+```mermaid {key: $clicks, scale: 0.75, themeCSS: ['.sdd-step-1', '.sdd-step-2, .flowchart-link[data-id=edgeAB]', '.sdd-step-3, .flowchart-link[data-id=edgeBC]', '.sdd-step-4, .flowchart-link[data-id=edgeCD]'].map((selector, index) => selector + ' { visibility: ' + ($clicks > index ? 'visible' : 'hidden') + '; }').join(' ')}
 graph LR
 accTitle: How Specht grew out of SDD
 accDescr: Using SDD to build software exposed drift in the process. SDD then guided the development of Specht, which checks SDD artifacts.
-A["Use SDD<br/>to build software"] --> B["Discover drift<br/>in the SDD process"]
-B --> C["Use SDD<br/>to build Specht"]
-C --> D["Use Specht<br/>to check SDD artifacts"]
+A["Use SDD<br/>to build software"] edgeAB@--> B["Discover drift<br/>in the SDD process"]
+B edgeBC@--> C["Use SDD<br/>to build Specht"]
+C edgeCD@--> D["Use Specht<br/>to check SDD artifacts"]
+class A sdd-step-1
+class B sdd-step-2
+class C sdd-step-3
+class D sdd-step-4
 ```
 
-<v-clicks>
+<v-clicks :at="2">
 
 - Fix the repository where the drift happened
 - My request: **“Think of the spec like a JSON Schema.”**
@@ -630,6 +645,8 @@ C --> D["Use Specht<br/>to check SDD artifacts"]
 
 <!--
 Timing: 1.5 minutes. Building a way out: 11 minutes total, slides 17–22.
+
+Reveal the diagram from left to right on four clicks. Click 1: using SDD to build software. Click 2: discovering drift, together with the repository-fix bullet. Click 3: building the checker, together with the JSON Schema request. Click 4: applying it to SDD artifacts, together with “And Specht was born.” Each incoming arrow appears with its destination. The diagram keeps its full layout throughout.
 
 This is SDD Inception: I used specification-driven development, discovered drift in the process, and asked for a fix in the affected repository. My instruction was to think of the spec like a JSON Schema. That request gave rise to Specht; SDD then guided development of the tool for specification-driven development. The origin was a concrete repository problem.
 

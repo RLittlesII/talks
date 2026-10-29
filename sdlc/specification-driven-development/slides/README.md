@@ -111,7 +111,8 @@ The 33-slide, 50-minute sequence follows six beats:
    who acts on the evidence.
 
 Bridge from the real replay incident back to checkout explicitly: the missing-row
-mechanism is the same; the worked example is illustrative. Keep the schema
+mechanism is the same; the worked example is illustrative. End slide 16 with the token-burning metaphor and pause before revealing the
+realization that a program could check those recurring rules. Keep the schema
 request before the tool introduction. Distinguish a reproducible structural
 finding from semantic judgment, and describe a human escalation route so the
 proposed workflow does not reproduce the original unbounded review loop.
@@ -129,3 +130,16 @@ but distinct. Slide 12 then maps these concepts to repository artifacts.
 
 The actor primer replaces the earlier artifact-chain diagram; the deck retains
 33 slides, three diagrams, and the 50-minute timing allocation.
+
+## Slide 17 diagram reveals
+
+Four clicks reveal the Mermaid rectangles from left to right. Each incoming
+arrow appears with its destination. The three bullets appear with rectangles
+2–4, so the whole sequence takes four clicks. Backward navigation reverses the
+reveals; reading layout shows the complete diagram and bullets.
+
+The diagram uses named edges and click-dependent `themeCSS` selectors, with
+`key: $clicks` to refresh Mermaid when the step changes. Keep the fence options
+as ordinary JavaScript strings: template-literal backticks in a Markdown fence
+info string break parsing. The full graph remains present for layout, keeping
+the rectangles in fixed positions as they appear.

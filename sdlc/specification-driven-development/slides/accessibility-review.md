@@ -212,3 +212,21 @@ inspected. All eight interaction checks completed, including diagram scrolling
 on slide 28; the harness still fails its final no-browser-errors assertion on
 the previously recorded headless wake-lock denial. This is not a fully passing
 interaction-harness run. The timing allocation remains 50 minutes.
+
+### Eureka reveal
+
+The token-burning wording and slide 16 reveal pass build, table lint, and
+layout checks. Slides 11 and 16 were checked in fitted and reading layouts:
+four axe states, zero violations. The eureka line was visually inspected and
+verified to remain hidden until the next-step action reveals it on slide 16,
+before advancing to slide 17. No slide count or timing allocation changed.
+
+### Slide 17 Mermaid reveals
+
+Build and table lint pass after correcting the fence-option parsing error.
+Browser checks verified 0–4 visible rectangles across the five states, with
+0–3 arrows appearing with their destinations. Rectangle positions stay fixed.
+Backward navigation hides the last step; reading layout reveals the complete
+diagram in its labelled scroll region and has zero axe violations. The
+intermediate two-rectangle state was visually inspected. No additional browser
+errors were observed beyond the previously documented headless wake-lock denial.
