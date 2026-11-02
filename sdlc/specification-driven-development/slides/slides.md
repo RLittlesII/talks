@@ -472,7 +472,7 @@ Sources: https://github.com/RLittlesII/specht/blob/main/docs/setup.md ; https://
 transition: slide-up
 ---
 
-# What Is a Claim?
+# The Claim in This Incident
 
 A **numbered, testable acceptance criterion**: what the system must do.
 
@@ -487,7 +487,7 @@ AC-011: If the store is busy or unreadable, report an
 - **Scenario:** a concrete example that exercises the claim
 - **Traceability:** the links from the claim to its scenarios and tests
 
-The ID names the agreement. It does not prove the wording is right.
+Keep the intended category in view. Next, watch it change.
 
 <!--
 Timing: 1.5 minutes.
@@ -577,9 +577,9 @@ At reviewed commit 4e95b5b7bdddeab266f8d0f7631b0a13307ca76d, the feature tag was
 
 This shows the distinction needed for Specht: missing required rows can be checked mechanically. Determining which valid claim describes a scenario's meaning still needs review. Do not claim Specht automatically diagnoses the semantic misassignment just because it can validate references.
 
-Use this slide to talk about more than broken links. AI can introduce **meaning drift** by making an ambiguous or mistaken interpretation sound precise. It can create **propagation drift** by copying that interpretation into a scenario, a test scaffold, and code; agreement across those files may only mean they inherited the same mistake. It can create **traceability drift** when references resolve but point to the wrong claim, or when coverage quietly disappears. It can create **evidence drift** when a scaffold, skipped test, stale run, or test of the wrong behavior is treated as proof. And it can create **memory drift** when it rewrites a lesson or instruction to rationalize the last mistake, setting up the next run to repeat it.
+Land the two failures: the wrong meaning spread, and the relationships drifted. Agreement between files may only mean they copied the same mistake. Checking whether a row exists is a different job from deciding whether its claim is right.
 
-These are risks, not claims that every AI edit does this. The practical danger is that AI makes authoring and synchronization convenient, so one wrong assumption can be repeated across artifacts quickly. That can make the repository look more consistent while confidence in the actual behavior gets worse. Keep the approved intent visible, inspect the diff and current test evidence, and remember that a model reviewing its own interpretation is not independent confirmation. AI is useful at the maintenance work; people still have to decide whether the maintained agreement is right.
+One more thing went wrong: even the lessons from this review contained mistakes. Hold that thought. First, the token bill and the check I could build. We will come back to what a lesson has to change before the next run.
 
 Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
 -->
@@ -654,7 +654,7 @@ class D sdd-step-4
 </v-clicks>
 
 <!--
-Timing: 1.5 minutes. Building a way out: 11 minutes total, slides 17–22.
+Timing: 1.5 minutes. Building a way out: 10.5 minutes total, slides 17–22.
 
 Reveal the diagram from left to right on four clicks. Click 1: using SDD to build software. Click 2: discovering drift, together with the repository-fix bullet. Click 3: building the checker, together with the JSON Schema request. Click 4: applying it to SDD artifacts, together with “And Specht was born.” Each incoming arrow appears with its destination. The diagram keeps its full layout throughout.
 
@@ -666,7 +666,7 @@ The need was concrete: preserve the structural contract so agents could proceed 
 
 Build tools like Specht to improve your own AI specification-driven process. A focused script that checks one recurring failure is a useful start. Specify the invariant, write failing examples and valid controls, implement it, then put the result in the handoff. This is BDD and TDD applied to the SDD tooling itself.
 
-The checker is software too. Its rules can be wrong or incomplete, so those rules need review and tests. Moving a check out of an LLM gives us a reproducible verdict for that rule; it does not make the rule infallible. Next, meet the tool that grew from that request, then follow one check through a repair.
+The checker is software too. Next, meet the tool, follow one check through a repair, then turn that same failure into examples we could use to build and test the checker. That is the nesting: use SDD to specify the tool that checks our SDD artifacts.
 
 -->
 
@@ -825,31 +825,34 @@ Source: https://github.com/RLittlesII/specht/blob/main/docs/rules/v0.2.1/SPEC031
 transition: fade-out
 ---
 
-# Which Drift Can a Program Catch?
+# SDD for the Checker
 
-| Edit                                    | Deterministic finding              |
-| --------------------------------------- | ---------------------------------- |
-| Delete `AC-002`'s matrix row            | `SPEC031`: claim has no row        |
-| Tag a scenario `@AC-999`; no such claim | `SPEC021`: tag does not resolve    |
-| Declare `AC-002` twice                  | `SPEC030`: duplicate claim ID      |
-| Approve a matrix with `Missing` cells   | `SPEC060`: missing coverage marker |
+**Requirement:** every claim has exactly one traceability row.
+
+| Example input for `AC-002` | Expected `SPEC031` result |
+| -------------------------- | ------------------------- |
+| No matrix row              | Fail: missing row         |
+| Exactly one matrix row     | Pass this rule            |
+| Two matrix rows            | Fail: duplicate rows      |
 
 <v-click>
 
-**A valid but wrong tag? A contradictory claim? Review meaning.**
+Write the failing examples. Build the check. Keep the valid case green.
 
 </v-click>
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
-These are canonical rule cases, adapted to the AC-prefixed teaching convention. Each edit is independent, with otherwise valid artifacts and configured claim grammar. These are rule summaries, not captured terminal output. SPEC060 has default error severity; the repository can configure a different level.
+Now turn the workflow around. We just used the checker; how would we specify and test this part of it? Here is a small worked example of applying SDD to the checker, not a reconstruction of Specht's implementation history.
 
-Connect them directly to the incident: absent rows in the original PR map to SPEC031. An unknown tag would trigger SPEC021, but the actual follow-up used the wrong EXISTING ID. Both AC-011 and AC-003 resolved. Tag resolution alone cannot choose the intended claim. The category-1/category-3 contradiction likewise needs semantic review. Duplicate IDs and premature approval are additional failure cases to automate, not claims about what happened in those PRs.
+The requirement is exactly one matrix row per claim. Agree on examples: zero rows fails, one passes this rule, two fails. Use otherwise valid fixtures so we know which rule we are exercising. A duplicate matrix row is different from declaring the claim itself twice.
 
-A program can compare explicit relationships without a fresh model judgment on every run. Build a check when you can state the invariant. For meaning, involve the people who own the behavior, then encode the agreed cases in executable tests where possible.
+Write executable tests for the missing and duplicate cases and a valid control. See the relevant assertions fail before implementing the check, make them pass, then refactor. The valid control catches an implementation that simply rejects everything. That is BDD and TDD doing useful work inside SDD Inception. Give your precious tokens a problem worth reasoning about; let a test runner repeat these examples.
 
-Sources: Specht docs/rules/v0.2.1/SPEC030.md, SPEC031.md, SPEC021.md, and SPEC060.md in the local source checkout. Public references: https://github.com/RLittlesII/specht/tree/main/docs/rules/v0.2.1
+The one-row case passes SPEC031 only. It does not establish full validation or behavioral correctness. For example, the row can list a scenario that exercises a different claim. Next, separate what each kind of evidence lets us conclude.
+
+Source for the invariant: https://github.com/RLittlesII/specht/blob/main/docs/rules/v0.2.1/SPEC031.md (checked against the local schema 0.2.1 rule reference). These are expected rule results, not captured CLI output or claims that these exact tests were used to build Specht.
 -->
 
 ---
@@ -872,13 +875,13 @@ A well-formed instruction to accept expired codes is still the wrong instruction
 </v-click>
 
 <!--
-Timing: 1.5 minutes. Keeping the workflow focused: 10 minutes total, slides 23–30.
+Timing: 1.5 minutes. Keeping the workflow focused: 10.5 minutes total, slides 23–30.
 
-We have moved a repeated relationship check out of the model conversation. Now return to the process: who decides whether that relationship connects the right things? Return to AC-011 from the actual PR. It remained a valid claim identifier even while its exit-category wording contradicted the design. A structural checker cannot decide which category expresses the intended behavior. Likewise, AC-011 and AC-003 were both valid IDs in the follow-up PR; choosing the right one for the scenario required understanding its meaning.
+This is the distinction to land once, clearly. The missing-row check can go green while the category-1/category-3 contradiction remains. Both claim IDs in the tag correction existed too. A resolved reference tells us where it points, not whether it points to the right agreement.
 
-The point is to use each kind of evidence for the question it can answer. Humans must compare spec changes with approved intent. Tests must exercise meaningful behavior. The deterministic checker enforces its selected rules, consistently, without claiming to establish the truth of the business requirement.
+Walk down the table. Structure checks selected rules. Traceability records relationships. Tests report what their assertions observed. Human review examines whether those artifacts express the intended behavior and what might still be missing. Each result answers a particular question.
 
-Human review has limits too. This is a layered workflow, not a final guarantee. It makes the questions and responsibilities visible so the next agent is not reasoning from an unexamined reference.
+An instruction to accept expired codes can be perfectly well formed. That is why acceptance needs the baseline, the changes, and the evidence together. Next, put those checks into the handoffs so a failure actually changes what happens.
 -->
 
 ---
@@ -890,24 +893,26 @@ transition: slide-up
 ```mermaid {scale: 0.68, flowchart: {padding: 10, rankSpacing: 20, wrappingWidth: 140}}
 graph LR
 accTitle: The agent workflow with validation and review gates
-accDescr: Human-approved intent guides agent edits. Failed validation returns to editing. Passing validation proceeds to scenarios, tests and code, then review. Review either approves completion or returns corrections to the agent.
-H["Human-approved<br/>intent"] --> A["Agent edits"]
-A --> V{"Validation"}
-V -->|fail| A
-V -->|pass| T["Scenarios<br/>tests + code"]
-T --> R["Review changes<br/>+ evidence"]
+accDescr: Human-approved intent guides edits to specifications, scenarios, tests and code. Every revision goes through validation and test execution before handoff. Failed checks or review corrections return to editing and repeat the checks. Review can approve completion or return an intent change to human approval.
+H["Human-approved<br/>intent"] --> A["Edit spec, scenarios,<br/>tests + code"]
+A --> V{"Validate<br/>+ run tests"}
+V -->|repair| A
+V -->|handoff| R["Review diff<br/>+ current results"]
 R -->|approve| D[Done]
 R -->|correction| A
+R -->|intent change| H
 ```
 
-- Validate before handoff; pause repeated failures for human diagnosis
-- Run behavioral tests and retain their results
-- Changes to intent return to human approval
+- Every new revision repeats the checks before handoff
+- A failing TDD test returns to implementation; keep its result
+- Repeated failures pause the loop for human diagnosis
 
 <!--
 Timing: 1.5 minutes.
 
-The diagram compresses downstream authoring to keep it readable. Validation repeats as scenarios, tests, and code change; it is not a one-time check on the first draft. The workflow must actually branch on the result. A required validation failure stops the downstream handoff and returns actionable findings to the responsible edit.
+The edit box includes the spec, scenarios, tests, and code. Every route back into editing goes through validation and test execution again. The results belong to that revision. There is no path from a correction straight to Done.
+
+The handoff must honor the expected stage of work. A test writer can hand off a demonstrated red test as the agreed input to implementation; final acceptance requires the relevant tests to pass. A required structural failure blocks the downstream handoff. Record the expected state and actual results so red/green/refactor remains visible.
 
 Review findings should identify the relevant requirement, artifact, and evidence. If the implementation is wrong, fix the implementation. If the test is wrong, fix the test. If intent needs to change, review and approve the spec delta before propagating it. Do not automatically rewrite the spec to match whatever the code happens to do.
 
@@ -924,27 +929,25 @@ level: 2
 
 <v-clicks>
 
-- **Product / domain owner:** approve claims, scope, and intent changes
-- **Tester:** challenge examples, boundaries, and assertion quality
-- **Developer:** own design, implementation, and the checks themselves
-- **Reviewer:** compare baseline, diffs, and evidence before accepting
+- **Product / domain owner:** should an expired code ever be accepted?
+- **Tester:** which examples would expose the wrong behavior?
+- **Developer:** what must change in the code or checking rule?
+- **Reviewer:** does this revision have enough evidence to accept?
 
 </v-clicks>
 
 <v-click>
 
-Agents propose and execute. Humans remain accountable for acceptance.
+A blocked handoff needs a named owner and a next decision.
 
 </v-click>
 
 <!--
 Timing: 1 minute.
 
-These are human responsibilities even when agents perform much of the authoring and execution. One person may hold several roles; each decision still needs an owner. Product owns what should happen, testing challenges whether the examples and assertions expose failures, development owns the implementation and checking tools, and review decides whether the evidence supports acceptance.
+Give the blocked task to the person who can resolve it. If two documents disagree about whether to accept an expired code, product or the domain owner settles the intended behavior. If the examples miss a boundary, testing challenges them. If the code or checker is wrong, development fixes it. The reviewer decides whether the current evidence supports acceptance, including ordinary code quality and design concerns.
 
-The reviewer must see how the spec changed. A request to implement AC-002 does not authorize reversing it to make the implementation pass. Unresolved disagreements and repeated failed repairs return to a human instead of triggering another automatic review.
-
-Review agents can reason about gaps and suggest improvements. Humans retain the decision about business intent, and ordinary code review still matters: satisfying a claim does not excuse unsafe or unmaintainable implementation. Structural reports provide evidence, leaving more attention for these substantive questions.
+Agents can prepare the diff, investigate, and suggest a correction. One person may hold several human roles, but the unresolved decision still gets a name. That is the intervention I needed before another expensive review round. Next, give the tester something specific to challenge.
 -->
 
 ---
@@ -955,21 +958,23 @@ level: 2
 
 <v-clicks>
 
-- Challenge acceptance criteria before implementation
-- Add edge cases the current scenarios miss
-- Check that test assertions express the claim
+- Ask when a discount code becomes expired, before implementation
+- Assert both the unchanged total and the expired-code message
+- Verify rejection happens before payment authorization
 - Explore the running product; turn findings into reviewed regressions
 
 </v-clicks>
 
-<div style="margin-top: 1.5rem; color: var(--sdd-copper);">Traceability makes gaps visible. Testing judgment decides what fills them.</div>
+<div style="margin-top: 1.5rem; color: var(--sdd-copper);">Our first scenario leaves the expiry boundary and payment ordering to test.</div>
 
 <!--
 Timing: 1 minute.
 
-Preserve the tester's upstream role from the original deck. A missing row is useful evidence, but a row with an inadequate test can be just as important. Testers ask whether we covered the boundary, the failure path, and the interactions nobody thought to write down.
+Put AC-002 back in front of the tester. Our first scenario used a code that expired yesterday. What about the exact expiry boundary? Which clock or time zone determines it? Resolve that with the domain owner before inventing an expected result.
 
-Exploration still matters. When it reveals a gap, determine whether the intended rule needs clarification or the implementation needs fixing, then add an appropriate regression. Scenarios become executable evidence when bound to tests and actually run; writing a scenario alone does not automate a regression pass.
+Then inspect the assertions: an unchanged total alone could hide a missing error message. The scenario checks both, but it does not show that payment authorization was never attempted. Add an executable check for that ordering constraint. These are concrete testing jobs after the traceability row is restored.
+
+Exploration can still reveal behavior nobody specified. Review the finding and add a regression for the agreed behavior. Next, return to the other failure I mentioned in the incident: even our lessons needed checking.
 -->
 
 ---
@@ -978,28 +983,41 @@ level: 2
 
 # Make Lessons Change the Next Run
 
-**The same incident exposed a gap in how the process learned**
+**Actual finding:** `L-0009` misquoted the signatures it was teaching.
 
-- `L-0007`: review found no historical incident matching its example
-- `L-0009`: a lesson about signature consistency misquoted the signatures
+**Lesson:** compare quoted code with its source before teaching from it.
 
+<v-click>
 
-<v-clicks>
+**Example skill procedure for a signature change**
 
-- **Lesson:** preserve evidence with the decision
-- **Skill:** retrieve it, apply the procedure, run the checks
-- **Handoff:** report current results; recording a lesson is not fixing it
+```text
+1. Open the port, affected callers, and relevant lesson.
+2. Compare the lesson's quotes with current source.
+3. Fix stale quotes; build and run affected tests.
+4. Return revision, source paths, diff, and test results.
+```
 
-</v-clicks>
+</v-click>
+
+<v-click>
+
+**Next run:** the reviewer opens those paths and checks the correction and results.
+
+</v-click>
 
 <!--
-Timing: 1.5 minutes.
+Timing: 2 minutes.
 
-Monitoring is useful only if findings change the next run. Apply that test to lessons from the same incident: even the learning artifacts needed verification. The L-0007 review reports git-history searches for 'Table C' and 'row 2 of' that found those strings only in the commit introducing the lesson, not the feature it described. It also points out that stable C-n constraint IDs had been mischaracterized as positional references. Attribute that history audit to the review; it is not a newly rerun search of all branches for this presentation.
+Back to the review nightmare. A lesson about keeping signatures consistent managed to misquote both signatures. Wonderful. Now the next agent has a beautifully documented way to learn the wrong thing.
 
-L-0009, a lesson about keeping port signatures consistent, misquoted both signatures. A later reply states that d953cac recorded the finding in L-0012 while leaving L-0009 unchanged. Tracking a correction is not performing it. The lesson-register-collapse entry documents fabricated incidents, misquoted code, reversed facts, and lessons failing to guide the review process.
+That is the actual L-0009 finding. A later reply says the finding was recorded in L-0012 while L-0009 stayed unchanged. We tracked the correction without doing it. The broader incident also included L-0007's unsupported historical example; keep that in the evidence notes rather than introducing a second case here.
 
-A useful lesson preserves its evidence. A skill gives the agent a reusable procedure: retrieve the relevant claims and lessons, verify citations against current artifacts, run applicable checks, and return current results. Merely writing a lesson does not make the next run learn it. A human owns verifying the lesson and changing the affected artifact or procedure. The next handoff must show that the change was applied. Factual and semantic lesson claims still need review; automate specific checks where possible rather than promising a general truth detector. Next, make that evidence useful to the agent taking over the work.
+Present the procedure as a worked response, not a captured historical repair. A person first verifies the finding and corrects the lesson. Then update the skill: on a signature change, retrieve that lesson, open the port and callers, compare quotes, and repair stale text. Build and run affected tests. A passing build alone cannot establish that prose quotes are accurate.
+
+Return the revision, source paths and symbols, repaired lesson diff, and actual results. The next reviewer opens those symbols at that revision and compares the quote. Still wrong? Return the finding and correct the procedure before repeating. The observed failure becomes a verified lesson, then a skill the next task applies and the reviewer can inspect. Recording another lesson alone would leave us where we started.
+
+Load the procedure for relevant tasks; a skill sitting unread in a folder changes nothing. The checks and next reviewer make its application inspectable. Next, show what that handoff needs to carry.
 
 Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
 -->

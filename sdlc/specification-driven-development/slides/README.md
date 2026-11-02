@@ -58,11 +58,11 @@ The deck is timed for 50 minutes: 45 minutes of teaching and walkthrough, two mi
 | 1–6 | The specification returns | 6 |
 | 7–10 | How agents use the spec | 8 |
 | 11–16 | The token horror story | 10 |
-| 17–22 | Building a way out | 11 |
-| 23–30 | Keeping the workflow focused | 10 |
+| 17–22 | Building a way out | 10.5 |
+| 23–30 | Keeping the workflow focused | 10.5 |
 | 31–33 | Monitor, build checks, and questions | 5 |
 
-The horror story uses actual review evidence from a private project: a contradictory claim copied into a scaffold, missing traceability, a mismatched scenario tag, and corrupted lessons. See [the evidence notes](./pr-evidence.md) for pinned artifacts and correction history. The separate checkout validation walkthrough remains illustrative; it is not output from those PRs. The checkout excerpts use the canonical acceptance-criteria and traceability table columns. The expected SPEC031 message follows the schema 0.2.1 rule reference, wrapped for readability, and keeps `AC-002` throughout the failure and repair. These examples assume an `AC-` claim grammar in the manifest; Specht's default uses `B-`. The examples are excerpts, not complete runnable fixtures or captured CLI output. Slide 22 connects SPEC031, SPEC021, SPEC030, and SPEC060 to concrete edits and distinguishes them from the incident's valid-but-wrong tag and contradictory claim. The walkthrough is slide-only; no live demo or installation is required during delivery.
+The horror story uses actual review evidence from a private project: a contradictory claim copied into a scaffold, missing traceability, a mismatched scenario tag, and corrupted lessons. See [the evidence notes](./pr-evidence.md) for pinned artifacts and correction history. The separate checkout validation walkthrough remains illustrative; it is not output from those PRs. The checkout excerpts use the canonical acceptance-criteria and traceability table columns. The expected SPEC031 message follows the schema 0.2.1 rule reference, wrapped for readability, and keeps `AC-002` throughout the failure and repair. These examples assume an `AC-` claim grammar in the manifest; Specht's default uses `B-`. The examples are excerpts, not complete runnable fixtures or captured CLI output. Slide 22 turns SPEC031 into a worked checker requirement: zero matrix rows fails, one passes that rule, and two fails. The examples illustrate BDD agreement and TDD with a valid control, rather than reconstructing Specht's implementation history. Slide 23 distinguishes structural evidence from judging the incident's valid-but-wrong tag and contradictory claim. The walkthrough is slide-only; no live demo or installation is required during delivery.
 
 The current [Specht quick start](https://github.com/RLittlesII/specht#quick-start) documents installation through authenticated GitHub Packages. Use that link for installation: the older setup page still contains a stale publication notice. This is an optional resource for questions; installation is outside the teaching close.
 
@@ -74,7 +74,7 @@ The audience-facing deck identifies the source as a private-project review incid
 
 Slide 12, “The Files Behind the Workflow,” introduces feature-local `.spec/` agreements, scenarios, ADRs, product decisions, and lessons, and distinguishes them from `.specht/` tool configuration and templates. Agents consume the records; the checker enforces selected explicit rules.
 
-Slide 13, “What Is a Claim?”, defines the stable requirement ID, testable behavior, scenarios, and traceability before the actual drift evidence on slides 14–16. The replay wording is explanatory phrasing; the following drift slide retains the actual findings.
+Slide 13, “The Claim in This Incident,” applies the earlier claim vocabulary to the replay requirement before the actual drift evidence on slides 14–16. The replay wording is explanatory phrasing; the following drift slide retains the actual findings.
 
 Audience-facing claim IDs use `AC-` (acceptance criterion). The original evidence uses `B-`; prefixes are mapped consistently in teaching examples, PR excerpts, and the diagnostic, with original IDs retained in the evidence notes.
 
@@ -102,10 +102,14 @@ The 33-slide, 50-minute sequence follows six beats:
    claim, drifting references, and reported review effort.
 4. Slide 17 gives the initiating request: fix the affected repository by thinking
    of the spec like a JSON Schema. Slide 18 introduces the resulting Specht tool;
-   slides 19–22 return to checkout to explain one repair and the rules' limits.
-5. Slides 23–28 return to the SDD process: a passing check is not acceptance,
-   repeated failures need human diagnosis, people own decisions, testers challenge
-   behavior, lessons must change procedures, and handoffs carry inspectable evidence.
+   slides 19–21 return to checkout for one repair. Slide 22 specifies the checker
+   rule itself with failing examples and a passing control.
+5. Slides 23–28 return to the SDD process: distinguish evidence from acceptance,
+   repeat checks after edits, assign blocked decisions, and challenge the checkout
+   expiry boundary and payment ordering. Slide 27 turns the actual L-0009 finding
+   into an example lesson, skill procedure, and next-review evidence. That response
+   is illustrative, not a claim of an implemented or proven historical repair.
+   Slide 28 shows what the handoff carries.
 6. Slides 29–33 cover maintenance, incremental brownfield adoption, monitoring,
    building focused checks, and questions. The closing asks what to verify and
    who acts on the evidence.
@@ -116,6 +120,16 @@ realization that a program could check those recurring rules. Keep the schema
 request before the tool introduction. Distinguish a reproducible structural
 finding from semantic judgment, and describe a human escalation route so the
 proposed workflow does not reproduce the original unbounded review loop.
+
+Slide 15 foreshadows mistakes in the lessons so slide 27 returns to an established
+thread. Keep the detailed evidence-versus-acceptance distinction on slide 23;
+slides 24–26 apply it to the revision loop, human decisions, and specific tests.
+Slide 24 puts specification, scenario, test, and code edits before the checks;
+every correction repeats validation and test execution. A demonstrated red test
+can be an agreed handoff to implementation; final acceptance requires the relevant
+tests to pass. Slide 22 takes 1.5 minutes and slide 27 takes 2 minutes, moving
+30 seconds to the worked lessons-to-skills loop while keeping 50 minutes overall
+and three minutes for questions.
 
 ## Vocabulary before the workflow
 
