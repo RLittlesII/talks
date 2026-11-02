@@ -71,7 +71,7 @@ class: illustrated
 <div style="margin: 0.75rem 0 0.5rem;">
   <img
     src="/images/development-before-times.png"
-    alt="Four illustrated eras: a developer writes a program on paper, operates a keypunch machine, presents an enormous 1990s specification binder, then watches its pages get shredded beside a board of scattered tickets."
+    alt="Four illustrated eras with Rodney's likeness, a closely shaved head and black rectangular glasses: he writes a program on paper, operates a keypunch machine, presents an enormous 1990s specification binder, then watches its pages get shredded beside a board of scattered tickets."
     style="display: block; width: 100%; height: auto;"
   />
 </div>
@@ -210,7 +210,7 @@ class: illustrated
 <div style="margin: 0.75rem 0 0.5rem;">
   <img
     src="/images/specification-old-busted-hotness.png"
-    alt="Three scenes with developers in era-appropriate casual clothes: an older programmer in a patterned sweater beside a dusty specification binder, a young programmer in a hoodie surrounded by AI chat prompts, then an older developer in a cardigan using the specification to guide an AI assistant through tests and code."
+    alt="Three scenes with Rodney's likeness, a closely shaved head and black rectangular glasses, in era-appropriate casual clothes: an older programmer in a patterned sweater beside a dusty specification binder, a younger programmer in a hoodie surrounded by AI chat prompts, then an older developer in a cardigan using the specification to guide an AI assistant through tests and code."
     style="display: block; width: 100%; height: auto;"
   />
 </div>
