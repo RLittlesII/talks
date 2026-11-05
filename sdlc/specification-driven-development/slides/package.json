@@ -1,0 +1,21 @@
+{
+  "name": "slides",
+  "type": "module",
+  "private": true,
+  "talk": {
+    "title": "Specification Driven Development",
+    "description": "Follow one checkout claim from agreed behavior to tests, code, and evidence you can review.",
+    "category": "Software Development"
+  },
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "catalog:",
+    "@slidev/theme-default": "catalog:",
+    "@slidev/theme-seriph": "catalog:",
+    "vue": "catalog:"
+  }
+}
