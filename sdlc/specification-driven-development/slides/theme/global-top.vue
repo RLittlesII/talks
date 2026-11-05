@@ -8,6 +8,10 @@ const selectedSlide = ref(nav.currentSlideNo.value)
 const fullscreen = ref(false)
 const navigationElement = ref<HTMLElement>()
 const title = computed(() => nav.currentSlideRoute.value.meta?.slide?.title || 'Specification Driven Development')
+const presenterHref = computed(() => nav.router.resolve({
+  path: '/presenter/' + nav.currentSlideNo.value,
+  query: { clicks: nav.clicks.value || undefined },
+}).href)
 const announcement = computed(() =>
   'Slide ' + nav.currentSlideNo.value + ' of ' + nav.total.value + ': ' + title.value
   + (!reading.value && nav.clicksTotal.value ? '. Step ' + Math.min(nav.clicks.value, nav.clicksTotal.value) + ' of ' + nav.clicksTotal.value : ''),
@@ -99,11 +103,28 @@ function updateFullscreen() {
   fullscreen.value = !!document.fullscreenElement
 }
 
+function navigateFromFocusedControl(event: KeyboardEvent) {
+  if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey)
+    return
+
+  const forward = event.key === 'PageDown' || event.key === 'ArrowRight'
+  const backward = event.key === 'PageUp' || event.key === 'ArrowLeft'
+  if (!forward && !backward)
+    return
+
+  const control = event.target instanceof Element ? event.target.closest('button, a') : null
+  if (!control?.closest('.sdd-navigation, .slidev-presenter .grid-section.bottom'))
+    return
+
+  // Slidev skips its shortcuts while a button or link has focus.
+  event.preventDefault()
+  event.stopPropagation()
+  if (reading.value)
+    return forward ? nav.nextSlide() : nav.prevSlide()
+  return forward ? nav.next() : nav.prev()
+}
+
 watch([nav.currentSlideNo, nav.clicks, nav.isPlaying, reading], update, { flush: 'post' })
-watch([reading, nav.currentSlideNo, nav.clicksTotal], () => {
-  if (reading.value && nav.clicks.value < nav.clicksTotal.value)
-    nav.go(nav.currentSlideNo.value, nav.clicksTotal.value)
-}, { flush: 'post' })
 watch(nav.currentSlideNo, () => {
   selectedSlide.value = nav.currentSlideNo.value
   if (reading.value)
@@ -123,6 +144,8 @@ onMounted(() => {
   if (slideshow)
     observer.observe(slideshow, { childList: true, subtree: true })
   document.addEventListener('fullscreenchange', updateFullscreen)
+  if (nav.isPlaying.value || nav.isPresenter.value)
+    document.addEventListener('keydown', navigateFromFocusedControl)
 })
 onBeforeUnmount(() => {
   observer?.disconnect()
@@ -130,6 +153,7 @@ onBeforeUnmount(() => {
   navigationObserver?.disconnect()
   document.documentElement.style.removeProperty('--sdd-navigation-height')
   document.removeEventListener('fullscreenchange', updateFullscreen)
+  document.removeEventListener('keydown', navigateFromFocusedControl)
   document.documentElement.classList.remove('sdd-audience', 'sdd-reading')
 })
 </script>
@@ -159,7 +183,7 @@ onBeforeUnmount(() => {
         <button type="button" :aria-pressed="fullscreen" @click="toggleFullscreen">
           Fullscreen
         </button>
-        <a :href="'/presenter/' + nav.currentSlideNo.value">Presenter view</a>
+        <a :href="presenterHref">Presenter view</a>
       </nav>
       <p class="sdd-status" role="status" aria-live="polite" aria-atomic="true">{{ announcement }}</p>
     </div>

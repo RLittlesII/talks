@@ -75,6 +75,10 @@ html.sdd-audience .slidev-code-copy:focus-visible {
   white-space: nowrap;
 }
 
+html.sdd-audience .slidev-layout .slidev-vclick-hidden {
+  visibility: hidden;
+}
+
 /* A fluid slide supplies text enlargement instead of cancelling browser zoom. */
 html.sdd-reading,
 html.sdd-reading body,
@@ -130,6 +134,18 @@ html.sdd-reading .slidev-layout {
 
 html.sdd-reading .slidev-layout :is(h1, h2, p, li, div) {
   overflow-wrap: anywhere;
+}
+
+/* Show reveals locally so reading layout does not advance the presenter. */
+html.sdd-reading .slidev-layout .slidev-vclick-hidden {
+  visibility: visible;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  user-select: auto !important;
+}
+
+html.sdd-reading .slidev-layout .mermaid {
+  --sdd-unrevealed-diagram-content: visible;
 }
 
 html.sdd-reading .slidev-layout.two-columns,

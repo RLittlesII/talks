@@ -192,7 +192,7 @@ clicks: 1
       Write it. File it. Forget it.
     </figcaption>
   </figure>
-  <figure v-show="$clicks >= 1">
+  <figure v-click="1">
     <img src="/images/specification-old-busted-hotness.png" alt="Rodney in a hoodie surrounded by chat bubbles and crumpled drafts." />
     <figcaption>
       <strong>New hotness</strong>
@@ -200,7 +200,7 @@ clicks: 1
       Prompt it. Patch it. Repeat.
     </figcaption>
   </figure>
-  <figure v-show="$clicks >= 1">
+  <figure v-click="1">
     <img src="/images/specification-old-busted-hotness.png" alt="Rodney shows the specification to a robot beside a laptop, with diagrams, code, and test checkmarks." style="object-position: right;" />
     <figcaption>
       <strong>Old busted hotness</strong>
@@ -210,7 +210,7 @@ clicks: 1
   </figure>
 </div>
 
-<div v-show="$clicks >= 1" style="margin-top: 1rem; text-align: center; font-style: italic;">
+<div v-click="1" style="margin-top: 1rem; text-align: center; font-style: italic;">
   The spec is the prompt.
 </div>
 
@@ -717,7 +717,7 @@ clicks: 4
 
 # SDD Inception
 
-```mermaid {key: $clicks, scale: 0.75, themeCSS: ['.sdd-step-1', '.sdd-step-2, .flowchart-link[data-id=edgeAB]', '.sdd-step-3, .flowchart-link[data-id=edgeBC]', '.sdd-step-4, .flowchart-link[data-id=edgeCD]'].map((selector, index) => selector + ' { visibility: ' + ($clicks > index ? 'visible' : 'hidden') + '; }').join(' ')}
+```mermaid {key: $clicks, scale: 0.75, themeCSS: ['.sdd-step-1', '.sdd-step-2, .flowchart-link[data-id=edgeAB]', '.sdd-step-3, .flowchart-link[data-id=edgeBC]', '.sdd-step-4, .flowchart-link[data-id=edgeCD]'].map((selector, index) => selector + ' { visibility: ' + ($clicks > index ? 'visible' : 'var(--sdd-unrevealed-diagram-content, hidden)') + '; }').join(' ')}
 graph LR
 accTitle: How Specht grew out of SDD
 accDescr: Using SDD to build software exposed drift in the process. SDD then guided the development of Specht, which checks SDD artifacts.
@@ -863,7 +863,7 @@ File + line + rule + claim → a bounded repair before the next handoff.
 
 </v-click>
 
-<figure v-show="$clicks >= 2" style="margin: 1rem 0 0;">
+<figure v-click="2" style="margin: 1rem 0 0;">
   <img src="/images/specht-spec060-github-warning.png" alt="GitHub Actions annotation on .github/mirror/.spec/README.md" style="display: block; width: 100%; height: auto;" />
   <figcaption style="font-size: 1.125rem; margin-top: 0.5rem;">
     Specht warning SPEC060 at line 184. The approved spec still marks the test for B-010 as Missing.
