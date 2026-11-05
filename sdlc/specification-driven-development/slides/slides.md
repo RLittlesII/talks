@@ -59,6 +59,8 @@ transition: slide-up
 Timing: 0.5 minutes.
 
 We will keep the history brief, follow one checkout claim through the agent workflow, and use my experience as the turning point. The longest worked section shows how a deterministic check interrupts a mechanical failure. We finish with monitoring, human responsibilities, and how to build checks for your own process. Reserve the last three minutes for questions.
+
+“Let’s start with how we wrote down what software should do.”
 -->
 
 ---
@@ -346,7 +348,7 @@ These fields affect how the workflow interprets the document. A syntactically va
 
 Frontmatter was also part of the review problem that burned my tokens. That connection comes from my account; the retained evidence notes do not identify a specific broken key or diff, so do not invent one. The important setup here is that the contract includes metadata as well as prose. Later, Specht will analyze that contract repeatedly as the specification changes.
 
-We have now opened the whole agreement and its metadata. Next, connect this representation to BDD and TDD, then assign the agent jobs that read and change it.
+“You’ve seen the agreement. Let’s follow one claim from the spec into a test.”
 
 Sources: Specht src/tool/templates/v0.2.1/feature.md and src/tool/schema/v0.2.1/frontmatter/feature.schema.json, checked in the local source checkout. Frontmatter's role in the token incident: Rodney's account, November 5, 2026.
 -->
@@ -498,7 +500,9 @@ This is the condensed spec anatomy and Gherkin example. The business goal is cle
 
 For the modern examples, AC-002 is our short claim identifier for the expired-code requirement previously shown as REQ-3.2.4.2. This is an explicit presentation mapping, not an instruction to renumber real requirements. The @AC-002 tag carries that identity into the scenario; it is a reference, not an assertion. Traceability records the links from the claim to its scenarios and tests. The test needs assertions for both the unchanged total and the message. A descriptive test name alone proves neither.
 
-Ask the audience to consider what happens if the tag disappears, then what happens if the author changes 'reject' to 'accept.' Those are different failures. One concerns the relationship; the other concerns the intent. We now have the people, agent jobs, agreement, examples, executable checks, and implementation in view. Next comes the story of trusting this loop too far.
+Ask the audience to consider what happens if the tag disappears, then what happens if the author changes 'reject' to 'accept.' Those are different failures. One concerns the relationship and the other concerns the intent.
+
+“I thought having those roles and checks would be enough. Here’s what happened when I tried it.”
 
 Terminology source: https://cucumber.io/docs/gherkin/reference/ (Feature, Scenario, Given/When/Then, step definitions, and assertions).
 -->
@@ -719,7 +723,7 @@ Land the cost metaphor: I was burning tokens like cash to keep warm. The review 
 
 Reveal the eureka moment: “Wait. I can build a thing to check these rules.” Let the audience sit with that change in direction: from paying for another review to engineering a check for a recurring failure. I could build something to address the mechanical part of the problem that was burning my tokens. This does not mean a checker could settle every semantic disagreement or guarantee savings.
 
-The follow-up eventually merged, but getting to a merge had exposed a process problem. I needed to fix the repository workflow that had produced this loop. Once I realized I could make those rules executable, the next step was the schema-like validation request on the following slide.
+The follow-up eventually merged, but getting to a merge had exposed a process problem. I needed to fix the repository workflow that had produced this loop. Advance from the reveal to “SDD Inception” to show how the check became a tool.
 
 Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
 -->
@@ -957,7 +961,9 @@ The requirement is exactly one matrix row per claim. Agree on examples: zero row
 
 Write executable tests for the missing and duplicate cases and a valid control. See the relevant assertions fail before implementing the check, make them pass, then refactor. The valid control catches an implementation that simply rejects everything. That is BDD and TDD doing useful work inside SDD Inception. Give your precious tokens a problem worth reasoning about; let a test runner repeat these examples.
 
-The one-row case passes SPEC031 only. It does not establish full validation or behavioral correctness. For example, the row can list a scenario that exercises a different claim. Next, separate what each kind of evidence lets us conclude.
+The one-row case passes SPEC031 only. It does not establish full validation or behavioral correctness. For example, the row can list a scenario that exercises a different claim.
+
+“The checker can tell us a row is missing. Who decides whether the requirement itself is right?”
 
 Source for the invariant: https://github.com/RLittlesII/specht/blob/main/docs/rules/v0.2.1/SPEC031.md (checked against the local schema 0.2.1 rule reference). These are expected rule results, not captured CLI output or claims that these exact tests were used to build Specht.
 -->
@@ -1207,7 +1213,9 @@ In this style of SDD, the developer thinks through the problem and the agent wri
 
 Now the downside: walls upon walls of text. AI can add a lot of documentation very quickly. Somebody has to maintain it and keep the same requirement from appearing in three places with three different meanings. Link to the authoritative requirement and keep generated views identifiable. A lesson, spec, and ticket should each have a job, rather than each retelling the whole system.
 
-We also lean on AI to help review that growing pile. That costs tokens and attention, and the review can miss the same duplication or contradiction the author introduced. Use it to screen and propose changes, keep explicit rules checkable, and assign human review to changes in meaning. Add distributed teams and now we also have synchronization work. Where the approved information lives becomes a real process decision. Next, the repository is only one option.
+We also lean on AI to help review that growing pile. That costs tokens and attention, and the review can miss the same duplication or contradiction the author introduced. Use it to screen and propose changes, keep explicit rules checkable, and assign human review to changes in meaning.
+
+“You’ve seen how this worked for me. Your team still has to decide where approved requirements live, where to start in the codebase you already have, and which checks run before a handoff. You also need to know who acts when a check fails.”
 -->
 
 ---
@@ -1216,7 +1224,7 @@ transition: slide-up
 
 # Where the Source of Truth Lives
 
-The approved requirement may live in **GitHub Issues, Azure DevOps, or Trello**.
+<div style="color: var(--sdd-copper); font-weight: 700;">Team decisions</div>
 
 | Authority             | How the agent gets context                      |
 | --------------------- | ----------------------------------------------- |
@@ -1247,6 +1255,8 @@ Another option I have considered: the repository stays authoritative and a build
 For a distributed team, name who resolves conflicts and make the approved version reachable by everyone who needs it. Synchronization is work in every variation.
 
 I am using SDD on a large existing project today. Start from available requirements wherever they live. When fixing a bug or changing an area, clarify its intent, add criteria and scenarios, and retain the checks. Backfill as you go. Examine existing behavior with its owner before treating it as a requirement. Coverage stays partial while you expand.
+
+“Once you know which requirement governs the change, decide what evidence you need before the handoff.”
 
 Source: Rodney's account of current use and proposed process variations, supplied for this talk. No measured benefit or completed tracker integration is claimed.
 -->
