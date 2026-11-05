@@ -815,9 +815,11 @@ transition: fade-out
 
 # A Claim Loses Its Traceability Row
 
-**Checkout example — canonical table shapes, abbreviated cells**
+<div class="sdd-traceability-example">
 
-```markdown
+<p v-click="1" class="sdd-traceability-cue">1. The claim is still here.</p>
+
+```markdown {none|5} {at: 1}
 ## 3. Acceptance Criteria
 
 | ID     | Claim                 | Source | Status |
@@ -825,7 +827,9 @@ transition: fade-out
 | AC-002 | Reject expired codes. | need 1 | Active |
 ```
 
-```diff
+<p v-click="2" class="sdd-traceability-cue">2. Its traceability row was deleted.</p>
+
+```diff {none|5} {at: 2}
  ## 9. Traceability Matrix
 
  | Claim ID | Scenario     | Test              | Status  |
@@ -833,10 +837,14 @@ transition: fade-out
 - | AC-002   | Expired code | RejectExpiredCode | Covered |
 ```
 
-**Drift:** the claim remains; its declared verification link disappears.
+<p v-click="2"><strong>Every claim in § 3 needs exactly one row in § 9.</strong></p>
+
+</div>
 
 <!--
 Timing: 1.5 minutes.
+
+Start with both excerpts visible. On click one, point to AC-002 in § 3: we still require checkout to reject expired codes. On click two, point to the same ID and the deletion marker in § 9. The claim remains and its verification link is gone. Read the one-row rule, then advance to the diagnostic for AC-002.
 
 This is an illustrative checkout reconstruction, using the actual default template's section headings and table columns. Cells are shortened to fit. AC-002 still means rejecting the code and displaying the expired-code message, before payment. The full claim and scenario were introduced earlier.
 

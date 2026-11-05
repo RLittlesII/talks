@@ -117,6 +117,31 @@
   font-style: normal;
 }
 
+.sdd-traceability-example {
+  --slidev-code-line-height: 1.25;
+  --slidev-code-padding: 10px 18px;
+  --slidev-code-margin: 7px 0;
+}
+
+.slidev-layout .sdd-traceability-cue {
+  margin: 0;
+  color: var(--sdd-copper);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sdd-traceability-example .slidev-code .slidev-code-dishonored {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sdd-traceability-example .slidev-code .slidev-code-highlighted {
+  display: inline-block;
+  max-width: 100%;
+  outline: 2px solid var(--sdd-copper);
+  outline-offset: 2px;
+}
+
 .slidev-layout table {
   margin: 18px 0;
   font-size: 20px;
