@@ -55,7 +55,7 @@ async function audit(no, mode) {
 }
 
 try {
-  for (let no = 1; !interactionsOnly && no <= 35; no++) {
+  for (let no = 1; !interactionsOnly && no <= 34; no++) {
     for (const [mode, clicks] of [['initial', 0], ['revealed', 999]]) {
       await page.goto(base + '/' + no + '?clicks=' + clicks, { waitUntil: 'networkidle' })
       const slide = await ready(no)
@@ -126,7 +126,7 @@ try {
   assert.match(page.url(), /\/1\?clicks=1$/)
   await page.keyboard.press('Enter')
   await ready(2)
-  assert.match(await page.locator('.sdd-status').innerText(), /Slide 2 of 35: Agenda/)
+  assert.match(await page.locator('.sdd-status').innerText(), /Slide 2 of 34: Agenda/)
   checks.push('Keyboard Enter reveals content and advances slides; the live status and document title update')
 
   await page.getByLabel('Slide', { exact: true }).focus()
@@ -174,8 +174,8 @@ try {
   assert.equal(await page.getByRole('main').getByRole('heading', { level: 1 }).count(), 1)
   checks.push('Changing slides resets reading position and removes the outgoing slide from the accessibility tree')
 
-  await page.goto(base + '/30?clicks=999', { waitUntil: 'networkidle' })
-  await ready(30)
+  await page.goto(base + '/29?clicks=999', { waitUntil: 'networkidle' })
+  await ready(29)
   await page.getByRole('button', { name: 'Reading layout', exact: true }).click()
   await page.setViewportSize({ width: 640, height: 400 })
   const diagram = page.getByRole('region', { name: /^Scrollable diagram:/ })
@@ -183,7 +183,7 @@ try {
   await page.keyboard.press('ArrowRight')
   await page.waitForTimeout(200)
   assert.ok(await diagram.evaluate(element => element.scrollLeft > 0))
-  assert.match(page.url(), /\/30\?clicks=3$/)
+  assert.match(page.url(), /\/29\?clicks=3$/)
   await page.setViewportSize({ width: 1280, height: 800 })
   checks.push('A focused enlarged diagram scrolls with arrow keys without changing the slide')
 
@@ -200,8 +200,8 @@ try {
   await page.emulateMedia({ forcedColors: 'none' })
   checks.push('Keyboard focus remains visible in forced-colors mode')
 
-  await page.goto(base + '/35?clicks=999', { waitUntil: 'networkidle' })
-  await ready(35)
+  await page.goto(base + '/34?clicks=999', { waitUntil: 'networkidle' })
+  await ready(34)
   await page.setViewportSize({ width: 1024, height: 600 })
   await page.waitForTimeout(100)
   assert.ok(await page.evaluate(() =>

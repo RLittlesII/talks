@@ -925,6 +925,8 @@ Timing: 1.5 minutes.
 
 The row uses the canonical matrix columns with shortened scenario/test labels. Restore Covered only after inspecting and executing the actual test, including both assertions and the before-payment constraint. A row is a declaration, not proof that the test exists or runs.
 
+Use AC-002 to review coverage. The first scenario uses a code that expired yesterday. Ask the domain owner when a code becomes expired and which clock or time zone governs that boundary. The test checks both the unchanged total and the expired-code message. Add a check that payment authorization was never attempted. If exploring the running checkout exposes another gap, agree on the expected behavior and add a regression test.
+
 If the test does not exist yet, use Missing for Test and Status. SPEC031 accepts that explicit gap. SPEC060 separately reports Missing cells when spec_status is approved, with error severity by default; repository policy can change that severity. Do not fabricate a test name or remove the claim to make a check pass.
 
 BDD still supplies shared examples. TDD still checks that the implementation makes the relevant failing tests pass and supports refactoring. Structural checks complement both. Humans review whether the examples and assertions preserve the approved behavior.
@@ -985,7 +987,7 @@ A well-formed instruction to accept expired codes is still the wrong instruction
 </v-click>
 
 <!--
-Timing: 1.5 minutes. Owning and adapting the workflow: 12.5 minutes total, slides 25–32.
+Timing: 1.5 minutes. Owning and adapting the workflow: 12.5 minutes total, slides 25–31.
 
 Back to the question we opened with. Specht can tell me whether the expired-code claim has its traceability row. A test can show that the software rejects an expired code.
 
@@ -1057,34 +1059,7 @@ Timing: 1 minute.
 
 Give the blocked task to the person who can resolve it. If two documents disagree about whether to accept an expired code, product or the domain owner settles the intended behavior. If the examples miss a boundary, testing challenges them. If the code or checker is wrong, development fixes it. The reviewer decides whether the current evidence supports acceptance, including ordinary code quality and design concerns.
 
-Agents can prepare the diff, investigate, and suggest a correction. One person may hold several human roles, but the unresolved decision still gets a name. That is the intervention I needed before another expensive review round. Next, give the tester something specific to challenge.
--->
-
----
-level: 2
----
-
-# The Tester Gets the Spec First
-
-<v-clicks>
-
-- Ask when a discount code becomes expired, before implementation
-- Assert both the unchanged total and the expired-code message
-- Verify rejection happens before payment authorization
-- Explore the running product; turn findings into reviewed regressions
-
-</v-clicks>
-
-<div style="margin-top: 1.5rem; color: var(--sdd-copper);">Our first scenario leaves the expiry boundary and payment ordering to test.</div>
-
-<!--
-Timing: 1 minute.
-
-Put AC-002 back in front of the tester. Our first scenario used a code that expired yesterday. What about the exact expiry boundary? Which clock or time zone determines it? Resolve that with the domain owner before inventing an expected result.
-
-Then inspect the assertions: an unchanged total alone could hide a missing error message. The scenario checks both, but it does not show that payment authorization was never attempted. Add an executable check for that ordering constraint. These are concrete testing jobs after the traceability row is restored.
-
-Exploration can still reveal behavior nobody specified. Review the finding and add a regression for the agreed behavior. Next, return to the other failure I mentioned in the incident: even our lessons needed checking.
+Agents can prepare the diff, investigate, and suggest a correction. One person may hold several human roles, but the unresolved decision still gets a name. That is the intervention I needed before another expensive review round. Once someone owns the fix, how do we make sure the next run learns from it?
 -->
 
 ---
@@ -1203,7 +1178,7 @@ A buddy saw the first version of this talk. Three days later, he showed me **wor
 </v-click>
 
 <!--
-Timing: 2 minutes.
+Timing: 3 minutes. Spend two minutes on tradeoffs and one minute on the transition to team decisions.
 
 The upside is that I do not have to steer AI as much. Better context gives it a better chance of doing useful autonomous work within the agreed scope. Lessons are a supporting benefit: the next task can start from what we learned instead of paying to discover it again. These are potential benefits, not measured Specht outcomes.
 
@@ -1216,6 +1191,8 @@ Now the downside: walls upon walls of text. AI can add a lot of documentation ve
 We also lean on AI to help review that growing pile. That costs tokens and attention, and the review can miss the same duplication or contradiction the author introduced. Use it to screen and propose changes, keep explicit rules checkable, and assign human review to changes in meaning.
 
 “You’ve seen how this worked for me. Your team still has to decide where approved requirements live, where to start in the codebase you already have, and which checks run before a handoff. You also need to know who acts when a check fails.”
+
+Give the audience a moment to picture a requirement their team changed recently. Where would the next person find the approved wording? When would the build and tests run, and who would act on a failure? Use those questions to introduce the next two slides.
 -->
 
 ---
@@ -1279,7 +1256,7 @@ The agent runs the build and relevant tests **while doing the work**.
 Keep the revisions and actual results together. CI still verifies the shared change.
 
 <!--
-Timing: 2 minutes. Earlier verification, closing, and questions: 6 minutes total, slides 33–35.
+Timing: 2 minutes. Earlier verification, closing, and questions: 6 minutes total, slides 32–34.
 
 This shifts verification further left. Instead of waiting for the end and finding out whether CI builds, the agent needs to run the build and relevant tests during implementation. Give it the commands, environment, and permission to obtain that evidence. Feed the failures back into the work while it can still act on them. A test writer can hand off a demonstrated red test; final acceptance requires the relevant tests to pass.
 

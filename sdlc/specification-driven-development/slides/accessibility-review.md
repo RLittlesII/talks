@@ -165,8 +165,8 @@ SDD_A11Y_DEPS=/tmp/sdd-a11y-tools node scripts/check-accessibility.mjs
 Optional environment variables: `SDD_A11Y_URL`, `SDD_A11Y_OUTPUT`,
 `SDD_AXE_SCRIPT`, `SDD_CHROMIUM_EXECUTABLE`, and `SDD_A11Y_SCREENSHOTS`.
 The `--interactions-only`
-option reruns the functional assertions without the full scan (105 states for
-the current 35-slide deck; the original review covered 99 states).
+option reruns the functional assertions without the full scan (102 states for
+the current 34-slide deck; the original review covered 99 states).
 
 On macOS, headless Chromium does not operate native select popups with key events;
 the script tests shortcut isolation and the Go action, while the native chooser
@@ -257,3 +257,11 @@ there were no uncaught page errors. The repository harness still uses its
 original permission setup and remains subject to the headless wake-lock denial
 documented above. No new Safari or VoiceOver testing was performed. These
 checks do not constitute a full 105-state audit or a conformance claim.
+
+### Tester slide removal
+
+The 34-slide build passed 18 targeted axe and layout checks across initial,
+fully revealed, and narrow reading states. Forward and reverse navigation
+passed across the removed slide and the team decisions transition. All eight
+interaction checks passed with the same temporary Chromium wake-lock permission
+setup described above.

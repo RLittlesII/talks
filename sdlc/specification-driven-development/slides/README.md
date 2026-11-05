@@ -59,8 +59,8 @@ The deck is timed for 50 minutes: 47 minutes of teaching, walkthrough, and closi
 | 9–12 | How agents use the spec | 6 |
 | 13–18 | The token horror story | 9 |
 | 19–24 | Building a way out | 8.5 |
-| 25–32 | Owning and adapting the workflow | 12.5 |
-| 33–35 | Earlier verification, close, and questions | 6 |
+| 25–31 | Owning and adapting the workflow | 12.5 |
+| 32–34 | Earlier verification, close, and questions | 6 |
 
 The horror story uses actual review evidence from a private project: a contradictory claim copied into a scaffold, missing traceability, a mismatched scenario tag, and corrupted lessons. See [the evidence notes](./pr-evidence.md) for pinned artifacts and correction history. The separate checkout validation walkthrough remains illustrative; it is not output from those PRs. The checkout excerpts use the canonical acceptance-criteria and traceability table columns. The expected SPEC031 message follows the schema 0.2.1 rule reference, wrapped for readability, and keeps `AC-002` throughout the failure and repair. These examples assume an `AC-` claim grammar in the manifest; Specht's default uses `B-`. The examples are excerpts, not complete runnable fixtures or captured CLI output. Slide 24 turns SPEC031 into a worked checker requirement: zero matrix rows fails, one passes that rule, and two fails. The examples illustrate BDD agreement and TDD with a valid control, rather than reconstructing Specht's implementation history. Slide 25 distinguishes structural evidence from judging the incident's valid-but-wrong tag and contradictory claim. The walkthrough is slide-only; no live demo or installation is required during delivery.
 
@@ -78,13 +78,13 @@ Slide 15, “The Claim in This Incident,” applies the earlier claim vocabulary
 
 Audience-facing claim IDs use `AC-` (acceptance criterion). The original evidence uses `B-`; prefixes are mapped consistently in teaching examples, PR excerpts, and the diagnostic, with original IDs retained in the evidence notes.
 
-Slides 30–33 cover practical tradeoffs and process variations. Slide 30 includes source and code revisions in a distributed-team handoff, with an owner for conflicting edits. Slide 31 balances reduced steering and better autonomous effort against document volume, duplication, synchronization, and token/build/review capacity. The developer thinks through the problem; the agent does the fast implementation work. AI can help screen documentation, while explicit checks and human review still address its omissions and changes in meaning.
+Slides 29–32 cover practical tradeoffs and process variations. Slide 29 includes source and code revisions in a distributed-team handoff, with an owner for conflicting edits. Slide 30 balances reduced steering and better autonomous effort against document volume, duplication, synchronization, and token/build/review capacity. The developer thinks through the problem; the agent does the fast implementation work. AI can help screen documentation, while explicit checks and human review still address its omissions and changes in meaning.
 
-Slide 32 distinguishes repository-owned requirements, tracker-owned requirements (GitHub Issues, Azure DevOps, or Trello), and repository-owned requirements published to a tracker by a build task. The last is a proposed integration option, not a built pipeline or Specht capability. Retain stable mappings, source revisions, publication status, and a route for proposed changes. Name the authority for requirement wording, work status, and approval, and make that information accessible to people without repository access. A local copy is task context when the tracker owns the requirement; it must not silently become a competing authority.
+Slide 31 distinguishes repository-owned requirements, tracker-owned requirements (GitHub Issues, Azure DevOps, or Trello), and repository-owned requirements published to a tracker by a build task. The last is a proposed integration option, not a built pipeline or Specht capability. Retain stable mappings, source revisions, publication status, and a route for proposed changes. Name the authority for requirement wording, work status, and approval, and make that information accessible to people without repository access. A local copy is task context when the tracker owns the requirement; it must not silently become a competing authority.
 
-Brownfield adoption remains in slide 32's callout and narration, using Rodney's current experience on a large existing project: start with available requirements wherever they live, clarify areas when changing them or fixing bugs, and fill gaps incrementally. Whole-system backfilling is not a prerequisite. Existing behavior is evidence to examine, not automatically the intended requirement.
+Brownfield adoption remains in slide 31's callout and narration, using Rodney's current experience on a large existing project: start with available requirements wherever they live, clarify areas when changing them or fixing bugs, and fill gaps incrementally. Whole-system backfilling is not a prerequisite. Existing behavior is evidence to examine, not automatically the intended requirement.
 
-Slide 33 moves build and test feedback into the agent's work while retaining CI verification of the shared change. It covers the commands and environment needed to obtain evidence, stage-appropriate red tests, task budgets, stale sources, and escalation when checks cannot run or repeated retries stop making progress. These are workflow responsibilities, not Specht orchestration features.
+Slide 32 moves build and test feedback into the agent's work while retaining CI verification of the shared change. It covers the commands and environment needed to obtain evidence, stage-appropriate red tests, task budgets, stale sources, and escalation when checks cannot run or repeated retries stop making progress. These are workflow responsibilities, not Specht orchestration features.
 
 ## Table linting
 
@@ -97,7 +97,7 @@ are outside this table-only lint scope.
 
 ## Narrative and delivery arc
 
-The 35-slide, 50-minute sequence follows six beats:
+The 34-slide, 50-minute sequence follows six beats:
 
 1. Slides 1–8 recover the useful parts of specifications and introduce AI as
    a new reader and author whose edits also need checking. Immediately after
@@ -112,13 +112,14 @@ The 35-slide, 50-minute sequence follows six beats:
    of the spec like a JSON Schema. Slide 20 introduces the resulting Specht tool;
    slides 21–23 return to checkout for one repair. Slide 24 specifies the checker
    rule itself with failing examples and a passing control.
-5. Slides 25–30 return to the SDD process: distinguish evidence from acceptance,
-   repeat checks after edits, assign blocked decisions, and challenge the checkout
-   expiry boundary and payment ordering. Slide 29 turns the actual L-0009 finding
-   into an example lesson, skill procedure, and next-review evidence. That response
+5. Slides 25–29 return to the SDD process: distinguish evidence from acceptance,
+   repeat checks after edits, and assign blocked decisions. The checkout expiry
+   boundary and payment ordering examples are in the notes for slide 23.
+   Slide 28 turns the actual L-0009 finding into an example lesson, skill
+   procedure, and next-review evidence. That response
    is illustrative, not a claim of an implemented or proven historical repair.
-   Slide 30 shows what the handoff carries.
-6. Slides 31–35 cover upsides and maintenance costs, source-of-truth variations
+   Slide 29 shows what the handoff carries.
+6. Slides 30–34 cover upsides and maintenance costs, source-of-truth variations
    and access, incremental brownfield adoption, and earlier build/test feedback.
    The close returns to focused tools and who acts on the evidence.
 
@@ -129,14 +130,14 @@ request before the tool introduction. Distinguish a reproducible structural
 finding from semantic judgment, and describe a human escalation route so the
 proposed workflow does not reproduce the original unbounded review loop.
 
-Slide 17 foreshadows mistakes in the lessons so slide 29 returns to an established
+Slide 17 foreshadows mistakes in the lessons so slide 28 returns to an established
 thread. Keep the detailed evidence-versus-acceptance distinction on slide 25;
-slides 26–28 apply it to the revision loop, human decisions, and specific tests.
+slides 26–27 apply it to the revision loop and human decisions.
 Slide 26 puts specification, scenario, test, and code edits before the checks;
 every correction repeats validation and test execution. A demonstrated red test
 can be an agreed handoff to implementation; final acceptance requires the relevant
-tests to pass. Slide 24 takes 1.5 minutes and slide 29 takes 2 minutes for the
-worked lessons-to-skills loop. Slides 31–33 take 2, 2.5, and 2 minutes.
+tests to pass. Slide 24 takes 1.5 minutes and slide 28 takes 2 minutes for the
+worked lessons-to-skills loop. Slides 30–32 take 3, 2.5, and 2 minutes.
 The history, actor primer, checkout introduction, and diagnostic walkthrough
 are tighter to make room, keeping 50 minutes overall and three for questions.
 
@@ -152,7 +153,7 @@ A feature, its `.feature` file, a scenario, and an executable test are related
 but distinct. Slide 14 then maps these concepts to repository artifacts.
 
 The actor primer replaces the earlier artifact-chain diagram; the deck retains
-35 slides, three diagrams, and the 50-minute timing allocation.
+34 slides, three diagrams, and the 50-minute timing allocation.
 
 ## Slide 19 diagram reveals
 
@@ -192,9 +193,10 @@ and how to respond. The checkout diagnostic remains pinned to schema 0.2.1.
 
 The bridge adds three minutes and two slides. Shorter actor, checkout, artifact,
 incident-claim, tool-introduction, and repair narration recovers three minutes.
-The deck now has 35 slides and retains 50 minutes including three for questions.
+The deck now has 34 slides and retains 50 minutes including three for questions.
 
-Slide 31 includes Rodney's account of sharing the first iteration with a buddy
+Slide 30 includes Rodney's account of sharing the first iteration with a buddy
 and seeing working software three days later. It is one concrete early result
 from sharing the approach; the interval is not a measured productivity gain or
-a claim about Specht usage. It fits within the existing two-minute allocation.
+a claim about Specht usage. The slide allocates two minutes to tradeoffs and
+one minute to the transition into team decisions.

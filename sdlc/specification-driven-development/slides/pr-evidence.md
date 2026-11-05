@@ -92,7 +92,7 @@ PR #215 was opened October 3, received further change requests, and merged Octob
 
 GitHub reply counts and references to review rounds are not a verified count of internal agent iterations. The retained history contains squashed or rewritten material. The PRs show the corrections and eventual outcome; Rodney supplies the internal workflow and token-cost account.
 
-## The lessons drifted too — slide 29
+## The lessons drifted too — slide 28
 
 The [L-0007 review](https://github.com/RLittlesII/hooked/pull/214#discussion_r4169482854) reports that searches for the lesson's claimed `Table C` / `row 2 of` incident found only the commit adding the lesson. It also identifies the lesson's incorrect treatment of stable `C-n` IDs as positional references. Attribute this history audit to the review; the slide revision did not independently repeat a search of every git branch.
 
@@ -100,7 +100,7 @@ A [later reply](https://github.com/RLittlesII/hooked/pull/214#discussion_r416983
 
 [The committed L-0012 record](https://github.com/RLittlesII/hooked/blob/d953cac46391bdf2fbfdcecd30bb6cc44819fc3a/docs/lessons/L-0012-lesson-register-integrity-collapse-during-pr-214-review.md) describes fabricated incidents, misquoted code, reversed facts, incomplete corrections, and lessons not being applied during review. It is a contemporary incident record, not proof that every proposed prevention measure was implemented.
 
-Slide 29 focuses on the actual L-0009 finding, then supplies an illustrative response: verify and correct the lesson, update a signature-change skill to compare quotes with source and run affected checks, and require the next reviewer to inspect the cited revision, paths, diff, and results. The skill procedure and next-run review are teaching examples, not evidence that this exact procedure was implemented or proved effective in the original project. The L-0007 evidence remains here for provenance.
+Slide 28 focuses on the actual L-0009 finding, then supplies an illustrative response: verify and correct the lesson, update a signature-change skill to compare quotes with source and run affected checks, and require the next reviewer to inspect the cited revision, paths, diff, and results. The skill procedure and next-run review are teaching examples, not evidence that this exact procedure was implemented or proved effective in the original project. The L-0007 evidence remains here for provenance.
 
 ## Connection to Specht
 
@@ -108,7 +108,7 @@ The origin is **SDD Inception**: Rodney was trying to fix the problem in the rep
 
 Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. The separate checkout walkthrough in slides 21–24 remains an illustrative explanation of the checker, not a replay of either hooked PR.
 
-## An early result from sharing the talk — slide 31
+## An early result from sharing the talk — slide 30
 
 On November 5, 2026, Rodney reported that he gave the first iteration of this
 talk to a buddy, who showed him working software three days later. The slide
