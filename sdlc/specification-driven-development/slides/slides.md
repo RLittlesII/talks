@@ -17,7 +17,7 @@ duration: 50min
 # Specification Driven Development
 
 <div v-click class="sdd-subtitle">
-  The spec is the prompt. Who checks the spec?
+  Who checks the spec?
 </div>
 
 <!--
@@ -25,13 +25,7 @@ Timing: 0.5 minutes. The specification returns: 8 minutes total, slides 1–8.
 
 I like talking about my failures. They’re a surprisingly reliable source of conference material.
 
-Pause, then turn toward the lesson:
-
-This is a talk about something awesome I learned the hard way: how badly SDD can go when you aren’t watching the process.
-
-The spec is the prompt. But who checks the spec? My answer involved a review nightmare and burning a week's worth of tokens. My precious tokens. And the request that became Specht.
-
-Keep the published promise in view: explicit specifications guide agents, and tests, lessons, and skills keep the workflow honest. The new question is how we check the reference the agents rely on.
+Click and ask “Who checks the spec?” I thought my review process had an answer. Then I tried it on a real change.
 -->
 
 ---
@@ -48,8 +42,8 @@ transition: slide-up
 <v-clicks>
 
 - **The spec returns** — same discipline, new reader
-- **The agent workflow** — what it reads and hands off
-- **My precious tokens** — when author and reviewer drift
+- **The spec at work** — from requirement to test
+- **The review that went sideways** — when author and reviewer drift
 - **Check the drift** — deterministic tools in the loop
 - **Own the process** — monitor evidence, keep humans accountable
 
@@ -58,7 +52,7 @@ transition: slide-up
 <!--
 Timing: 0.5 minutes.
 
-We will keep the history brief, follow one checkout claim through the agent workflow, and use my experience as the turning point. The longest worked section shows how a deterministic check interrupts a mechanical failure. We finish with monitoring, human responsibilities, and how to build checks for your own process. Reserve the last three minutes for questions.
+We will keep the history brief, follow one checkout requirement into a test, and use my review experience as the turning point. We finish with checks your team can put into its own workflow. Reserve the last three minutes for questions.
 
 “Let’s start with how we wrote down what software should do.”
 -->
@@ -111,8 +105,6 @@ When running the program was expensive, we thought it through first. Eventually 
 
 Source: https://agilemanifesto.org/
 
-Bridge: before we bring the spec back as an agent's input, let's open that old binder and see what was actually useful. Next slide: A Spec, 1998.
-
 -->
 
 ---
@@ -156,20 +148,18 @@ Read REQ-3.2.4.2 out loud. That is a test. Written by someone who never wrote a 
 transition: fade-out
 ---
 
-# The Specification, 1998 and 2026
+# What the Binder Got Right
 
-| Keep from the binder          | Make useful to an AI agent today                |
-| ----------------------------- | ----------------------------------------------- |
-| Purpose and explicit scope    | Retrieve the relevant agreement with the task   |
-| Stable, testable requirements | Carry the same IDs into scenarios and tests     |
-| Constraints and exclusions    | State the boundaries the agent must preserve    |
-| Traceability and approval     | Version the changes and retain current evidence |
+- **Purpose** explains why the work matters.
+- **Stable IDs** let us refer to the same requirement.
+- **Boundaries** spell out what to preserve and what to leave out.
+- **Traceability** links requirements to the tests that check them.
 
 <v-click>
 
 <div m="t-6">
 
-Agents can help maintain it. We need to check what they change.
+Keeping it current was the hard part.
 
 </div>
 
@@ -179,68 +169,60 @@ Agents can help maintain it. We need to check what they change.
 
 Timing: 1 minute.
 
-The document could go stale because keeping it aligned was expensive. Agents can help with that work, but their edits are not self-verifying. A machine reader can ask questions when instructed; it can also proceed confidently from the wrong interpretation. Do not assume it has understood or preserved the intent.
+Go back to the expired-code requirement. We can point to its ID, see what checkout must do before payment, and find the test that is supposed to check it. The binder made those connections visible while they were current.
 
-These are workflow needs for an AI-readable agreement, not a universal 2026 file format. The old discipline carries forward: give the reader purpose, clear requirements, boundaries, and a way to verify them. Put the relevant version within the agent's reach and inspect changes to it. After the next visual, show the representation I came up with.
-
-Keep the distinction from the history slide: Agile values working software over comprehensive documentation; it does not demand that teams discard specifications. The failure is letting an unchecked document outrank reality. Our new failure will be letting an unchecked agent edit redefine that document.
-
-Source: https://agilemanifesto.org/
+Click for the maintenance cost. When the behavior changed, somebody had to bring the requirement, the test, and the approval back into agreement. It was easy for a copy of the binder to fall behind. Then the binder got a new reader.
 
 -->
 
 ---
 transition: fade-out
 class: illustrated
+clicks: 1
 ---
 
 # The Spec Is Back
 
-<div style="margin: 0.75rem 0 0.5rem;">
-  <img
-    src="/images/specification-old-busted-hotness.png"
-    alt="Three scenes with Rodney's likeness, a closely shaved head and black rectangular glasses, in era-appropriate casual clothes: an older programmer in a patterned sweater beside a dusty specification binder, a younger programmer in a hoodie surrounded by AI chat prompts, then an older developer in a cardigan using the specification to guide an AI assistant through tests and code."
-    style="display: block; width: 100%; height: auto;"
-  />
+<div class="sdd-spec-panels">
+  <figure>
+    <img src="/images/specification-old-busted-hotness.png" alt="Rodney in a patterned sweater beside a dusty specification binder." style="object-position: left;" />
+    <figcaption>
+      <strong>Old busted</strong>
+      <b>The specification</b>
+      Write it. File it. Forget it.
+    </figcaption>
+  </figure>
+  <figure v-show="$clicks >= 1">
+    <img src="/images/specification-old-busted-hotness.png" alt="Rodney in a hoodie surrounded by chat bubbles and crumpled drafts." />
+    <figcaption>
+      <strong>New hotness</strong>
+      <b>AI chat</b>
+      Prompt it. Patch it. Repeat.
+    </figcaption>
+  </figure>
+  <figure v-show="$clicks >= 1">
+    <img src="/images/specification-old-busted-hotness.png" alt="Rodney shows the specification to a robot beside a laptop, with diagrams, code, and test checkmarks." style="object-position: right;" />
+    <figcaption>
+      <strong>Old busted hotness</strong>
+      <b>The spec guides the agent</b>
+      Specify it. Test it. Regenerate.
+    </figcaption>
+  </figure>
 </div>
 
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; text-align: center;">
-  <div>
-    <div style="color: var(--sdd-copper); font-weight: 700;">Old busted</div>
-    <div style="font-size: 20px; font-weight: 600;">The specification</div>
-    <div style="font-size: 18px; color: var(--sdd-muted);">Write it. File it. Forget it.</div>
-  </div>
-  <div>
-    <div style="color: var(--sdd-copper); font-weight: 700;">New hotness</div>
-    <div style="font-size: 20px; font-weight: 600;">AI chat</div>
-    <div style="font-size: 18px; color: var(--sdd-muted);">Prompt it. Patch it. Repeat.</div>
-  </div>
-  <div>
-    <div style="color: var(--sdd-copper); font-weight: 700;">Old busted hotness</div>
-    <div style="font-size: 20px; font-weight: 600;">The spec drives the agent</div>
-    <div style="font-size: 18px; color: var(--sdd-muted);">Specify it. Test it. Regenerate.</div>
-  </div>
-</div>
-
-<div style="margin-top: 1rem; text-align: center; font-style: italic;">
-  Same discipline. AI connects the claims and evidence.
+<div v-show="$clicks >= 1" style="margin-top: 1rem; text-align: center; font-style: italic;">
+  The spec is the prompt.
 </div>
 
 <!--
 
 Timing: 1.5 minutes.
 
-Verbal riff on the Men in Black old-gear/new-gear joke, illustrated with ordinary developers in clothes appropriate to their era and age. The third label is the talk's punchline: "old busted hotness."
+Start with the dusty binder. “The old busted spec has a new job. I call it old busted hotness.” Pause after the line, then click once to reveal the other two panels together. This is the first time the talk names AI.
 
-Old busted: the specification we just opened. Useful structure, but maintaining it by hand was expensive. The dusty binder is the failure mode, not the goal.
+The middle panel is what happened when I asked AI for code and kept the decisions in chat. I had to keep repeating what mattered. The right panel is what changed when I gave the agent the versioned agreement. It could work from the goal, the boundaries, and the same requirements we use to check its work. People still decide what the software should do, and tests give us evidence about what it does.
 
-New hotness: ask AI for code. It feels like a superpower. But when intent lives only in a chat, you keep steering, patching, and repeating yourself. The middle panel satirizes that prompt-first workflow, not every use of AI chat.
-
-Old busted hotness: the spec comes back as a versioned artifact the agent actually consumes. Numbered claims, acceptance criteria, constraints, and out of scope. Scenarios and tests check the implementation against those claims. Update the spec, review the delta, and run the workflow again.
-
-AI makes it practical to draft, connect, and revise specifications, claims, scenarios, and verification artifacts together. That is the opportunity: keep the claims and the evidence close as the system changes. The model proposing those artifacts cannot be our only verifier. The comeback is explicit intent that agents consume in a versioned workflow. Humans decide what the system should do and review changes to that intent. Tests, lessons, skills, and deterministic checks support the handoffs; none makes an agent infallible.
-
-Pause on the third label, then land: same discipline, new reader. What does that look like in a file? Next, open my modern specification before assigning any agent jobs.
+“The spec is the prompt. Here’s the checkout spec I give that agent.” Advance directly to “My Specification, 2026.”
 
 -->
 

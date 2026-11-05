@@ -178,10 +178,11 @@ shows an explicitly abbreviated checkout example using that version's keys and
 values. An approved document can still have delivery in progress. These are
 Rodney's chosen conventions, not a universal required format for AI.
 
-The 1998 excerpt now names its surrounding document structure, and slide 5
-connects the older discipline to the retrieval, versioning, and verification
-needed when an agent reads and edits the agreement. The token-story opening
-returns to frontmatter, sections, and references. Rodney supplied frontmatter's
+The 1998 excerpt names its surrounding document structure. Slide 5 shows what
+the binder got right and why it was hard to keep current. Slide 6 opens on the
+binder panel. Say “old busted hotness,” then click once to reveal AI and both
+remaining panels. The next advance opens “My Specification, 2026.” The token-story
+opening returns to frontmatter, sections, and references. Rodney supplied frontmatter's
 role in the incident on November 5, 2026; no specific broken key or historical
 diff is asserted. See the evidence notes for this distinction.
 
