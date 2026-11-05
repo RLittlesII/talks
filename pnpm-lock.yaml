@@ -19,8 +19,8 @@ catalogs:
       specifier: ^0.2.5
       version: 0.2.5
     slidev-theme-nord:
-      specifier: ^0.0.6
-      version: 0.0.6
+      specifier: ^0.1.0
+      version: 0.1.0
     vue:
       specifier: ^3.5.44
       version: 3.5.44
@@ -40,7 +40,7 @@ importers:
         version: 0.25.0
       slidev-theme-nord:
         specifier: 'catalog:'
-        version: 0.0.6(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.44)(cac@7.0.0)(rolldown@1.2.15)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.5(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
+        version: 0.1.0(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.44)(cac@7.0.0)(rolldown@1.2.15)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.5(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
       vue:
         specifier: 'catalog:'
         version: 3.5.44(typescript@6.0.3)
@@ -2569,8 +2569,8 @@ packages:
     resolution: {integrity: sha512-MLRjGzO1gUEAk0uRY3H4WzlUs564RMgC14yS2YGcDZn3YH5ZPGun7bh3PbezXmWX9LYR6kQZieB9prT8QPcs9A==}
     engines: {node: '>=20.0.0', slidev: '>=52.0.0'}
 
-  slidev-theme-nord@0.0.6:
-    resolution: {integrity: sha512-RDNYP6LEKVRI2vaq9YnFknC/3wq/fT7385MWpf7wvV6jfusVfhNiroFwt5ZyQ1+Sr2yLCaArMhkC4Jq/NdBpnQ==}
+  slidev-theme-nord@0.1.0:
+    resolution: {integrity: sha512-nryEtjbUQmN9ikKXujrZEBeozKIx2m3vENzMjIopkOkid0T1ZxYPBMVo8gqvK8wu7KD0EUj+N+EL0R0Tpy3AiA==}
     engines: {node: '>=18.0.0'}
 
   source-map-js@1.2.2:
@@ -6192,7 +6192,7 @@ snapshots:
       - vite
       - webpack
 
-  slidev-theme-nord@0.0.6(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.44)(cac@7.0.0)(rolldown@1.2.15)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.5(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1)):
+  slidev-theme-nord@0.1.0(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.44)(cac@7.0.0)(rolldown@1.2.15)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.5(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1)):
     dependencies:
       '@slidev/types': 52.20.1(@modelcontextprotocol/server@2.0.0)(@vue/compiler-sfc@3.5.44)(cac@7.0.0)(rolldown@1.2.15)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.5(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1))
     transitivePeerDependencies:
