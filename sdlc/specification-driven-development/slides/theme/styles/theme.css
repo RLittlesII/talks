@@ -259,6 +259,63 @@
   margin: 10px 0;
 }
 
+.slidev-layout .sdd-handoff-flow {
+  display: flex;
+  gap: 2rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slidev-layout .sdd-handoff-flow > li {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0.875rem 0.875rem 1rem;
+  border-top: 3px solid var(--sdd-teal);
+  background: var(--sdd-excerpt);
+}
+
+.sdd-handoff-flow strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--sdd-teal);
+}
+
+.sdd-handoff-arrow {
+  position: absolute;
+  top: 50%;
+  left: -2rem;
+  width: 2rem;
+  color: var(--sdd-copper);
+  text-align: center;
+  translate: 0 -50%;
+}
+
+.sdd-handoff-return > span {
+  margin-right: 0.4rem;
+  color: var(--sdd-copper);
+}
+
+.sdd-handoff-flow > .slidev-vclick-hidden,
+.sdd-handoff-return.slidev-vclick-hidden {
+  visibility: hidden;
+}
+
+html.sdd-reading .sdd-handoff-flow {
+  flex-direction: column;
+}
+
+html.sdd-reading .sdd-handoff-arrow {
+  top: -2rem;
+  left: 0.875rem;
+  height: 2rem;
+  line-height: 2rem;
+  translate: none;
+  rotate: 90deg;
+}
+
 .slidev-layout.illustrated {
   font-size: 20px;
 }

@@ -412,23 +412,41 @@ level: 2
 
 # Roles as Agents
 
-| Role        | Reads                                  | Produces                    |
-| ----------- | -------------------------------------- | --------------------------- |
-| Spec author | Human intent, current spec             | Proposed spec delta         |
-| Test writer | Approved claims, constraints           | Scenarios and failing tests |
-| Implementer | Spec, tests, existing code             | Scoped implementation       |
-| Reviewer    | Approved baseline, all diffs, evidence | Findings tied to claims     |
+<ol class="sdd-handoff-flow" role="list" aria-label="Agent roles and what they hand off">
+  <li>
+    <strong>Spec author</strong>
+    Proposed spec change
+  </li>
+  <li v-click>
+    <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
+    <strong>Test writer</strong>
+    Scenarios and failing tests
+  </li>
+  <li v-click>
+    <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
+    <strong>Implementer</strong>
+    Scoped implementation
+  </li>
+  <li v-click>
+    <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
+    <strong>Reviewer</strong>
+    Findings tied to claims
+  </li>
+</ol>
 
-<v-click>
-
-Instructions define the handoff. Tools check its explicit rules.
-
-</v-click>
+<p v-click class="sdd-handoff-return"><span aria-hidden="true">↶</span> Send each finding back to the role that owns the change.</p>
 
 <!--
 Timing: 1.5 minutes.
 
-The actors now have jobs. Spec author, test writer, implementer, and reviewer are responsibilities assigned to an agent through its instructions and tools. The table describes a workflow contract, not a requirement for four separate sessions. You can use fewer agents and still preserve the responsibilities.
+The actors now have jobs. These are responsibilities an agent takes on through its instructions and tools. One agent can take on more than one role. Instructions define each handoff, and tools check its explicit rules.
+
+Start with the spec author visible. The author reads human intent and the current spec, then proposes a change for human approval.
+
+1. Reveal the test writer. They read the approved claims and constraints, then write scenarios and failing tests.
+2. Reveal the implementer. They read the spec, tests, and existing code, then make the scoped implementation change.
+3. Reveal the reviewer. They compare all diffs against the approved baseline and inspect the evidence. They tie each finding to the relevant claim.
+4. Reveal the return path. Send each finding back to the role that owns the correction. Intent changes go back to a human for approval.
 
 Notice that the spec author may be an agent too. I still own the intent. The author proposes changes; it does not get authority to redefine the requirement silently. The reviewer needs the approved baseline as well as the new spec. Otherwise, what prevents both roles from agreeing on a new requirement I never asked for?
 
@@ -931,7 +949,7 @@ Source: https://github.com/RLittlesII/specht/blob/main/docs/rules/v0.2.1/SPEC031
 transition: fade-out
 ---
 
-# SDD for the Checker
+# SDD for the Reviewer
 
 **Requirement:** every claim has exactly one traceability row.
 
@@ -1061,28 +1079,26 @@ level: 2
 
 # Make Lessons Change the Next Run
 
-**Actual finding:** `L-0009` misquoted the signatures it was teaching.
+`L-0009` misquoted the signatures it was teaching.
 
-**Lesson:** compare quoted code with its source before teaching from it.
+**Example response**
 
-<v-click>
-
-**Example skill procedure for a signature change**
-
-```text
-1. Open the port, affected callers, and relevant lesson.
-2. Compare the lesson's quotes with current source.
-3. Fix stale quotes; build and run affected tests.
-4. Return revision, source paths, diff, and test results.
-```
-
-</v-click>
-
-<v-click>
-
-**Next run:** the reviewer opens those paths and checks the correction and results.
-
-</v-click>
+<ol class="sdd-handoff-flow" role="list" aria-label="How the lesson changes the next run">
+  <li v-click>
+    <strong>Verify the lesson</strong>
+    Compare the signatures with source
+  </li>
+  <li v-click>
+    <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
+    <strong>Update the skill</strong>
+    Check quotes on signature changes
+  </li>
+  <li v-click>
+    <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
+    <strong>Review the next run</strong>
+    Reopen the source and inspect results
+  </li>
+</ol>
 
 <!--
 Timing: 2 minutes.
@@ -1091,7 +1107,14 @@ Back to the review nightmare. A lesson about keeping signatures consistent manag
 
 That is the actual L-0009 finding. A later reply says the finding was recorded in L-0012 while L-0009 stayed unchanged. We tracked the correction without doing it. The broader incident also included L-0007's unsupported historical example; keep that in the evidence notes rather than introducing a second case here.
 
-Present the procedure as a worked response, not a captured historical repair. A person first verifies the finding and corrects the lesson. Then update the skill: on a signature change, retrieve that lesson, open the port and callers, compare quotes, and repair stale text. Build and run affected tests. A passing build alone cannot establish that prose quotes are accurate.
+Reveal the three steps as an example response. First, a person verifies the finding and corrects the lesson. Compare quoted code with its source before teaching from it. On the second click, show the procedure the skill runs when a signature changes.
+
+1. Open the port, affected callers, and relevant lesson.
+2. Compare the lesson's quotes with current source.
+3. Fix stale quotes, then build and run the affected tests.
+4. Return the revision, source paths, diff, and test results.
+
+On the third click, show what the reviewer checks on the next run. Build and test results describe the code. The source comparison verifies the quote.
 
 Return the revision, source paths and symbols, repaired lesson diff, and actual results. The next reviewer opens those symbols at that revision and compares the quote. Still wrong? Return the finding and correct the procedure before repeating. The observed failure becomes a verified lesson, then a skill the next task applies and the reviewer can inspect. Recording another lesson alone would leave us where we started.
 
