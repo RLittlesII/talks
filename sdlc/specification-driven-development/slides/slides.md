@@ -21,7 +21,7 @@ duration: 50min
 </div>
 
 <!--
-Timing: 0.5 minutes. The specification returns: 5 minutes total, slides 1–6.
+Timing: 0.5 minutes. The specification returns: 8 minutes total, slides 1–8.
 
 I like talking about my failures. They’re a surprisingly reliable source of conference material.
 
@@ -120,6 +120,8 @@ class: archive
 
 # A Spec, 1998
 
+Purpose, requirements, constraints, design, verification, and approval. Open to one requirement:
+
 ```text
 3.2.4  Discount Application
 
@@ -142,7 +144,7 @@ Out of scope: Stacking, gift cards, loyalty points (see 3.2.7)
 
 Timing: 1 minute.
 
-This is an illustrative 1990s-style Functional Requirements Specification. The numbered claims, SHALL language, upstream source, and downstream test references are the useful parts. It is a fictional checkout example, not a historical document or a claim of compliance with a particular standard.
+This is an illustrative 1990s-style Functional Requirements Specification. Picture the whole binder: purpose and scope, requirements, constraints, design, verification, and approval. This page is one requirement inside it. The numbered claims, SHALL language, upstream source, and downstream test references are the useful parts. It is a fictional checkout example, not a historical document or a claim of compliance with a particular standard.
 
 Read REQ-3.2.4.2 out loud. That is a test. Written by someone who never wrote a test.
 
@@ -152,35 +154,20 @@ Read REQ-3.2.4.2 out loud. That is a test. Written by someone who never wrote a 
 transition: fade-out
 ---
 
-# What It Had, Why It Drifted
+# The Specification, 1998 and 2026
 
-<div grid="~ cols-2 gap-8" m="t-2">
-<div>
-
-**Had**
-
-- One ID per claim
-- `SHALL` / `SHALL NOT` — no "should probably"
-- Traceability both directions: BR ↔ REQ ↔ TC
-- Explicit **out of scope**
-
-</div>
-<div>
-
-**Maintenance cost**
-
-- People reconciled documents and code
-- Stale requirements could survive reviews
-- Intent became scattered across tickets
-
-</div>
-</div>
+| Keep from the binder          | Make useful to an AI agent today                |
+| ----------------------------- | ----------------------------------------------- |
+| Purpose and explicit scope    | Retrieve the relevant agreement with the task   |
+| Stable, testable requirements | Carry the same IDs into scenarios and tests     |
+| Constraints and exclusions    | State the boundaries the agent must preserve    |
+| Traceability and approval     | Version the changes and retain current evidence |
 
 <v-click>
 
 <div m="t-6">
 
-Now agents can help maintain it. Their edits need verification too.
+Agents can help maintain it. We need to check what they change.
 
 </div>
 
@@ -191,6 +178,8 @@ Now agents can help maintain it. Their edits need verification too.
 Timing: 1 minute.
 
 The document could go stale because keeping it aligned was expensive. Agents can help with that work, but their edits are not self-verifying. A machine reader can ask questions when instructed; it can also proceed confidently from the wrong interpretation. Do not assume it has understood or preserved the intent.
+
+These are workflow needs for an AI-readable agreement, not a universal 2026 file format. The old discipline carries forward: give the reader purpose, clear requirements, boundaries, and a way to verify them. Put the relevant version within the agent's reach and inspect changes to it. After the next visual, show the representation I came up with.
 
 Keep the distinction from the history slide: Agile values working software over comprehensive documentation; it does not demand that teams discard specifications. The failure is letting an unchecked document outrank reality. Our new failure will be letting an unchecked agent edit redefine that document.
 
@@ -249,8 +238,118 @@ Old busted hotness: the spec comes back as a versioned artifact the agent actual
 
 AI makes it practical to draft, connect, and revise specifications, claims, scenarios, and verification artifacts together. That is the opportunity: keep the claims and the evidence close as the system changes. The model proposing those artifacts cannot be our only verifier. The comeback is explicit intent that agents consume in a versioned workflow. Humans decide what the system should do and review changes to that intent. Tests, lessons, skills, and deterministic checks support the handoffs; none makes an agent infallible.
 
-Pause on the third label, then land: same discipline, new reader. Next slide puts TDD, BDD, and SDD on that continuum.
+Pause on the third label, then land: same discipline, new reader. What does that look like in a file? Next, open my modern specification before assigning any agent jobs.
 
+-->
+
+---
+transition: slide-up
+---
+
+# My Specification, 2026
+
+Versioned Markdown: **YAML frontmatter**, then a structured agreement.
+
+<div grid="~ cols-2 gap-8" m="t-4">
+<div>
+
+**Intent and boundaries**
+
+```text
+1. Business Goal
+2. User Needs
+3. Acceptance Criteria
+4. Constraints
+5. Out of Scope
+6. Concern Separation
+```
+
+</div>
+<div>
+
+**Design and evidence**
+
+```text
+7. Technical Design
+8. Testing Strategy
+9. Traceability Matrix
+10. Lessons / Spec Deltas
+11. Open Questions
+12. Sign-off
+```
+
+</div>
+</div>
+
+The agent gets the reason, the limits, and how we will verify the work.
+
+<!--
+Timing: 1.5 minutes.
+
+This is the modern representation I came up with. It is my feature-specification contract, not a claim that every AI workflow needs these exact headings. The file starts with YAML metadata, then these twelve numbered sections. Tasks and Scoring are additional unnumbered sections in the full template. The labels shown here match the versioned 0.2.1 template used by this talk's checker examples.
+
+Read the outline as questions the next reader needs answered. Why are we doing this, and for whom? What must happen, what limits apply, and what are we deliberately excluding? Concern Separation distinguishes business and technical responsibilities. Technical Design records the intended boundaries and contracts; Testing Strategy explains how we will exercise them. Traceability connects each acceptance criterion to its scenarios and tests. Lessons change the owning sections; open questions and sign-off make unresolved decisions and review visible.
+
+Keep checkout concrete: clear pricing is the goal; an expired code must be rejected; payment must not start first; stacking is excluded. Section 3 gives that agreement an ID. Sections 8 and 9 explain the checks and their links. These are the sections the audience will see drift later, not disconnected documentation headings.
+
+The difference from the binder is how we use and maintain the agreement: keep it versioned, give the relevant revision to the agent, review its changes, and repeat the checks. Markdown alone does none of that. First look at the metadata at the very top of this same file.
+
+Source: Specht src/tool/templates/v0.2.1/feature.md, checked in the local source checkout. Section names are literal; checkout content is illustrative.
+-->
+
+---
+transition: slide-up
+---
+
+# Frontmatter Is Part of the Contract
+
+**Frontmatter:** the YAML block at the top of the specification.
+
+<div grid="~ cols-2 gap-8" m="t-4">
+<div>
+
+```yaml
+---
+id: F2
+epic: "0001"
+type: feature
+spec_status: approved
+status: in-progress
+depends_on: []
+blocks: []
+---
+```
+
+Excerpt for the checkout feature.
+
+</div>
+<div>
+
+- `id` + `epic`: which feature?
+- `type`: which document contract?
+- `spec_status`: is the agreement approved?
+- `status`: where is delivery?
+- `depends_on` / `blocks`: which dependencies?
+
+</div>
+</div>
+
+Metadata and body must agree. Approved intent can still be unfinished work.
+
+<!--
+Timing: 1.5 minutes.
+
+Frontmatter is the YAML between the opening and closing triple-dash lines, before the Markdown body. These are specification metadata, separate from Slidev's presentation frontmatter. This is an abbreviated teaching example, not a complete schema-valid file. The full template also carries author, dates, domain, planning, and synchronization fields. The displayed keys and values match the pinned 0.2.1 feature-frontmatter schema.
+
+F2 is scoped to epic 0001, so a cross-feature reference includes both. Type selects the feature document contract. Spec_status records document maturity; status records delivery state. An approved agreement can be in progress: approval is not a claim that implementation or testing is complete. Dependencies are explicit relationships, not guesses an agent should reconstruct from prose. Here both lists are empty; do not read that as a dependency failure in the real incident.
+
+These fields affect how the workflow interprets the document. A syntactically valid YAML block can still violate the schema or disagree with the body and related files. Check the required fields, permitted values, and declared relationships using the selected contract. Human review still establishes whether an approval is justified and whether the dependency declarations are correct.
+
+Frontmatter was also part of the review problem that burned my tokens. That connection comes from my account; the retained evidence notes do not identify a specific broken key or diff, so do not invent one. The important setup here is that the contract includes metadata as well as prose. Later, Specht will analyze that contract repeatedly as the specification changes.
+
+We have now opened the whole agreement and its metadata. Next, connect this representation to BDD and TDD, then assign the agent jobs that read and change it.
+
+Sources: Specht src/tool/templates/v0.2.1/feature.md and src/tool/schema/v0.2.1/frontmatter/feature.schema.json, checked in the local source checkout. Frontmatter's role in the token incident: Rodney's account, November 5, 2026.
 -->
 
 ---
@@ -274,7 +373,7 @@ transition: fade-out
 </v-click>
 
 <!--
-Timing: 1 minute. How agents use the spec: 7 minutes total, slides 7–10.
+Timing: 1 minute. How agents use the spec: 6 minutes total, slides 9–12.
 
 Keep this connection from the original talk. SDD belongs alongside disciplines the audience already knows. BDD turns claims into examples people agree on. TDD drives implementation through red, green, refactor. SDD supplies the versioned intent that connects them. Use all three together; a generated spec does not replace either discipline. We still need good tests and shared understanding. Writing intent upstream gives the agent a durable input, but does not make everything downstream automatic or correct.
 
@@ -311,7 +410,7 @@ transition: slide-up
 People decide. Agents do work. Artifacts record the agreement and evidence.
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
 Give the audience this vocabulary before showing agent handoffs. These are different kinds of participants: people and agents take actions; specifications and features are the subject of the work; deterministic programs supply particular checks. Do not imply that a document has agency or that a model owns the product decision.
 
@@ -390,7 +489,7 @@ Feature: Discount codes
 A **scenario** is one example. **Bindings + a runner** execute its steps and assertions.
 
 <!--
-Timing: 2.5 minutes.
+Timing: 2 minutes.
 
 Explain the example using the vocabulary just introduced. The feature is the capability; the spec is its agreement; AC-002 is one claim in it. Gherkin is the structured language used in the .feature file. Feature: groups related scenarios; Scenario: names one concrete example; Given sets the starting state, When describes the action, and Then describes the expected result. And adds another step of the same kind.
 
@@ -417,16 +516,16 @@ transition: fade
   “I burned a week's worth of Claude Max tokens<br/>trying to review a pull request.”
 </div>
 
-<div style="margin-top: 1.5rem; color: var(--sdd-muted);">A real review loop in one of my projects</div>
+<div style="margin-top: 1.5rem; color: var(--sdd-muted);">Frontmatter, sections, and references all needed checking</div>
 
 <!--
-Timing: 1 minute. The token horror story: 10 minutes total, slides 11–16.
+Timing: 1 minute. The token horror story: 9 minutes total, slides 13–18.
 
 This is my account of what happened. The quote describes my experience with the review cycle, not a benchmark of Claude or a measured comparison between tools. The review counts later in the story come from my account, including work away from GitHub. Do not infer them from GitHub event counts or invent a dollar amount.
 
 As always, this is a story from the trenches.  This is a real story, all tokens discussed in it were burned frivolously and it was not completely the fault of the provider.
 
-I had the spec. I had an author. I had a reviewer. And I was burning those tokens on the process that was supposed to keep the work honest. This is the horror story promised in the opening.
+I had the frontmatter and the structured sections we just opened. Frontmatter was part of the problem too; the examples that follow show the retained body and reference findings. I had an author. I had a reviewer. And I was burning those tokens on the process that was supposed to keep the work honest. This is the horror story promised in the opening.
 -->
 
 ---
@@ -451,9 +550,9 @@ In this example, each feature keeps a **`.spec/` folder beside its code**.
 Your requirements may live elsewhere. Name the source and revision.
 
 <!--
-Timing: 1.5 minutes.
+Timing: 1 minute.
 
-These are the files the author and reviewer were trying to reconcile. Dot-spec holds the agreement and supporting records. Dot-specht holds checker configuration, schemas, and starter templates. They have different jobs.
+The modern specification we opened earlier was one file in a larger set. These are the files the author and reviewer were trying to reconcile. Dot-spec holds the agreement and supporting records. Dot-specht holds checker configuration, schemas, and starter templates. They have different jobs.
 
 This is my repository convention. Your approved intent might live in GitHub Issues, Azure DevOps, or Trello, and you may not own that choice. We will return to those variations. For now, this is where the incident's artifacts lived.
 
@@ -486,7 +585,7 @@ AC-011: If the store is busy or unreadable, report an
 Keep the intended category in view. Next, watch it change.
 
 <!--
-Timing: 1.5 minutes.
+Timing: 1 minute.
 
 AC stands for acceptance criterion. For consistent presentation, the audience-facing deck uses AC- identifiers; the source repository uses B-. Thus B-011 is displayed as AC-011, and B-003 as AC-003. This is a presentation mapping, not a recommendation to renumber existing repository IDs. Original identifiers remain in pr-evidence.md and the source-specific notes.
 
@@ -608,7 +707,7 @@ transition: fade
 <!--
 Timing: 2 minutes.
 
-The repair history is visible; the token bill and review-effort figures are my reported experience. By the time the PR was done, there were over 200 review comments on it. About half the reviews happened away from GitHub. There were 20+ AI reviews, each taking 10+ rounds; the highest I recall was 18 rounds. A review and a round within that review are different units. These figures were supplied for this talk on October 28, 2026; they are not counts reconstructed from GitHub events. PR #214 contains repeated review-remediation commits, including d25739a (review feedback), 0aa4962 (traceability rows), and d953cac (lesson-register integrity collapse). It was closed without merging. My closing comment called it “a reminder of what to do when AI goes rogue!” The full comment is preserved in pr-evidence.md.
+I was paying for repeated review of the specification contract: frontmatter, section structure, and relationships, as well as meaning. The frontmatter connection is my account, without a specific key-level example in the retained evidence. The repair history is visible; the token bill and review-effort figures are my reported experience. By the time the PR was done, there were over 200 review comments on it. About half the reviews happened away from GitHub. There were 20+ AI reviews, each taking 10+ rounds; the highest I recall was 18 rounds. A review and a round within that review are different units. These figures were supplied for this talk on October 28, 2026; they are not counts reconstructed from GitHub events. PR #214 contains repeated review-remediation commits, including d25739a (review feedback), 0aa4962 (traceability rows), and d953cac (lesson-register integrity collapse). It was closed without merging. My closing comment called it “a reminder of what to do when AI goes rogue!” The full comment is preserved in pr-evidence.md.
 
 PR #215 continued with spec, feature-file, and scaffold changes, received further change requests, and ultimately merged on October 7, 2026. This was not an endless unresolved PR: show the eventual outcome as well as the failure. Do not equate the number of GitHub review events, replies, or commit messages with a verified count of internal model-review rounds. The retained history includes rewritten/squashed material.
 
@@ -650,11 +749,11 @@ class D sdd-step-4
 </v-clicks>
 
 <!--
-Timing: 1.5 minutes. Building a way out: 9.5 minutes total, slides 17–22.
+Timing: 1.5 minutes. Building a way out: 8.5 minutes total, slides 19–24.
 
 Reveal the diagram from left to right on four clicks. Click 1: using SDD to build software. Click 2: discovering drift, together with the repository-fix bullet. Click 3: building the checker, together with the JSON Schema request. Click 4: applying it to SDD artifacts, together with “And Specht was born.” Each incoming arrow appears with its destination. The diagram keeps its full layout throughout.
 
-This is SDD Inception: I used specification-driven development, discovered drift in the process, and asked for a fix in the affected repository. My instruction was to think of the spec like a JSON Schema. That request gave rise to Specht; SDD then guided development of the tool for specification-driven development. The origin was a concrete repository problem.
+This is SDD Inception: I used specification-driven development, discovered drift in the process, and asked for a fix in the affected repository. My instruction was to think of the spec like a JSON Schema. That request gave rise to Specht: an analysis tool I built to keep tabs on the specification process. SDD then guided development of the tool for specification-driven development. The origin was a concrete repository problem.
 
 The analogy is a checkable contract: required structure, identities, and relationships with reproducible diagnostics. It does not mean every Markdown claim is literally JSON Schema, or that schema validation proves the business meaning of a requirement. Let that nesting be the joke. The point is the method being applied to improve the method itself.
 
@@ -676,27 +775,27 @@ transition: slide-up
 
 <div style="max-width: 530px;">
 
-A .NET tool that checks your feature specifications and their relationships.
+A .NET analysis tool I built to keep tabs on the specification process.
 
 <v-clicks>
 
-- IDs and references
-- Required traceability relationships
-- Schema and section structure
-- Dependency consistency
+- YAML frontmatter against its schema
+- Required sections and their order
+- Claim IDs, references, and traceability
+- Declared dependency consistency
 
 </v-clicks>
 
-<div style="margin-top: 1.5rem; color: var(--sdd-copper);">Same inputs and pinned rules. Repeatable findings.</div>
+<div style="margin-top: 1.5rem; color: var(--sdd-copper);">Run after edits. Carry findings into the next handoff.</div>
 
 [github.com/RLittlesII/specht](https://github.com/RLittlesII/specht)
 
 </div>
 
 <!--
-Timing: 1.5 minutes.
+Timing: 1 minute.
 
-That request became Specht. Its job is to make the specification contract mechanically checkable. It checks explicit rules against the spec tree and reports violations. The checker runs offline; pinning the tool and schema versions keeps the rule set reproducible across machines and CI.
+That request became Specht. I built it as an analysis tool to keep tabs on the specification process. It analyzes the metadata, sections, and relationships we opened earlier so repeated contract checks become software instead of another model-review round. Its job is to make the specification contract mechanically checkable. It checks explicit rules against the spec tree and reports violations. The checker runs offline; pinning the tool and schema versions keeps the rule set reproducible across machines and CI.
 
 Keep the description narrow. It does not understand whether accepting expired codes serves the business. It can check whether claims have the expected IDs and traceability relationships, whether feature tags resolve, and whether declared dependencies agree.
 
@@ -806,7 +905,7 @@ transition: fade-out
 </v-clicks>
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
 The row uses the canonical matrix columns with shortened scenario/test labels. Restore Covered only after inspecting and executing the actual test, including both assertions and the before-payment constraint. A row is a declaration, not proof that the test exists or runs.
 
@@ -871,7 +970,7 @@ A well-formed instruction to accept expired codes is still the wrong instruction
 </v-click>
 
 <!--
-Timing: 1.5 minutes. Owning and adapting the workflow: 12.5 minutes total, slides 23–30.
+Timing: 1.5 minutes. Owning and adapting the workflow: 12.5 minutes total, slides 25–32.
 
 This is the distinction to land once, clearly. The missing-row check can go green while the category-1/category-3 contradiction remains. Both claim IDs in the tag correction existed too. A resolved reference tells us where it points, not whether it points to the right agreement.
 
@@ -1084,7 +1183,7 @@ transition: slide-up
 
 <v-click>
 
-You think through the problem. The agent does the fast work.
+A buddy saw the first version of this talk. Three days later, he showed me **working software**.
 
 </v-click>
 
@@ -1092,6 +1191,8 @@ You think through the problem. The agent does the fast work.
 Timing: 2 minutes.
 
 The upside is that I do not have to steer AI as much. Better context gives it a better chance of doing useful autonomous work within the agreed scope. Lessons are a supporting benefit: the next task can start from what we learned instead of paying to discover it again. These are potential benefits, not measured Specht outcomes.
+
+Here is one early result from sharing the approach. I gave the first iteration of this talk to a buddy of mine. Three days later, he showed me working software. That is why I think this is worth trying: somebody took the ideas and produced something that worked. This is my account of his result; I do not have a baseline for how long his project would otherwise have taken or a claim that Specht itself produced it.
 
 In this style of SDD, the developer thinks through the problem and the agent writes the code. We decide which problem needs solving, reason about the behavior and design, and accept the result. The agent does the fast work. We used to think through the problem and then type the implementation ourselves. The thinking still belongs to us.
 
@@ -1159,7 +1260,7 @@ The agent runs the build and relevant tests **while doing the work**.
 Keep the revisions and actual results together. CI still verifies the shared change.
 
 <!--
-Timing: 2 minutes. Earlier verification, closing, and questions: 6 minutes total, slides 31–33.
+Timing: 2 minutes. Earlier verification, closing, and questions: 6 minutes total, slides 33–35.
 
 This shifts verification further left. Instead of waiting for the end and finding out whether CI builds, the agent needs to run the build and relevant tests during implementation. Give it the commands, environment, and permission to obtain that evidence. Feed the failures back into the work while it can still act on them. A test writer can hand off a demonstrated red test; final acceptance requires the relevant tests to pass.
 
@@ -1176,7 +1277,7 @@ transition: slide-up
 
 # Build Tools for Your SDD Process
 
-AI helps connect **the spec, its claims, and their verification**.
+Build analysis into **your specification process**.
 
 <v-clicks>
 
@@ -1196,7 +1297,7 @@ AI's contribution is helping us author, connect, and maintain explicit claims an
 
 Build tools like Specht for your own SDD process: start with one recurring finding, specify valid and invalid examples, develop the check with red/green/refactor, pin its rules, and make its result part of the handoff. BDD aligns what the rule means; TDD checks its implementation. Neither becomes obsolete because an agent writes the files.
 
-Specht is one example of that engineering response. The takeaway is a process people can inspect and improve: humans own intent and acceptance, agents do bounded work, programs check explicit rules, and tests exercise behavior. Give your precious tokens a better job.
+Specht is the analysis tool I built for that purpose. Its findings help us keep tabs on the specification process as agents change its artifacts. The takeaway is a process people can inspect and improve: humans own intent and acceptance, agents do bounded work, programs check explicit rules, and tests exercise behavior. Give your precious tokens a better job.
 -->
 
 ---
@@ -1233,5 +1334,5 @@ Thank the audience. Use the prompt if questions need a starting point: a missing
 
 Before wrapping up, invite the audience to twitch.tv/rlittlesii throughout December. I'll demonstrate this specification-driven approach live, with AI at the helm. It'll be boring because AI will be doing the work. :D
 
-If asked about installing, use the current README link and mention authenticated GitHub Packages. If asked whether validation solves wrong requirements, return to the exit-category contradiction in #214. It does not: humans review intent and tests exercise agreed behavior. If asked about the token bill, stick to the reported experience; no measured savings comparison was presented.
+If asked about installing, use the current README link and follow its current installation instructions. If asked whether validation solves wrong requirements, return to the exit-category contradiction in #214. It does not: humans review intent and tests exercise agreed behavior. If asked about the token bill, stick to the reported experience; no measured savings comparison was presented.
 -->

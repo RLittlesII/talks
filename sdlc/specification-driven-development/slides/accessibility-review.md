@@ -165,7 +165,8 @@ SDD_A11Y_DEPS=/tmp/sdd-a11y-tools node scripts/check-accessibility.mjs
 Optional environment variables: `SDD_A11Y_URL`, `SDD_A11Y_OUTPUT`,
 `SDD_AXE_SCRIPT`, `SDD_CHROMIUM_EXECUTABLE`, and `SDD_A11Y_SCREENSHOTS`.
 The `--interactions-only`
-option reruns the functional assertions without the 99-state scan.
+option reruns the functional assertions without the full scan (105 states for
+the current 35-slide deck; the original review covered 99 states).
 
 On macOS, headless Chromium does not operate native select popups with key events;
 the script tests shortcut isolation and the Go action, while the native chooser
@@ -230,3 +231,29 @@ Backward navigation hides the last step; reading layout reveals the complete
 diagram in its labelled scroll region and has zero axe violations. The
 intermediate two-rectangle state was visually inspected. No additional browser
 errors were observed beyond the previously documented headless wake-lock denial.
+
+## November 5, 2026 modern specification bridge
+
+The deck now contains 35 slides. Slides 7–8 introduce the modern specification
+outline and frontmatter immediately after “The Spec Is Back.” The 1998
+comparison, token-story setup, Specht description, and closing make the same
+contract explicit. Slide 31 adds the presenter's account of a buddy showing
+working software three days after receiving the first iteration of the talk.
+The notes retain a 50-minute allocation, including three minutes for questions.
+
+Production build and table lint pass, including extracted Markdown/diff table
+examples. All 35 fully revealed slides passed the bounding-box overflow check.
+Slides 4–8, 13, 18–20, 31, and 34–35 passed axe checks in initial, fully revealed,
+and 640-pixel reading layouts: 36 states, zero violations. Changed slides were
+visually reviewed against the earlier deck, with the two new slides checked for
+readable text, complete metadata delimiters, and clear field explanations.
+Evidence is under `/private/tmp/sdd-modern-review/`.
+
+The interaction harness's slide count and content-specific destinations now
+match the expanded deck. All eight interaction checks passed using a temporary
+copy that grants Chromium's `screen-wake-lock` permission when creating the
+page. This provisions the permission rather than suppressing browser errors;
+there were no uncaught page errors. The repository harness still uses its
+original permission setup and remains subject to the headless wake-lock denial
+documented above. No new Safari or VoiceOver testing was performed. These
+checks do not constitute a full 105-state audit or a conformance claim.
