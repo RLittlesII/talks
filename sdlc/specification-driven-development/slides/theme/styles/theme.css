@@ -267,6 +267,63 @@
   margin-bottom: 18px;
 }
 
+.before-times-panels {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.before-times-panel {
+  margin: 0;
+}
+
+.before-times-art {
+  position: relative;
+  overflow: hidden;
+  /* Each panel occupies one quarter of the original 3:1 strip. */
+  aspect-ratio: 3 / 4;
+}
+
+.before-times-art img {
+  position: absolute;
+  top: 0;
+  left: calc(-100% * var(--panel-index, 0));
+  width: 400%;
+  max-width: none;
+  height: auto;
+}
+
+.before-times-panel figcaption {
+  margin-top: 0.5rem;
+  color: var(--sdd-muted);
+  font-size: 18px;
+}
+
+.before-times-panel figcaption strong {
+  display: block;
+  color: var(--sdd-copper);
+  font-size: 20px;
+}
+
+.before-times-punchline {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-style: italic;
+}
+
+.before-times-panel.slidev-vclick-hidden,
+.before-times-punchline.slidev-vclick-hidden {
+  visibility: hidden;
+}
+
+html.sdd-reading .before-times-panels {
+  grid-template-columns: minmax(0, 20rem);
+  justify-content: center;
+  gap: 1.5rem;
+}
+
 .slidev-layout .sdd-logo {
   position: absolute;
   right: 56px;

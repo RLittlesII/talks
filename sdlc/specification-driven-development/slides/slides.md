@@ -68,34 +68,34 @@ class: illustrated
 
 # In the Before Times
 
-<div style="margin: 0.75rem 0 0.5rem;">
-  <img
-    src="/images/development-before-times.png"
-    alt="Four illustrated eras with Rodney's likeness, a closely shaved head and black rectangular glasses: he writes a program on paper, operates a keypunch machine, presents an enormous 1990s specification binder, then watches its pages get shredded beside a board of scattered tickets."
-    style="display: block; width: 100%; height: auto;"
-  />
+<div class="before-times-panels">
+  <figure v-click="1" class="before-times-panel">
+    <div class="before-times-art">
+      <img src="/images/development-before-times.png" alt="Rodney writes out a program by hand under a desk lamp." />
+    </div>
+    <figcaption><strong>Paper</strong>Think it through. Write it down.</figcaption>
+  </figure>
+  <figure v-click="2" class="before-times-panel" style="--panel-index: 1;">
+    <div class="before-times-art">
+      <img src="/images/development-before-times.png" alt="Rodney holds up a punched card at a keypunch machine." />
+    </div>
+    <figcaption><strong>Punch cards</strong>Make every card count.</figcaption>
+  </figure>
+  <figure v-click="3" class="before-times-panel" style="--panel-index: 2;">
+    <div class="before-times-art">
+      <img src="/images/development-before-times.png" alt="Rodney presents an oversized specification binder full of diagrams and tabs." />
+    </div>
+    <figcaption><strong>The '90s spec</strong>The whole system. In a binder.</figcaption>
+  </figure>
+  <figure v-click="4" class="before-times-panel" style="--panel-index: 3;">
+    <div class="before-times-art">
+      <img src="/images/development-before-times.png" alt="Rodney gestures at a ticket board while the binder's pages spill out of a shredder." />
+    </div>
+    <figcaption><strong>The Agile era</strong>The binder becomes a backlog.</figcaption>
+  </figure>
 </div>
 
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; text-align: center;">
-  <div>
-    <div style="color: var(--sdd-copper); font-weight: 700;">Paper</div>
-    <div style="font-size: 18px; color: var(--sdd-muted);">Think it through. Write it down.</div>
-  </div>
-  <div>
-    <div style="color: var(--sdd-copper); font-weight: 700;">Punch cards</div>
-    <div style="font-size: 18px; color: var(--sdd-muted);">Make every card count.</div>
-  </div>
-  <div>
-    <div style="color: var(--sdd-copper); font-weight: 700;">The '90s spec</div>
-    <div style="font-size: 18px; color: var(--sdd-muted);">The whole system. In a binder.</div>
-  </div>
-  <div>
-    <div style="color: var(--sdd-copper); font-weight: 700;">The Agile era</div>
-    <div style="font-size: 18px; color: var(--sdd-muted);">The binder becomes a backlog.</div>
-  </div>
-</div>
-
-<div style="margin-top: 1.25rem; text-align: center; font-style: italic;">
+<div v-click="4" class="before-times-punchline">
   Somewhere along the way, we lost the whole picture.
 </div>
 
@@ -103,7 +103,7 @@ class: illustrated
 
 Timing: 0.5 minutes.
 
-Use the picture for a quick, satirical history rather than narrating every era. Paper and punched cards often shared a workflow; formal specs predate the '90s.
+Reveal paper, punch cards, the binder, and the Agile-era backlog in four clicks. The last click also reveals the punchline. Paper and punched cards often shared a workflow. Formal specs predate the '90s.
 
 When running the program was expensive, we thought it through first. Eventually we had the binder. Behold the binder. Then, in some shops, the binder disappeared and the tickets survived. Agile did not ask us to shred the specification. We scattered the intent. Let's open the binder and see what was useful.
 
