@@ -21,11 +21,11 @@ duration: 50min
 </div>
 
 <!--
-Timing: 0.5 minutes. The specification returns: 8 minutes total, slides 1–8.
+Timing: 0.5 minutes.
 
 I like talking about my failures. They’re a surprisingly reliable source of conference material.
 
-Click and ask “Who checks the spec?” I thought my review process had an answer. Then I tried it on a real change.
+Click and ask “Who checks the spec?” I thought my review process had an answer. Then I tried it on a real change. I want to show what I changed so I could spend less time steering each edit.
 -->
 
 ---
@@ -42,10 +42,10 @@ transition: slide-up
 <v-clicks>
 
 - **The spec returns** — same discipline, new reader
-- **The spec at work** — from requirement to test
-- **The review that went sideways** — when author and reviewer drift
-- **Check the drift** — deterministic tools in the loop
-- **Own the process** — monitor evidence, keep humans accountable
+- **One claim at work** — from agreement to executable test
+- **My precious tokens** — the review that went sideways
+- **Who checks the spec?** — what the build can catch
+- **Make it your workflow** — what to review before signing off
 
 </v-clicks>
 
@@ -54,7 +54,23 @@ Timing: 0.5 minutes.
 
 We will keep the history brief, follow one checkout requirement into a test, and use my review experience as the turning point. We finish with checks your team can put into its own workflow. Reserve the last three minutes for questions.
 
+Advance to the section card before starting the history.
+-->
+
+---
+layout: center
+class: text-center
+transition: fade
+---
+
+# The Spec Returns
+
+<!--
+Timing: 0.25 minutes.
+
 “Let’s start with how we wrote down what software should do.”
+
+Pause, then advance.
 -->
 
 ---
@@ -167,7 +183,7 @@ Keeping it current was the hard part.
 
 <!--
 
-Timing: 1 minute.
+Timing: 0.75 minutes.
 
 Go back to the expired-code requirement. We can point to its ID, see what checkout must do before payment, and find the test that is supposed to check it. The binder made those connections visible while they were current.
 
@@ -211,7 +227,7 @@ clicks: 1
 </div>
 
 <div v-click="1" style="margin-top: 1rem; text-align: center; font-style: italic;">
-  The spec is the prompt.
+  I give the agent the spec and review the evidence it brings back.
 </div>
 
 <!--
@@ -222,7 +238,9 @@ Start with the dusty binder. “The old busted spec has a new job. I call it old
 
 The middle panel is what happened when I asked AI for code and kept the decisions in chat. I had to keep repeating what mattered. The right panel is what changed when I gave the agent the versioned agreement. It could work from the goal, the boundaries, and the same requirements we use to check its work. People still decide what the software should do, and tests give us evidence about what it does.
 
-“The spec is the prompt. Here’s the checkout spec I give that agent.” Advance directly to “My Specification, 2026.”
+“I give the agent room to work because we’ve agreed what the software should do and what evidence I’ll review. I spend less time steering each edit and more time making the decisions that matter.”
+
+Advance directly to “My Specification, 2026.” Open the checkout spec I give the agent.
 
 -->
 
@@ -270,7 +288,7 @@ The agent gets the reason, the limits, and how we will verify the work.
 <!--
 Timing: 1.5 minutes.
 
-This is the modern representation I came up with. It is my feature-specification contract, not a claim that every AI workflow needs these exact headings. The file starts with YAML metadata, then these twelve numbered sections. Tasks and Scoring are additional unnumbered sections in the full template. The labels shown here match the versioned 0.2.1 template used by this talk's checker examples.
+This is the modern representation I came up with. It is my feature-specification contract, not a claim that every AI workflow needs these exact headings. The file starts with YAML metadata, then these twelve numbered sections. Tasks and Scoring are additional unnumbered sections in the full template. The labels shown here match the versioned 0.3.0 template used by this talk's checker examples.
 
 Read the outline as questions the next reader needs answered. Why are we doing this, and for whom? What must happen, what limits apply, and what are we deliberately excluding? Concern Separation distinguishes business and technical responsibilities. Technical Design records the intended boundaries and contracts; Testing Strategy explains how we will exercise them. Traceability connects each acceptance criterion to its scenarios and tests. Lessons change the owning sections; open questions and sign-off make unresolved decisions and review visible.
 
@@ -278,7 +296,7 @@ Keep checkout concrete: clear pricing is the goal; an expired code must be rejec
 
 The difference from the binder is how we use and maintain the agreement: keep it versioned, give the relevant revision to the agent, review its changes, and repeat the checks. Markdown alone does none of that. First look at the metadata at the very top of this same file.
 
-Source: Specht src/tool/templates/v0.2.1/feature.md, checked in the local source checkout. Section names are literal; checkout content is illustrative.
+Source: Specht src/tool/templates/v0.3.0/feature.md, checked in the local source checkout. Section names are literal; checkout content is illustrative.
 -->
 
 ---
@@ -320,9 +338,9 @@ Excerpt for the checkout feature.
 </div>
 
 <!--
-Timing: 1.5 minutes.
+Timing: 1 minute.
 
-Frontmatter is the YAML between the opening and closing triple-dash lines, before the Markdown body. These are specification metadata, separate from Slidev's presentation frontmatter. This is an abbreviated teaching example, not a complete schema-valid file. The full template also carries author, dates, domain, planning, and synchronization fields. The displayed keys and values match the pinned 0.2.1 feature-frontmatter schema.
+Frontmatter is the YAML between the opening and closing triple-dash lines, before the Markdown body. These are specification metadata, separate from Slidev's presentation frontmatter. This is an abbreviated teaching example, not a complete schema-valid file. The full template also carries author, dates, domain, planning, and synchronization fields. The displayed keys and values match the pinned 0.3.0 feature-frontmatter schema.
 
 F2 is scoped to epic 0001, so a cross-feature reference includes both. Type selects the feature document contract. Spec_status records document maturity; status records delivery state. An approved agreement can be in progress: approval is not a claim that implementation or testing is complete. Dependencies are explicit relationships, not guesses an agent should reconstruct from prose. Here both lists are empty; do not read that as a dependency failure in the real incident.
 
@@ -330,9 +348,23 @@ These fields affect how the workflow interprets the document. A syntactically va
 
 Frontmatter was also part of the review problem that burned my tokens. That connection comes from my account; the retained evidence notes do not identify a specific broken key or diff, so do not invent one. The important setup here is that the contract includes metadata as well as prose. Later, Specht will analyze that contract repeatedly as the specification changes.
 
-“You’ve seen the agreement. Let’s follow one claim from the spec into a test.”
+Sources: Specht src/tool/templates/v0.3.0/feature.md and src/tool/schema/v0.3.0/frontmatter/feature.schema.json, checked in the local source checkout. Frontmatter's role in the token incident: Rodney's account, November 5, 2026.
+-->
 
-Sources: Specht src/tool/templates/v0.2.1/feature.md and src/tool/schema/v0.2.1/frontmatter/feature.schema.json, checked in the local source checkout. Frontmatter's role in the token incident: Rodney's account, November 5, 2026.
+---
+layout: center
+class: text-center
+transition: fade
+---
+
+# One Claim at Work
+
+<!--
+Timing: 0.25 minutes.
+
+“You’ve seen the agreement. Let’s follow one checkout claim into a test.”
+
+Pause, then advance.
 -->
 
 ---
@@ -356,7 +388,7 @@ transition: fade-out
 </v-click>
 
 <!--
-Timing: 1 minute. How agents use the spec: 6 minutes total, slides 9–12.
+Timing: 0.75 minutes.
 
 Keep this connection from the original talk. SDD belongs alongside disciplines the audience already knows. BDD turns claims into examples people agree on. TDD drives implementation through red, green, refactor. SDD supplies the versioned intent that connects them. Use all three together; a generated spec does not replace either discipline. We still need good tests and shared understanding. Writing intent upstream gives the agent a durable input, but does not make everything downstream automatic or correct.
 
@@ -482,23 +514,24 @@ Feature: Discount codes
   Scenario: Reject an expired code
     Given a cart worth $50
     And SAVE10 expired yesterday
-    When SAVE10 is applied
+    When I check out with SAVE10
     Then the total remains $50
     And an expired-code message appears
+    And no payment authorization starts
 ```
 
-A **scenario** is one example. **Bindings + a runner** execute its steps and assertions.
+Bindings turn the scenario’s three expected outcomes into assertions the test runner can execute.
 
 <!--
 Timing: 2 minutes.
 
 Explain the example using the vocabulary just introduced. The feature is the capability; the spec is its agreement; AC-002 is one claim in it. Gherkin is the structured language used in the .feature file. Feature: groups related scenarios; Scenario: names one concrete example; Given sets the starting state, When describes the action, and Then describes the expected result. And adds another step of the same kind.
 
-A .feature file contains Gherkin, not application code. Step definitions (also called bindings) connect the step text to executable code. Then bindings perform assertions against observed behavior when the test runner executes them. For example, asserting both a $50 total and the expired-code message checks the two outcomes of AC-002. Writing the scenario or adding a claim tag alone does not run a test.
+A .feature file contains Gherkin, not application code. Step definitions (also called bindings) connect the step text to executable code. Then bindings assert three observations when the runner executes the scenario: the total is still $50, the expired-code message appears, and a payment spy records zero authorization calls. Submit checkout so the test exercises the path that would authorize payment for an accepted code.
 
 This is the condensed spec anatomy and Gherkin example. The business goal is clear checkout pricing. The user needs feedback when a code cannot be used. The claim is falsifiable, the constraint sets a boundary, and out of scope limits what the agent should add. We are keeping the checkout example from the existing talk.
 
-For the modern examples, AC-002 is our short claim identifier for the expired-code requirement previously shown as REQ-3.2.4.2. This is an explicit presentation mapping, not an instruction to renumber real requirements. The @AC-002 tag carries that identity into the scenario; it is a reference, not an assertion. Traceability records the links from the claim to its scenarios and tests. The test needs assertions for both the unchanged total and the message. A descriptive test name alone proves neither.
+For the modern examples, AC-002 is our short claim identifier for the expired-code requirement previously shown as REQ-3.2.4.2. This is an explicit presentation mapping, not an instruction to renumber real requirements. The @AC-002 tag carries that identity into the scenario; it is a reference, not an assertion. Traceability records the links from the claim to its scenarios and tests. Keep these three assertions in view. After the incident, we will see what happens when the test link goes missing and how a fresh run gives me evidence I can review.
 
 Ask the audience to consider what happens if the tag disappears, then what happens if the author changes 'reject' to 'accept.' Those are different failures. One concerns the relationship and the other concerns the intent.
 
@@ -522,13 +555,9 @@ transition: fade
 <div style="margin-top: 1.5rem; color: var(--sdd-muted);">Frontmatter, sections, and references all needed checking</div>
 
 <!--
-Timing: 1 minute. The token horror story: 9 minutes total, slides 13–18.
+Timing: 1 minute.
 
-This is my account of what happened. The quote describes my experience with the review cycle, not a benchmark of Claude or a measured comparison between tools. The review counts later in the story come from my account, including work away from GitHub. Do not infer them from GitHub event counts or invent a dollar amount.
-
-As always, this is a story from the trenches.  This is a real story, all tokens discussed in it were burned frivolously and it was not completely the fault of the provider.
-
-I had the frontmatter and the structured sections we just opened. Frontmatter was part of the problem too; the examples that follow show the retained body and reference findings. I had an author. I had a reviewer. And I was burning those tokens on the process that was supposed to keep the work honest. This is the horror story promised in the opening.
+This is my account of a private-project PR. I had an author and a reviewer. They kept revisiting the metadata, wording, and links we had already agreed to check. The next slides show what the surviving artifacts tell us about that review.
 -->
 
 ---
@@ -558,17 +587,11 @@ repo/
 </div>
 
 <!--
-Timing: 1 minute.
+Timing: 0.5 minutes.
 
-The modern specification we opened earlier was one file in a larger set. Follow the tree from the repository root to checkout. The feature keeps its .spec folder beside its code. Dot-spec holds the agreement and supporting records. Dot-specht lives at the repository root and holds checker configuration, schemas, and starter templates.
+Use the checkout tree to orient the room. The agreement, tagged scenarios, decisions, and lessons live beside the feature. The repository’s .specht folder holds the checker configuration. The private project used the same kinds of artifacts for a replay command.
 
-This tree uses checkout to illustrate my repository convention. The review incident involved the same kinds of artifacts. Your approved intent might live in GitHub Issues, Azure DevOps, or Trello. Name the authoritative source and revision so the next person or agent can retrieve the same agreement. We will return to those variations later.
-
-The README records claims, scope, and traceability. The feature file supplies the tagged scenarios we just saw. ADR means Architecture Decision Record: the technical choice and why. Product decisions preserve what we chose to build or exclude. Lessons record what failed and the change that should follow. An agent needs to retrieve and apply the relevant record.
-
-These paths are feature-local; records spanning features belong at the repository root. Keep this an orientation, not a tour of every heading. Checker templates are blanks to fill, not finished requirements. Installing Specht does not write intent, execute scenarios, or configure the handoffs. Its base rules check selected structures and relationships, not the truth of arbitrary decision or lesson prose.
-
-Sources: https://github.com/RLittlesII/specht/blob/main/docs/setup.md ; https://github.com/RLittlesII/specht/blob/main/docs/what-it-checks.md ; https://github.com/RLittlesII/specht/tree/main/.specht/templates
+Sources: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/setup.md and https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/what-it-checks.md
 -->
 
 ---
@@ -577,35 +600,16 @@ transition: slide-up
 
 # The Claim in This Incident
 
-A **numbered, testable acceptance criterion**: what the system must do.
+**Replay requirement · Intended behavior**
 
-**Example phrasing — the intended replay behavior**
+> If the store is busy or unreadable, report an environment failure and exit with category **3**.
 
-```text
-AC-011: If the store is busy or unreadable, report an
-       environment failure and exit with category 3.
-```
-
-- **ID:** `AC-011` gives that agreement a stable reference
-- **Scenario:** a concrete example that exercises the claim
-- **Traceability:** the links from the claim to its scenarios and tests
-
-Keep the intended category in view. Next, watch it change.
+Watch what happens to claim `AC-011` when the spec is revised.
 
 <!--
-Timing: 1 minute.
+Timing: 0.5 minutes.
 
-AC stands for acceptance criterion. For consistent presentation, the audience-facing deck uses AC- identifiers; the source repository uses B-. Thus B-011 is displayed as AC-011, and B-003 as AC-003. This is a presentation mapping, not a recommendation to renumber existing repository IDs. Original identifiers remain in pr-evidence.md and the source-specific notes.
-
-A claim is an individual requirement we can challenge with evidence, not a vague aspiration such as 'replay should work well.' Its identifier lets authors, scenarios, tests, and reviewers refer to the same agreement. IDs are stable within their feature; a full reference includes the feature when we cross its boundary. B-011 in one feature need not mean B-011 in another.
-
-The displayed wording is a simplified explanation of the intended behavior, not a verbatim historical excerpt. The actual replay case distinguishes an environment failure, category 3, from a rejected request, category 1. We need only that distinction to understand the next slide. We are not teaching the entire replay design.
-
-A scenario gives a concrete input and expected result. A traceability row records which scenarios and tests relate to the claim. An existing row is not proof that its test runs, passes, or asserts the right thing. Likewise, a valid ID cannot make incorrect wording true.
-
-Bridge from the checkout example to the incident: the mechanism is the same, but the real repository was handling replay failures. Set up the drift: what happens if the claim says category 1 while the design says category 3, and a downstream test author copies the claim? That is the actual incident on the next slide. Keep the reference stable, review changes to meaning, and check the relationships mechanically where possible.
-
-Source provenance for the actual exit-category contradiction: pr-evidence.md, 'A wrong claim propagated into a scaffold.' This slide's short requirement sentence is explanatory phrasing.
+For the next three slides, switch from the checkout example to the real replay incident. A busy store is an environment failure, category 3. A rejected request is category 1. The slide paraphrases the intended behavior and displays the private B-011 ID as AC-011. The evidence notes retain the original IDs and wording.
 -->
 
 ---
@@ -630,15 +634,11 @@ The incorrect claim propagated into the test scaffold.
 
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
-This is actual PR evidence from a private project. The project was changing its replay write path to an append-only request consumed later by the daemon. The domain detail we need: a busy or unreadable store is an environment failure, which the design maps to exit category 3.
+The revised claim put the busy or unreadable store in category 1. The design still mapped it to category 3. The test author copied category 1 into the scaffold. The quoted line is verbatim. The scaffold body failed as unimplemented, and a reviewer flagged the contradiction. Pause on how quickly the wrong expectation propagated.
 
-At reviewed commit fdbae932c81169920f2e3d2eba0f8b2f676e838f, feature 0005-F5b's revised B-011 included store/config preconditions and busy-timeout in category 1. The same spec's § 7 R3/R13, domain row, and diagrams mapped StoreBusy/StoreUnreadable to category 3. The staged test copied the category-1 expectation. The line on screen is verbatim from ReplayCommandHandler.Unit.Tests.cs:153 at that commit. This was a scaffold: its body called Assert.Fail("not implemented — scaffold only"). Do not describe it as a passing executable test or a shipped production bug.
-
-The review explicitly identified that the stub inherited the wrong reading. It caught this contradiction; the evidence does not show that every reviewer blindly accepted the spec. My account supplies the broader author/reviewer cycle and token cost. GitHub supplies concrete contradictory artifacts and remediation history.
-
-Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
+Source provenance: pr-evidence.md, “A wrong claim propagated into a scaffold.”
 -->
 
 ---
@@ -670,21 +670,13 @@ The correction also added the scenario to `AC-003`'s traceability row.
 
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
-These are separate findings across the two PRs, not one invented diff. In #214, the review of 0001-F4 found five accepted claims B-001–B-005 with no § 9 rows. The document argued that rows would wait for scenarios, but the contract required one row per claim even when its test was marked Missing. An explicit gap and an absent row are different states.
+These are separate findings. The first PR lacked traceability rows for five accepted claims. The follow-up had a scenario linked to the wrong existing claim and absent from both matrix rows. The correction moved the tag and added the scenario to AC-003’s row. A checker can see an absent row or an inconsistent link. A reviewer still has to read the behavior and decide where the scenario belongs.
 
-In #215, the replayed-secret-failure scenario had already been rewritten to describe a later listing of an attempt's failure. Its tag still said B-011. The spec's own B-011 text now assigned that behavior to B-003, yet neither claim's § 9 entry listed the scenario. Both IDs existed. Merely checking whether a tag resolves would not catch assignment to the wrong claim; the human semantic finding determines the intended assignment.
+Hold onto one more detail for later. Even the lessons from the review contained mistakes.
 
-At reviewed commit 4e95b5b7bdddeab266f8d0f7631b0a13307ca76d, the feature tag was @B-011 at line 110, and the two matrix rows omitted the scenario. Correction commit 90ab1fed669bcae50b5bafad159bc59583a2f1cd retagged it @B-003, added the scenario title to B-003's row, and reconciled related citations. The diff on screen preserves the actual tag correction, with B- prefixes displayed as AC- and the unchanged scenario title omitted for readability.
-
-This shows the distinction needed for Specht: missing required rows can be checked mechanically. Determining which valid claim describes a scenario's meaning still needs review. Do not claim Specht automatically diagnoses the semantic misassignment just because it can validate references.
-
-Land the two failures: the wrong meaning spread, and the relationships drifted. Agreement between files may only mean they copied the same mistake. Checking whether a row exists is a different job from deciding whether its claim is right.
-
-One more thing went wrong: even the lessons from this review contained mistakes. Hold that thought. First, the token bill and the check I could build. We will come back to what a lesson has to change before the next run.
-
-Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
+Source provenance: pr-evidence.md, “Missing rows and a mismatched claim tag.”
 -->
 
 ---
@@ -713,19 +705,29 @@ transition: fade
 </v-click>
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
-I was paying for repeated review of the specification contract: frontmatter, section structure, and relationships, as well as meaning. The frontmatter connection is my account, without a specific key-level example in the retained evidence. The repair history is visible; the token bill and review-effort figures are my reported experience. By the time the PR was done, there were over 200 review comments on it. About half the reviews happened away from GitHub. There were 20+ AI reviews, each taking 10+ rounds; the highest I recall was 18 rounds. A review and a round within that review are different units. These figures were supplied for this talk on October 28, 2026; they are not counts reconstructed from GitHub events. PR #214 contains repeated review-remediation commits, including d25739a (review feedback), 0aa4962 (traceability rows), and d953cac (lesson-register integrity collapse). It was closed without merging. My closing comment called it “a reminder of what to do when AI goes rogue!” The full comment is preserved in pr-evidence.md.
+The numbers are my account, including reviews away from GitHub. A review could take several rounds. The private PRs preserve the concrete findings and fixes. The original closed, and the follow-up eventually merged.
 
-PR #215 continued with spec, feature-file, and scaffold changes, received further change requests, and ultimately merged on October 7, 2026. This was not an endless unresolved PR: show the eventual outcome as well as the failure. Do not equate the number of GitHub review events, replies, or commit messages with a verified count of internal model-review rounds. The retained history includes rewritten/squashed material.
+Pause on “burning tokens like cash to keep warm.” Then reveal the realization. I could turn an explicit rule we kept rediscovering into a check that ran before PR review. Advance to the next section card.
 
-Land the cost metaphor: I was burning tokens like cash to keep warm. The review loop kept running, but we kept paying to rediscover rules we already knew. Pause before advancing the reveal.
+Source provenance: pr-evidence.md preserves the reviewed artifacts and the reported effort separately.
+-->
 
-Reveal the eureka moment: “Wait. I can build a thing to check these rules.” Let the audience sit with that change in direction: from paying for another review to engineering a check for a recurring failure. I could build something to address the mechanical part of the problem that was burning my tokens. This does not mean a checker could settle every semantic disagreement or guarantee savings.
+---
+layout: center
+class: text-center
+transition: fade
+---
 
-The follow-up eventually merged, but getting to a merge had exposed a process problem. I needed to fix the repository workflow that had produced this loop. Advance from the reveal to “SDD Inception” to show how the check became a tool.
+# Who Checks the Spec?
 
-Source provenance: see pr-evidence.md for the reviewed artifacts, original PR identifiers, and pinned source links.
+<!--
+Timing: 0.25 minutes.
+
+“I kept paying for another review. What could I make the build catch?”
+
+Pause, then advance.
 -->
 
 ---
@@ -757,20 +759,11 @@ class D sdd-step-4
 </v-clicks>
 
 <!--
-Timing: 1.5 minutes. Building a way out: 8.5 minutes total, slides 19–24.
+Timing: 1.25 minutes.
 
-Reveal the diagram from left to right on four clicks. Click 1: using SDD to build software. Click 2: discovering drift, together with the repository-fix bullet. Click 3: building the checker, together with the JSON Schema request. Click 4: applying it to SDD artifacts, together with “And Specht was born.” Each incoming arrow appears with its destination. The diagram keeps its full layout throughout.
+Reveal the four boxes from left to right. The drift and repository-fix bullet appear together, then the schema request, then Specht. Pause on “Think of the spec like a JSON Schema.” I wanted a tool to run the same rules every time against the repository I was trying to fix. I used the same SDD approach to build it.
 
-This is SDD Inception: I used specification-driven development, discovered drift in the process, and asked for a fix in the affected repository. My instruction was to think of the spec like a JSON Schema. That request gave rise to Specht: an analysis tool I built to keep tabs on the specification process. SDD then guided development of the tool for specification-driven development. The origin was a concrete repository problem.
-
-The analogy is a checkable contract: required structure, identities, and relationships with reproducible diagnostics. It does not mean every Markdown claim is literally JSON Schema, or that schema validation proves the business meaning of a requirement. Let that nesting be the joke. The point is the method being applied to improve the method itself.
-
-The need was concrete: preserve the structural contract so agents could proceed with useful evidence. Specify the checks, test valid and broken inputs, build the checker, and apply it to the artifacts in the workflow. The diagram expresses that relationship, not a claim that the PRs contain every step of Specht's implementation history.
-
-Build tools like Specht to improve your own AI specification-driven process. A focused script that checks one recurring failure is a useful start. Specify the invariant, write failing examples and valid controls, implement it, then put the result in the handoff. This is BDD and TDD applied to the SDD tooling itself.
-
-The checker is software too. Next, meet the tool, follow one check through a repair, then turn that same failure into examples we could use to build and test the checker. That is the nesting: use SDD to specify the tool that checks our SDD artifacts.
-
+Return to AC-002. The replay claim’s missing-row problem is the same one we can see on a checkout claim without reopening the private code.
 -->
 
 ---
@@ -803,274 +796,262 @@ A .NET analysis tool I built to keep tabs on the specification process.
 <!--
 Timing: 1 minute.
 
-That request became Specht. I built it as an analysis tool to keep tabs on the specification process. It analyzes the metadata, sections, and relationships we opened earlier so repeated contract checks become software instead of another model-review round. Its job is to make the specification contract mechanically checkable. It checks explicit rules against the spec tree and reports violations. The checker runs offline; pinning the tool and schema versions keeps the rule set reproducible across machines and CI.
+Pin the tool and schema so the agent and CI can run the same structural checks. A finding comes back with a path, line, and rule. For checkout, the first thing to check is whether AC-002 has a traceability row at all.
 
-Keep the description narrow. It does not understand whether accepting expired codes serves the business. It can check whether claims have the expected IDs and traceability relationships, whether feature tags resolve, and whether declared dependencies agree.
-
-The callback: my precious tokens should go toward reasoning that needs a model, while a deterministic checker handles the rules it can enforce. This is a design choice about the workflow, not a measured claim about savings. Return to the checkout claim from the opening: we can demonstrate the same missing-row failure without teaching the entire private replay system.
-
-Source: https://github.com/RLittlesII/specht (README: checker, pinned schema, supported checks).
-Logo: existing dark-background SVG from Specht's .assets/logos/specht-book-logo-dark.svg, reused unchanged.
+Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/what-it-checks.md
+Logo: Specht’s existing dark-background SVG.
 -->
 
 ---
-transition: fade-out
+transition: slide-up
 ---
 
-# A Claim Loses Its Traceability Row
+# AC-002 Needs a Traceability Row
 
-<div class="sdd-traceability-example">
-
-<p v-click="1" class="sdd-traceability-cue">1. The claim is still here.</p>
-
-```markdown {none|5} {at: 1}
-## 3. Acceptance Criteria
-
-| ID     | Claim                 | Source | Status |
-| ------ | --------------------- | ------ | ------ |
-| AC-002 | Reject expired codes. | need 1 | Active |
-```
-
-<p v-click="2" class="sdd-traceability-cue">2. Its traceability row was deleted.</p>
-
-```diff {none|5} {at: 2}
- ## 9. Traceability Matrix
-
- | Claim ID | Scenario     | Test              | Status  |
- | -------- | ------------ | ----------------- | ------- |
-- | AC-002   | Expired code | RejectExpiredCode | Covered |
-```
-
-<p v-click="2"><strong>Every claim in § 3 needs exactly one row in § 9.</strong></p>
-
-</div>
-
-<!--
-Timing: 1.5 minutes.
-
-Start with both excerpts visible. On click one, point to AC-002 in § 3: we still require checkout to reject expired codes. On click two, point to the same ID and the deletion marker in § 9. The claim remains and its verification link is gone. Read the one-row rule, then advance to the diagnostic for AC-002.
-
-This is an illustrative checkout reconstruction, using the actual default template's section headings and table columns. Cells are shortened to fit. AC-002 still means rejecting the code and displaying the expired-code message, before payment. The full claim and scenario were introduced earlier.
-
-Use an AC-prefixed identifier grammar in the manifest for these teaching examples; Specht's default grammar uses B-. These are excerpts, not a complete runnable specification. Assume the remaining document and companion are valid.
-
-This mirrors the original incident's five accepted claims with no traceability rows. SPEC031 compares the claim IDs in the first cells of the claims and matrix tables, requiring exactly one matrix row per claim. A Missing test is an explicit gap; deleting the whole row loses that information. No model needs to reason about whether the row is present.
-
-Sources: Specht .specht/templates/feature.md and docs/rules/v0.2.1/SPEC031.md in the local source checkout; public rule reference: https://github.com/RLittlesII/specht/blob/main/docs/rules/v0.2.1/SPEC031.md
--->
-
----
-transition: fade-out
-clicks: 2
----
-
-# A Diagnostic the Agent Can Act On
-
-**Expected checkout finding from `dotnet specht`**
+**Checkout example · Finding from `dotnet tool run specht`**
 
 ```text
-error SPEC031 [AC-002]
-claim 'AC-002' has no row in § 9 - every § 3 claim
-appears there exactly once, with 'Missing' as its
-test until one exists
+SPEC4004 · claim 'AC-002' has no row in § 9
 ```
 
 <v-click>
 
-File + line + rule + claim → a bounded repair before the next handoff.
+**Restore the row and record the test gap.**
+
+| Claim ID | Scenario               | Test    | Status  |
+| -------- | ---------------------- | ------- | ------- |
+| AC-002   | Reject an expired code | Missing | Missing |
 
 </v-click>
-
-<figure v-click="2" style="margin: 1rem 0 0;">
-  <img src="/images/specht-spec060-github-warning.png" alt="GitHub Actions annotation on .github/mirror/.spec/README.md" style="display: block; width: 100%; height: auto;" />
-  <figcaption style="font-size: 1.125rem; margin-top: 0.5rem;">
-    Specht warning SPEC060 at line 184. The approved spec still marks the test for B-010 as Missing.
-    <a href="https://github.com/RLittlesII/specht/pull/277/files#annotation_94350672913">View the GitHub annotation</a>.
-  </figcaption>
-</figure>
 
 <!--
 Timing: 1.5 minutes.
 
-The message follows the canonical SPEC031 rule reference for schema 0.2.1, with AC-002 substituted consistently for our checkout example. Line wrapping and the separate rule/identifier heading are presentation formatting. This is expected diagnostic content, not captured CLI output. Actual reports include the file and line at the claim's row in section 3; no invented line number is shown.
+This checkout excerpt uses schema 0.3.0 with AC- IDs configured in the manifest. The displayed finding is abbreviated. Specht points at the claim row in § 3 and expects exactly one row for that claim in § 9.
 
-Point out the stable claim reference: the failure and repair concern the same AC-002 we followed from the scenario. Keep the claim identity consistent from the scenario through the failure and repair.
+Click to restore the relationship. The tagged scenario already exists. Record Missing in the test and status cells until we have a test. In schema 0.3.0, SPEC7001 reports Missing coverage when delivery is marked done. The earlier approval of intent can stand while delivery is in progress.
 
-The orchestrator or CI must honor failure. Printing a diagnostic alone does not stop another agent continuing. Give the author the finding and the approved baseline, then require a new check result for the repaired revision.
-
-On the last click, show the real GitHub Actions warning from Specht PR #277. Checkout lost its traceability row. In this PR, the row was present, and Specht flagged the Missing test for claim B-010 while the spec was marked approved. GitHub puts the rule and exact line in the reviewer's hands. The Specht step succeeded. The integration test failed later in the job. Return to checkout for the repair on the next slide.
-
-GitHub Actions capture: https://github.com/RLittlesII/specht/actions/runs/40158738468
-Original annotation: https://github.com/RLittlesII/specht/pull/277/files#annotation_94350672913
-Pinned spec line: https://github.com/RLittlesII/specht/blob/b3aa28b0d05e3fcabcc72e7312c35a8fc04d1fad/.github/mirror/.spec/README.md#L184
-
-Source: https://github.com/RLittlesII/specht/blob/main/docs/rules/v0.2.1/SPEC031.md (checked against the local rule reference).
+Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/rules/v0.3.0/SPEC4004.md and https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/what-it-checks.md
 -->
 
 ---
-transition: fade-out
+transition: slide-up
 ---
 
-# Restore the Relationship
+# From Red to Green
 
-**Preserve the claim. Record the evidence you actually have.**
+**Checkout example · `@AC-002` rejects an expired code**
+
+```csharp
+var result = await checkout.SubmitAsync("SAVE10");
+
+Assert.Equal(50m, result.Total);
+Assert.Equal("This code has expired", result.Message);
+Assert.Equal(0, payment.AuthorizationCalls);
+```
+
+<v-clicks>
+
+- **Red** · The $50 cart accepts the expired code. The total assertion fails.
+- **Implement** · Check expiry before applying the discount or starting payment.
+- **Green** · The same test passes all three assertions.
+
+</v-clicks>
+
+<!--
+Timing: 2 minutes.
+
+Illustrative test body. The omitted setup uses a $50 cart, a fixed clock, SAVE10 expired yesterday, and a payment spy. The scenario expresses the BDD example. Its bindings and runner can execute these observations, or a directly linked xUnit test can express them as shown here.
+
+Reveal the red result, then the scoped implementation, then green on the same test, ExpiredCode_IsRejectedBeforePayment. Stop at the first red assertion and explain that the green run has to get past all three. Replace the Missing test cell with the actual test name after it exists. Next make the links visible in C#.
+-->
+
+---
+transition: slide-up
+---
+
+# Roslyn Checks the Links in C#
+
+**Checkout example · Implementation and test declarations**
+
+```csharp
+/// <implements epic="0001" feature="F2" claim="AC-002" />
+public Task<CheckoutResult> SubmitAsync(string code);
+
+/// <verifies epic="0001" feature="F2" claim="AC-020" />
+public Task ExpiredCode_IsRejectedBeforePayment();
+```
+
+<v-click>
+
+**`SPCT0004`** · The test refers to `AC-020`, which the feature does not declare.
+
+</v-click>
+
+<!--
+Timing: 2 minutes.
+
+Illustrative C# declaration excerpts from separate files. Specht.CodeAnalysis supplies the selected spec inputs to Roslyn. The analyzer reads the XML links on the C# declarations and checks their targets against the claim catalogue. Here the feature is F2 in epic 0001, and AC-020 fits the configured grammar but does not exist.
+
+Reveal the diagnostic. Compare the test with AC-002 and correct the link. A conditional code action can offer an eligible target. The developer or reviewer still chooses the one that expresses the test’s intent. Next check what actually ran.
+
+Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/codeanalysis/docs/SPCT0004.md
+-->
+
+---
+transition: slide-up
+---
+
+# A Link and a Run Are Different Evidence
+
+**Checkout example · Build, discover, run, reconcile**
+
+```sh
+dotnet build test/Checkout.Tests.csproj
+dotnet test test/Checkout.Tests.csproj --no-build --list-tests
+dotnet test test/Checkout.Tests.csproj --no-build
+specht evidence test/obj/specht-test-evidence
+```
+
+| Evidence                     | What I can tell                     |
+| ---------------------------- | ----------------------------------- |
+| Link resolves                | The test points to the claim        |
+| Current run passed or failed | What the discovered test did        |
+| Export is stale              | I need evidence for this revision   |
+
+<!--
+Timing: 2 minutes.
+
+The commands illustrate the sequence for a configured xUnit v2/VSTest project with the Specht logger. Start with the build so Roslyn can read the declarations. On a clean checkout, test recognition can be provisional until the project supplies current discovery and run evidence. Discovery records cases. Execution records their outcomes. The evidence command reads those artifacts and checks required links, input freshness, and results.
+
+If I edit the assertions after a passing run, I rerun against the new revision. A valid verifies link can survive that edit while the old pass goes stale.
+
+Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/cli.md#specht-evidence and https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/codeanalysis/README.md
+-->
+
+---
+transition: slide-up
+---
+
+# Specht Uses the Same Approach
+
+**`0201-F7/B-030` · Carry the native claim catalogue into test evidence**
+
+| Artifact       | In Specht’s repository                          |
+| -------------- | ----------------------------------------------- |
+| Claim          | Export the native Gherkin catalogue             |
+| Tagged example | `@B-030` · Catalogue exported with the evidence |
+| Implementation | `TestEvidenceCatalogExporter`                   |
+| Linked test    | Collector test reads the artifact back          |
+
+```xml
+<implements epic="0201" feature="F7" claim="B-030" />
+<verifies epic="0201" feature="F7" claim="B-030" />
+```
+
+<!--
+Timing: 2 minutes.
+
+This is the public Specht repository at v0.4.2-preview. B-030 is Specht’s own claim. Its tagged example checks that the export includes the arithmetic claim and both example rows. The exporter projects the catalogue, and the explicitly linked collector test checks that the emitted artifact retains the catalogue. The XML lines come from separate source and test files.
+
+Consumers can choose tagged Gherkin as their native claim input. In that mode the selected .feature files supply the catalogue instead of the Markdown claims table. Checkout used Markdown with a tagged companion. Point out the same stable identity across the two workflows.
+
+Sources:
+https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/analyzers/Bindings/Gherkin/.spec/README.md#L89
+https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/analyzers/Bindings/Gherkin/.spec/gherkin.feature#L237
+https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/analyzers/TestEvidence/TestEvidenceCatalogExporter.cs#L9
+https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/test/testevidence.mtp.tests/TestEvidenceMtpCollectorCatalogTests.cs#L11
+-->
+
+---
+transition: slide-up
+---
+
+# Let dotnet format Do the Heavy Lifting
+
+**Specht’s C# policy · One-line XML summaries**
 
 ```diff
- ## 9. Traceability Matrix
-
- | Claim ID | Scenario     | Test              | Status  |
- | -------- | ------------ | ----------------- | ------- |
-+ | AC-002   | Expired code | RejectExpiredCode | Covered |
+-/// <summary>
+-/// GitHub Actions related methods.
+-/// </summary>
++/// <summary>GitHub Actions related methods.</summary>
 ```
-
-<v-clicks>
-
-- BDD: agree on the unchanged total and expired-code message
-- TDD: see the assertions fail, implement, pass, then refactor
-- Validate the links again; review the spec and test diffs
-
-</v-clicks>
-
-<!--
-Timing: 1.5 minutes.
-
-The row uses the canonical matrix columns with shortened scenario/test labels. Restore Covered only after inspecting and executing the actual test, including both assertions and the before-payment constraint. A row is a declaration, not proof that the test exists or runs.
-
-Use AC-002 to review coverage. The first scenario uses a code that expired yesterday. Ask the domain owner when a code becomes expired and which clock or time zone governs that boundary. The test checks both the unchanged total and the expired-code message. Add a check that payment authorization was never attempted. If exploring the running checkout exposes another gap, agree on the expected behavior and add a regression test.
-
-If the test does not exist yet, use Missing for Test and Status. SPEC031 accepts that explicit gap. SPEC060 separately reports Missing cells when spec_status is approved, with error severity by default; repository policy can change that severity. Do not fabricate a test name or remove the claim to make a check pass.
-
-BDD still supplies shared examples. TDD still checks that the implementation makes the relevant failing tests pass and supports refactoring. Structural checks complement both. Humans review whether the examples and assertions preserve the approved behavior.
-
-Source: https://github.com/RLittlesII/specht/blob/main/docs/rules/v0.2.1/SPEC031.md ; https://github.com/RLittlesII/specht/blob/main/docs/rules/v0.2.1/SPEC060.md
--->
-
----
-transition: fade-out
----
-
-# SDD for the Reviewer
-
-**Requirement:** every claim has exactly one traceability row.
-
-| Example input for `AC-002` | Expected `SPEC031` result |
-| -------------------------- | ------------------------- |
-| No matrix row              | Fail: missing row         |
-| Exactly one matrix row     | Pass this rule            |
-| Two matrix rows            | Fail: duplicate rows      |
 
 <v-click>
 
-Write the failing examples. Build the check. Keep the valid case green.
+**Apply eligible fixes locally**
+
+```sh
+dotnet format specht.slnx --no-restore
+```
+
+</v-click>
+
+<v-click>
+
+**CI verifies the policy and reports drift**
+
+```sh
+dotnet format specht.slnx --verify-no-changes --no-restore
+```
 
 </v-click>
 
 <!--
-Timing: 1.5 minutes.
+Timing: 2.5 minutes.
 
-Now turn the workflow around. We just used the checker; how would we specify and test this part of it? Here is a small worked example of applying SDD to the checker, not a reconstruction of Specht's implementation history.
+This is the actual summary change in Specht PR #702. The repository opts into Roslynator RCS1253 in .editorconfig. Roslyn surfaces configured diagnostics and code fixes. Let dotnet format do the heavy lifting: it uses the configured policy and applies eligible batch fixes across the selected C# files. Review the resulting diff.
 
-The requirement is exactly one matrix row per claim. Agree on examples: zero rows fails, one passes this rule, two fails. Use otherwise valid fixtures so we know which rule we are exercising. A duplicate matrix row is different from declaring the claim itself twice.
+The second command is the C# part of the build’s verify-only Format target. CI reports changes it would make and leaves the files as they are. For the broken claim link on the earlier slide, choosing a target remains a separate decision. The test runner still supplies behavior evidence.
 
-Write executable tests for the missing and duplicate cases and a valid control. See the relevant assertions fail before implementing the check, make them pass, then refactor. The valid control catches an implementation that simply rejects everything. That is BDD and TDD doing useful work inside SDD Inception. Give your precious tokens a problem worth reasoning about; let a test runner repeat these examples.
-
-The one-row case passes SPEC031 only. It does not establish full validation or behavioral correctness. For example, the row can list a scenario that exercises a different claim.
-
-“The checker can tell us a row is missing. Who decides whether the requirement itself is right?”
-
-Source for the invariant: https://github.com/RLittlesII/specht/blob/main/docs/rules/v0.2.1/SPEC031.md (checked against the local schema 0.2.1 rule reference). These are expected rule results, not captured CLI output or claims that these exact tests were used to build Specht.
+Sources: https://github.com/RLittlesII/specht/pull/702 and https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/building.md
 -->
 
 ---
 transition: slide-up
 ---
 
-# Who checks the spec?
-
-- **Specht** checks the spec’s structure and links.
-- **Tests** check how the software behaves in the scenarios we exercise.
-- **People** decide what the software should do and whether the evidence supports accepting the change.
-
-<v-click>
-
-A well-formed instruction to accept expired codes is still the wrong instruction.
-
-</v-click>
-
-<!--
-Timing: 1.5 minutes. Owning and adapting the workflow: 12.5 minutes total, slides 25–31.
-
-Back to the question we opened with. Specht can tell me whether the expired-code claim has its traceability row. A test can show that the software rejects an expired code.
-
-Reveal the expired-code example. Someone still has to decide whether rejection is the rule we want. In my review, the same distinction mattered when two existing claim IDs pointed to different expectations.
-
-Now let’s put each check where it can catch a problem before handoff.
--->
-
----
-transition: slide-up
----
-
-# The Loop, With Gates
-
-```mermaid {scale: 0.68, flowchart: {padding: 10, rankSpacing: 20, wrappingWidth: 140}}
-graph LR
-accTitle: The agent workflow with validation and review gates
-accDescr: Human-approved intent guides edits to specifications, scenarios, tests and code. Every revision goes through validation and test execution before handoff. Failed checks or review corrections return to editing and repeat the checks. Review can approve completion or return an intent change to human approval.
-H["Human-approved<br/>intent"] --> A["Edit spec, scenarios,<br/>tests + code"]
-A --> V{"Validate<br/>+ run tests"}
-V -->|repair| A
-V -->|handoff| R["Review diff<br/>+ current results"]
-R -->|approve| D[Done]
-R -->|correction| A
-R -->|intent change| H
-```
-
-- Every new revision repeats the checks before handoff
-- A failing TDD test returns to implementation; keep its result
-- Repeated failures pause the loop for human diagnosis
-
-<!--
-Timing: 1.5 minutes.
-
-The edit box includes the spec, scenarios, tests, and code. Every route back into editing goes through validation and test execution again. The results belong to that revision. There is no path from a correction straight to Done.
-
-The handoff must honor the expected stage of work. A test writer can hand off a demonstrated red test as the agreed input to implementation; final acceptance requires the relevant tests to pass. A required structural failure blocks the downstream handoff. Record the expected state and actual results so red/green/refactor remains visible.
-
-Review findings should identify the relevant requirement, artifact, and evidence. If the implementation is wrong, fix the implementation. If the test is wrong, fix the test. If intent needs to change, review and approve the spec delta before propagating it. Do not automatically rewrite the spec to match whatever the code happens to do.
-
-Repeated failures must not become an unbounded author/reviewer loop. Agree on a review budget or escalation trigger for the task. When a finding persists or reviews conflict, pause automated retries and give a named human the baseline, latest diff, findings, and attempted repairs. Diagnose the rule, context, or requirement before restarting.
-
-This gate placement is the proposed SDD workflow for the talk, not a claim that installing Specht automatically configures agent orchestration or CI.
--->
-
----
-level: 2
----
-
-# Humans Own the Decisions
+# I Can Sign Off on AC-002
 
 <v-clicks>
 
-- **Product / domain owner:** should an expired code ever be accepted?
-- **Tester:** which examples would expose the wrong behavior?
-- **Developer:** what must change in the code or checking rule?
-- **Reviewer:** does this revision have enough evidence to accept?
+- **Agreed intent** · Reject the expired code before starting payment
+- **Inspectable change** · Traceability row, test link, and scoped code diff
+- **Current evidence** · $50 total, expired-code message, zero payment calls
 
 </v-clicks>
 
 <v-click>
 
-A blocked handoff needs a named owner and a next decision.
+**I can give the agent room to work and come back to evidence I can check.**
 
 </v-click>
 
 <!--
-Timing: 1 minute.
+Timing: 1.5 minutes.
 
-Give the blocked task to the person who can resolve it. If two documents disagree about whether to accept an expired code, product or the domain owner settles the intended behavior. If the examples miss a boundary, testing challenges them. If the code or checker is wrong, development fixes it. The reviewer decides whether the current evidence supports acceptance, including ordinary code quality and design concerns.
+At sign-off I read the approved behavior, look at the implementation and test diff, and verify that the three assertions in ExpiredCode_IsRejectedBeforePayment ran on this revision. The test has replaced Missing in the matrix. Product owns a change to the requirement. The tester challenges the example. Development repairs code and links. The reviewer decides whether the evidence is enough to accept.
 
-Agents can prepare the diff, investigate, and suggest a correction. One person may hold several human roles, but the unresolved decision still gets a name. That is the intervention I needed before another expensive review round. Once someone owns the fix, how do we make sure the next run learns from it?
+“I give the agent room to work because we’ve agreed what the software should do and what evidence I’ll review. I spend less time steering each edit and more time making the decisions that matter.”
+
+If a check fails repeatedly, send the exact finding and attempted fixes to the person who owns the next decision.
+-->
+
+---
+layout: center
+class: text-center
+transition: fade
+---
+
+# Make It Your Workflow
+
+<!--
+Timing: 0.25 minutes.
+
+“You’ve seen what I get back. What would your team need before signing off?”
+
+Pause, then advance.
 -->
 
 ---
@@ -1116,7 +1097,7 @@ Reveal the three steps as an example response. First, a person verifies the find
 
 On the third click, show what the reviewer checks on the next run. Build and test results describe the code. The source comparison verifies the quote.
 
-Return the revision, source paths and symbols, repaired lesson diff, and actual results. The next reviewer opens those symbols at that revision and compares the quote. Still wrong? Return the finding and correct the procedure before repeating. The observed failure becomes a verified lesson, then a skill the next task applies and the reviewer can inspect. Recording another lesson alone would leave us where we started.
+Return the revision, source paths and symbols, repaired lesson diff, and actual results. The next reviewer opens those symbols at that revision and compares the quote. Still wrong? Return the finding and correct the procedure before repeating. The observed failure becomes a verified lesson, then a skill the next task applies and the reviewer can inspect. For AC-002, apply the same habit when the payment interface changes. Include the current interface, the checkout test that checks zero authorization calls, and the fresh result in the handoff.
 
 Load the procedure for relevant tasks; a skill sitting unread in a folder changes nothing. The checks and next reviewer make its application inspectable. Next, show what that handoff needs to carry.
 
@@ -1142,14 +1123,14 @@ C --> E["Canonical example"]
 
 <v-clicks>
 
-- Link the approved requirement to code and affected dependencies
-- Attach the source revision, code revision, diffs, and current results
-- Name who resolves conflicting edits before the next handoff
+- Start with the approved revision of `AC-002`
+- Link the test and checkout diff, with results from that code revision
+- Name who resolves a conflict before the next handoff
 
 </v-clicks>
 
 <!--
-Timing: 1 minute.
+Timing: 1.5 minutes.
 
 The next team needs the approved requirement and enough code context to find the affected implementation and dependencies. This graph is a conceptual map, not a Specht feature. Paths and symbols can supply the links.
 
@@ -1187,28 +1168,12 @@ transition: slide-up
 </div>
 </div>
 
-<v-click>
-
-A buddy saw the first version of this talk. Three days later, he showed me **working software**.
-
-</v-click>
-
 <!--
-Timing: 3 minutes. Spend two minutes on tradeoffs and one minute on the transition to team decisions.
+Timing: 1.5 minutes.
 
-The upside is that I do not have to steer AI as much. Better context gives it a better chance of doing useful autonomous work within the agreed scope. Lessons are a supporting benefit: the next task can start from what we learned instead of paying to discover it again. These are potential benefits, not measured Specht outcomes.
+The tradeoff is explicit in checkout. We spend time writing one good example and keeping the links current. The agent can reuse that decision instead of asking me to reconstruct it each time. Builds and tests take time, and repeated evidence should earn its place.
 
-Here is one early result from sharing the approach. I gave the first iteration of this talk to a buddy of mine. Three days later, he showed me working software. That is why I think this is worth trying: somebody took the ideas and produced something that worked. This is my account of his result; I do not have a baseline for how long his project would otherwise have taken or a claim that Specht itself produced it.
-
-In this style of SDD, the developer thinks through the problem and the agent writes the code. We decide which problem needs solving, reason about the behavior and design, and accept the result. The agent does the fast work. We used to think through the problem and then type the implementation ourselves. The thinking still belongs to us.
-
-Now the downside: walls upon walls of text. AI can add a lot of documentation very quickly. Somebody has to maintain it and keep the same requirement from appearing in three places with three different meanings. Link to the authoritative requirement and keep generated views identifiable. A lesson, spec, and ticket should each have a job, rather than each retelling the whole system.
-
-We also lean on AI to help review that growing pile. That costs tokens and attention, and the review can miss the same duplication or contradiction the author introduced. Use it to screen and propose changes, keep explicit rules checkable, and assign human review to changes in meaning.
-
-“You’ve seen how this worked for me. Your team still has to decide where approved requirements live, where to start in the codebase you already have, and which checks run before a handoff. You also need to know who acts when a check fails.”
-
-Give the audience a moment to picture a requirement their team changed recently. Where would the next person find the approved wording? When would the build and tests run, and who would act on a failure? Use those questions to introduce the next two slides.
+Optional anecdote. A buddy saw the first version of this talk and showed me working software three days later. That was the interval between our conversations. I have no comparison with how he would otherwise have worked.
 -->
 
 ---
@@ -1235,7 +1200,7 @@ transition: slide-up
 Start with one changed area. You do not need to backfill the whole system.
 
 <!--
-Timing: 2.5 minutes.
+Timing: 2.25 minutes.
 
 Everything in my example lives in the repository. Your organization may have approved requirements in GitHub Issues, Azure DevOps, or a Trello board. We do not always own that choice. We may have to improvise around the source of truth we actually have.
 
@@ -1258,58 +1223,53 @@ Source: Rodney's account of current use and proposed process variations, supplie
 transition: slide-up
 ---
 
-# Verification Moves Earlier
+# When Does AC-002 Expire?
 
-The agent runs the build and relevant tests **while doing the work**.
+**Proposed change · Reject at the exact expiry instant**
 
-| Watch during the task              | Response before handoff                |
-| ---------------------------------- | -------------------------------------- |
-| Broken build or failing test       | Repair and run again on this revision  |
-| Requirement or source changed      | Reconcile with the approved intent     |
-| Repeated findings or retries       | Pause for human diagnosis              |
-| Token or execution budget runs out | Stop and hand off the gap              |
+```mermaid {scale: 0.7}
+graph LR
+accTitle: Recheck the changed expiry claim
+accDescr: The product owner approves the exact expiry boundary. The agent updates the scenario, test, and code, then runs checks. The reviewer inspects current results. Failed checks return to the edits.
+A["Approve the<br/>expiry boundary"] --> B["Update scenario,<br/>test, and code"]
+B --> C["Rerun checks<br/>and tests"]
+C --> D["Review current<br/>results"]
+C -->|repair| B
+```
 
-Keep the revisions and actual results together. CI still verifies the shared change.
+- Add an example with the fixed clock **exactly at** the expiry timestamp
+- Run the relevant checks during the task and again in CI
+- Attach the approved spec revision and fresh run results
 
 <!--
-Timing: 2 minutes. Earlier verification, closing, and questions: 6 minutes total, slides 32–34.
+Timing: 2.5 minutes.
 
-This shifts verification further left. Instead of waiting for the end and finding out whether CI builds, the agent needs to run the build and relevant tests during implementation. Give it the commands, environment, and permission to obtain that evidence. Feed the failures back into the work while it can still act on them. A test writer can hand off a demonstrated red test; final acceptance requires the relevant tests to pass.
+Yesterday’s expired code did not settle equality at the expiry instant. Ask the domain owner to approve the exact boundary. Show that the approved revision changes first, then the example and test. Keep the same claim ID and retain the yesterday example. Check the boundary against a fixed clock, run the relevant checks during the task, and give the reviewer the result from this revision. CI independently checks the shared change.
 
-CI still checks the shared revision and integration. The earlier feedback helps influence AI in a positive direction during the process. It also has a cost: builds take time, review uses tokens, and distributed agents can duplicate effort or wait on the same limited resources. Choose relevant checks during iteration, require the agreed gate before handoff, and retain the actual commands and results. If the agent cannot run a check, name the gap and its owner instead of reporting success.
-
-Set a task budget for retries, tokens, and execution time. When the same finding repeats, a source changes, or the budget runs out, pause and involve the person who can make the next decision. That is the intervention missing from my token nightmare. Keep the requirement baseline, code revision, check results, test results, and unresolved gaps together. Use a failed or stale synchronization as a reason to reconcile the baseline before acceptance.
-
-This monitoring belongs to the workflow. Specht checks selected structural rules; it does not schedule agents, manage token budgets, synchronize trackers, or supply the build and test evidence. Next, close with the small tools we can build to support the process we actually have.
+A demonstrated red test can be the handoff to implementation. The final handoff needs a green result for the agreed behavior. If the same failure repeats or a required check cannot run, pause and give its owner the baseline, latest finding, and attempted repair.
 -->
 
 ---
 transition: slide-up
 ---
 
-# Build Tools for Your SDD Process
-
-Build analysis into **your specification process**.
+# What I Review Before I Accept
 
 <v-clicks>
 
-- Pick a recurring failure and specify a checkable invariant
-- Use BDD examples and TDD to build a small deterministic check
-- Give agents actionable findings; enforce the gate in CI
-- Keep humans responsible for intent, evidence, and acceptance
+- What we agreed `AC-002` should do
+- What the agent changed and which links the build checked
+- What the current run showed about price, message, and payment
+- Who owns the next decision if the evidence falls short
 
 </v-clicks>
-
-<div style="margin-top: 1.25rem; color: var(--sdd-copper);">Make the process verifiable. Give your precious tokens a better job.</div>
 
 <!--
 Timing: 1 minute.
 
-AI's contribution is helping us author, connect, and maintain explicit claims and the artifacts that verify them at the pace of change. Verification cannot rest on the same model saying its work is correct. Use deterministic checks wherever the agreement can be expressed as a rule or executable assertion. Use human judgment to choose the agreement and examine what the checks miss.
+Return to the opening. I still do the thinking about the behavior and inspect the evidence that matters. I can let the agent work through the routine edits because I know what it will bring back. For the audience’s first task, ask them to picture one claim they can follow this way and one recurring finding a program could check.
 
-Build tools like Specht for your own SDD process: start with one recurring finding, specify valid and invalid examples, develop the check with red/green/refactor, pin its rules, and make its result part of the handoff. BDD aligns what the rule means; TDD checks its implementation. Neither becomes obsolete because an agent writes the files.
-
-Specht is the analysis tool I built for that purpose. Its findings help us keep tabs on the specification process as agents change its artifacts. The takeaway is a process people can inspect and improve: humans own intent and acceptance, agents do bounded work, programs check explicit rules, and tests exercise behavior. Give your precious tokens a better job.
+Pause, then advance to Questions.
 -->
 
 ---

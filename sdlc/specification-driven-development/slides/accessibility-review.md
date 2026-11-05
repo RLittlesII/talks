@@ -165,8 +165,8 @@ SDD_A11Y_DEPS=/tmp/sdd-a11y-tools node scripts/check-accessibility.mjs
 Optional environment variables: `SDD_A11Y_URL`, `SDD_A11Y_OUTPUT`,
 `SDD_AXE_SCRIPT`, `SDD_CHROMIUM_EXECUTABLE`, and `SDD_A11Y_SCREENSHOTS`.
 The `--interactions-only`
-option reruns the functional assertions without the full scan (102 states for
-the current 34-slide deck; the original review covered 99 states).
+option reruns the functional assertions without the full 114-state scan for the
+38-slide deck. The historical reviews below record earlier slide counts.
 
 On macOS, headless Chromium does not operate native select popups with key events;
 the script tests shortcut isolation and the Go action, while the native chooser
@@ -265,3 +265,18 @@ fully revealed, and narrow reading states. Forward and reverse navigation
 passed across the removed slide and the team decisions transition. All eight
 interaction checks passed with the same temporary Chromium wake-lock permission
 setup described above.
+
+## AC-002 walkthrough and section dividers
+
+The 38-slide production build passed 114 Chromium 151.0.7922.34 states
+with zero axe violations and zero uncaught page errors. All ten interaction
+checks passed. The divider check verified the four cues in Presenter view and
+used simulated Page Down and Page Up to cross each divider in both directions
+with the audience and reading views synchronized.
+
+The fully revealed presentation frame fit all 18 slides checked for the
+revision. Visual review included the new divider cards, technical excerpts,
+and selected 640-pixel reading layouts. The slide notes total 47 minutes plus
+three for questions. The four 15-second divider slots leave an estimated
+eight to nine and a half seconds each to pause and advance at 120 words per
+minute.

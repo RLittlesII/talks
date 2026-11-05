@@ -9,12 +9,24 @@ const { chromium } = require('playwright')
 const axePath = process.env.SDD_AXE_SCRIPT || require.resolve('axe-core/axe.min.js')
 const base = process.env.SDD_A11Y_URL || 'http://localhost:3032'
 const output = resolve(process.env.SDD_A11Y_OUTPUT || '.cache/sdd-accessibility')
+const slideCount = 38
+const dividers = [
+  [3, 'The Spec Returns', 'Let’s start with how we wrote down what software should do.'],
+  [10, 'One Claim at Work', 'You’ve seen the agreement. Let’s follow one checkout claim into a test.'],
+  [21, 'Who Checks the Spec?', 'I kept paying for another review. What could I make the build catch?'],
+  [31, 'Make It Your Workflow', 'You’ve seen what I get back. What would your team need before signing off?'],
+]
 await mkdir(output, { recursive: true })
 const browser = await chromium.launch({
   headless: true,
   ...(process.env.SDD_CHROMIUM_EXECUTABLE ? { executablePath: process.env.SDD_CHROMIUM_EXECUTABLE } : {}),
 })
-const page = await browser.newPage({ viewport: { width: 1280, height: 800 }, reducedMotion: 'reduce' })
+const context = await browser.newContext({
+  viewport: { width: 1280, height: 800 },
+  reducedMotion: 'reduce',
+  permissions: ['screen-wake-lock'],
+})
+const page = await context.newPage()
 const results = []
 const checks = []
 const semantics = []
@@ -31,6 +43,11 @@ async function ready(no) {
     await page.waitForTimeout(200)
   }
   return slide
+}
+
+async function presenterReady(presenter, no) {
+  await presenter.locator(`.grid-section.main .slidev-page-${no} h1`).waitFor()
+  await ready(no)
 }
 
 async function audit(no, mode) {
@@ -55,7 +72,7 @@ async function audit(no, mode) {
 }
 
 try {
-  for (let no = 1; !interactionsOnly && no <= 34; no++) {
+  for (let no = 1; !interactionsOnly && no <= slideCount; no++) {
     for (const [mode, clicks] of [['initial', 0], ['revealed', 999]]) {
       await page.goto(base + '/' + no + '?clicks=' + clicks, { waitUntil: 'networkidle' })
       const slide = await ready(no)
@@ -126,7 +143,7 @@ try {
   assert.match(page.url(), /\/1\?clicks=1$/)
   await page.keyboard.press('Enter')
   await ready(2)
-  assert.match(await page.locator('.sdd-status').innerText(), /Slide 2 of 34: Agenda/)
+  assert.ok((await page.locator('.sdd-status').innerText()).startsWith(`Slide 2 of ${slideCount}: Agenda`))
   checks.push('Keyboard Enter reveals content and advances slides; the live status and document title update')
 
   await page.getByLabel('Slide', { exact: true }).focus()
@@ -158,25 +175,52 @@ try {
   await page.keyboard.press('ArrowLeft')
   await ready(2)
 
-  await page.goto(base + '/3?clicks=2', { waitUntil: 'networkidle' })
-  const history = await ready(3)
+  await page.goto(base + '/4?clicks=2', { waitUntil: 'networkidle' })
+  const history = await ready(4)
   const readingLayout = page.getByRole('button', { name: 'Reading layout', exact: true })
   const punchline = history.getByText('Somewhere along the way, we lost the whole picture.')
   await readingLayout.click()
   await punchline.waitFor()
   assert.equal(await history.getByRole('img').count(), 4)
-  assert.match(page.url(), /\/3\?clicks=2$/)
+  assert.match(page.url(), /\/4\?clicks=2$/)
   await readingLayout.click()
   await punchline.waitFor({ state: 'hidden' })
   assert.equal(await history.getByRole('img').count(), 2)
   await page.keyboard.press('PageDown')
-  await page.waitForURL(/\/3\?clicks=3$/)
+  await page.waitForURL(/\/4\?clicks=3$/)
   await page.keyboard.press('PageUp')
-  await page.waitForURL(/\/3\?clicks=2$/)
+  await page.waitForURL(/\/4\?clicks=2$/)
   checks.push('Reading layout preserves the reveal step and clicker keys work with a control focused')
 
-  await page.goto(base + '/23?clicks=999', { waitUntil: 'networkidle' })
-  await ready(23)
+  const presenter = await context.newPage()
+  presenter.on('pageerror', error => errors.push(error.message))
+  for (const [no, title, cue] of dividers) {
+    await presenter.goto(base + '/presenter/' + no, { waitUntil: 'networkidle' })
+    await presenterReady(presenter, no)
+    await presenter.locator('.grid-section.note').getByText(cue, { exact: false }).waitFor()
+    const heading = page.getByRole('heading', { name: title, exact: true })
+    await heading.waitFor()
+    await readingLayout.click()
+    await heading.waitFor()
+    assert.ok(await page.locator('html.sdd-reading').count())
+
+    await presenter.keyboard.press('PageDown')
+    await presenterReady(presenter, no + 1)
+    await presenter.keyboard.press('PageUp')
+    await presenterReady(presenter, no)
+    await presenter.keyboard.press('PageUp')
+    await presenterReady(presenter, no - 1)
+    await presenter.keyboard.press('PageDown')
+    await presenterReady(presenter, no)
+
+    await readingLayout.click()
+    await heading.waitFor()
+  }
+  await presenter.close()
+  checks.push('All four divider cues appear in Presenter view and clicker keys cross each boundary in sync with the audience and reading views')
+
+  await page.goto(base + '/26?clicks=999', { waitUntil: 'networkidle' })
+  await ready(26)
   await page.keyboard.press('Tab')
   assert.equal(await page.getByRole('button', { name: 'Copy', exact: true }).evaluate(button =>
     button === document.activeElement && getComputedStyle(button).opacity === '1' && getComputedStyle(button).outlineStyle !== 'none',
@@ -184,15 +228,15 @@ try {
   checks.push('Code Copy is reachable by Tab and visibly focused')
   await page.getByRole('button', { name: 'Reading layout', exact: true }).click()
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight))
-  await page.getByLabel('Slide', { exact: true }).selectOption('14')
+  await page.getByLabel('Slide', { exact: true }).selectOption('16')
   await page.getByRole('button', { name: 'Go to selected slide' }).click()
-  await ready(14)
+  await ready(16)
   assert.equal(await page.evaluate(() => window.scrollY), 0)
   assert.equal(await page.getByRole('main').getByRole('heading', { level: 1 }).count(), 1)
   checks.push('Changing slides resets reading position and removes the outgoing slide from the accessibility tree')
 
-  await page.goto(base + '/29?clicks=999', { waitUntil: 'networkidle' })
-  await ready(29)
+  await page.goto(base + '/33?clicks=999', { waitUntil: 'networkidle' })
+  await ready(33)
   await page.getByRole('button', { name: 'Reading layout', exact: true }).click()
   await page.setViewportSize({ width: 640, height: 400 })
   const diagram = page.getByRole('region', { name: /^Scrollable diagram:/ })
@@ -200,7 +244,7 @@ try {
   await page.keyboard.press('ArrowRight')
   await page.waitForTimeout(200)
   assert.ok(await diagram.evaluate(element => element.scrollLeft > 0))
-  assert.match(page.url(), /\/29\?clicks=3$/)
+  assert.match(page.url(), /\/33\?clicks=3$/)
   await page.setViewportSize({ width: 1280, height: 800 })
   checks.push('A focused enlarged diagram scrolls with arrow keys without changing the slide')
 
@@ -217,8 +261,8 @@ try {
   await page.emulateMedia({ forcedColors: 'none' })
   checks.push('Keyboard focus remains visible in forced-colors mode')
 
-  await page.goto(base + '/34?clicks=999', { waitUntil: 'networkidle' })
-  await ready(34)
+  await page.goto(base + '/' + slideCount + '?clicks=999', { waitUntil: 'networkidle' })
+  await ready(slideCount)
   await page.setViewportSize({ width: 1024, height: 600 })
   await page.waitForTimeout(100)
   assert.ok(await page.evaluate(() =>
