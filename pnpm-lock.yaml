@@ -65,6 +65,23 @@ importers:
 
   .: {}
 
+  sdlc/specification-driven-development/slides:
+    dependencies:
+      '@slidev/cli':
+        specifier: 'catalog:'
+        version: 53.0.0(@oxc-project/types@0.155.0)(@types/markdown-it@14.2.0)(@types/node@22.20.4)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.0.0)(cac@7.0.0)(srvx@1.0.5)(vite@8.3.5(@types/node@22.20.4)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.44)(cac@7.0.0)(hono@4.13.13)(lightningcss@1.33.0)(markdown-it@14.3.3)(oxc-parser@0.150.0)(postcss@8.5.31)(rolldown@1.2.15)(srvx@1.0.5)
+      '@slidev/theme-default':
+        specifier: 'catalog:'
+        version: 0.25.0
+      '@slidev/theme-seriph':
+        specifier: 'catalog:'
+        version: 0.25.0
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.44(typescript@6.0.3)
+
+  sdlc/specification-driven-development/slides/theme: {}
+
 packages:
 
   '@antfu/install-pkg@1.1.0':
