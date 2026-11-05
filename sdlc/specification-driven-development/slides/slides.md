@@ -303,7 +303,7 @@ transition: slide-up
 
 # Frontmatter Is Part of the Contract
 
-**Frontmatter:** the YAML block at the top of the specification.
+Frontmatter is the YAML block at the top of the specification.
 
 <div grid="~ cols-2 gap-8" m="t-4">
 <div>
@@ -323,18 +323,17 @@ blocks: []
 Excerpt for the checkout feature.
 
 </div>
-<div>
-
-- `id` + `epic`: which feature?
-- `type`: which document contract?
-- `spec_status`: is the agreement approved?
-- `status`: where is delivery?
-- `depends_on` / `blocks`: which dependencies?
-
+<div style="align-self: center;">
+  <p style="border-left: 3px solid var(--sdd-copper); padding-left: 1rem;">
+    <code>spec_status</code><br />
+    <strong>Agreement approved</strong>
+  </p>
+  <p style="border-left: 3px solid var(--sdd-copper); padding-left: 1rem;">
+    <code>status</code><br />
+    <strong>Delivery in progress</strong>
+  </p>
 </div>
 </div>
-
-Metadata and body must agree. Approved intent can still be unfinished work.
 
 <!--
 Timing: 1.5 minutes.
@@ -535,26 +534,31 @@ class: artifacts
 
 # The Files Behind the Workflow
 
-In this example, each feature keeps a **`.spec/` folder beside its code**.
+**My repository layout**
 
-| Artifact     | What the agent learns                                       |
-| ------------ | ----------------------------------------------------------- |
-| `README.md`  | Claims, constraints, scope, and traceability                |
-| `*.feature`  | Concrete behavior scenarios linked to claims                |
-| `adr/`       | Architecture Decision Records: the technical choice and why |
-| `decisions/` | Product and scope choices, including rejected options       |
-| `lessons/`   | What failed, why, and what changed in the spec or procedure |
+<div role="group" aria-label="Checkout contains feature code and a dot-spec folder with the README, scenarios, architecture decisions, product decisions, and lessons. Dot-specht sits at the repository root.">
 
-**`.specht/` is separate:** checker configuration, schemas, and starter templates.
+```text
+repo/
+├── checkout/
+│   ├── …                     Feature code
+│   └── .spec/
+│       ├── README.md         Agreement and claim links
+│       ├── checkout.feature  Scenarios
+│       ├── adr/              Design decisions
+│       ├── decisions/        Product decisions
+│       └── lessons/          What to change next time
+└── .specht/                  Checker config, schemas, templates
+```
 
-Your requirements may live elsewhere. Name the source and revision.
+</div>
 
 <!--
 Timing: 1 minute.
 
-The modern specification we opened earlier was one file in a larger set. These are the files the author and reviewer were trying to reconcile. Dot-spec holds the agreement and supporting records. Dot-specht holds checker configuration, schemas, and starter templates. They have different jobs.
+The modern specification we opened earlier was one file in a larger set. Follow the tree from the repository root to checkout. The feature keeps its .spec folder beside its code. Dot-spec holds the agreement and supporting records. Dot-specht lives at the repository root and holds checker configuration, schemas, and starter templates.
 
-This is my repository convention. Your approved intent might live in GitHub Issues, Azure DevOps, or Trello, and you may not own that choice. We will return to those variations. For now, this is where the incident's artifacts lived.
+This tree uses checkout to illustrate my repository convention. The review incident involved the same kinds of artifacts. Your approved intent might live in GitHub Issues, Azure DevOps, or Trello. Name the authoritative source and revision so the next person or agent can retrieve the same agreement. We will return to those variations later.
 
 The README records claims, scope, and traceability. The feature file supplies the tagged scenarios we just saw. ADR means Architecture Decision Record: the technical choice and why. Product decisions preserve what we chose to build or exclude. Lessons record what failed and the change that should follow. An agent needs to retrieve and apply the relevant record.
 
