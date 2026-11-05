@@ -843,15 +843,12 @@ Sources: Specht .specht/templates/feature.md and docs/rules/v0.2.1/SPEC031.md in
 
 ---
 transition: fade-out
+clicks: 2
 ---
 
 # A Diagnostic the Agent Can Act On
 
-```sh
-dotnet specht
-```
-
-**Expected finding for the missing `AC-002` row**
+**Expected checkout finding from `dotnet specht`**
 
 ```text
 error SPEC031 [AC-002]
@@ -866,6 +863,14 @@ File + line + rule + claim → a bounded repair before the next handoff.
 
 </v-click>
 
+<figure v-show="$clicks >= 2" style="margin: 1rem 0 0;">
+  <img src="/images/specht-spec060-github-warning.png" alt="GitHub Actions annotation on .github/mirror/.spec/README.md" style="display: block; width: 100%; height: auto;" />
+  <figcaption style="font-size: 1.125rem; margin-top: 0.5rem;">
+    Specht warning SPEC060 at line 184. The approved spec still marks the test for B-010 as Missing.
+    <a href="https://github.com/RLittlesII/specht/pull/277/files#annotation_94350672913">View the GitHub annotation</a>.
+  </figcaption>
+</figure>
+
 <!--
 Timing: 1.5 minutes.
 
@@ -874,6 +879,12 @@ The message follows the canonical SPEC031 rule reference for schema 0.2.1, with 
 Point out the stable claim reference: the failure and repair concern the same AC-002 we followed from the scenario. Keep the claim identity consistent from the scenario through the failure and repair.
 
 The orchestrator or CI must honor failure. Printing a diagnostic alone does not stop another agent continuing. Give the author the finding and the approved baseline, then require a new check result for the repaired revision.
+
+On the last click, show the real GitHub Actions warning from Specht PR #277. Checkout lost its traceability row. In this PR, the row was present, and Specht flagged the Missing test for claim B-010 while the spec was marked approved. GitHub puts the rule and exact line in the reviewer's hands. The Specht step succeeded. The integration test failed later in the job. Return to checkout for the repair on the next slide.
+
+GitHub Actions capture: https://github.com/RLittlesII/specht/actions/runs/40158738468
+Original annotation: https://github.com/RLittlesII/specht/pull/277/files#annotation_94350672913
+Pinned spec line: https://github.com/RLittlesII/specht/blob/b3aa28b0d05e3fcabcc72e7312c35a8fc04d1fad/.github/mirror/.spec/README.md#L184
 
 Source: https://github.com/RLittlesII/specht/blob/main/docs/rules/v0.2.1/SPEC031.md (checked against the local rule reference).
 -->
