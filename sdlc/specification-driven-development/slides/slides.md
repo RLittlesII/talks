@@ -21,7 +21,7 @@ duration: 50min
 </div>
 
 <!--
-Timing: 0.5 minutes. The specification returns: 6 minutes total, slides 1–6.
+Timing: 0.5 minutes. The specification returns: 5 minutes total, slides 1–6.
 
 I like talking about my failures. They’re a surprisingly reliable source of conference material.
 
@@ -101,13 +101,11 @@ class: illustrated
 
 <!--
 
-Timing: 1 minute.
+Timing: 0.5 minutes.
 
-A deliberately compressed, satirical history of the artifacts around development, not four mutually exclusive eras. Paper coding sheets and punched cards were often parts of the same workflow. Formal specifications predate the 1990s; that is the era this talk is recalling.
+Use the picture for a quick, satirical history rather than narrating every era. Paper and punched cards often shared a workflow; formal specs predate the '90s.
 
-Start with the developer: when running the program was expensive, you thought it through on paper. Then you encoded it on cards. By the '90s, the specification binder promised a complete account of what the system should do. Requirements, constraints, traceability, sign-off. Behold the binder.
-
-Then comes the shredder. This is the joke about what happened in some shops: the binder disappeared, the tickets survived, and the whole-system intent got scattered. Agile itself did not demand the destruction of specifications. The 2001 manifesto values working software over comprehensive documentation and explicitly retains value in documentation.
+When running the program was expensive, we thought it through first. Eventually we had the binder. Behold the binder. Then, in some shops, the binder disappeared and the tickets survived. Agile did not ask us to shred the specification. We scattered the intent. Let's open the binder and see what was useful.
 
 Source: https://agilemanifesto.org/
 
@@ -239,7 +237,7 @@ class: illustrated
 
 <!--
 
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
 Verbal riff on the Men in Black old-gear/new-gear joke, illustrated with ordinary developers in clothes appropriate to their era and age. The third label is the talk's punchline: "old busted hotness."
 
@@ -276,7 +274,7 @@ transition: fade-out
 </v-click>
 
 <!--
-Timing: 1 minute. How agents use the spec: 8 minutes total, slides 7–10.
+Timing: 1 minute. How agents use the spec: 7 minutes total, slides 7–10.
 
 Keep this connection from the original talk. SDD belongs alongside disciplines the audience already knows. BDD turns claims into examples people agree on. TDD drives implementation through red, green, refactor. SDD supplies the versioned intent that connects them. Use all three together; a generated spec does not replace either discipline. We still need good tests and shared understanding. Writing intent upstream gives the agent a durable input, but does not make everything downstream automatic or correct.
 
@@ -313,7 +311,7 @@ transition: slide-up
 People decide. Agents do work. Artifacts record the agreement and evidence.
 
 <!--
-Timing: 2.5 minutes.
+Timing: 2 minutes.
 
 Give the audience this vocabulary before showing agent handoffs. These are different kinds of participants: people and agents take actions; specifications and features are the subject of the work; deterministic programs supply particular checks. Do not imply that a document has agency or that a model owns the product decision.
 
@@ -392,7 +390,7 @@ Feature: Discount codes
 A **scenario** is one example. **Bindings + a runner** execute its steps and assertions.
 
 <!--
-Timing: 3 minutes.
+Timing: 2.5 minutes.
 
 Explain the example using the vocabulary just introduced. The feature is the capability; the spec is its agreement; AC-002 is one claim in it. Gherkin is the structured language used in the .feature file. Feature: groups related scenarios; Scenario: names one concrete example; Given sets the starting state, When describes the action, and Then describes the expected result. And adds another step of the same kind.
 
@@ -438,7 +436,7 @@ class: artifacts
 
 # The Files Behind the Workflow
 
-In this workflow, each feature keeps a **`.spec/` folder beside its code**.
+In this example, each feature keeps a **`.spec/` folder beside its code**.
 
 | Artifact     | What the agent learns                                       |
 | ------------ | ----------------------------------------------------------- |
@@ -450,20 +448,18 @@ In this workflow, each feature keeps a **`.spec/` folder beside its code**.
 
 **`.specht/` is separate:** checker configuration, schemas, and starter templates.
 
-These are the artifacts the author and reviewer were trying to keep aligned.
+Your requirements may live elsewhere. Name the source and revision.
 
 <!--
 Timing: 1.5 minutes.
 
-To explain the review nightmare, first show the artifacts the author and reviewer were trying to reconcile. These are two different folder names: dot-spec contains the specification and its supporting records; dot-specht contains the tool's configuration, schemas, and templates. Neither is a .NET SDK installation folder. A .NET tool is the packaging mechanism for the checker.
+These are the files the author and reviewer were trying to reconcile. Dot-spec holds the agreement and supporting records. Dot-specht holds checker configuration, schemas, and starter templates. They have different jobs.
 
-A feature's .spec/README.md is its agreement: numbered claims, constraints, out of scope, design, traceability, and sign-off. Its companion .feature file contains the Gherkin scenarios introduced earlier, with tags linking them to claims. The product feature is the capability; the .feature file is an artifact describing examples of its behavior. Those scenarios become executable checks when test bindings implement them and the runner executes them.
+This is my repository convention. Your approved intent might live in GitHub Issues, Azure DevOps, or Trello, and you may not own that choice. We will return to those variations. For now, this is where the incident's artifacts lived.
 
-ADR means Architecture Decision Record. It keeps the context, alternatives, technical decision, and consequences so the next agent does not reopen a settled design as an unexplained gap. A product decision record instead preserves what we chose to build or exclude and why. A lesson records an observed failure, root cause, and follow-through: a product lesson changes the relevant claim/scenario when needed; a process lesson changes the reusable procedure or skill. Agents must retrieve and apply the relevant records; their existence alone does not change model behavior.
+The README records claims, scope, and traceability. The feature file supplies the tagged scenarios we just saw. ADR means Architecture Decision Record: the technical choice and why. Product decisions preserve what we chose to build or exclude. Lessons record what failed and the change that should follow. An agent needs to retrieve and apply the relevant record.
 
-These paths are relative to a feature's .spec/ folder. Records that apply across features belong in the repository-root .spec/adr/ or .spec/lessons/ instead. Scope determines where the record lives. This is an orientation, not a tour of every required heading.
-
-.specht/manifest.json configures the checker and its schema selection; .specht/schema/ stores schemas; .specht/templates/ stores starter documents supplied by init --all. Templates are blanks to fill and place with the relevant feature, not finished specifications. Installing Specht does not author the requirements, bind scenarios, run behavioral tests, or configure agent handoffs for us. The base checker validates selected rules on specifications and their relationships; it does not read adr/, decisions/, or lessons/ to establish their truth.
+These paths are feature-local; records spanning features belong at the repository root. Keep this an orientation, not a tour of every heading. Checker templates are blanks to fill, not finished requirements. Installing Specht does not write intent, execute scenarios, or configure the handoffs. Its base rules check selected structures and relationships, not the truth of arbitrary decision or lesson prose.
 
 Sources: https://github.com/RLittlesII/specht/blob/main/docs/setup.md ; https://github.com/RLittlesII/specht/blob/main/docs/what-it-checks.md ; https://github.com/RLittlesII/specht/tree/main/.specht/templates
 -->
@@ -654,7 +650,7 @@ class D sdd-step-4
 </v-clicks>
 
 <!--
-Timing: 1.5 minutes. Building a way out: 10.5 minutes total, slides 17–22.
+Timing: 1.5 minutes. Building a way out: 9.5 minutes total, slides 17–22.
 
 Reveal the diagram from left to right on four clicks. Click 1: using SDD to build software. Click 2: discovering drift, together with the repository-fix bullet. Click 3: building the checker, together with the JSON Schema request. Click 4: applying it to SDD artifacts, together with “And Specht was born.” Each incoming arrow appears with its destination. The diagram keeps its full layout throughout.
 
@@ -737,7 +733,7 @@ transition: fade-out
 **Drift:** the claim remains; its declared verification link disappears.
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
 This is an illustrative checkout reconstruction, using the actual default template's section headings and table columns. Cells are shortened to fit. AC-002 still means rejecting the code and displaying the expired-code message, before payment. The full claim and scenario were introduced earlier.
 
@@ -774,7 +770,7 @@ File + line + rule + claim → a bounded repair before the next handoff.
 </v-click>
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
 The message follows the canonical SPEC031 rule reference for schema 0.2.1, with AC-002 substituted consistently for our checkout example. Line wrapping and the separate rule/identifier heading are presentation formatting. This is expected diagnostic content, not captured CLI output. Actual reports include the file and line at the claim's row in section 3; no invented line number is shown.
 
@@ -875,7 +871,7 @@ A well-formed instruction to accept expired codes is still the wrong instruction
 </v-click>
 
 <!--
-Timing: 1.5 minutes. Keeping the workflow focused: 10.5 minutes total, slides 23–30.
+Timing: 1.5 minutes. Owning and adapting the workflow: 12.5 minutes total, slides 23–30.
 
 This is the distinction to land once, clearly. The missing-row check can go green while the category-1/category-3 contradiction remains. Both claim IDs in the tag correction existed too. A resolved reference tells us where it points, not whether it points to the right agreement.
 
@@ -1041,123 +1037,137 @@ C --> E["Canonical example"]
 
 <v-clicks>
 
-- Link the claim to existing code and affected dependencies
-- Attach the revision, diffs, check results, and test results
-- Name unresolved gaps, their owner, and the next decision
+- Link the approved requirement to code and affected dependencies
+- Attach the source revision, code revision, diffs, and current results
+- Name who resolves conflicting edits before the next handoff
 
 </v-clicks>
 
 <!--
 Timing: 1 minute.
 
-The next person or agent needs enough evidence to inspect the handoff without reconstructing the whole conversation. The spec says what should happen; code navigation reveals what already exists and which dependencies may be affected. Otherwise, the agent can implement the right behavior in a duplicate service or overlook a dependent caller.
+The next team needs the approved requirement and enough code context to find the affected implementation and dependencies. This graph is a conceptual map, not a Specht feature. Paths and symbols can supply the links.
 
-Include the approved claim, current revision and diff, results from pinned checks and the test runner, and an owner for each unresolved gap. A useful handoff states what decision remains, not merely that the previous agent is done.
+For a distributed team, 'I have the latest spec' is not enough. Attach the source ID and revision or captured timestamp, code revision, diff, and current results. If intent lives outside Git, those are two baselines. Check the source again before acceptance and reconcile changes with its owner.
 
-The graph here is a conceptual map, not a Specht feature or a mandate to install a graph database. A graph can help query relationships; symbol navigation and other repository tools can supply useful evidence too. Share paths, symbols, and actual results rather than unsupported design claims. The point is an inspectable handoff: another reviewer can follow the claim to the implementation and assess the attached evidence.
+Two teams can edit the same requirement or dependent code. Name who resolves the conflict, where the resolution is approved, and which checks must repeat. Another team should be able to inspect the same baseline and see the next decision.
 -->
 
 ---
 transition: slide-up
 ---
 
-# What You Gain, What You Maintain
+# Upsides and Downsides
 
 <div grid="~ cols-2 gap-8" m="t-4">
 <div>
 
-**Potential gains**
+**Upsides**
 
 - Less repeated steering
-- Clearer agent context and scope
-- More autonomous work between gates
-- Failures recorded for future runs
+- Better context for autonomous work
+- Faster implementation of agreed behavior
+- Lessons improve the next task
 
 </div>
 <div>
 
-**Continuing work**
+**Downsides**
 
-- Review intent and spec changes
-- Maintain rules, tests, and instructions
-- Integrate checks into handoffs
-- Investigate gaps a checker cannot see
+- Walls upon walls of text to maintain
+- Duplication that AI review can miss
+- Keeping a distributed team in sync
+- Tokens, build time, and review capacity
 
 </div>
 </div>
 
 <v-click>
 
-Start with one feature and one recurring failure you can check.
+You think through the problem. The agent does the fast work.
 
 </v-click>
 
 <!--
-Timing: 1 minute.
+Timing: 2 minutes.
 
-These are expected advantages of the workflow, not measured Specht outcomes. Clear inputs and checks can let an agent proceed farther within an agreed scope. They also introduce artifacts and rules that somebody must maintain.
+The upside is that I do not have to steer AI as much. Better context gives it a better chance of doing useful autonomous work within the agreed scope. Lessons are a supporting benefit: the next task can start from what we learned instead of paying to discover it again. These are potential benefits, not measured Specht outcomes.
 
-Avoid turning this into a new binder ceremony. Start with a real feature and a failure that keeps recurring. Decide what evidence would expose it, automate the deterministic part, and retain the human decision where meaning matters. Expand when the checks are useful.
+In this style of SDD, the developer thinks through the problem and the agent writes the code. We decide which problem needs solving, reason about the behavior and design, and accept the result. The agent does the fast work. We used to think through the problem and then type the implementation ourselves. The thinking still belongs to us.
 
-We have gone from the review nightmare to one deterministic check, then back to the people and evidence that keep the process working. Start at that scale. Next, apply it to a codebase that already exists, without stopping delivery for a documentation rewrite.
+Now the downside: walls upon walls of text. AI can add a lot of documentation very quickly. Somebody has to maintain it and keep the same requirement from appearing in three places with three different meanings. Link to the authoritative requirement and keep generated views identifiable. A lesson, spec, and ticket should each have a job, rather than each retelling the whole system.
+
+We also lean on AI to help review that growing pile. That costs tokens and attention, and the review can miss the same duplication or contradiction the author introduced. Use it to screen and propose changes, keep explicit rules checkable, and assign human review to changes in meaning. Add distributed teams and now we also have synchronization work. Where the approved information lives becomes a real process decision. Next, the repository is only one option.
 -->
 
 ---
 transition: slide-up
 ---
 
-# SDD in a Brownfield Codebase
+# Where the Source of Truth Lives
 
-I'm using this on a large existing project today.
+The approved requirement may live in **GitHub Issues, Azure DevOps, or Trello**.
+
+| Authority             | How the agent gets context                      |
+| --------------------- | ----------------------------------------------- |
+| Repository            | Read the approved spec at a commit              |
+| Issue or work tracker | Read the approved item and capture its version  |
+| Repository publishes  | Read the spec; a build task updates the tracker |
 
 <v-clicks>
 
-- Start with the requirements already written down
-- When you fix a bug or touch an area, clarify its intended behavior
-- Add acceptance criteria, scenarios, and checks for that change
-- Fill gaps as the work reaches them; record what you learn
+- People outside the repository need a readable view and an approval path
+- Choose who can change intent and how conflicting edits get resolved
 
 </v-clicks>
 
-<div style="margin-top: 1.5rem; color: var(--sdd-copper); font-size: 1.2rem;">You do not need to backfill the whole system before you start.</div>
+Start with one changed area. You do not need to backfill the whole system.
 
 <!--
-Timing: 1.5 minutes.
+Timing: 2.5 minutes.
 
-Head off the greenfield question directly. Does this work in brownfield? Not as smoothly as starting with a clean slate, but you do not need a greenfield project to get value. I am using it on a large existing project right now. The information is at least written down and we have requirements, so there is something to start from.
+Everything in my example lives in the repository. Your organization may have approved requirements in GitHub Issues, Azure DevOps, or a Trello board. We do not always own that choice. We may have to improvise around the source of truth we actually have.
 
-We are not stopping delivery to reverse-engineer and specify every feature. When we encounter a problem, fix a bug, or change an area of code, we use that work to clarify the local requirements, add acceptance criteria and scenarios, and introduce relevant checks. We backfill as we go. Areas we have not touched do not need to be documented before the first area can benefit.
+If the repository owns the requirement, a commit pins the baseline alongside code and tests. The downside is access: people outside the repository, often people who are not developers, need a readable view and a way to propose and approve changes.
 
-Use existing requirements, tests, and code as evidence. Do not assume current behavior is automatically intended behavior: an existing bug should not become a requirement merely because an agent observed it. Resolve that question with the people who own the behavior, then record the agreement and the regression evidence for the change.
+If the tracker owns the requirement, retrieve the approved item. Keep its ID, link, and version with the context. If it lacks a useful revision identifier, capture the approved content and timestamp. Local excerpts point back to that source. Check for upstream changes before acceptance and have the owner resolve differences.
 
-The first changed area gives us a small process to monitor: are its claims stable, are tests current, and do recurring findings get resolved? Be candid about the limitation. This produces partial coverage, and existing code carries context and dependencies the documents may not yet capture. A passing check for the area we specified does not certify the entire legacy system. It still gives the next person or agent a better starting point in that area.
+Another option I have considered: the repository stays authoritative and a build task creates or updates Azure DevOps work items. Stable mappings let retries update the same item. Show the source revision and any failed or stale publication. The wider team gets a usable view. Route board edits back to the spec owner for approval, or we have made two competing sources of truth. Decide who owns requirement wording, work status, and approval. These are integration options, not Specht features or a pipeline I claim to have built.
 
-Source: Rodney's account of current use on a large existing project, supplied for this talk. No project identity, size metric, adoption rate, or measured benefit is claimed.
+For a distributed team, name who resolves conflicts and make the approved version reachable by everyone who needs it. Synchronization is work in every variation.
+
+I am using SDD on a large existing project today. Start from available requirements wherever they live. When fixing a bug or changing an area, clarify its intent, add criteria and scenarios, and retain the checks. Backfill as you go. Examine existing behavior with its owner before treating it as a requirement. Coverage stays partial while you expand.
+
+Source: Rodney's account of current use and proposed process variations, supplied for this talk. No measured benefit or completed tracker integration is claimed.
 -->
 
 ---
 transition: slide-up
 ---
 
-# Monitor the SDD Process
+# Verification Moves Earlier
 
-| Watch at each handoff               | Human response                       |
-| ----------------------------------- | ------------------------------------ |
-| Claims changed or withdrawn         | Compare with approved intent         |
-| Broken links or missing coverage    | Assign an owner; require repair      |
-| Failed, skipped, or stale test runs | Re-run on the current revision       |
-| Repeated findings or review loops   | Pause; assign a human to diagnose    |
+The agent runs the build and relevant tests **while doing the work**.
 
-Keep the revision, check results, test results, and unresolved gaps together.
+| Watch during the task              | Response before handoff                |
+| ---------------------------------- | -------------------------------------- |
+| Broken build or failing test       | Repair and run again on this revision  |
+| Requirement or source changed      | Reconcile with the approved intent     |
+| Repeated findings or retries       | Pause for human diagnosis              |
+| Token or execution budget runs out | Stop and hand off the gap              |
+
+Keep the revisions and actual results together. CI still verifies the shared change.
 
 <!--
-Timing: 1 minute. Closing and questions: 5 minutes total, slides 31–33.
+Timing: 2 minutes. Earlier verification, closing, and questions: 6 minutes total, slides 31–33.
 
-Monitor the process by retaining evidence per revision and per scoped handoff. A green result from yesterday or from a different diff is not evidence for this change. Record what was checked, with which tool/schema versions, what failed or was skipped, and who owns unresolved gaps. Required failures block handoff; exceptions need a named human decision and rationale.
+This shifts verification further left. Instead of waiting for the end and finding out whether CI builds, the agent needs to run the build and relevant tests during implementation. Give it the commands, environment, and permission to obtain that evidence. Feed the failures back into the work while it can still act on them. A test writer can hand off a demonstrated red test; final acceptance requires the relevant tests to pass.
 
-Look for patterns: are the same links repeatedly repaired, are tests disappearing, are agents changing requirements to obtain green results, or are author/reviewer rounds repeating the same finding? When review rounds stop producing progress, pause the loop and diagnose it with the responsible human. Then improve the rule, tool, context, or instruction before resuming. This is the intervention missing from the token nightmare. Counts help identify friction; a green dashboard does not establish correct intent.
+CI still checks the shared revision and integration. The earlier feedback helps influence AI in a positive direction during the process. It also has a cost: builds take time, review uses tokens, and distributed agents can duplicate effort or wait on the same limited resources. Choose relevant checks during iteration, require the agreed gate before handoff, and retain the actual commands and results. If the agent cannot run a check, name the gap and its owner instead of reporting success.
 
-This monitoring is the team's workflow responsibility. It is not a claim that Specht supplies a monitoring dashboard or detects stale test evidence through its base structural rules. Test runners and CI supply execution evidence; people review its relevance and gaps.
+Set a task budget for retries, tokens, and execution time. When the same finding repeats, a source changes, or the budget runs out, pause and involve the person who can make the next decision. That is the intervention missing from my token nightmare. Keep the requirement baseline, code revision, check results, test results, and unresolved gaps together. Use a failed or stale synchronization as a reason to reconcile the baseline before acceptance.
+
+This monitoring belongs to the workflow. Specht checks selected structural rules; it does not schedule agents, manage token budgets, synchronize trackers, or supply the build and test evidence. Next, close with the small tools we can build to support the process we actually have.
 -->
 
 ---
@@ -1207,10 +1217,21 @@ transition: fade-out
 
 </div>
 
+<div style="margin-top: 2rem;">
+
+**Live SDD demos on Twitch this December**<br>
+[twitch.tv/rlittlesii](https://twitch.tv/rlittlesii)
+
+It'll be boring. AI will be at the helm. &#58;D
+
+</div>
+
 <!--
 Timing: 3 minutes. End at 50 minutes including questions.
 
 Thank the audience. Use the prompt if questions need a starting point: a missing ID, broken relationship, stale reference, or dependency mismatch from their own process. Distinguish semantic disagreements from checks with an explicit rule and a reproducible answer.
+
+Before wrapping up, invite the audience to twitch.tv/rlittlesii throughout December. I'll demonstrate this specification-driven approach live, with AI at the helm. It'll be boring because AI will be doing the work. :D
 
 If asked about installing, use the current README link and mention authenticated GitHub Packages. If asked whether validation solves wrong requirements, return to the exit-category contradiction in #214. It does not: humans review intent and tests exercise agreed behavior. If asked about the token bill, stick to the reported experience; no measured savings comparison was presented.
 -->
