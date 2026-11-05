@@ -966,14 +966,11 @@ Source for the invariant: https://github.com/RLittlesII/specht/blob/main/docs/ru
 transition: slide-up
 ---
 
-# A Passing Check Is Not Acceptance
+# Who checks the spec?
 
-| Evidence              | Establishes                        | Still needs judgment             |
-| --------------------- | ---------------------------------- | -------------------------------- |
-| Structural validation | Selected rules are satisfied       | Is the claim correct?            |
-| Traceability          | Required relationships are present | Are the examples sufficient?     |
-| Passing tests         | Executed assertions passed         | Do they test the right behavior? |
-| Human review          | Intent and changes were examined   | What have we missed?             |
+- **Specht** checks the spec’s structure and links.
+- **Tests** check how the software behaves in the scenarios we exercise.
+- **People** decide what the software should do and whether the evidence supports accepting the change.
 
 <v-click>
 
@@ -984,11 +981,11 @@ A well-formed instruction to accept expired codes is still the wrong instruction
 <!--
 Timing: 1.5 minutes. Owning and adapting the workflow: 12.5 minutes total, slides 25–32.
 
-This is the distinction to land once, clearly. The missing-row check can go green while the category-1/category-3 contradiction remains. Both claim IDs in the tag correction existed too. A resolved reference tells us where it points, not whether it points to the right agreement.
+Back to the question we opened with. Specht can tell me whether the expired-code claim has its traceability row. A test can show that the software rejects an expired code.
 
-Walk down the table. Structure checks selected rules. Traceability records relationships. Tests report what their assertions observed. Human review examines whether those artifacts express the intended behavior and what might still be missing. Each result answers a particular question.
+Reveal the expired-code example. Someone still has to decide whether rejection is the rule we want. In my review, the same distinction mattered when two existing claim IDs pointed to different expectations.
 
-An instruction to accept expired codes can be perfectly well formed. That is why acceptance needs the baseline, the changes, and the evidence together. Next, put those checks into the handoffs so a failure actually changes what happens.
+Now let’s put each check where it can catch a problem before handoff.
 -->
 
 ---
