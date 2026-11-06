@@ -475,7 +475,12 @@ clicks: 4
   <li>
     <strong>Feature file</strong>
     <code>checkout.feature</code>
-    <p><code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 2 }">@AC-002</code><br>Scenario: Reject an expired code</p>
+    <p>
+      <span class="sdd-claim-tag" :class="{ 'sdd-claim-tag-drifted': $clicks >= 4 }">
+        <code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 2 }">@AC-002</code>
+        <code class="sdd-claim-tag-replacement">@AC-020</code>
+      </span><br>Scenario: Reject an expired code
+    </p>
   </li>
   <li>
     <strong>Architecture decision</strong>
@@ -488,7 +493,7 @@ I ask AI to keep these references in step with the code.
 
 <v-click :at="4">
 
-**Then AI maintained the files poorly, and the agreement drifted.**
+**The tag changed from `@AC-002` to `@AC-020`. The spec has no claim `AC-020`.**
 
 </v-click>
 
@@ -499,7 +504,7 @@ Click 1 highlights AC-002 in the spec. This is the claim we agreed to. Click 2 h
 
 This is the upkeep I ask AI to do. If we agree to reject at the exact expiry instant, the claim and scenario need updating. I revisit the architecture record if the payment boundary changes. I still decide what the software should do and review the diff.
 
-Pause with all three references highlighted. On click 4, reveal the drift. I tried this on a real project. The agent revised the spec, and the test author copied a requirement that no longer matched the design. Other links went missing. That is the review where I burned through my tokens.
+Pause with all three references highlighted. On click 4, point to the new tag in the feature file. In this checkout example, AC-020 has no matching claim, so the scenario no longer points to the agreement that the spec and ADR still cite. The next slides tell the real replay story, where a scenario pointed to the wrong existing claim and other links went missing.
 -->
 
 ---
