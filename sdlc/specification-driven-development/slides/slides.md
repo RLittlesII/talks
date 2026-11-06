@@ -16,6 +16,10 @@ duration: 50min
 
 # Specification Driven Development
 
+<div v-click class="sdd-title">
+AI maintains ancient artifacts of the specification era
+</div>
+
 <div v-click class="sdd-subtitle">
   Who checks the spec?
 </div>
@@ -23,9 +27,9 @@ duration: 50min
 <!--
 Timing: 0.5 minutes.
 
-I like talking about my failures. They’re a surprisingly reliable source of conference material.
+I like talking about my failures. They’re a surprisingly reliable source of material.
 
-Click and ask “Who checks the spec?” I thought my review process had an answer. Then I tried it on a real change. I want to show what I changed so I could spend less time steering each edit.
+“Who checks the spec?” I thought my review process had an answer. Then I tried it on real software. I want a way to
 -->
 
 ---
@@ -44,7 +48,7 @@ transition: slide-up
 - **The spec returns** — AI takes on the upkeep
 - **One claim at work** — the spec, feature file, and architecture decision
 - **My precious tokens** — the review that went sideways
-- **Who checks the spec?** — what the build can catch
+- **Check the spec** — how to manage AI drift
 - **Make it your workflow** — what to review before signing off
 
 </v-clicks>
@@ -64,6 +68,8 @@ transition: fade
 ---
 
 # The Spec Returns
+
+#### The relic of our ancient past comes back with new problems to manage
 
 <!--
 Timing: 0.25 minutes.
@@ -97,13 +103,13 @@ class: illustrated
     <div class="before-times-art">
       <img src="/images/development-before-times.png" alt="Rodney presents an oversized specification binder full of diagrams and tabs." />
     </div>
-    <figcaption><strong>The '90s spec</strong>The whole system. In a binder.</figcaption>
+    <figcaption><strong>The Specification</strong>The whole system. In a binder.</figcaption>
   </figure>
   <figure v-click="4" class="before-times-panel" style="--panel-index: 3;">
     <div class="before-times-art">
       <img src="/images/development-before-times.png" alt="Rodney gestures at a ticket board while the binder's pages spill out of a shredder." />
     </div>
-    <figcaption><strong>The Agile era</strong>The binder becomes a backlog.</figcaption>
+    <figcaption><strong>Agile</strong>The binder becomes a backlog.</figcaption>
   </figure>
 </div>
 
@@ -112,7 +118,6 @@ class: illustrated
 </div>
 
 <!--
-
 Timing: 0.5 minutes.
 
 Reveal paper, punch cards, the binder, and the Agile-era backlog in four clicks. The last click also reveals the punchline. Paper and punched cards often shared a workflow. Formal specs predate the '90s.
@@ -120,7 +125,6 @@ Reveal paper, punch cards, the binder, and the Agile-era backlog in four clicks.
 When running the program was expensive, we thought it through first. Eventually we had the binder. Behold the binder. Then, in some shops, the binder disappeared and the tickets survived. Agile did not ask us to shred the specification. We scattered the intent. Let's open the binder and see what was useful.
 
 Source: https://agilemanifesto.org/
-
 -->
 
 ---
@@ -205,7 +209,7 @@ class: illustrated
 clicks: 1
 ---
 
-# The Spec Is Back
+# The Spec Came Back
 
 <div class="sdd-spec-panels">
   <figure>
@@ -224,7 +228,7 @@ clicks: 1
       Prompt it. Patch it. Repeat.
     </figcaption>
   </figure>
-  <figure v-click="1">
+  <figure v-click="2">
     <img src="/images/specification-old-busted-hotness.png" alt="Rodney shows the specification to a robot beside a laptop, with diagrams, code, and test checkmarks." style="object-position: right;" />
     <figcaption>
       <strong>Old busted hotness</strong>
@@ -234,12 +238,11 @@ clicks: 1
   </figure>
 </div>
 
-<div v-click="1" style="margin-top: 1rem; text-align: center; font-style: italic;">
+<div v-click="3" style="margin-top: 1rem; text-align: center; font-style: italic;">
   I can ask the agent to maintain the spec in the same change as the code.
 </div>
 
 <!--
-
 Timing: 1.5 minutes.
 
 Start with the dusty binder. “The old busted spec has a new job. I call it old busted hotness.” Pause, then click once to reveal the other two panels together.
@@ -249,7 +252,6 @@ The middle panel is what happened when I asked AI for code and kept the decision
 “I give the agent room to work because we’ve agreed what the software should do and what evidence I’ll review. I spend less time steering each edit and more time making the decisions that matter.”
 
 Advance directly to “My Specification, 2026.” Open the first of the files I ask the agent to maintain.
-
 -->
 
 ---
@@ -510,7 +512,7 @@ transition: fade
 # My Precious Tokens
 
 <div style="margin-top: 2rem; font-size: 1.8rem; line-height: 1.5; color: var(--sdd-copper);">
-  “I burned a week's worth of Claude Max tokens<br/>trying to review a pull request.”
+  “I burned a week's worth of tokens<br/>trying to review a pull request.”
 </div>
 
 <div style="margin-top: 1.5rem; color: var(--sdd-muted);">AI revised the documentation, and the agreement drifted.</div>
