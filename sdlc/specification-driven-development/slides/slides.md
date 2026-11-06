@@ -730,7 +730,7 @@ Timing: 1.25 minutes.
 
 Reveal the four boxes from left to right. The drift and repository-fix bullet appear together, then the schema request, then Specht. Pause on “Think of the spec like a JSON Schema.” I built Specht to check the parts of upkeep we could write down as rules, such as required fields and links. I still need to read the spec to decide whether the behavior is right. I used the same SDD approach to build the tool.
 
-Return to AC-002. The replay claim’s missing-row problem is the same one we can see on a checkout claim without reopening the private code.
+Return to checkout and the mistyped @AC-020 tag from slide 14. This time we can run the checker and see what it reports.
 -->
 
 ---
@@ -763,7 +763,7 @@ Timing: 1 minute.
 
 Specht checks YAML frontmatter, required sections and their order, claim IDs and traceability, and declared dependencies. Pin the tool and schema so the agent and CI can run the same structural checks.
 
-Reveal the checklist. This is an illustration based on a real agent task list, using the checkout claim from the talk. Point to Run Specht and Format after the edits and test, before the pull request. A Specht finding comes back with a path, line, and rule. For checkout, the first thing to check is whether AC-002 has a traceability row.
+Reveal the checklist. This is an illustration based on a real agent task list, using the checkout claim from the talk. Point to Run Specht and Format after the edits and test, before the pull request. A Specht finding comes back with a path, line, and rule. Next, run the checker on the @AC-020 tag from slide 14.
 
 Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/what-it-checks.md
 Logo: Specht’s existing dark-background SVG.
@@ -773,17 +773,17 @@ Logo: Specht’s existing dark-background SVG.
 transition: slide-up
 ---
 
-# AC-002 Needs a Traceability Row
+# Specht Finds the Broken Tag
 
-**Checkout example · Specht finding**
+**Checkout example · The `@AC-020` tag from slide 14**
 
 ```text [$ dotnet tool run specht]
-SPEC4004 · claim 'AC-002' has no row in § 9
+checkout/.spec/checkout.feature(3): error SPEC4002: scenario tag '@AC-020' does not resolve to a claim in § 3 of checkout/.spec/README.md [AC-020]
 ```
 
 <v-click>
 
-**Restore the row and record the test gap.**
+**Restore `@AC-002` and keep the test gap visible in § 9.**
 
 | Claim ID | Scenario               | Test    | Status  |
 | -------- | ---------------------- | ------- | ------- |
@@ -794,11 +794,11 @@ SPEC4004 · claim 'AC-002' has no row in § 9
 <!--
 Timing: 1.5 minutes.
 
-This checkout excerpt uses schema 0.3.0 with AC- IDs configured in the manifest. The displayed finding is abbreviated. Specht points at the claim row in § 3 and expects exactly one row for that claim in § 9.
+This is the diagnostic line from running Specht 0.4.2-preview against the checkout example with schema 0.3.0 and AC- IDs configured in the manifest. Point to line 3 of checkout.feature and the missing claim in § 3 of README.md.
 
-Click to restore the relationship. The tagged scenario already exists. Record Missing in the test and status cells until we have a test. In schema 0.3.0, SPEC7001 reports Missing coverage when delivery is marked done. The earlier approval of intent can stand while delivery is in progress.
+Click to show the fix. The scenario is about AC-002, so restore that tag. The rerun reports zero errors. The § 9 row already links AC-002 to this scenario. Keep its test and status cells Missing until the test exists, then use the scenario to drive it red.
 
-Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/rules/v0.3.0/SPEC4004.md and https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/what-it-checks.md
+Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/rules/v0.3.0/SPEC4002.md
 -->
 
 ---
