@@ -461,6 +461,7 @@ Reveal green. The architecture decision tells me where to make the change. Imple
 
 ---
 transition: slide-up
+clicks: 4
 ---
 
 # AC-002 Across Three Files
@@ -469,23 +470,23 @@ transition: slide-up
   <li>
     <strong>Spec document</strong>
     <code>.spec/README.md</code>
-    <p><code>AC-002</code><br>Reject an expired code and show a message.</p>
+    <p><code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 1 }">AC-002</code><br>Reject an expired code and show a message.</p>
   </li>
   <li>
     <strong>Feature file</strong>
     <code>checkout.feature</code>
-    <p><code>@AC-002</code><br>Scenario: Reject an expired code</p>
+    <p><code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 2 }">@AC-002</code><br>Scenario: Reject an expired code</p>
   </li>
   <li>
     <strong>Architecture decision</strong>
     <code>ADR-0001</code>
-    <p><code>AC-002</code><br>Check expiry before calling the payment gateway.</p>
+    <p><code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 3 }">AC-002</code><br>Check expiry before calling the payment gateway.</p>
   </li>
 </ul>
 
 I ask AI to keep these references in step with the code.
 
-<v-click>
+<v-click :at="4">
 
 **Then AI maintained the files poorly, and the agreement drifted.**
 
@@ -494,11 +495,11 @@ I ask AI to keep these references in step with the code.
 <!--
 Timing: 1.5 minutes.
 
-Point to AC-002 in the spec first. This is the claim we agreed to. The Gherkin tag @AC-002 links the scenario to that claim. ADR-0001 cites the same claim and records where we enforce it. I can follow the ID from what we agreed to, to the example we run, to the design choice behind the code.
+Click 1 highlights AC-002 in the spec. This is the claim we agreed to. Click 2 highlights the Gherkin tag @AC-002, which links the scenario to that claim. Click 3 highlights AC-002 in ADR-0001, which records where we enforce it.
 
 This is the upkeep I ask AI to do. If we agree to reject at the exact expiry instant, the claim and scenario need updating. I revisit the architecture record if the payment boundary changes. I still decide what the software should do and review the diff.
 
-Pause before the reveal. I tried this on a real project. The agent revised the spec, and the test author copied a requirement that no longer matched the design. Other links went missing. That is the review where I burned through my tokens.
+Pause with all three references highlighted. On click 4, reveal the drift. I tried this on a real project. The agent revised the spec, and the test author copied a requirement that no longer matched the design. Other links went missing. That is the review where I burned through my tokens.
 -->
 
 ---
