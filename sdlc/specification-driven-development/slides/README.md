@@ -33,8 +33,10 @@ Measured contrast against the charcoal background (`#202425`):
 
 Code text has 9.22:1 contrast against its excerpt background (`#2b3031`);
 teal inline code has 6.32:1 contrast against that background.
-Links stay underlined, diff examples retain their `+`/`-` markers, keyboard focus
-has a visible outline, and transitions honor reduced-motion preferences. Fonts
+Diff excerpts use a terminal prompt and full-width colored rows. Additions
+and removals retain their `+`/`-` markers and have text contrast of 8.53:1
+and 9.14:1, respectively. Links stay underlined, keyboard focus has a visible
+outline, and transitions honor reduced-motion preferences. Fonts
 use local system fallbacks. Illustrations retain descriptive alt text, and all
 three diagrams have accessible titles and descriptions.
 
