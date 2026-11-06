@@ -117,24 +117,29 @@
   font-style: normal;
 }
 
-.slidev-layout .slidev-code-wrapper:has(> pre > code.language-diff) {
+.slidev-layout .slidev-code-wrapper:is([data-title^="$ "], :has(> pre > code.language-sh)) {
   --slidev-code-padding: 8px 12px;
   --slidev-code-radius: 6px;
   border: 1px solid #596565;
   border-radius: var(--slidev-code-radius);
-}
 
-.slidev-layout .slidev-code-block-title:has(+ pre > code.language-diff) {
-  border-bottom: 1px solid #596565;
-  background: #232a2b;
-  color: var(--sdd-muted);
-  font: 600 15px/1.25 var(--slidev-code-font-family);
-  box-shadow: none;
-}
+  > .slidev-code-block-title {
+    border-bottom: 1px solid #596565;
+    background: #232a2b;
+    color: var(--sdd-muted);
+    font: 600 15px/1.25 var(--slidev-code-font-family);
+    box-shadow: none;
+  }
 
-.slidev-layout pre.slidev-code:has(> code.language-diff) {
-  border: 0;
-  background: #141819 !important;
+  > pre.slidev-code {
+    border: 0;
+    background: #141819 !important;
+  }
+
+  .language-sh > .line::before {
+    content: '$ ';
+    color: var(--sdd-muted);
+  }
 }
 
 .language-diff > :is(.sdd-diff-add, .sdd-diff-remove) {
