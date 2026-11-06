@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 868 238" width="868" height="238">
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0v24" fill="none" stroke="#acb5b2" stroke-opacity=".09"/>
+    </pattern>
+    <radialGradient id="heat">
+      <stop stop-color="#e37b4a" stop-opacity=".29"/>
+      <stop offset="1" stop-color="#e37b4a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="flame" x2="0" y2="1">
+      <stop stop-color="#ffe3a9"/>
+      <stop offset="1" stop-color="#f08652"/>
+    </linearGradient>
+    <marker id="forward-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="m1 1 8 4-8 4" fill="none" stroke="#83bdb7" stroke-width="1.8"/>
+    </marker>
+    <marker id="return-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="m1 1 8 4-8 4" fill="none" stroke="#dca58a" stroke-width="1.8"/>
+    </marker>
+  </defs>
+
+  <rect x=".5" y=".5" width="867" height="237" rx="10" fill="#1b1e1e" stroke="#515a57"/>
+  <rect x="1" y="1" width="866" height="236" rx="9" fill="url(#grid)"/>
+  <ellipse cx="434" cy="168" rx="128" ry="65" fill="url(#heat)"/>
+
+  <g fill="none" stroke-width="2">
+    <path d="M314 80H547" stroke="#83bdb7" marker-end="url(#forward-arrow)"/>
+    <path d="M673 121v25q0 20-20 20H460m-52 0H215q-20 0-20-20v-19" stroke="#dca58a" marker-end="url(#return-arrow)"/>
+  </g>
+
+  <g fill="#2b3031" stroke="#83bdb7" stroke-width="1.5">
+    <rect x="76" y="39" width="238" height="82" rx="8"/>
+    <rect x="554" y="39" width="238" height="82" rx="8"/>
+  </g>
+
+  <g text-anchor="middle" font-family="Arial, Helvetica, sans-serif">
+    <g fill="#d5d7d2" font-size="28" font-weight="700">
+      <text x="195" y="75">Author</text>
+      <text x="673" y="75">Reviewer</text>
+    </g>
+    <g fill="#acb5b2" font-size="18">
+      <text x="195" y="101">Update the branch</text>
+      <text x="673" y="101">Review the changes</text>
+    </g>
+    <text x="434" y="68" fill="#83bdb7" font-size="18">Request review</text>
+    <text x="561" y="152" fill="#dca58a" font-size="18">Changes requested</text>
+    <text x="434" y="214" fill="#f3bd9b" font-size="23" font-weight="700">Burning tokens like cash to keep warm.</text>
+  </g>
+
+  <!-- A token in the return path, with a flame stamped into its face. -->
+  <circle cx="434" cy="166" r="20" fill="#2e2725" stroke="#f7b380" stroke-width="1.5"/>
+  <circle cx="434" cy="166" r="16" fill="none" stroke="#dca58a" stroke-opacity=".35"/>
+  <path d="M435 152c2 7-5 8-2 13 1-2 4-3 5-6 4 4 6 8 4 13-2 4-7 6-11 4-6-2-7-8-3-13 0 3 1 4 2 4-2-6 2-9 5-15Z" fill="url(#flame)"/>
+  <g fill="#f7b380">
+    <circle cx="413" cy="145" r="1.6"/>
+    <circle cx="456" cy="149" r="1.4"/>
+    <circle cx="449" cy="137" r="1"/>
+  </g>
+</svg>

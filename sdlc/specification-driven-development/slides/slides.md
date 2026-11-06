@@ -642,38 +642,35 @@ Source provenance: pr-evidence.md, “Missing rows and a mismatched claim tag.�
 -->
 
 ---
-layout: center
-class: text-center
+class: sdd-review-loop
 transition: fade
 ---
 
 # Author. Reviewer. Repeat.
 
-**My account of the review effort by the time it was done**
+<img class="sdd-review-loop-diagram" src="/images/review-loop.svg" width="868" height="238" alt="The author updates the branch and requests a review. The reviewer checks the changes and requests revisions. The author revises and sends it back, burning more tokens on every pass." />
 
-| Review effort            | Scale                              |
-| ------------------------ | ---------------------------------- |
-| Comments on the PR       | More than 200                      |
-| Reviews away from GitHub | About half                         |
-| AI reviews               | 20+                                |
-| Rounds per AI review     | 10+; highest I recall: 18          |
+<p class="sdd-review-loop-summary">The author updates the branch and requests a review. The reviewer checks the changes and requests revisions. The author revises and sends it back, burning more tokens on every pass.</p>
 
-<div style="margin-top: 1rem; font-size: 1.3rem; color: var(--sdd-copper);">Burning tokens like cash to keep warm.</div>
+<h2 v-click="1">Highlights</h2>
 
-<v-click>
-
-**Wait. I can build a thing to check these rules.**
-
-</v-click>
+<ul class="sdd-review-highlights" role="list">
+  <li v-click="1"><strong>200+</strong> comments posted to a single PR</li>
+  <li v-click="2"><strong>10+</strong> reviews never posted to GitHub</li>
+  <li v-click="3"><strong>20+</strong> AI reviews, each with multiple rounds</li>
+  <li v-click="4"><strong>500+</strong> commits on the branch</li>
+</ul>
 
 <!--
 Timing: 1.5 minutes.
 
-The numbers are my account, including reviews away from GitHub. A review could take several rounds. The private PRs preserve the concrete findings and fixes. The original closed, and the follow-up eventually merged.
+Walk the loop first. I update the branch and send it back for review. The reviewer finds more changes, and the next pass burns more tokens.
 
-Pause on “burning tokens like cash to keep warm.” Then reveal the realization. I could turn an explicit rule we kept rediscovering into a check that ran before PR review. Advance to the next section card.
+Click through the four highlights. The counts are my account of the review and branch history. Reviews and the rounds inside them are separate. The longest review I recall took 18 rounds. The original PR closed, and the follow-up eventually merged.
 
-Source provenance: pr-evidence.md preserves the reviewed artifacts and the reported effort separately.
+After the commit count, say “Wait. I can build a thing to check these rules.” I could turn an explicit rule we kept rediscovering into a check that ran before PR review. Advance to the next section card.
+
+Source provenance: pr-evidence.md preserves the reviewed artifacts and an earlier account of the review effort.
 -->
 
 ---

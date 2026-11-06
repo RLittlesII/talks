@@ -298,6 +298,62 @@
   margin: 10px 0;
 }
 
+.sdd-review-loop-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sdd-review-loop-summary {
+  display: none;
+}
+
+.slidev-layout.sdd-review-loop h2 {
+  margin: 18px 0 10px;
+  color: var(--sdd-teal);
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.slidev-layout .sdd-review-highlights {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slidev-layout .sdd-review-highlights li {
+  margin: 0;
+  padding: 8px 0 0;
+  border-top: 1px solid #58605e;
+  font-size: 21px;
+  line-height: 1.2;
+}
+
+.sdd-review-highlights strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--sdd-copper);
+  font-size: 38px;
+  line-height: 1;
+}
+
+html.sdd-reading .sdd-review-highlights {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+}
+
+@media (max-width: 720px) {
+  html.sdd-reading .sdd-review-loop-diagram {
+    display: none;
+  }
+
+  html.sdd-reading .sdd-review-loop-summary {
+    display: block;
+  }
+}
+
 .slidev-layout .sdd-handoff-flow {
   display: flex;
   gap: 2rem;
