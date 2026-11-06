@@ -811,30 +811,69 @@ transition: slide-up
 
 # From Red to Green
 
-**Checkout example · `@AC-002` rejects an expired code**
+**Checkout example · The missing test for `AC-002`**
+
+<div grid="~ cols-5 gap-6">
+
+<div class="col-span-2 min-w-0">
 
 ```csharp
-var result = await checkout.SubmitAsync("SAVE10");
+var result = await checkout
+  .SubmitAsync("SAVE10");
 
-Assert.Equal(50m, result.Total);
-Assert.Equal("This code has expired", result.Message);
-Assert.Equal(0, payment.AuthorizationCalls);
+Assert.Equal(50m,
+  result.Total);
+Assert.Equal(
+  "This code has expired",
+  result.Message);
+Assert.Equal(0, payment
+  .AuthorizationCalls);
 ```
 
-<v-clicks>
+</div>
 
-- **Red** · The $50 cart accepts the expired code. The total assertion fails.
-- **Implement** · Check expiry before applying the discount or starting payment.
-- **Green** · The same test passes all three assertions.
+<div class="col-span-3 min-w-0">
 
-</v-clicks>
+<v-click>
+
+```text [$ dotnet test --filter ExpiredCode]
+Assert.Equal() Failure: Values differ
+Expected: 50
+Actual:   45
+```
+
+</v-click>
+
+<v-click>
+
+```diff [$ git diff]
++if (coupon.ExpiresAt < clock.GetUtcNow())
++    return new(total,
++        "This code has expired");
+```
+
+</v-click>
+
+<v-click>
+
+```text [$ dotnet test --filter ExpiredCode]
+Passed!  - Failed: 0, Passed: 1
+```
+
+</v-click>
+
+</div>
+
+</div>
 
 <!--
 Timing: 2 minutes.
 
-Illustrative test body. The omitted setup uses a $50 cart, a fixed clock, SAVE10 expired yesterday, and a payment spy. The scenario expresses the BDD example. Its bindings and runner can execute these observations, or a directly linked xUnit test can express them as shown here.
+Pick up the Missing test from slide 24. The checkout fixture uses a $50 cart, a fixed clock, SAVE10 expired yesterday, and a payment spy. The assertions come from the Gherkin scenario.
 
-Reveal the red result, then the scoped implementation, then green on the same test, ExpiredCode_IsRejectedBeforePayment. Stop at the first red assertion and explain that the green run has to get past all three. Replace the Missing test cell with the actual test name after it exists. Next make the links visible in C#.
+Click 1 runs ExpiredCode_IsRejectedBeforePayment. It fails on the total because checkout still applies the expired discount. Click 2 adds the expiry guard before the discount and payment. Click 3 reruns the same test and all three assertions pass. The exact expiry instant is still a question for slide 36.
+
+The terminal blocks excerpt the xUnit run in the illustrative fixture. Once the test exists, replace Missing in the traceability row with its name. Next make the links visible in C#.
 -->
 
 ---
