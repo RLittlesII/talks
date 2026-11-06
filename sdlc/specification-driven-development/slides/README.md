@@ -71,7 +71,7 @@ The 38-slide deck runs for 50 minutes. Use the section cards to pause and cue th
 | 21    | “I kept paying for another review. What could I make the build catch?”                         |
 | 31    | “You’ve seen what I get back. What would your team need before signing off?”                   |
 
-Slide 6 turns from the cost of keeping the binder current to the reason Rodney brought the spec back. AI can help maintain it as code changes. On slide 7, pause on the binder and say “old busted hotness.” Reveal the two AI panels, then open the checkout spec. Slide 14 turns from what AI maintains to what it maintained poorly. Slide 15 starts the private replay incident. Slide 20 keeps the pause before the realization that a program could check the recurring rules. Use the [private evidence notes](./pr-evidence.md) to distinguish reviewed artifacts from Rodney’s reported review effort.
+Slide 6 turns from the cost of keeping the binder current to the reason Rodney brought the spec back. AI can help maintain it as code changes. On slide 7, click once for each panel: the binder, AI chat, then AI maintaining the spec. The closing line appears with the third panel. Slide 14 turns from what AI maintains to what it maintained poorly. Slide 15 starts the private replay incident. Slide 20 keeps the pause before the realization that a program could check the recurring rules. Use the [private evidence notes](./pr-evidence.md) to distinguish reviewed artifacts from Rodney’s reported review effort.
 
 Slide 22 reveals the four SDD Inception boxes in order. Each incoming arrow appears with its destination. The three bullets appear with boxes 2–4. Backward navigation reverses the reveals, and reading layout shows the complete diagram and bullets.
 

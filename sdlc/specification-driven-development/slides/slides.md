@@ -206,13 +206,12 @@ Click to turn into the AI-powered part. “I brought the spec back because AI ca
 ---
 transition: fade-out
 class: illustrated
-clicks: 1
 ---
 
 # The Spec Came Back
 
 <div class="sdd-spec-panels">
-  <figure>
+  <figure v-click="1" class="sdd-spec-panel">
     <img src="/images/specification-old-busted-hotness.png" alt="Rodney in a patterned sweater beside a dusty specification binder." style="object-position: left;" />
     <figcaption>
       <strong>Old busted</strong>
@@ -220,7 +219,7 @@ clicks: 1
       Write it. File it. Forget it.
     </figcaption>
   </figure>
-  <figure v-click="1">
+  <figure v-click="2" class="sdd-spec-panel">
     <img src="/images/specification-old-busted-hotness.png" alt="Rodney in a hoodie surrounded by chat bubbles and crumpled drafts." />
     <figcaption>
       <strong>New hotness</strong>
@@ -228,7 +227,7 @@ clicks: 1
       Prompt it. Patch it. Repeat.
     </figcaption>
   </figure>
-  <figure v-click="2">
+  <figure v-click="3" class="sdd-spec-panel">
     <img src="/images/specification-old-busted-hotness.png" alt="Rodney shows the specification to a robot beside a laptop, with diagrams, code, and test checkmarks." style="object-position: right;" />
     <figcaption>
       <strong>Old busted hotness</strong>
@@ -238,14 +237,14 @@ clicks: 1
   </figure>
 </div>
 
-<div v-click="3" style="margin-top: 1rem; text-align: center; font-style: italic;">
+<div v-click="3" class="sdd-spec-punchline">
   I can ask the agent to maintain the spec in the same change as the code.
 </div>
 
 <!--
 Timing: 1.5 minutes.
 
-Start with the dusty binder. “The old busted spec has a new job. I call it old busted hotness.” Pause, then click once to reveal the other two panels together.
+Click to reveal the dusty binder. Pause, then click to reveal AI chat. Click again to reveal AI maintaining the spec and the closing line. “The old busted spec has a new job. I call it old busted hotness.”
 
 The middle panel is what happened when I asked AI for code and kept the decisions in chat. I had to keep repeating what mattered. In the right panel I can ask the agent to update the spec, the examples, and the design decisions as the code changes. The next change can start with the reviewed files. The ability to keep those files current is why I use a spec again.
 

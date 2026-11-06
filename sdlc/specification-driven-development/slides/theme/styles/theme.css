@@ -370,7 +370,7 @@ html.sdd-reading .sdd-handoff-arrow {
   text-align: center;
 }
 
-.sdd-spec-panels figure {
+.sdd-spec-panel {
   margin: 0;
 }
 
@@ -398,6 +398,17 @@ html.sdd-reading .sdd-handoff-arrow {
 
 .sdd-spec-panels figcaption b {
   color: var(--sdd-text);
+}
+
+.sdd-spec-punchline {
+  margin-top: 1rem;
+  text-align: center;
+  font-style: italic;
+}
+
+.sdd-spec-panel.slidev-vclick-hidden,
+.sdd-spec-punchline.slidev-vclick-hidden {
+  visibility: hidden;
 }
 
 html.sdd-reading .sdd-spec-panels {
