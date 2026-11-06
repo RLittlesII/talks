@@ -371,28 +371,26 @@ Pause, then advance.
 transition: fade-out
 ---
 
-# TDD, BDD, SDD
+# SDD, BDD, and TDD Together
 
 <v-clicks>
 
-- **Test Driven Development** — failing test, implementation, refactor
-- **Behavior Driven Development** — agreed behavior, scenarios, executable checks
-- **Specification Driven Development** — explicit intent guides the agent's work
+- **Specification Driven Development** gives me a claim and its constraints.
+- **Behavior Driven Development** turns that claim into a concrete example we can agree on.
+- **Test Driven Development** uses the executable example to drive the code change.
 
 </v-clicks>
 
 <v-click>
 
-**SDD still needs BDD to agree on behavior and TDD to verify it.**
+**Agree on the behavior, see the test fail, then write the code that makes it pass.**
 
 </v-click>
 
 <!--
 Timing: 0.75 minutes.
 
-Keep this connection from the original talk. SDD belongs alongside disciplines the audience already knows. BDD turns claims into examples people agree on. TDD drives implementation through red, green, refactor. SDD supplies the versioned intent that connects them. Use all three together; a generated spec does not replace either discipline. We still need good tests and shared understanding. Writing intent upstream gives the agent a durable input, but does not make everything downstream automatic or correct.
-
-The important change is where the next task starts: from agreed behavior and constraints rather than a fresh explanation in every chat. Tests, design choices, and code still require judgment. Next, follow one requirement through those handoffs.
+Reveal these in the order I use them. The spec gives me AC-002 and the before-payment constraint. Writing a BDD example makes us decide what a shopper sees and what checkout does. Once the example runs, I use red, green, refactor to drive the implementation. The spec gives us the agreement we can come back to when something changes.
 -->
 
 ---
@@ -406,83 +404,67 @@ transition: slide-up
 
 **Who acts**
 
-- **Human:** owns intent and acceptance
-- **AI agent:** a model with instructions and tools; proposes and makes edits
-- **Programs:** test runners execute checks; validators enforce explicit rules
+- **People** agree on behavior and accept the result.
+- **An agent** can draft examples and make scoped edits.
+- **A runner** executes tests and reports what happened.
 
 </div>
 <div>
 
 **What they work on**
 
-- **Feature:** a scoped capability, such as applying discount codes
-- **Specification:** the versioned agreement on behavior, constraints, and scope
-- **Claim:** one numbered, testable requirement in that agreement
+- **Feature** · The capability, such as discount-code validation
+- **Specification** · The versioned agreement, including claim `AC-002`
+- **`checkout.feature`** · A file of scenarios written in **Gherkin** using Given, When, and Then
 
 </div>
 </div>
 
-People decide. Agents do work. Artifacts record the agreement and evidence.
+**Step definitions** connect each scenario’s steps to executable test code.
 
 <!--
 Timing: 1.5 minutes.
 
-Give the audience this vocabulary before showing agent handoffs. These are different kinds of participants: people and agents take actions; specifications and features are the subject of the work; deterministic programs supply particular checks. Do not imply that a document has agency or that a model owns the product decision.
+Point to the difference between the checkout feature and checkout.feature. The feature is the capability. The .feature file is where I write concrete examples of it. Gherkin is the language in that file. Given describes the starting state, When names the action, and Then states the expected result. AC-002 is the stable ID for one testable requirement in the specification. The scenario tag links the example back to that claim.
 
-Human means the people responsible for product intent, design, testing, and acceptance. One person may hold several responsibilities. AI means the model; an agent puts that model in a workflow with instructions, context, and tools so it can act. An agent can draft a spec, edit code, or review a diff, but the human remains accountable for approving meaning and accepting the result.
-
-Feature here means a bounded product capability, such as applying discount codes. Its spec is the versioned agreement covering that capability: why it exists, testable claims, constraints, and exclusions. A claim is one acceptance criterion with a stable ID, such as AC-002. The implementation is the code that delivers the behavior; the spec describes what that behavior should be.
-
-A test runner executes test code and reports what its assertions observed. A structural checker such as the tool introduced later compares artifacts with explicit rules. Neither is a product owner. A passing structural check and a passing behavioral test answer different questions.
-
-Next assign the agent jobs, then use the checkout example to explain Gherkin, scenarios, and how their words become executable checks. Later, the file-layout slide shows where these artifacts live in this repository convention.
+People can read and discuss the example before the code exists. When I add step definitions, a runner can execute those same steps and report the result. This is the file I want to write before I start implementing.
 -->
 
 ---
 level: 2
 ---
 
-# Roles as Agents
+# The Feature File Drives the Test
 
-<ol class="sdd-handoff-flow" role="list" aria-label="Agent roles and what they hand off">
+<ol class="sdd-handoff-flow" role="list" aria-label="How a Gherkin example drives implementation">
   <li>
-    <strong>Spec author</strong>
-    Proposed spec change
+    <strong>Write the example</strong>
+    Turn <code>AC-002</code> into Given, When, and Then in <code>checkout.feature</code>
   </li>
   <li v-click>
     <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
-    <strong>Test writer</strong>
-    Scenarios and failing tests
+    <strong>Run it red</strong>
+    Bind the steps and see the behavior assertion fail
   </li>
   <li v-click>
     <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
-    <strong>Implementer</strong>
-    Scoped implementation
-  </li>
-  <li v-click>
-    <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
-    <strong>Reviewer</strong>
-    Findings tied to claims
+    <strong>Make it green</strong>
+    Implement until the same test passes, then refactor
   </li>
 </ol>
 
-<p v-click class="sdd-handoff-return"><span aria-hidden="true">↶</span> Send each finding back to the role that owns the change.</p>
+<p v-click class="sdd-handoff-return"><span aria-hidden="true">↶</span> If the example exposes a gap, clarify the agreement first.</p>
 
 <!--
 Timing: 1.5 minutes.
 
-The actors now have jobs. These are responsibilities an agent takes on through its instructions and tools. One agent can take on more than one role. Instructions define each handoff, and tools check its explicit rules.
+Start with the approved claim and write the feature file before touching the checkout implementation. “Reject an expired code” leaves room for questions. Should the shopper see an error? Does the total change? Does payment start? Writing the Then steps puts the answers in front of everyone before the test or implementation bakes in an assumption.
 
-Start with the spec author visible. The author reads human intent and the current spec, then proposes a change for human approval.
+Reveal red. Bind the Given and When to the checkout setup and action, and bind the Then steps to assertions. Run it and see a behavior assertion fail. An undefined step tells me the scenario is still unwired. In this checkout example, the red run fails because checkout accepts the expired code.
 
-1. Reveal the test writer. They read the approved claims and constraints, then write scenarios and failing tests.
-2. Reveal the implementer. They read the spec, tests, and existing code, then make the scoped implementation change.
-3. Reveal the reviewer. They compare all diffs against the approved baseline and inspect the evidence. They tie each finding to the relevant claim.
-4. Reveal the return path. Send each finding back to the role that owns the correction. Intent changes go back to a human for approval.
+Reveal green. Make the smallest checkout change that satisfies the same test, then refactor while it stays green. Reveal the return arrow for any open question about behavior. Settle it in the spec and example before changing the code.
 
-Notice that the spec author may be an agent too. I still own the intent. The author proposes changes; it does not get authority to redefine the requirement silently. The reviewer needs the approved baseline as well as the new spec. Otherwise, what prevents both roles from agreeing on a new requirement I never asked for?
-
-For now, this looks reasonable. We have roles, files, tests, and a review. We have all the ingredients for a responsible workflow. That is what made the failure so frustrating.
+“Here’s the feature file I’d start with.”
 -->
 
 ---
@@ -505,7 +487,7 @@ Reject an expired discount code and show an expired-code message.
 
 ::right::
 
-**Gherkin:** a language for behavior examples.
+**`checkout.feature` · Gherkin**
 
 ```gherkin
 Feature: Discount codes
@@ -525,9 +507,7 @@ Bindings turn the scenario’s three expected outcomes into assertions the test 
 <!--
 Timing: 2 minutes.
 
-Explain the example using the vocabulary just introduced. The feature is the capability; the spec is its agreement; AC-002 is one claim in it. Gherkin is the structured language used in the .feature file. Feature: groups related scenarios; Scenario: names one concrete example; Given sets the starting state, When describes the action, and Then describes the expected result. And adds another step of the same kind.
-
-A .feature file contains Gherkin, not application code. Step definitions (also called bindings) connect the step text to executable code. Then bindings assert three observations when the runner executes the scenario: the total is still $50, the expired-code message appears, and a payment spy records zero authorization calls. Submit checkout so the test exercises the path that would authorize payment for an accepted code.
+Read the example from top to bottom. The $50 cart and expired SAVE10 are the setup. Submitting checkout exercises the path that would authorize payment for an accepted code. The Then bindings check the total and the message, and a payment spy checks that authorization was never called. We can agree on all three observations by reading the file together.
 
 This is the condensed spec anatomy and Gherkin example. The business goal is clear checkout pricing. The user needs feedback when a code cannot be used. The claim is falsifiable, the constraint sets a boundary, and out of scope limits what the agent should add. We are keeping the checkout example from the existing talk.
 
@@ -535,7 +515,7 @@ For the modern examples, AC-002 is our short claim identifier for the expired-co
 
 Ask the audience to consider what happens if the tag disappears, then what happens if the author changes 'reject' to 'accept.' Those are different failures. One concerns the relationship and the other concerns the intent.
 
-“I thought having those roles and checks would be enough. Here’s what happened when I tried it.”
+“Once the example and the test agree, what happens if the spec changes out from under them?”
 
 Terminology source: https://cucumber.io/docs/gherkin/reference/ (Feature, Scenario, Given/When/Then, step definitions, and assertions).
 -->
