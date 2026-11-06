@@ -783,7 +783,11 @@ checkout/.spec/checkout.feature(3): error SPEC4002: scenario tag '@AC-020' does 
 
 <v-click>
 
-**Restore `@AC-002` and keep the test gap visible in § 9.**
+**Restore `@AC-002` and rerun Specht.**
+
+```text [$ dotnet tool run specht]
+errors: 0, warnings: 0
+```
 
 | Claim ID | Scenario               | Test    | Status  |
 | -------- | ---------------------- | ------- | ------- |
@@ -796,7 +800,7 @@ Timing: 1.5 minutes.
 
 This is the diagnostic line from running Specht 0.4.2-preview against the checkout example with schema 0.3.0 and AC- IDs configured in the manifest. Point to line 3 of checkout.feature and the missing claim in § 3 of README.md.
 
-Click to show the fix. The scenario is about AC-002, so restore that tag. The rerun reports zero errors. The § 9 row already links AC-002 to this scenario. Keep its test and status cells Missing until the test exists, then use the scenario to drive it red.
+Click to show the rerun after restoring @AC-002. Point to zero errors and zero warnings, then to the Missing test in the § 9 row. Say “Specht can find the claim now. What happens when someone submits an expired code? Let’s write the test and see it fail.”
 
 Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/rules/v0.3.0/SPEC4002.md
 -->
