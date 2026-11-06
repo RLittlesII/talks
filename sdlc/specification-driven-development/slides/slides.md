@@ -58,7 +58,23 @@ Timing: 0.5 minutes.
 
 Start with why I brought the spec back. Follow one checkout requirement through the documents I ask AI to maintain. Then tell the story of what happened when it maintained them poorly, and show the checks I built in response. Reserve the last three minutes for questions.
 
-Advance to the section card before starting the history.
+Advance to the disclaimer, then the section card.
+-->
+
+---
+layout: center
+class: text-center
+transition: fade
+---
+
+# Disclaimer
+
+> Don't go to work tomorrow and write a spec for everything based on this talk.
+
+<!--
+Timing: 0.25 minutes.
+
+Try this on one change you already have to make. One claim is enough to see what the extra upkeep buys you.
 -->
 
 ---
@@ -69,7 +85,7 @@ transition: fade
 
 # The Spec Returns
 
-#### The relic of our ancient past comes back with new problems to manage
+<p class="text-xl">The relic of our ancient past comes back with new problems to manage</p>
 
 <!--
 Timing: 0.25 minutes.
@@ -193,7 +209,7 @@ Keeping it current was the hard part.
 
 <!--
 
-Timing: 0.75 minutes.
+Timing: 0.5 minutes.
 
 Go back to the expired-code requirement. We can point to its ID, see what checkout must do before payment, and find the test that is supposed to check it. The binder made those connections visible while they were current.
 
@@ -1269,11 +1285,28 @@ transition: slide-up
 </v-clicks>
 
 <!--
-Timing: 1 minute.
+Timing: 0.5 minutes.
 
-Return to the opening. I still do the thinking about the behavior and inspect the evidence that matters. I can let the agent work through the routine edits because I know what it will bring back. For the audience’s first task, ask them to picture one claim they can follow this way and one recurring finding a program could check.
+Use AC-002 to make the review concrete. I check that this run shows the right total, the expired-code message, and zero calls to authorize payment.
+-->
 
-Pause, then advance to Questions.
+---
+transition: slide-up
+---
+
+# Who Checks What?
+
+- **The team** agrees on what the software should do.
+- **The agent** keeps the spec, examples, and code in step.
+- **The build** checks links. **Tests** check behavior.
+- **The reviewer** decides whether the evidence is enough.
+
+<!--
+Timing: 0.5 minutes.
+
+Come back to the question from the title slide. AI gave me a way to keep the spec current. The week of reviews taught me which checks I needed the build to run and which decisions still needed a person.
+
+Bring back the disclaimer. On your next change, pick one claim and follow it from agreement to a test result you can review. Then advance to Questions.
 -->
 
 ---

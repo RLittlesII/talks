@@ -12,11 +12,11 @@ On November 5, 2026, Rodney clarified that frontmatter was also part of the
 specification-review problem that burned his tokens. This is his account of
 the incident. The evidence retained here does not identify the particular
 frontmatter key, invalid value, or corrective diff; the slides do not invent
-one. Slides 8–9 teach the chosen specification contract using the versioned
+one. Slides 9–10 teach the chosen specification contract using the versioned
 0.3.0 template and frontmatter schema. Their checkout metadata is an illustrative
 excerpt, separate from the historical findings below.
 
-## A wrong claim propagated into a scaffold — slide 18
+## A wrong claim propagated into a scaffold — slide 19
 
 At reviewed commit [`fdbae93`](https://github.com/RLittlesII/hooked/commit/fdbae932c81169920f2e3d2eba0f8b2f676e838f), `0005-F5b` claim `B-011` included store/config precondition and busy-timeout failures in exit category **1**. The same spec's design mapped `StoreBusy` and `StoreUnreadable` to category **3**.
 
@@ -41,7 +41,7 @@ Assert.Fail("not implemented — scaffold only");
 
 This is a specification-to-scaffold propagation error. It is not evidence of a passing test or a released runtime defect. The review caught the contradiction; it does not establish that every reviewer accepted the incorrect claim.
 
-## Missing rows and a mismatched claim tag — slide 19
+## Missing rows and a mismatched claim tag — slide 20
 
 In #214, the [F4 review finding](https://github.com/RLittlesII/hooked/pull/214#discussion_r4150139963) identified five accepted claims (`B-001`–`B-005`) with no traceability rows. The requirement was one row per claim, permitting an explicit `Missing` value rather than omitting a row. This is distinct from deleting the claims themselves.
 
@@ -60,7 +60,7 @@ The [review finding](https://github.com/RLittlesII/hooked/pull/215#discussion_r4
 
 The [follow-up reply](https://github.com/RLittlesII/hooked/pull/215#discussion_r4212833570) identifies the same correction. Both IDs existed: reference resolution alone would not decide which claim expresses the scenario's meaning.
 
-## Reported review effort — slide 20
+## Reported review effort — slide 21
 
 Rodney supplied this account on October 28, 2026:
 
@@ -92,7 +92,7 @@ PR #215 was opened October 3, received further change requests, and merged Octob
 
 GitHub reply counts and references to review rounds are not a verified count of internal agent iterations. The retained history contains squashed or rewritten material. The PRs show the corrections and eventual outcome; Rodney supplies the internal workflow and token-cost account.
 
-## The lessons drifted too — slide 32
+## The lessons drifted too — slide 33
 
 The [L-0007 review](https://github.com/RLittlesII/hooked/pull/214#discussion_r4169482854) reports that searches for the lesson's claimed `Table C` / `row 2 of` incident found only the commit adding the lesson. It also identifies the lesson's incorrect treatment of stable `C-n` IDs as positional references. Attribute this history audit to the review; the slide revision did not independently repeat a search of every git branch.
 
@@ -100,15 +100,15 @@ A [later reply](https://github.com/RLittlesII/hooked/pull/214#discussion_r416983
 
 [The committed L-0012 record](https://github.com/RLittlesII/hooked/blob/d953cac46391bdf2fbfdcecd30bb6cc44819fc3a/docs/lessons/L-0012-lesson-register-integrity-collapse-during-pr-214-review.md) describes fabricated incidents, misquoted code, reversed facts, incomplete corrections, and lessons not being applied during review. It is a contemporary incident record, not proof that every proposed prevention measure was implemented.
 
-Slide 32 focuses on the actual L-0009 finding, then supplies an illustrative response: verify and correct the lesson, update a signature-change skill to compare quotes with source and run affected checks, and require the next reviewer to inspect the cited revision, paths, diff, and results. The skill procedure and next-run review are teaching examples, not evidence that this exact procedure was implemented or proved effective in the original project. The L-0007 evidence remains here for provenance.
+Slide 33 focuses on the actual L-0009 finding, then supplies an illustrative response: verify and correct the lesson, update a signature-change skill to compare quotes with source and run affected checks, and require the next reviewer to inspect the cited revision, paths, diff, and results. The skill procedure and next-run review are teaching examples, not evidence that this exact procedure was implemented or proved effective in the original project. The L-0007 evidence remains here for provenance.
 
 ## Connection to Specht
 
 The origin is **SDD Inception**: Rodney was trying to fix the problem in the repository where the drift had occurred. In the fix request, he asked the agent to “think of the spec like a JSON Schema.” Specht grew out of that request, and SDD guided its development. On November 5, 2026, Rodney emphasized its purpose as an analysis tool he built to keep tabs on the specification process. This origin account was supplied by Rodney on October 28, 2026. The schema analogy means enforcing a checkable specification contract; it does not claim that schema validation establishes the meaning or truth of arbitrary claims. These PRs evidence the motivating failures; they do not document every step of Specht's construction.
 
-Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. The separate checkout walkthrough in slides 24–27 remains an illustrative explanation of the checker, not a replay of either hooked PR.
+Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. The separate checkout walkthrough in slides 25–28 remains an illustrative explanation of the checker, not a replay of either hooked PR.
 
-## An early result from sharing the talk — slide 34
+## An early result from sharing the talk — slide 35
 
 On November 5, 2026, Rodney reported that he gave the first iteration of this
 talk to a buddy, who showed him working software three days later. The speaker notes
