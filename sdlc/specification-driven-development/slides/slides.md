@@ -41,8 +41,8 @@ transition: slide-up
 
 <v-clicks>
 
-- **The spec returns** — same discipline, new reader
-- **One claim at work** — from agreement to executable test
+- **The spec returns** — AI takes on the upkeep
+- **One claim at work** — the spec, feature file, and architecture decision
 - **My precious tokens** — the review that went sideways
 - **Who checks the spec?** — what the build can catch
 - **Make it your workflow** — what to review before signing off
@@ -52,7 +52,7 @@ transition: slide-up
 <!--
 Timing: 0.5 minutes.
 
-We will keep the history brief, follow one checkout requirement into a test, and use my review experience as the turning point. We finish with checks your team can put into its own workflow. Reserve the last three minutes for questions.
+Start with why I brought the spec back. Follow one checkout requirement through the documents I ask AI to maintain. Then tell the story of what happened when it maintained them poorly, and show the checks I built in response. Reserve the last three minutes for questions.
 
 Advance to the section card before starting the history.
 -->
@@ -181,13 +181,21 @@ Keeping it current was the hard part.
 
 </v-click>
 
+<v-click>
+
+**In 2026, AI can help with the upkeep.**
+
+</v-click>
+
 <!--
 
 Timing: 0.75 minutes.
 
 Go back to the expired-code requirement. We can point to its ID, see what checkout must do before payment, and find the test that is supposed to check it. The binder made those connections visible while they were current.
 
-Click for the maintenance cost. When the behavior changed, somebody had to bring the requirement, the test, and the approval back into agreement. It was easy for a copy of the binder to fall behind. Then the binder got a new reader.
+Click for the maintenance cost. When the behavior changed, somebody had to update the requirement, the examples, and the design decisions. The binder fell behind.
+
+Click to turn into the AI-powered part. “I brought the spec back because AI can help keep it current as the code changes.”
 
 -->
 
@@ -220,27 +228,27 @@ clicks: 1
     <img src="/images/specification-old-busted-hotness.png" alt="Rodney shows the specification to a robot beside a laptop, with diagrams, code, and test checkmarks." style="object-position: right;" />
     <figcaption>
       <strong>Old busted hotness</strong>
-      <b>The spec guides the agent</b>
-      Specify it. Test it. Regenerate.
+      <b>AI helps maintain the spec</b>
+      Update the agreement alongside the code.
     </figcaption>
   </figure>
 </div>
 
 <div v-click="1" style="margin-top: 1rem; text-align: center; font-style: italic;">
-  I give the agent the spec and review the evidence it brings back.
+  I can ask the agent to maintain the spec in the same change as the code.
 </div>
 
 <!--
 
 Timing: 1.5 minutes.
 
-Start with the dusty binder. “The old busted spec has a new job. I call it old busted hotness.” Pause after the line, then click once to reveal the other two panels together. This is the first time the talk names AI.
+Start with the dusty binder. “The old busted spec has a new job. I call it old busted hotness.” Pause, then click once to reveal the other two panels together.
 
-The middle panel is what happened when I asked AI for code and kept the decisions in chat. I had to keep repeating what mattered. The right panel is what changed when I gave the agent the versioned agreement. It could work from the goal, the boundaries, and the same requirements we use to check its work. People still decide what the software should do, and tests give us evidence about what it does.
+The middle panel is what happened when I asked AI for code and kept the decisions in chat. I had to keep repeating what mattered. In the right panel I can ask the agent to update the spec, the examples, and the design decisions as the code changes. The next change can start with the reviewed files. The ability to keep those files current is why I use a spec again.
 
 “I give the agent room to work because we’ve agreed what the software should do and what evidence I’ll review. I spend less time steering each edit and more time making the decisions that matter.”
 
-Advance directly to “My Specification, 2026.” Open the checkout spec I give the agent.
+Advance directly to “My Specification, 2026.” Open the first of the files I ask the agent to maintain.
 
 -->
 
@@ -250,53 +258,40 @@ transition: slide-up
 
 # My Specification, 2026
 
-Versioned Markdown: **YAML frontmatter**, then a structured agreement.
+**`.spec/README.md`** · The versioned agreement for checkout
 
 <div grid="~ cols-2 gap-8" m="t-4">
 <div>
 
 **Intent and boundaries**
 
-```text
-1. Business Goal
-2. User Needs
-3. Acceptance Criteria
-4. Constraints
-5. Out of Scope
-6. Concern Separation
-```
+- **Goal** · Keep checkout pricing clear.
+- **Claim `AC-002`** · Reject an expired code and show a message.
+- **Constraint** · Reject before payment starts.
+- **Out of scope** · Stacking discount codes.
 
 </div>
 <div>
 
 **Design and evidence**
 
-```text
-7. Technical Design
-8. Testing Strategy
-9. Traceability Matrix
-10. Lessons / Spec Deltas
-11. Open Questions
-12. Sign-off
-```
+- **§ 7 · Technical design** · Link to the payment decision in `ADR-0001`.
+- **§ 8 · Testing strategy** · Exercise checkout with an expired code.
+- **§ 9 · Traceability** · Link `AC-002` to its scenario and test.
 
 </div>
 </div>
 
-The agent gets the reason, the limits, and how we will verify the work.
+**SDD** gives the agent a reviewed agreement to work from and update with me.
 
 <!--
 Timing: 1.5 minutes.
 
-This is the modern representation I came up with. It is my feature-specification contract, not a claim that every AI workflow needs these exact headings. The file starts with YAML metadata, then these twelve numbered sections. Tasks and Scoring are additional unnumbered sections in the full template. The labels shown here match the versioned 0.3.0 template used by this talk's checker examples.
+Open the spec document. This is the 1998 expiry requirement carried forward as AC-002. Read the goal, the claim, and the before-payment constraint. The spec gives the agent a place to start and tells it where to record evidence or propose a change. The headings on screen are selected from my full feature template.
 
-Read the outline as questions the next reader needs answered. Why are we doing this, and for whom? What must happen, what limits apply, and what are we deliberately excluding? Concern Separation distinguishes business and technical responsibilities. Technical Design records the intended boundaries and contracts; Testing Strategy explains how we will exercise them. Traceability connects each acceptance criterion to its scenarios and tests. Lessons change the owning sections; open questions and sign-off make unresolved decisions and review visible.
+When the behavior changes, I can review the spec and code diffs together. Next show the metadata that distinguishes agreeing on the behavior from finishing the work. Then open the feature file and the design decision that this spec points to.
 
-Keep checkout concrete: clear pricing is the goal; an expired code must be rejected; payment must not start first; stacking is excluded. Section 3 gives that agreement an ID. Sections 8 and 9 explain the checks and their links. These are the sections the audience will see drift later, not disconnected documentation headings.
-
-The difference from the binder is how we use and maintain the agreement: keep it versioned, give the relevant revision to the agent, review its changes, and repeat the checks. Markdown alone does none of that. First look at the metadata at the very top of this same file.
-
-Source: Specht src/tool/templates/v0.3.0/feature.md, checked in the local source checkout. Section names are literal; checkout content is illustrative.
+Source: Specht src/tool/templates/v0.3.0/feature.md. The checkout example is illustrative.
 -->
 
 ---
@@ -305,7 +300,7 @@ transition: slide-up
 
 # Frontmatter Is Part of the Contract
 
-Frontmatter is the YAML block at the top of the specification.
+**`.spec/README.md`** · Agreement and delivery are tracked separately
 
 <div grid="~ cols-2 gap-8" m="t-4">
 <div>
@@ -340,15 +335,11 @@ Excerpt for the checkout feature.
 <!--
 Timing: 1 minute.
 
-Frontmatter is the YAML between the opening and closing triple-dash lines, before the Markdown body. These are specification metadata, separate from Slidev's presentation frontmatter. This is an abbreviated teaching example, not a complete schema-valid file. The full template also carries author, dates, domain, planning, and synchronization fields. The displayed keys and values match the pinned 0.3.0 feature-frontmatter schema.
+The YAML block is the frontmatter of the same spec. Here we have approved what checkout should do, and delivery is still in progress. I can ask an agent to keep delivery metadata current while I review changes to the agreement. These are selected fields from the full schema.
 
-F2 is scoped to epic 0001, so a cross-feature reference includes both. Type selects the feature document contract. Spec_status records document maturity; status records delivery state. An approved agreement can be in progress: approval is not a claim that implementation or testing is complete. Dependencies are explicit relationships, not guesses an agent should reconstruct from prose. Here both lists are empty; do not read that as a dependency failure in the real incident.
+We have agreed on the claim. Next create the feature file and record how checkout enforces the payment boundary.
 
-These fields affect how the workflow interprets the document. A syntactically valid YAML block can still violate the schema or disagree with the body and related files. Check the required fields, permitted values, and declared relationships using the selected contract. Human review still establishes whether an approval is justified and whether the dependency declarations are correct.
-
-Frontmatter was also part of the review problem that burned my tokens. That connection comes from my account; the retained evidence notes do not identify a specific broken key or diff, so do not invent one. The important setup here is that the contract includes metadata as well as prose. Later, Specht will analyze that contract repeatedly as the specification changes.
-
-Sources: Specht src/tool/templates/v0.3.0/feature.md and src/tool/schema/v0.3.0/frontmatter/feature.schema.json, checked in the local source checkout. Frontmatter's role in the token incident: Rodney's account, November 5, 2026.
+Source: Specht src/tool/schema/v0.3.0/frontmatter/feature.schema.json.
 -->
 
 ---
@@ -362,109 +353,9 @@ transition: fade
 <!--
 Timing: 0.25 minutes.
 
-“You’ve seen the agreement. Let’s follow one checkout claim into a test.”
+“Let’s turn that checkout claim into a feature file and record the design decision behind it.”
 
 Pause, then advance.
--->
-
----
-transition: fade-out
----
-
-# SDD, BDD, and TDD Together
-
-<v-clicks>
-
-- **Specification Driven Development** gives me a claim and its constraints.
-- **Behavior Driven Development** turns that claim into a concrete example we can agree on.
-- **Test Driven Development** uses the executable example to drive the code change.
-
-</v-clicks>
-
-<v-click>
-
-**Agree on the behavior, see the test fail, then write the code that makes it pass.**
-
-</v-click>
-
-<!--
-Timing: 0.75 minutes.
-
-Reveal these in the order I use them. The spec gives me AC-002 and the before-payment constraint. Writing a BDD example makes us decide what a shopper sees and what checkout does. Once the example runs, I use red, green, refactor to drive the implementation. The spec gives us the agreement we can come back to when something changes.
--->
-
----
-transition: slide-up
----
-
-# Meet the Actors and Artifacts
-
-<div grid="~ cols-2 gap-8" m="t-2">
-<div>
-
-**Who acts**
-
-- **People** agree on behavior and accept the result.
-- **An agent** can draft examples and make scoped edits.
-- **A runner** executes tests and reports what happened.
-
-</div>
-<div>
-
-**What they work on**
-
-- **Feature** · The capability, such as discount-code validation
-- **Specification** · The versioned agreement, including claim `AC-002`
-- **`checkout.feature`** · A file of scenarios written in **Gherkin** using Given, When, and Then
-
-</div>
-</div>
-
-**Step definitions** connect each scenario’s steps to executable test code.
-
-<!--
-Timing: 1.5 minutes.
-
-Point to the difference between the checkout feature and checkout.feature. The feature is the capability. The .feature file is where I write concrete examples of it. Gherkin is the language in that file. Given describes the starting state, When names the action, and Then states the expected result. AC-002 is the stable ID for one testable requirement in the specification. The scenario tag links the example back to that claim.
-
-People can read and discuss the example before the code exists. When I add step definitions, a runner can execute those same steps and report the result. This is the file I want to write before I start implementing.
--->
-
----
-level: 2
----
-
-# The Feature File Drives the Test
-
-<ol class="sdd-handoff-flow" role="list" aria-label="How a Gherkin example drives implementation">
-  <li>
-    <strong>Write the example</strong>
-    Turn <code>AC-002</code> into Given, When, and Then in <code>checkout.feature</code>
-  </li>
-  <li v-click>
-    <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
-    <strong>Run it red</strong>
-    Bind the steps and see the behavior assertion fail
-  </li>
-  <li v-click>
-    <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
-    <strong>Make it green</strong>
-    Implement until the same test passes, then refactor
-  </li>
-</ol>
-
-<p v-click class="sdd-handoff-return"><span aria-hidden="true">↶</span> If the example exposes a gap, clarify the agreement first.</p>
-
-<!--
-Timing: 1.5 minutes.
-
-Start with the approved claim and write the feature file before touching the checkout implementation. “Reject an expired code” leaves room for questions. Should the shopper see an error? Does the total change? Does payment start? Writing the Then steps puts the answers in front of everyone before the test or implementation bakes in an assumption.
-
-Reveal red. Bind the Given and When to the checkout setup and action, and bind the Then steps to assertions. Run it and see a behavior assertion fail. An undefined step tells me the scenario is still unwired. In this checkout example, the red run fails because checkout accepts the expired code.
-
-Reveal green. Make the smallest checkout change that satisfies the same test, then refactor while it stays green. Reveal the return arrow for any open question about behavior. Settle it in the spec and example before changing the code.
-
-“Here’s the feature file I’d start with.”
 -->
 
 ---
@@ -473,17 +364,17 @@ layoutClass: gap-8
 class: claim-example
 ---
 
-# One Claim Through the Loop
+# Create the Feature File
 
-**Feature:** discount-code validation.
+**From the spec**
 
-**Claim `AC-002`**
+`AC-002` says checkout must reject an expired code before payment.
 
-Reject an expired discount code and show an expired-code message.
+**BDD makes the behavior concrete**
 
-**Constraint:** rejection happens before payment.
-
-**Out of scope:** stacking discount codes.
+- What should the shopper see?
+- Does the cart total change?
+- Does payment start?
 
 ::right::
 
@@ -502,22 +393,96 @@ Feature: Discount codes
     And no payment authorization starts
 ```
 
-Bindings turn the scenario’s three expected outcomes into assertions the test runner can execute.
+<!--
+Timing: 1.5 minutes.
+
+Open checkout.feature. The feature is the checkout capability. The feature file is where we write examples of its behavior. Gherkin gives us Given for the starting state, When for the checkout action, and Then for what we expect to observe. The AC-002 tag links this scenario to the agreement.
+
+Creating this file forces me to settle the answers before I implement anything. Checkout keeps the $50 total, shows the expiry message, and leaves payment untouched. That’s behavior-driven development, or BDD. Next record which part of the system owns that decision.
+
+Source: https://cucumber.io/docs/gherkin/reference/
+-->
+
+---
+transition: slide-up
+---
+
+# Record the Architecture Decision
+
+**`.spec/adr/0001-reject-before-payment.md`**
+
+- **Context** · `AC-002` requires checkout to reject expired codes before payment.
+- **Decision** · Checkout checks expiry before it calls the payment gateway.
+- **Reason** · Checkout owns discount rules. The gateway handles authorization.
+- **Evidence** · The scenario checks that an expired code triggers zero authorization calls.
 
 <!--
-Timing: 2 minutes.
+Timing: 1.25 minutes.
 
-Read the example from top to bottom. The $50 cart and expired SAVE10 are the setup. Submitting checkout exercises the path that would authorize payment for an accepted code. The Then bindings check the total and the message, and a payment spy checks that authorization was never called. We can agree on all three observations by reading the file together.
+Open the architecture decision record from the spec's technical design section. The spec says what must happen, and the scenario makes it observable. The decision records where to enforce it and why.
 
-This is the condensed spec anatomy and Gherkin example. The business goal is clear checkout pricing. The user needs feedback when a code cannot be used. The claim is falsifiable, the constraint sets a boundary, and out of scope limits what the agent should add. We are keeping the checkout example from the existing talk.
+When the agent implements the feature, the boundary gives it a place to put the change. If we move that responsibility later, I want the reasoning updated in the same change. This is an illustrative checkout decision. Now use the scenario to drive the first test.
+-->
 
-For the modern examples, AC-002 is our short claim identifier for the expired-code requirement previously shown as REQ-3.2.4.2. This is an explicit presentation mapping, not an instruction to renumber real requirements. The @AC-002 tag carries that identity into the scenario; it is a reference, not an assertion. Traceability records the links from the claim to its scenarios and tests. Keep these three assertions in view. After the incident, we will see what happens when the test link goes missing and how a fresh run gives me evidence I can review.
+---
+level: 2
+---
 
-Ask the audience to consider what happens if the tag disappears, then what happens if the author changes 'reject' to 'accept.' Those are different failures. One concerns the relationship and the other concerns the intent.
+# Use the Feature File to Drive TDD
 
-“Once the example and the test agree, what happens if the spec changes out from under them?”
+<ol class="sdd-handoff-flow" role="list" aria-label="How a Gherkin example drives implementation">
+  <li>
+    <strong>Make it executable</strong>
+    Bind the scenario’s setup, action, and expected results
+  </li>
+  <li v-click>
+    <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
+    <strong>Run it red</strong>
+    Run it and see the behavior assertion fail
+  </li>
+  <li v-click>
+    <span class="sdd-handoff-arrow" aria-hidden="true">→</span>
+    <strong>Make it green</strong>
+    Implement until the same test passes, then refactor
+  </li>
+</ol>
 
-Terminology source: https://cucumber.io/docs/gherkin/reference/ (Feature, Scenario, Given/When/Then, step definitions, and assertions).
+<p v-click class="sdd-handoff-return"><span aria-hidden="true">↶</span> If the example exposes a gap, clarify the agreement first.</p>
+
+<!--
+Timing: 1.5 minutes.
+
+This is where I use the Gherkin example for test-driven development. Step definitions connect the Given and When to the checkout setup and action. The Then definitions assert the $50 total, the expired-code message, and zero payment authorization calls.
+
+Reveal red. The scenario executes, but the existing checkout still accepts the expired code. That assertion failure is the red I’m looking for. An undefined step means I still need to wire up the example.
+
+Reveal green. The architecture decision tells me where to make the change. Implement the expiry check before the gateway call, then refactor while the same test stays green. If the example exposes a gap, agree on the behavior before changing the code.
+-->
+
+---
+transition: slide-up
+---
+
+# What I Ask AI to Maintain
+
+**When checkout behavior changes, I review the code and its documentation together.**
+
+- **Spec document** · Update the approved behavior and its traceability.
+- **Feature file** · Revise or add the Gherkin scenario that exercises it.
+- **Architecture decision** · Update the reasoning when the design changes.
+
+<v-click>
+
+**Then AI maintained the files poorly, and the agreement drifted.**
+
+</v-click>
+
+<!--
+Timing: 1.5 minutes.
+
+This is the part that makes the spec practical for me again. AI can prepare the related edits in one change. I still decide what the software should do and review the diff. If we agree to reject at the exact expiry instant, the claim and scenario need updating. I revisit the architecture record if the payment boundary changes.
+
+Pause before the reveal. I tried this on a real project. The agent revised the spec, and the test author copied a requirement that no longer matched the design. Other links went missing. That is the review where I burned through my tokens.
 -->
 
 ---
@@ -532,12 +497,12 @@ transition: fade
   “I burned a week's worth of Claude Max tokens<br/>trying to review a pull request.”
 </div>
 
-<div style="margin-top: 1.5rem; color: var(--sdd-muted);">Frontmatter, sections, and references all needed checking</div>
+<div style="margin-top: 1.5rem; color: var(--sdd-muted);">AI revised the documentation, and the agreement drifted.</div>
 
 <!--
 Timing: 1 minute.
 
-This is my account of a private-project PR. I had an author and a reviewer. They kept revisiting the metadata, wording, and links we had already agreed to check. The next slides show what the surviving artifacts tell us about that review.
+This is my account of a private-project PR. I had asked AI to maintain the spec as the implementation changed. The review kept coming back to metadata, wording, and broken links. Here is what the surviving artifacts tell us about that review.
 -->
 
 ---
@@ -720,10 +685,10 @@ clicks: 4
 ```mermaid {key: $clicks, scale: 0.75, themeCSS: ['.sdd-step-1', '.sdd-step-2, .flowchart-link[data-id=edgeAB]', '.sdd-step-3, .flowchart-link[data-id=edgeBC]', '.sdd-step-4, .flowchart-link[data-id=edgeCD]'].map((selector, index) => selector + ' { visibility: ' + ($clicks > index ? 'visible' : 'var(--sdd-unrevealed-diagram-content, hidden)') + '; }').join(' ')}
 graph LR
 accTitle: How Specht grew out of SDD
-accDescr: Using SDD to build software exposed drift in the process. SDD then guided the development of Specht, which checks SDD artifacts.
-A["Use SDD<br/>to build software"] edgeAB@--> B["Discover drift<br/>in the SDD process"]
+accDescr: AI maintained the specification as the software changed. The specification and its links drifted. SDD guided the development of Specht so the build could check explicit rules.
+A["Ask AI to<br/>maintain the spec"] edgeAB@--> B["Spec and<br/>links drift"]
 B edgeBC@--> C["Use SDD<br/>to build Specht"]
-C edgeCD@--> D["Use Specht<br/>to check SDD artifacts"]
+C edgeCD@--> D["Check explicit<br/>rules in the build"]
 class A sdd-step-1
 class B sdd-step-2
 class C sdd-step-3
@@ -741,7 +706,7 @@ class D sdd-step-4
 <!--
 Timing: 1.25 minutes.
 
-Reveal the four boxes from left to right. The drift and repository-fix bullet appear together, then the schema request, then Specht. Pause on “Think of the spec like a JSON Schema.” I wanted a tool to run the same rules every time against the repository I was trying to fix. I used the same SDD approach to build it.
+Reveal the four boxes from left to right. The drift and repository-fix bullet appear together, then the schema request, then Specht. Pause on “Think of the spec like a JSON Schema.” I built Specht to check the parts of upkeep we could write down as rules, such as required fields and links. I still need to read the spec to decide whether the behavior is right. I used the same SDD approach to build the tool.
 
 Return to AC-002. The replay claim’s missing-row problem is the same one we can see on a checkout claim without reopening the private code.
 -->

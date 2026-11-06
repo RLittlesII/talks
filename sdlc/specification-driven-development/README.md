@@ -11,10 +11,10 @@ prerequisites:
 
 ## Abstract
 
-Old and busted. The 1998 requirements spec. New hotness. Vibe coding. Then I spent a week’s worth of tokens reviewing a change and rediscovering rules we already knew. I wanted to give the agent room to work and come back to evidence I could actually inspect.
+Old and busted. The 1998 requirements spec. I brought it back because AI can help keep it current as the code changes. Then I spent a week’s worth of tokens reviewing a change after the agent revised the spec poorly.
 
-Follow one checkout claim from a versioned agreement to a Gherkin scenario, a failing test, a scoped code change, and a passing run. See how that review experience led me to build Specht, how I use the same approach on Specht itself, and how Roslyn and `dotnet format` handle repeatable checks and cleanup. We’ll close by changing the expiry boundary and deciding what needs fresh approval and evidence.
+Follow one checkout claim through the spec document, a Gherkin feature file, and an architecture decision. Run the example red and use it to drive the code change. Then see how a review full of drift led me to build Specht for the parts of spec upkeep a build can check, and how Roslyn and `dotnet format` handle repeatable checks and cleanup.
 
 ### Short Abstract
 
-I give agents room to work by agreeing on behavior and deciding what evidence I’ll review. Follow one checkout claim from a spec to a test and sign-off, then see how Specht, Roslyn, and `dotnet format` handle repeatable work.
+AI made it practical for me to maintain a spec again. Follow one checkout claim through the spec, feature file, and architecture decision, then see what went wrong in a real review and how Specht helps catch broken links.

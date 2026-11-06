@@ -64,20 +64,20 @@ The 38-slide deck runs for 50 minutes. Use the section cards to pause and cue th
 | 31–37  | Make it your workflow        | 11      |
 | 38     | Questions                    | 3       |
 
-| Slide | Cue the next section                                                               |
-| ----: | ---------------------------------------------------------------------------------- |
-| 3     | “Let’s start with how we wrote down what software should do.”                      |
-| 10    | “You’ve seen the agreement. Let’s follow one checkout claim into a test.”          |
-| 21    | “I kept paying for another review. What could I make the build catch?”             |
-| 31    | “You’ve seen what I get back. What would your team need before signing off?”       |
+| Slide | Cue the next section                                                                           |
+| ----: | ---------------------------------------------------------------------------------------------- |
+| 3     | “Let’s start with how we wrote down what software should do.”                                  |
+| 10    | “Let’s turn that checkout claim into a feature file and record the design decision behind it.” |
+| 21    | “I kept paying for another review. What could I make the build catch?”                         |
+| 31    | “You’ve seen what I get back. What would your team need before signing off?”                   |
 
-On slide 7, pause on the binder and say “old busted hotness.” Click once to reveal AI, then open the checkout spec. Slide 15 switches to the private replay incident. Slide 20 keeps the pause before the realization that a program could check the recurring rules. Use the [private evidence notes](./pr-evidence.md) to keep the reviewed artifacts separate from Rodney’s reported review effort.
+Slide 6 turns from the cost of keeping the binder current to the reason Rodney brought the spec back. AI can help maintain it as code changes. On slide 7, pause on the binder and say “old busted hotness.” Reveal the two AI panels, then open the checkout spec. Slide 14 turns from what AI maintains to what it maintained poorly. Slide 15 starts the private replay incident. Slide 20 keeps the pause before the realization that a program could check the recurring rules. Use the [private evidence notes](./pr-evidence.md) to distinguish reviewed artifacts from Rodney’s reported review effort.
 
 Slide 22 reveals the four SDD Inception boxes in order. Each incoming arrow appears with its destination. The three bullets appear with boxes 2–4. Backward navigation reverses the reveals, and reading layout shows the complete diagram and bullets.
 
 ## Follow AC-002
 
-- **Agree and drive the test.** Slides 8–14 open the feature spec, introduce Gherkin in `checkout.feature`, and show how writing the scenario makes the expected behavior explicit. Bind and run the example red, then make the same test pass. Its assertions check the unchanged $50 total, expired-code message, and zero payment authorization calls.
+- **Follow the documents into the test.** Slides 8–9 open the spec and its frontmatter. Slides 11–12 create `checkout.feature` in Gherkin and record why checkout checks expiry before calling the payment gateway. Slide 13 binds the scenario and runs it red, then makes the same test pass. Slide 14 shows which documents AI helps maintain as the code changes.
 - **Check the links.** Slides 24–26 restore the missing matrix row, work through red and green, and show a mistyped C# claim link. The checkout excerpts are illustrative. The manifest assumes an `AC-` grammar. Schema 0.3.0 permits an approved agreement with a `Missing` test during delivery. `SPEC7001` reports missing coverage at delivery status `done`.
 - **Inspect the evidence.** Slide 27 separates Roslyn’s build-time checks from discovery and execution. `specht evidence` reconciles the supplied artifacts against current inputs. Slides 28–29 show the public Specht claim `0201-F7/B-030` and its own formatting workflow. The formatter applies eligible C# fixes locally, and CI verifies the policy.
 - **Accept and repeat.** Sign off on checkout at slide 30. Slides 32–35 cover lessons, a revision-specific handoff, the costs of maintenance, and where approved intent lives. Slide 36 proposes an exact expiry boundary and requires fresh approval and evidence. The friend’s three-day story is optional speaker narration on slide 34.
