@@ -107,6 +107,19 @@ html.sdd-reading .slidev-layout :not(pre) > code.sdd-claim-reference {
   font-weight: 700;
 }
 
+.sdd-claim-tag > .sdd-claim-tag-replacement,
+.sdd-claim-tag-drifted > .sdd-claim-reference,
+html.sdd-reading .sdd-claim-tag > .sdd-claim-reference {
+  display: none;
+}
+
+.slidev-layout :is(.sdd-claim-tag-drifted, html.sdd-reading .sdd-claim-tag) > code.sdd-claim-tag-replacement {
+  display: inline;
+  background: #71353c;
+  color: var(--sdd-text);
+  font-weight: 700;
+}
+
 /* Examples read as printed excerpts. */
 .slidev-layout pre.slidev-code {
   border-left: 3px solid var(--sdd-teal);
