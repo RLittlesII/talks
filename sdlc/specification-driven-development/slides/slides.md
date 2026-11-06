@@ -237,7 +237,7 @@ class: illustrated
   </figure>
 </div>
 
-<div v-click="3" class="sdd-spec-punchline">
+<div v-click="4" class="sdd-spec-punchline">
   I can ask the agent to maintain the spec in the same change as the code.
 </div>
 
