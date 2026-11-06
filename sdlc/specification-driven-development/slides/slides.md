@@ -462,6 +462,7 @@ Reveal green. The architecture decision tells me where to make the change. Imple
 
 ---
 transition: slide-up
+clicks: 4
 ---
 
 # AC-002 Across Three Files
@@ -470,36 +471,41 @@ transition: slide-up
   <li>
     <strong>Spec document</strong>
     <code>.spec/README.md</code>
-    <p><code>AC-002</code><br>Reject an expired code and show a message.</p>
+    <p><code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 1 }">AC-002</code><br>Reject an expired code and show a message.</p>
   </li>
   <li>
     <strong>Feature file</strong>
     <code>checkout.feature</code>
-    <p><code>@AC-002</code><br>Scenario: Reject an expired code</p>
+    <p>
+      <span class="sdd-claim-tag" :class="{ 'sdd-claim-tag-drifted': $clicks >= 4 }">
+        <code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 2 }">@AC-002</code>
+        <code class="sdd-claim-tag-replacement">@AC-020</code>
+      </span><br>Scenario: Reject an expired code
+    </p>
   </li>
   <li>
     <strong>Architecture decision</strong>
     <code>ADR-0001</code>
-    <p><code>AC-002</code><br>Check expiry before calling the payment gateway.</p>
+    <p><code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 3 }">AC-002</code><br>Check expiry before calling the payment gateway.</p>
   </li>
 </ul>
 
 I ask AI to keep these references in step with the code.
 
-<v-click>
+<v-click :at="4">
 
-**Then AI maintained the files poorly, and the agreement drifted.**
+**The tag changed from `@AC-002` to `@AC-020`. The spec has no claim `AC-020`.**
 
 </v-click>
 
 <!--
 Timing: 1.5 minutes.
 
-Point to AC-002 in the spec first. This is the claim we agreed to. The Gherkin tag @AC-002 links the scenario to that claim. ADR-0001 cites the same claim and records where we enforce it. I can follow the ID from what we agreed to, to the example we run, to the design choice behind the code.
+Click 1 highlights AC-002 in the spec. This is the claim we agreed to. Click 2 highlights the Gherkin tag @AC-002, which links the scenario to that claim. Click 3 highlights AC-002 in ADR-0001, which records where we enforce it.
 
 This is the upkeep I ask AI to do. If we agree to reject at the exact expiry instant, the claim and scenario need updating. I revisit the architecture record if the payment boundary changes. I still decide what the software should do and review the diff.
 
-Pause before the reveal. I tried this on a real project. The agent revised the spec, and the test author copied a requirement that no longer matched the design. Other links went missing. That is the review where I burned through my tokens.
+Pause with all three references highlighted. On click 4, point to the new tag in the feature file. In this checkout example, AC-020 has no matching claim, so the scenario no longer points to the agreement that the spec and ADR still cite. The next slides tell the real replay story, where a scenario pointed to the wrong existing claim and other links went missing.
 -->
 
 ---
@@ -722,7 +728,7 @@ Timing: 1.25 minutes.
 
 Reveal the four boxes from left to right. The drift and repository-fix bullet appear together, then the schema request, then Specht. Pause on “Think of the spec like a JSON Schema.” I built Specht to check the parts of upkeep we could write down as rules, such as required fields and links. I still need to read the spec to decide whether the behavior is right. I used the same SDD approach to build the tool.
 
-Return to AC-002. The replay claim’s missing-row problem is the same one we can see on a checkout claim without reopening the private code.
+Return to checkout and the mistyped @AC-020 tag from slide 14. This time we can run the checker and see what it reports.
 -->
 
 ---
@@ -755,7 +761,7 @@ Timing: 1 minute.
 
 Specht checks YAML frontmatter, required sections and their order, claim IDs and traceability, and declared dependencies. Pin the tool and schema so the agent and CI can run the same structural checks.
 
-Reveal the checklist. This is an illustration based on a real agent task list, using the checkout claim from the talk. Point to Run Specht and Format after the edits and test, before the pull request. A Specht finding comes back with a path, line, and rule. For checkout, the first thing to check is whether AC-002 has a traceability row.
+Reveal the checklist. This is an illustration based on a real agent task list, using the checkout claim from the talk. Point to Run Specht and Format after the edits and test, before the pull request. A Specht finding comes back with a path, line, and rule. Next, run the checker on the @AC-020 tag from slide 14.
 
 Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/what-it-checks.md
 Logo: Specht’s existing dark-background SVG.
@@ -765,17 +771,21 @@ Logo: Specht’s existing dark-background SVG.
 transition: slide-up
 ---
 
-# AC-002 Needs a Traceability Row
+# Specht Finds the Broken Tag
 
-**Checkout example · Specht finding**
+**Checkout example · The `@AC-020` tag from slide 14**
 
 ```text [$ dotnet tool run specht]
-SPEC4004 · claim 'AC-002' has no row in § 9
+checkout/.spec/checkout.feature(3): error SPEC4002: scenario tag '@AC-020' does not resolve to a claim in § 3 of checkout/.spec/README.md [AC-020]
 ```
 
 <v-click>
 
-**Restore the row and record the test gap.**
+**Restore `@AC-002` and rerun Specht.**
+
+```text [$ dotnet tool run specht]
+errors: 0, warnings: 0
+```
 
 | Claim ID | Scenario               | Test    | Status  |
 | -------- | ---------------------- | ------- | ------- |
@@ -786,11 +796,11 @@ SPEC4004 · claim 'AC-002' has no row in § 9
 <!--
 Timing: 1.5 minutes.
 
-This checkout excerpt uses schema 0.3.0 with AC- IDs configured in the manifest. The displayed finding is abbreviated. Specht points at the claim row in § 3 and expects exactly one row for that claim in § 9.
+This is the diagnostic line from running Specht 0.4.2-preview against the checkout example with schema 0.3.0 and AC- IDs configured in the manifest. Point to line 3 of checkout.feature and the missing claim in § 3 of README.md.
 
-Click to restore the relationship. The tagged scenario already exists. Record Missing in the test and status cells until we have a test. In schema 0.3.0, SPEC7001 reports Missing coverage when delivery is marked done. The earlier approval of intent can stand while delivery is in progress.
+Click to show the rerun after restoring @AC-002. Point to zero errors and zero warnings, then to the Missing test in the § 9 row. Say “Specht can find the claim now. What happens when someone submits an expired code? Let’s write the test and see it fail.”
 
-Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/rules/v0.3.0/SPEC4004.md and https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/what-it-checks.md
+Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/rules/v0.3.0/SPEC4002.md
 -->
 
 ---
@@ -799,30 +809,69 @@ transition: slide-up
 
 # From Red to Green
 
-**Checkout example · `@AC-002` rejects an expired code**
+**Checkout example · The missing test for `AC-002`**
+
+<div grid="~ cols-5 gap-6">
+
+<div class="col-span-2 min-w-0">
 
 ```csharp
-var result = await checkout.SubmitAsync("SAVE10");
+var result = await checkout
+  .SubmitAsync("SAVE10");
 
-Assert.Equal(50m, result.Total);
-Assert.Equal("This code has expired", result.Message);
-Assert.Equal(0, payment.AuthorizationCalls);
+Assert.Equal(50m,
+  result.Total);
+Assert.Equal(
+  "This code has expired",
+  result.Message);
+Assert.Equal(0, payment
+  .AuthorizationCalls);
 ```
 
-<v-clicks>
+</div>
 
-- **Red** · The $50 cart accepts the expired code. The total assertion fails.
-- **Implement** · Check expiry before applying the discount or starting payment.
-- **Green** · The same test passes all three assertions.
+<div class="col-span-3 min-w-0">
 
-</v-clicks>
+<v-click>
+
+```text [$ dotnet test --filter ExpiredCode]
+Assert.Equal() Failure: Values differ
+Expected: 50
+Actual:   45
+```
+
+</v-click>
+
+<v-click>
+
+```diff [$ git diff]
++if (coupon.ExpiresAt < clock.GetUtcNow())
++    return new(total,
++        "This code has expired");
+```
+
+</v-click>
+
+<v-click>
+
+```text [$ dotnet test --filter ExpiredCode]
+Passed!  - Failed: 0, Passed: 1
+```
+
+</v-click>
+
+</div>
+
+</div>
 
 <!--
 Timing: 2 minutes.
 
-Illustrative test body. The omitted setup uses a $50 cart, a fixed clock, SAVE10 expired yesterday, and a payment spy. The scenario expresses the BDD example. Its bindings and runner can execute these observations, or a directly linked xUnit test can express them as shown here.
+Pick up the Missing test from slide 24. The checkout fixture uses a $50 cart, a fixed clock, SAVE10 expired yesterday, and a payment spy. The assertions come from the Gherkin scenario.
 
-Reveal the red result, then the scoped implementation, then green on the same test, ExpiredCode_IsRejectedBeforePayment. Stop at the first red assertion and explain that the green run has to get past all three. Replace the Missing test cell with the actual test name after it exists. Next make the links visible in C#.
+Click 1 runs ExpiredCode_IsRejectedBeforePayment. It fails on the total because checkout still applies the expired discount. Click 2 adds the expiry guard before the discount and payment. Click 3 reruns the same test and all three assertions pass. The exact expiry instant is still a question for slide 36.
+
+The terminal blocks excerpt the xUnit run in the illustrative fixture. Once the test exists, replace Missing in the traceability row with its name. Next make the links visible in C#.
 -->
 
 ---
