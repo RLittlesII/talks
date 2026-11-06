@@ -463,13 +463,27 @@ Reveal green. The architecture decision tells me where to make the change. Imple
 transition: slide-up
 ---
 
-# What I Ask AI to Maintain
+# AC-002 Across Three Files
 
-**When checkout behavior changes, I review the code and its documentation together.**
+<ul class="sdd-handoff-flow" role="list" aria-label="Three references to checkout claim AC-002">
+  <li>
+    <strong>Spec document</strong>
+    <code>.spec/README.md</code>
+    <p><code>AC-002</code><br>Reject an expired code and show a message.</p>
+  </li>
+  <li>
+    <strong>Feature file</strong>
+    <code>checkout.feature</code>
+    <p><code>@AC-002</code><br>Scenario: Reject an expired code</p>
+  </li>
+  <li>
+    <strong>Architecture decision</strong>
+    <code>ADR-0001</code>
+    <p><code>AC-002</code><br>Check expiry before calling the payment gateway.</p>
+  </li>
+</ul>
 
-- **Spec document** · Update the approved behavior and its traceability.
-- **Feature file** · Revise or add the Gherkin scenario that exercises it.
-- **Architecture decision** · Update the reasoning when the design changes.
+I ask AI to keep these references in step with the code.
 
 <v-click>
 
@@ -480,7 +494,9 @@ transition: slide-up
 <!--
 Timing: 1.5 minutes.
 
-This is the part that makes the spec practical for me again. AI can prepare the related edits in one change. I still decide what the software should do and review the diff. If we agree to reject at the exact expiry instant, the claim and scenario need updating. I revisit the architecture record if the payment boundary changes.
+Point to AC-002 in the spec first. This is the claim we agreed to. The Gherkin tag @AC-002 links the scenario to that claim. ADR-0001 cites the same claim and records where we enforce it. I can follow the ID from what we agreed to, to the example we run, to the design choice behind the code.
+
+This is the upkeep I ask AI to do. If we agree to reject at the exact expiry instant, the claim and scenario need updating. I revisit the architecture record if the payment boundary changes. I still decide what the software should do and review the diff.
 
 Pause before the reveal. I tried this on a real project. The agent revised the spec, and the test author copied a requirement that no longer matched the design. Other links went missing. That is the review where I burned through my tokens.
 -->
@@ -719,20 +735,18 @@ transition: slide-up
 
 <img src="/images/specht-book-logo-dark.svg" alt="Specht logo: a woodpecker perched on a book above the SPECHT wordmark" class="sdd-logo" />
 
-<div style="max-width: 530px;">
+<div style="max-width: 610px;">
 
-A .NET analysis tool I built to keep tabs on the specification process.
+Specht checks spec structure and links as the code changes.
 
-<v-clicks>
+<v-click>
 
-- YAML frontmatter against its schema
-- Required sections and their order
-- Claim IDs, references, and traceability
-- Declared dependency consistency
+<figure>
+  <img src="/images/agent-specht-check-plan.svg" alt="Illustrative agent checklist for AC-002. The agent is checking the Gherkin tag and ADR. Specht and Format are queued after the edits and checkout test and before opening the PR." style="width: 100%; height: auto;" />
+  <figcaption style="margin-top: 0.5rem;">Example agent plan for <code>AC-002</code>.</figcaption>
+</figure>
 
-</v-clicks>
-
-<div style="margin-top: 1.5rem; color: var(--sdd-copper);">Run after edits. Carry findings into the next handoff.</div>
+</v-click>
 
 [github.com/RLittlesII/specht](https://github.com/RLittlesII/specht)
 
@@ -741,7 +755,9 @@ A .NET analysis tool I built to keep tabs on the specification process.
 <!--
 Timing: 1 minute.
 
-Pin the tool and schema so the agent and CI can run the same structural checks. A finding comes back with a path, line, and rule. For checkout, the first thing to check is whether AC-002 has a traceability row at all.
+Specht checks YAML frontmatter, required sections and their order, claim IDs and traceability, and declared dependencies. Pin the tool and schema so the agent and CI can run the same structural checks.
+
+Reveal the checklist. This is an illustration based on a real agent task list, using the checkout claim from the talk. Point to Run Specht and Format after the edits and test, before the pull request. A Specht finding comes back with a path, line, and rule. For checkout, the first thing to check is whether AC-002 has a traceability row.
 
 Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/what-it-checks.md
 Logo: Specht’s existing dark-background SVG.

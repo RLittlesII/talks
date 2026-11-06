@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 718 245" role="img" aria-labelledby="title desc">
+  <title id="title">Illustrative agent checklist for AC-002</title>
+  <desc id="desc">An agent has read the checkout claim and is checking its references. The edits, checkout test, Specht and Format checks, and pull request are queued.</desc>
+  <rect x="1" y="1" width="716" height="243" rx="13" fill="#191d1e" stroke="#454e50"/>
+  <rect x="12" y="158" width="694" height="34" rx="5" fill="#243536"/>
+  <g fill="none" stroke-width="1.5">
+    <circle cx="27" cy="32" r="7" fill="#aab4b5" stroke="#aab4b5"/>
+    <path d="m24 32 2 2 4-5" stroke="#191d1e" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="27" cy="68" r="7" stroke="#d5d7d2"/>
+    <circle cx="27" cy="68" r="2.5" fill="#d5d7d2" stroke="none"/>
+    <g stroke="#aab4b5" stroke-dasharray="2.5 2.5">
+      <circle cx="27" cy="104" r="7"/>
+      <circle cx="27" cy="140" r="7"/>
+      <circle cx="27" cy="176" r="7" stroke="#a1d4ce"/>
+      <circle cx="27" cy="212" r="7"/>
+    </g>
+  </g>
+  <g fill="#d5d7d2" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18">
+    <text x="47" y="38" fill="#acb5b2">Read AC-002 in .spec/README.md</text>
+    <text x="47" y="74">Check @AC-002 and ADR-0001</text>
+    <text x="47" y="110">Update the spec, feature file, and ADR as needed</text>
+    <text x="47" y="146">Run the AC-002 checkout test</text>
+    <text x="47" y="182" fill="#a1d4ce" font-weight="700">Run Specht and Format</text>
+    <text x="47" y="218">Open PR with the diff and results</text>
+  </g>
+</svg>
