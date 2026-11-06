@@ -100,7 +100,7 @@
   border-radius: 0;
 }
 
-/* Examples read as printed excerpts. Diff signs still carry their meaning. */
+/* Examples read as printed excerpts. */
 .slidev-layout pre.slidev-code {
   border-left: 3px solid var(--sdd-teal);
   border-radius: 0;
@@ -115,6 +115,40 @@
 .slidev-layout pre.slidev-code span {
   color: var(--sdd-text) !important;
   font-style: normal;
+}
+
+.slidev-layout .slidev-code-wrapper:has(> pre > code.language-diff) {
+  --slidev-code-padding: 8px 12px;
+  --slidev-code-radius: 6px;
+  border: 1px solid #596565;
+  border-radius: var(--slidev-code-radius);
+}
+
+.slidev-layout .slidev-code-block-title:has(+ pre > code.language-diff) {
+  border-bottom: 1px solid #596565;
+  background: #232a2b;
+  color: var(--sdd-muted);
+  font: 600 15px/1.25 var(--slidev-code-font-family);
+  box-shadow: none;
+}
+
+.slidev-layout pre.slidev-code:has(> code.language-diff) {
+  border: 0;
+  background: #141819 !important;
+}
+
+.language-diff > :is(.sdd-diff-add, .sdd-diff-remove) {
+  display: inline-block;
+  width: 100%;
+  padding-inline: 0.5em;
+}
+
+.language-diff > .sdd-diff-add {
+  background: #183b2a;
+}
+
+.language-diff > .sdd-diff-remove {
+  background: #482629;
 }
 
 .sdd-traceability-example {

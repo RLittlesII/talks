@@ -635,7 +635,7 @@ transition: slide-up
 
 **The verified correction — IDs shown as `AC-`**
 
-```diff
+```diff [$ git diff]
 -    @AC-011
 +    @AC-003
 ```
@@ -951,7 +951,7 @@ transition: slide-up
 
 **Specht’s C# policy · One-line XML summaries**
 
-```diff
+```diff [$ git diff]
 -/// <summary>
 -/// GitHub Actions related methods.
 -/// </summary>
