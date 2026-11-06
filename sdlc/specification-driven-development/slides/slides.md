@@ -788,9 +788,9 @@ transition: slide-up
 
 # AC-002 Needs a Traceability Row
 
-**Checkout example · Finding from `dotnet tool run specht`**
+**Checkout example · Specht finding**
 
-```text
+```text [$ dotnet tool run specht]
 SPEC4004 · claim 'AC-002' has no row in § 9
 ```
 
@@ -886,7 +886,7 @@ transition: slide-up
 
 **Checkout example · Build, discover, run, reconcile**
 
-```sh
+```sh [Terminal]
 dotnet build test/Checkout.Tests.csproj
 dotnet test test/Checkout.Tests.csproj --no-build --list-tests
 dotnet test test/Checkout.Tests.csproj --no-build
@@ -960,9 +960,7 @@ transition: slide-up
 
 <v-click>
 
-**Apply eligible fixes locally**
-
-```sh
+```sh [Apply eligible fixes locally]
 dotnet format specht.slnx --no-restore
 ```
 
@@ -970,9 +968,7 @@ dotnet format specht.slnx --no-restore
 
 <v-click>
 
-**CI verifies the policy and reports drift**
-
-```sh
+```sh [CI verifies the policy and reports drift]
 dotnet format specht.slnx --verify-no-changes --no-restore
 ```
 
