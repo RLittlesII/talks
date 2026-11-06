@@ -12,7 +12,7 @@ const output = resolve(process.env.SDD_A11Y_OUTPUT || '.cache/sdd-accessibility'
 const slideCount = 38
 const dividers = [
   [3, 'The Spec Returns', 'Let’s start with how we wrote down what software should do.'],
-  [10, 'One Claim at Work', 'You’ve seen the agreement. Let’s follow one checkout claim into a test.'],
+  [10, 'One Claim at Work', 'Let’s turn that checkout claim into a feature file and record the design decision behind it.'],
   [21, 'Who Checks the Spec?', 'I kept paying for another review. What could I make the build catch?'],
   [31, 'Make It Your Workflow', 'You’ve seen what I get back. What would your team need before signing off?'],
 ]
