@@ -74,7 +74,7 @@ Slide 22 reveals the four SDD Inception boxes in order. Each incoming arrow appe
 
 ## Follow AC-002
 
-- **Agree.** Slides 8–14 open the feature spec and follow the tagged expired-code example. The assertions check the unchanged $50 total, expired-code message, and zero payment authorization calls.
+- **Agree and drive the test.** Slides 8–14 open the feature spec, introduce Gherkin in `checkout.feature`, and show how writing the scenario makes the expected behavior explicit. Bind and run the example red, then make the same test pass. Its assertions check the unchanged $50 total, expired-code message, and zero payment authorization calls.
 - **Check the links.** Slides 24–26 restore the missing matrix row, work through red and green, and show a mistyped C# claim link. The checkout excerpts are illustrative. The manifest assumes an `AC-` grammar. Schema 0.3.0 permits an approved agreement with a `Missing` test during delivery. `SPEC7001` reports missing coverage at delivery status `done`.
 - **Inspect the evidence.** Slide 27 separates Roslyn’s build-time checks from discovery and execution. `specht evidence` reconciles the supplied artifacts against current inputs. Slides 28–29 show the public Specht claim `0201-F7/B-030` and its own formatting workflow. The formatter applies eligible C# fixes locally, and CI verifies the policy.
 - **Accept and repeat.** Sign off on checkout at slide 30. Slides 32–35 cover lessons, a revision-specific handoff, the costs of maintenance, and where approved intent lives. Slide 36 proposes an exact expiry boundary and requires fresh approval and evidence. The friend’s three-day story is optional speaker narration on slide 34.
