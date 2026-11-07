@@ -248,7 +248,7 @@ try {
   await page.keyboard.press('ArrowRight')
   await page.waitForTimeout(200)
   assert.ok(await diagram.evaluate(element => element.scrollLeft > 0))
-  assert.match(page.url(), /\/34\?clicks=3$/)
+  assert.match(page.url(), /\/34\?clicks=4$/)
   await page.setViewportSize({ width: 1280, height: 800 })
   checks.push('A focused enlarged diagram scrolls with arrow keys without changing the slide')
 
