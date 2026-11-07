@@ -54,7 +54,7 @@ presenter's request. PDF/PPTX exports need separate review if distributed.
 
 ## Delivery notes
 
-The 40-slide deck runs for 50 minutes. Use the section cards to pause and cue the next part. Each of the four cards takes 15 seconds within its section.
+The 43-slide deck runs for 50 minutes. Use the section cards to pause and cue the next part. Each of the four cards takes 15 seconds within its section.
 
 | Slides | Section                      | Minutes |
 | ------ | ---------------------------- | ------: |
@@ -62,13 +62,13 @@ The 40-slide deck runs for 50 minutes. Use the section cards to pause and cue th
 | 11–15  | One claim at work            | 6       |
 | 16–21  | My Precious Tokens           | 6.5     |
 | 22–31  | Who checks the spec?         | 16      |
-| 32–39  | Make it your workflow        | 11      |
-| 40     | Questions                    | 3       |
+| 32–42  | Make it your workflow        | 11      |
+| 43     | Questions                    | 3       |
 
 | Slide | Cue the next section                                                                           |
 | ----: | ---------------------------------------------------------------------------------------------- |
 | 4     | “Let’s start with how we wrote down what software should do.”                                  |
-| 11    | “Let’s turn that checkout claim into a feature file and record the design decision behind it.” |
+| 11    | “Let’s follow the replay claim into the feature file and the design behind it.” |
 | 22    | “I kept paying for another review. What could I make the build catch?”                         |
 | 32    | “You’ve seen what I get back. What would your team need before signing off?”                   |
 
@@ -76,17 +76,17 @@ Slide 7 turns from the cost of keeping the binder current to the reason Rodney b
 
 Slide 23 reveals the four SDD Inception boxes in order. Each incoming arrow appears with its destination. The three bullets appear with boxes 2–4. Backward navigation reverses the reveals, and reading layout shows the complete diagram and bullets.
 
-## Follow AC-002
+## Follow AC-011
 
-- **Follow the documents into the test.** Slides 9–10 open the spec and its frontmatter. Slides 12–13 create `checkout.feature` in Gherkin and record why checkout checks expiry before calling the payment gateway. Slide 14 binds the scenario and runs it red, then makes the same test pass. On slide 15, clicks 1–3 highlight `AC-002` in the spec, the Gherkin tag, and the ADR. Click 4 replaces the scenario tag with `@AC-020`, which the spec doesn’t declare.
-- **Check the links.** Slide 24 uses an illustrated agent checklist for `AC-002` to show Specht and Format queued after the edits and test. Slide 25 runs Specht against the same `@AC-020` tag shown on slide 15 and shows the `SPEC4002` diagnostic. Click once to show the passing rerun after restoring `@AC-002`. Point to the `Missing` test in the matrix to transition into TDD. On slide 26, reveal the failing `AC-002` test, the expiry guard diff, and the passing rerun with one click each. Slide 27 shows a mistyped C# claim link. The checkout excerpts are illustrative. The manifest assumes an `AC-` grammar. Schema 0.3.0 permits an approved agreement with a `Missing` test during delivery. `SPEC7001` reports missing coverage at delivery status `done`.
-- **Inspect the evidence.** Slide 28 separates Roslyn’s build-time checks from discovery and execution. `specht evidence` reconciles the supplied artifacts against current inputs. Slides 29–30 show the public Specht claim `0201-F7/B-030` and its own formatting workflow. The formatter applies eligible C# fixes locally, and CI verifies the policy.
-- **Accept and repeat.** Reveal the three passing checkout assertions on slide 31, then click for the sign-off. Slides 33–36 cover lessons, a revision-specific handoff, the costs of maintenance, and where approved intent lives. On slide 37, ask what happens at the exact expiry instant, then reveal the proposed rule and the need for fresh approval and evidence on separate clicks. The friend’s three-day story is optional speaker narration on slide 35. Slide 38 asks what to review when the code has changed since the last test run. Slide 39 returns to the opening question and invites the audience to try the workflow with one claim.
+- **Establish the behavior.** Slides 9–15 introduce the reviewed replay spec and its metadata, the follow-up Gherkin scenario, and the rule for a store that refuses a write. The displayed IDs and paths are adapted. Slide 14 describes the desired TDD workflow. The historical scaffold was unimplemented.
+- **Follow the drift.** Slides 18–21 contrast the design’s category 3 with category 1 in the revised claim and scaffold. The missing rows and wrong existing scenario tag are separate findings. The [presenter evidence notes](./pr-evidence.md) record the reviewed sources and distinguish them from the reported review cost.
+- **Apply the checks.** Slides 23–28 show how the review led to Specht, which structural rules apply to the findings, and how the corrected replay scenario later became an executable check. The rules are applied retrospectively. The acceptance test injects a busy-store refusal, while a separate intake unit test checks the retry.
+- **Review the evidence.** Slide 31 returns to the replay claim at sign-off. Slides 33–35 cover lessons, handoffs, and maintenance costs. Slides 36–39 cover the team's choices about spec structure, identifiers, where approved intent and work items live, and how the team keeps them current. The duplicate `AC-012` example on slide 37 illustrates a collision Rodney encountered with parallel agent sessions. Slide 40 asks what happens when the first replay write hits a busy store.
 
 This is a slide-only walkthrough. Specht source links are pinned to `v0.4.2-preview`. Use the [Specht quick start](https://github.com/RLittlesII/specht#quick-start) for installation questions.
 
 ## Historical annotation
 
-The earlier walkthrough showed a real GitHub Actions warning from Specht PR #277. Under the older schema, `SPEC060` flagged the approved mirror spec for marking claim `B-010`’s test `Missing`. The Specht step succeeded. An integration test failed later in the job. The current checkout walkthrough uses schema 0.3.0 and a different missing-row finding. [Original PR annotation](https://github.com/RLittlesII/specht/pull/277/files#annotation_94350672913), [Actions run](https://github.com/RLittlesII/specht/actions/runs/40158738468)
+The earlier walkthrough showed a real GitHub Actions warning from Specht PR #277. Under the older schema, `SPEC060` flagged the approved mirror spec for marking claim `B-010`’s test `Missing`. The Specht step succeeded. An integration test failed later in the job. The replay walkthrough uses schema 0.3.0 to discuss the separate missing-row finding from the review. [Original PR annotation](https://github.com/RLittlesII/specht/pull/277/files#annotation_94350672913), [Actions run](https://github.com/RLittlesII/specht/actions/runs/40158738468)
 
 ![Specht warning SPEC060 on line 184 of the approved mirror spec, where B-010 has a missing test](./public/images/specht-spec060-github-warning.png)

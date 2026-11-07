@@ -9,10 +9,10 @@ const { chromium } = require('playwright')
 const axePath = process.env.SDD_AXE_SCRIPT || require.resolve('axe-core/axe.min.js')
 const base = process.env.SDD_A11Y_URL || 'http://localhost:3032'
 const output = resolve(process.env.SDD_A11Y_OUTPUT || '.cache/sdd-accessibility')
-const slideCount = 40
+const slideCount = 43
 const dividers = [
   [4, 'The Spec Returns', 'Let’s start with how we wrote down what software should do.'],
-  [11, 'One Claim at Work', 'Let’s turn that checkout claim into a feature file and record the design decision behind it.'],
+  [11, 'One Claim at Work', 'Let’s follow the replay claim into the feature file and the design behind it.'],
   [22, 'Who Checks the Spec?', 'I kept paying for another review. What could I make the build catch?'],
   [32, 'Make It Your Workflow', 'You’ve seen what I get back. What would your team need before signing off?'],
 ]
@@ -141,7 +141,7 @@ try {
   await page.getByRole('button', { name: 'Next step or slide' }).focus()
   await page.keyboard.press('Enter')
   await page.waitForURL(/\/1\?clicks=1$/)
-  await cover.getByText('AI maintains ancient artifacts of the specification era').waitFor()
+  await cover.getByText('What it cost me to let AI drive the spec').waitFor()
   await page.keyboard.press('Enter')
   await page.waitForURL(/\/1\?clicks=2$/)
   await cover.getByText('Who checks the spec?', { exact: true }).waitFor()

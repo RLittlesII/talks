@@ -4,7 +4,7 @@
   "private": true,
   "talk": {
     "title": "Specification Driven Development",
-    "description": "Follow one checkout claim from agreed behavior to tests, code, and evidence you can review.",
+    "description": "Follow one replay claim through an AI-assisted spec review, the test that inherited it, and the checks that came later.",
     "category": "Software Development"
   },
   "scripts": {

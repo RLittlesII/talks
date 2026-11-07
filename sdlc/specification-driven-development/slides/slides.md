@@ -17,7 +17,7 @@ duration: 50min
 # Specification Driven Development
 
 <div v-click class="sdd-title">
-AI maintains ancient artifacts of the specification era
+What it cost me to let AI drive the spec
 </div>
 
 <div v-click class="sdd-subtitle">
@@ -29,7 +29,7 @@ Timing: 0.5 minutes.
 
 I like talking about my failures. They’re a surprisingly reliable source of material.
 
-“Who checks the spec?” I thought my review process had an answer. Then I tried it on real software. I want a way to
+“Who checks the spec?” I thought my review process had an answer. Then one replay claim gave the test writer the wrong answer. I’ll follow that claim through the review and show which checks I could move into the build.
 -->
 
 ---
@@ -49,7 +49,7 @@ transition: slide-up
 <!--
 Timing: 0.5 minutes.
 
-Start with why I brought the spec back. Follow one checkout requirement through the documents I ask AI to maintain. Then tell the story of what happened when it maintained them poorly, and show the checks I built in response. Reserve the last three minutes for questions.
+Start with why I brought the spec back. Follow one replay requirement through the documents I asked AI to maintain. Then tell the story of where they disagreed, what review cost, and which checks I could take out of that loop. Explain the concerns I am solving in this process so you know how to consume it in your processes.
 
 Advance to the disclaimer, then the section card.
 -->
@@ -62,12 +62,14 @@ transition: fade
 
 # Disclaimer
 
-> Don't go to work tomorrow and write a spec for everything based on this talk.
+> Don't go to work tomorrow and pitch this process.
 
 <!--
 Timing: 0.25 minutes.
 
 Try this on one change you already have to make. One claim is enough to see what the extra upkeep buys you.
+
+I am going to tell you a very real story about how this can go wrong, this is not a silver bullet, I think AI empowers us to use a good artifact from the past.  Not without pitfalls!
 -->
 
 ---
@@ -145,10 +147,10 @@ transition: fade-out
 <div class="sdd-story">
   <img src="/images/binder-requirement.jpg" alt="Rodney opens a thick requirements binder and points to a highlighted line under a desk lamp." width="1254" height="1254" />
   <div>
-    <p class="sdd-eyebrow">Illustrative checkout specification</p>
+    <p class="sdd-eyebrow">Illustrative 1990s-style specification</p>
     <blockquote class="sdd-archive-quote">
       <p><code>REQ-3.2.4.2</code></p>
-      <p>The system SHALL reject a discount code whose expiry date precedes the current date and SHALL display message MSG-017 ("This code has expired").</p>
+      <p>If the event store is unavailable, the replay utility SHALL report an environment error and exit with code 3.</p>
     </blockquote>
     <p>Verified by <code>TC-3.2.4.2</code></p>
   </div>
@@ -157,29 +159,10 @@ transition: fade-out
 <!--
 Timing: 1 minute.
 
-This is an illustrative 1990s-style Functional Requirements Specification. Picture the whole binder: purpose and scope, requirements, constraints, design, verification, and approval. This page is one requirement inside it. The numbered claims, SHALL language, upstream source, and downstream test references are the useful parts. It is a fictional checkout example, not a historical document or a claim of compliance with a particular standard.
+This is an illustrative 1990s-style Functional Requirements Specification. Picture the whole binder: purpose and scope, requirements, constraints, design, verification, and approval. This page is one requirement inside it. The numbered claims, SHALL language, upstream source, and downstream test references are the useful parts. I’ve put the replay requirement in the style of a 1990s binder. The binder page is fictional.
 
 Read REQ-3.2.4.2 out loud. That is a test. Written by someone who never wrote a test.
 
-Full illustrative binder excerpt
-
-```text
-3.2.4  Discount Application
-
-REQ-3.2.4.1  The system SHALL apply a valid discount code to the
-             order subtotal prior to payment authorization.
-REQ-3.2.4.2  The system SHALL reject a discount code whose expiry
-             date precedes the current date and SHALL display
-             message MSG-017 ("This code has expired").
-REQ-3.2.4.3  The system SHALL NOT apply more than one discount
-             code per order.
-REQ-3.2.4.4  Orders with a subtotal of $75.00 or greater SHALL
-             receive standard shipping at no charge.
-
-Source:       BR-12 (Q3 Promotions)
-Verified by:  TC-3.2.4.1, TC-3.2.4.2, TC-3.2.4.3, TC-3.2.4.4
-Out of scope: Stacking, gift cards, loyalty points (see 3.2.7)
-```
 -->
 
 ---
@@ -201,7 +184,7 @@ transition: fade-out
 <!--
 Timing: 0.5 minutes.
 
-Go back to the expired-code requirement. We can point to its ID, see what checkout must do before payment, and find the test that is supposed to check it. The binder made those connections visible while they were current.
+Go back to the replay requirement. We can point to its ID, see what the utility must report if it can’t access the store, and find the test that is supposed to check it. The binder made those connections visible while they were current.
 
 Click for the maintenance cost. When the behavior changed, somebody had to update the requirement, the examples, and the design decisions. The binder fell behind.
 
@@ -264,40 +247,38 @@ transition: slide-up
 
 # My Specification, 2026
 
-**`.spec/README.md`** · The versioned agreement for checkout
+**`spec.md`** · The versioned agreement for a replay command
 
 <div grid="~ cols-2 gap-8" m="t-4">
 <div>
 
 **Intent and boundaries**
 
-- **Goal** · Keep checkout pricing clear.
-- **Claim `AC-002`** · Reject an expired code and show a message.
-- **Constraint** · Reject before payment starts.
-- **Out of scope** · Stacking discount codes.
+- **Goal** · Let an operator request another attempt at a stored event.
+- **Claim `AC-011`** · Report a structured failure when replay cannot proceed.
+- **Constraint** · If the store refuses the write, no request is recorded.
+- **Out of scope** · The runner decides whether and when to apply a request.
 
 </div>
 <div>
 
 **Design and evidence**
 
-- **§ 7 · Technical design** · Link to the payment decision in `ADR-0001`.
-- **§ 8 · Testing strategy** · Exercise checkout with an expired code.
-- **§ 9 · Traceability** · Link `AC-002` to its scenario and test.
+- **§ 7 · Technical design** · Store failures map to environment error, category **3**.
+- **§ 8 · Testing strategy** · Exercise the refusal path.
+- **§ 9 · Traceability** · Link `AC-011` to its scenario and test.
 
 </div>
 </div>
 
-**SDD** gives the agent a reviewed agreement to work from and update with me.
+**SDD** gives the agent an agreement to work from and update with me.
 
 <!--
 Timing: 1.5 minutes.
 
-Open the spec document. This is the 1998 expiry requirement carried forward as AC-002. Read the goal, the claim, and the before-payment constraint. The spec gives the agent a place to start and tells it where to record evidence or propose a change. The headings on screen are selected from my full feature template.
+Open the scrubbed replay spec. The command records a request for the runner. An accepted request does not mean the runner has carried it out. Walk through the intent, then point to the technical design’s category 3. We’ll look at the category the revised claim actually gave the test writer after we see how these pieces fit.
 
-When the behavior changes, I can review the spec and code diffs together. Next show the metadata that distinguishes agreeing on the behavior from finishing the work. Then open the feature file and the design decision that this spec points to.
-
-Source: Specht src/tool/templates/v0.3.0/feature.md. The checkout example is illustrative.
+The display ID AC-011 and file names are adapted. The document sections, behavior, and category distinction come from the reviewed replay artifacts.
 -->
 
 ---
@@ -306,7 +287,7 @@ transition: slide-up
 
 # Frontmatter Is Part of the Contract
 
-**`.spec/README.md`** · Agreement and delivery are tracked separately
+**`spec.md`** · Agreement and delivery are tracked separately
 
 <div grid="~ cols-2 gap-8" m="t-4">
 <div>
@@ -316,24 +297,22 @@ transition: slide-up
 id: F2
 epic: "0001"
 type: feature
-spec_status: approved
-status: in-progress
-depends_on: []
-blocks: []
+spec_status: draft
+status: blocked
 ---
 ```
 
-Excerpt for the checkout feature.
+Reviewed snapshot · IDs adapted
 
 </div>
 <div style="align-self: center;">
   <p style="border-left: 3px solid var(--sdd-copper); padding-left: 1rem;">
     <code>spec_status</code><br />
-    <strong>Agreement approved</strong>
+    <strong>Agreement in draft</strong>
   </p>
   <p style="border-left: 3px solid var(--sdd-copper); padding-left: 1rem;">
     <code>status</code><br />
-    <strong>Delivery in progress</strong>
+    <strong>Delivery blocked</strong>
   </p>
 </div>
 </div>
@@ -341,11 +320,11 @@ Excerpt for the checkout feature.
 <!--
 Timing: 1 minute.
 
-The YAML block is the frontmatter of the same spec. Here we have approved what checkout should do, and delivery is still in progress. I can ask an agent to keep delivery metadata current while I review changes to the agreement. These are selected fields from the full schema.
+These are selected fields from the reviewed replay snapshot. The agreement was in draft and delivery was blocked. I can ask the agent to keep delivery metadata current while I review changes to the agreement. I also spent review time on frontmatter in this incident. I don’t have a field-level example from that review to show.
 
-We have agreed on the claim. Next create the feature file and record how checkout enforces the payment boundary.
+Next, compare the scenario that came out of the review with the technical design.
 
-Source: Specht src/tool/schema/v0.3.0/frontmatter/feature.schema.json.
+For comparison with the later schema, see Specht src/tool/schema/v0.3.0/frontmatter/feature.schema.json.
 -->
 
 ---
@@ -359,7 +338,7 @@ transition: fade
 <!--
 Timing: 0.25 minutes.
 
-“Let’s turn that checkout claim into a feature file and record the design decision behind it.”
+“Let’s follow the replay claim into the feature file and the design behind it.”
 
 Pause, then advance.
 -->
@@ -372,31 +351,30 @@ class: claim-example
 
 # Create the Feature File
 
-<p class="sdd-feature-lead">What should the shopper see?</p>
+<p class="sdd-feature-lead">What should the operator see if the store refuses the write?</p>
 
 ::right::
 
-**`checkout.feature` · Gherkin**
+**`replay.feature` · Follow-up excerpt**
 
 ```gherkin
-Feature: Discount codes
+Feature: Event replay
 
-  @AC-002
-  Scenario: Reject an expired code
-    Given a cart worth $50
-    And SAVE10 expired yesterday
-    When I check out with SAVE10
-    Then the total remains $50
-    And an expired-code message appears
-    And no payment authorization starts
+  @AC-011
+  Scenario: The store refuses the write
+    Given a stored event
+    And the store stays busy
+    When I request a replay
+    Then I get a structured failure
+    And the exit code is 3
 ```
 
 <!--
 Timing: 1.5 minutes.
 
-Open checkout.feature. The feature is the checkout capability. The feature file is where we write examples of its behavior. Gherkin gives us Given for the starting state, When for the checkout action, and Then for what we expect to observe. The AC-002 tag links this scenario to the agreement.
+This is the scenario added in the follow-up review, with names and wording shortened. The original scenario also covers an unreadable store. The busy case means busy past both write attempts. The Then clauses pin the structured failure and category 3. The AC-011 tag links the scenario to the agreement. Given sets up the store refusal, When runs the replay command, and Then gives the test writer something observable.
 
-Creating this file forces me to settle the answers before I implement anything. Checkout keeps the $50 total, shows the expiry message, and leaves payment untouched. That’s behavior-driven development, or BDD. Next record which part of the system owns that decision.
+We’ll see the earlier draft test expect category 1. First, where did the design draw the boundary?
 
 Source: https://cucumber.io/docs/gherkin/reference/
 -->
@@ -405,26 +383,26 @@ Source: https://cucumber.io/docs/gherkin/reference/
 transition: slide-up
 ---
 
-# Record the Architecture Decision
+# The Design Decision
 
-<p class="sdd-eyebrow"><code>.spec/adr/0001-reject-before-payment.md</code></p>
+<p class="sdd-eyebrow"><code>spec.md</code> · Design § 7, <code>R3</code> / <code>R13</code></p>
 
 <div class="sdd-gate">
-  <p class="sdd-gate-owner"><strong>Checkout</strong> checks expiry</p>
-  <ul class="sdd-visual-grid sdd-two" role="list" aria-label="Outcomes of the expiry check">
-    <li v-click="1" class="sdd-exception"><strong>Expired</strong> Reject before payment</li>
-    <li v-click="2"><strong>Unexpired</strong> Continue checkout</li>
+  <p class="sdd-gate-owner"><strong>Replay</strong> tries to record a request</p>
+  <ul class="sdd-visual-grid sdd-two" role="list" aria-label="Outcomes of recording the replay request">
+    <li v-click="1" class="sdd-exception"><strong>Store refuses</strong> Environment error · <b>3</b></li>
+    <li v-click="2"><strong>Request recorded</strong> Accepted · <b>0</b></li>
   </ul>
 </div>
 
-<p v-click="2" class="sdd-caption">The payment gateway handles authorization.</p>
+<p v-click="2" class="sdd-caption">The runner handles the attempt later.</p>
 
 <!--
 Timing: 1.25 minutes.
 
-Open the architecture decision record from the spec's technical design section. The spec says what must happen, and the scenario makes it observable. Checkout owns discount rules and checks expiry before it calls the gateway. Reveal the expired path first, then the path that continues checkout. The gateway handles authorization. The scenario checks that an expired code triggers zero authorization calls. An unexpired code continues through checkout’s other rules.
+This is the technical design in the spec itself. Reveal the store refusal first. If the store stays busy or becomes unreadable, the environment prevented the write. The request was never recorded. Reveal the accepted path. The CLI reports that a request was recorded and exits 0. The runner decides eligibility when it applies the request later.
 
-When the agent implements the feature, the boundary gives it a place to put the change. If we move that responsibility later, I want the reasoning updated in the same change. This is an illustrative checkout decision. Now use the scenario to drive the first test.
+That split is why I care about 1 versus 3. Category 1 is a general failure, for example an event that can’t be found. Category 3 says the environment prevented the operation.
 -->
 
 ---
@@ -455,11 +433,9 @@ level: 2
 <!--
 Timing: 1.5 minutes.
 
-This is where I use the Gherkin example for test-driven development. Step definitions connect the Given and When to the checkout setup and action. The Then definitions assert the $50 total, the expired-code message, and zero payment authorization calls.
+Bind the Given to a replay intake that refuses the write and the When to the command. The Then checks the error and exit code.
 
-Reveal red. The scenario executes, but the existing checkout still accepts the expired code. That assertion failure is the red I’m looking for. An undefined step means I still need to wire up the example.
-
-Reveal green. The architecture decision tells me where to make the change. Implement the expiry check before the gateway call, then refactor while the same test stays green. If the example exposes a gap, agree on the behavior before changing the code.
+A useful red test executes and fails on the agreed behavior. An unimplemented scaffold hasn’t reached that point. Get the expectation right before using the test to drive implementation. Then make that same assertion pass and refactor. This is the workflow I wanted. In the review we’ll see what happened before we had that executable test.
 -->
 
 ---
@@ -467,47 +443,38 @@ transition: slide-up
 clicks: 4
 ---
 
-# AC-002 Across Three Files
+# AC-011 Across the Artifacts
 
-<ul class="sdd-handoff-flow" role="list" aria-label="Three references to checkout claim AC-002">
+<ul class="sdd-handoff-flow" role="list" aria-label="The replay claim, scenario, and design">
   <li>
     <strong>Spec document</strong>
-    <code>.spec/README.md</code>
-    <p><code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 1 }">AC-002</code><br>Reject an expired code and show a message.</p>
+    <code>spec.md</code>
+    <p><code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 1 }">AC-011</code><br>Report a structured replay failure.</p>
   </li>
   <li v-click="2">
     <strong>Feature file</strong>
-    <code>checkout.feature</code>
-    <p>
-      <span class="sdd-claim-tag" :class="{ 'sdd-claim-tag-drifted': $clicks >= 4 }">
-        <code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 2 }">@AC-002</code>
-        <code class="sdd-claim-tag-replacement">@AC-020</code>
-      </span><br>Scenario: Reject an expired code
-    </p>
+    <code>replay.feature</code>
+    <p><code class="sdd-claim-reference sdd-claim-highlight">@AC-011</code><br>Store refuses the write.</p>
   </li>
   <li v-click="3">
-    <strong>Architecture decision</strong>
-    <code>ADR-0001</code>
-    <p><code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 3 }">AC-002</code><br>Check expiry before calling the payment gateway.</p>
+    <strong>Technical design</strong>
+    <code>spec.md § 7</code>
+    <p><code class="sdd-claim-reference sdd-claim-highlight">R3 / R13</code><br>Environment error, category <b>3</b>.</p>
   </li>
 </ul>
 
-I ask AI to keep these references in step with the code.
-
 <v-click :at="4">
 
-**The tag changed from `@AC-002` to `@AC-020`. The spec has no claim `AC-020`.**
+**The links can line up while the artifacts disagree about the behavior.**
 
 </v-click>
 
 <!--
 Timing: 1.5 minutes.
 
-Click 1 highlights AC-002 in the spec. This is the claim we agreed to. Click 2 highlights the Gherkin tag @AC-002, which links the scenario to that claim. Click 3 highlights AC-002 in ADR-0001, which records where we enforce it.
+Click 1 highlights the replay failure claim. Click 2 reveals the category-3 scenario from the follow-up review. Click 3 shows the original design rule behind that outcome. This is the set of artifacts I wanted to keep aligned. The design lives in the same spec file as the claim, in a different section.
 
-This is the upkeep I ask AI to do. If we agree to reject at the exact expiry instant, the claim and scenario need updating. I revisit the architecture record if the payment boundary changes. I still decide what the software should do and review the diff.
-
-Pause with all three references highlighted. On click 4, point to the new tag in the feature file. In this checkout example, AC-020 has no matching claim, so the scenario no longer points to the agreement that the spec and ADR still cite. The next slides tell the real replay story, where a scenario pointed to the wrong existing claim and other links went missing.
+Click 4 and ask what happens if the agent updates one of these pieces and carries the wrong expectation forward. Next, tell the review story.
 -->
 
 ---
@@ -536,21 +503,19 @@ class: artifacts
 
 # The Files Behind the Workflow
 
-**My repository layout**
+**Review snapshot · paths shortened**
 
-<div role="group" aria-label="Checkout contains feature code and a dot-spec folder with the README, scenarios, architecture decisions, product decisions, and lessons. Dot-specht sits at the repository root.">
+<div role="group" aria-label="The replay feature contains a spec, its scenarios and draft test stubs. Lessons are in the documentation folder.">
 
 ```text
 repo/
-├── checkout/
-│   ├── …                     Feature code
-│   └── .spec/
-│       ├── README.md         Agreement and claim links
-│       ├── checkout.feature  Scenarios
-│       ├── adr/              Design decisions
-│       ├── decisions/        Product decisions
-│       └── lessons/          What to change next time
-└── .specht/                  Checker config, schemas, templates
+├── specs/
+│   └── replay/
+│       ├── spec.md           Claim, design, traceability
+│       ├── replay.feature    Scenarios
+│       └── scaffold-stubs/   Draft tests
+└── docs/
+    └── lessons/              Review findings
 ```
 
 </div>
@@ -558,9 +523,7 @@ repo/
 <!--
 Timing: 0.5 minutes.
 
-Use the checkout tree to orient the room. The agreement, tagged scenarios, decisions, and lessons live beside the feature. The repository’s .specht folder holds the checker configuration. The private project used the same kinds of artifacts for a replay command.
-
-Sources: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/setup.md and https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/what-it-checks.md
+Use the tree to orient the room. The old layout put the replay spec, Gherkin scenarios, and test scaffolds together. The lessons lived in a separate documentation folder. The paths on screen are scrubbed. The checker came later.
 -->
 
 ---
@@ -578,7 +541,7 @@ Watch what happens to claim `AC-011` when the spec is revised.
 <!--
 Timing: 0.5 minutes.
 
-For the next three slides, switch from the checkout example to the real replay incident. A busy store is an environment failure, category 3. A rejected request is category 1. The slide paraphrases the intended behavior and displays the private B-011 ID as AC-011. The evidence notes retain the original IDs and wording.
+Come back to the rule in the technical design. A busy or unreadable store that prevents the write is an environment failure, category 3. A general failure such as an event that can’t be found belongs to category 1. This is the expected answer before we look at what the revised claim said.
 -->
 
 ---
@@ -735,7 +698,7 @@ Timing: 1.25 minutes.
 
 Reveal the four boxes from left to right. The drift and repository-fix bullet appear together, then the schema request, then Specht. Pause on “Think of the spec like a JSON Schema.” I built Specht to check the parts of upkeep we could write down as rules, such as required fields and links. I still need to read the spec to decide whether the behavior is right. I used the same SDD approach to build the tool.
 
-Return to checkout and the mistyped @AC-020 tag from “AC-002 Across Three Files”. This time we can run the checker and see what it reports.
+Return to the review findings. Missing rows are an explicit rule I can put in the build. Deciding whether the spec means category 1 or 3 still needs a person.
 -->
 
 ---
@@ -753,8 +716,8 @@ Specht checks spec structure and links as the code changes.
 <v-click>
 
 <figure>
-  <img src="/images/agent-specht-check-plan.svg" alt="Illustrative agent checklist for AC-002. The agent is checking the Gherkin tag and ADR. Specht and Format are queued after the edits and checkout test and before opening the PR." style="width: 100%; height: auto;" />
-  <figcaption style="margin-top: 0.5rem;">Example agent plan for <code>AC-002</code>.</figcaption>
+  <img src="/images/agent-specht-check-plan.svg" alt="Illustrative agent checklist for AC-011. The agent is checking the Gherkin tag and design. Specht and Format are queued after the edits and replay test and before opening the PR." style="width: 100%; height: auto;" />
+  <figcaption style="margin-top: 0.5rem;">Example agent plan for <code>AC-011</code>.</figcaption>
 </figure>
 
 </v-click>
@@ -770,7 +733,7 @@ Rather than tell you about how SDD can build things, I built a thing with it to 
 
 Specht checks YAML frontmatter, required sections and their order, claim IDs and traceability, and declared dependencies. Pin the tool and schema so the agent and CI can run the same structural checks.
 
-Reveal the checklist. This is an illustration based on a real agent task list, using the checkout claim from the talk. Point to Run Specht and Format after the edits and test, before the pull request. A Specht finding comes back with a path, line, and rule. Next, run the checker on the @AC-020 tag from “AC-002 Across Three Files”.
+Reveal the checklist. This is an illustration based on a real agent task list, adapted to the replay claim. Point to Run Specht and Format after the edits and test, before the pull request. A Specht finding comes back with a path, line, and rule. Next, compare two actual review findings against the rules Specht runs.
 
 Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/what-it-checks.md
 Logo: Specht’s existing dark-background SVG.
@@ -780,107 +743,81 @@ Logo: Specht’s existing dark-background SVG.
 transition: slide-up
 ---
 
-# Specht Finds the Broken Tag
+# What Specht Could Check
 
-**Checkout example · The `@AC-020` scenario tag**
+**Two findings from the review**
 
-```text [$ dotnet tool run specht]
-checkout/.spec/checkout.feature(3): error SPEC4002: scenario tag '@AC-020' does not resolve to a claim in § 3 of checkout/.spec/README.md [AC-020]
-```
-
-<v-click>
-
-**Restore `@AC-002` and rerun Specht.**
-
-```text [$ dotnet tool run specht]
-errors: 0, warnings: 0
-```
-
-| Claim ID | Scenario               | Test    | Status  |
-| -------- | ---------------------- | ------- | ------- |
-| AC-002   | Reject an expired code | Missing | Missing |
-
-</v-click>
+<ul class="sdd-visual-grid sdd-two" role="list" aria-label="What Specht’s structural rules could establish">
+  <li><strong>Missing rows</strong> <code>SPEC4004</code> checks that each claim has one traceability row.</li>
+  <li v-click><strong>Wrong existing tag</strong> <code>SPEC4002</code> can resolve <code>@AC-011</code>. The reviewer still needs to choose <code>AC-003</code>.</li>
+</ul>
 
 <!--
 Timing: 1.5 minutes.
 
-This is the diagnostic line from running Specht 0.4.2-preview against the checkout example with schema 0.3.0 and AC- IDs configured in the manifest. Point to line 3 of checkout.feature and the missing claim in § 3 of README.md.
+This is how I would apply the pinned Specht rules to the real findings. The original PR omitted rows for five accepted claims. SPEC4004 checks for a row per claim. In the follow-up PR a scenario referenced AC-011, a valid ID. SPEC4002 checks that the tag names a declared claim. It cannot determine which of two valid IDs governs a scenario. I had to follow the behavior past the replay command to the later listing and assign it to AC-003.
 
-Click to show the rerun after restoring @AC-002. Point to zero errors and zero warnings, then to the Missing test in the § 9 row. Say “Specht can find the claim now. What happens when someone submits an expired code? Let’s write the test and see it fail.”
+These are rule explanations applied after the fact. They aren’t output captured from the historical PRs.
 
-Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/rules/v0.3.0/SPEC4002.md
+Sources: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/rules/v0.3.0/SPEC4004.md and https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/rules/v0.3.0/SPEC4002.md
 -->
 
 ---
 transition: slide-up
 ---
 
-# From Red to Green
+# From Scaffold to Running Test
 
-**Checkout example · The missing test for `AC-002`**
+**`AC-011` · From the review to an executable check**
 
 <div grid="~ cols-5 gap-6">
-
 <div class="col-span-2 min-w-0">
 
-```csharp
-var result = await checkout
-  .SubmitAsync("SAVE10");
-
-Assert.Equal(50m,
-  result.Total);
-Assert.Equal(
-  "This code has expired",
-  result.Message);
-Assert.Equal(0, payment
-  .AuthorizationCalls);
+```gherkin
+Given intake reports StoreBusy
+When I request a replay
+Then the exit code is 3
+And the error names StoreBusy
 ```
 
 </div>
-
 <div class="col-span-3 min-w-0">
 
 <v-click>
 
-```text [$ dotnet test --filter ExpiredCode]
-Assert.Equal() Failure: Values differ
-Expected: 50
-Actual:   45
+**Review correction**
+```diff [Claim wording, shortened]
+- Store failure → category 1
++ Store failure → category 3
 ```
 
 </v-click>
 
 <v-click>
 
-```diff [$ git diff]
-+if (coupon.ExpiresAt < clock.GetUtcNow())
-+    return new(total,
-+        "This code has expired");
-```
+**Command mapping**
+
+A store refusal returns an environment error.
 
 </v-click>
 
 <v-click>
 
-```text [$ dotnet test --filter ExpiredCode]
-Passed!  - Failed: 0, Passed: 1
-```
+**Acceptance test**
+
+The test checks exit **3** and the store error.
 
 </v-click>
 
 </div>
-
 </div>
 
 <!--
 Timing: 2 minutes.
 
-Pick up the Missing test from the Specht rerun. The checkout fixture uses a $50 cart, a fixed clock, SAVE10 expired yesterday, and a payment spy. The assertions come from the Gherkin scenario.
+This is the later implementation and acceptance coverage, presented with shortened labels. On click 1, the follow-up spec explicitly puts the store/config precondition and the busy or unreadable write under category 3. On click 2, the implemented command maps the precondition refusal to an environment error. On click 3, the formerly deferred scenario runs against the command with StoreBusy supplied by the intake port. It checks exit 3 and the rendered error, “ERROR: Event store unavailable: StoreBusy.”
 
-Click 1 runs ExpiredCode_IsRejectedBeforePayment. It fails on the total because checkout still applies the expired discount. Click 2 adds the expiry guard before the discount and payment. Click 3 reruns the same test and all three assertions pass. The exact expiry instant is still an open question. We’ll ask the room in “When Does AC-002 Expire?”
-
-The terminal blocks excerpt the xUnit run in the illustrative fixture. Once the test exists, replace Missing in the traceability row with its name. Next make the links visible in C#.
+The acceptance test injects the refusal; it does not take a database lock. A separate intake unit test exercises the busy retry and refusal. The original stub was unimplemented, so I don’t have a historical red-to-green terminal run to show for it.
 -->
 
 ---
@@ -889,28 +826,28 @@ transition: slide-up
 
 # Roslyn Checks the Links in C#
 
-**Checkout example · Implementation and test declarations**
+**Illustrative analyzer wiring for the replay claim**
 
 ```csharp
-/// <implements epic="0001" feature="F2" claim="AC-002" />
-public Task<CheckoutResult> SubmitAsync(string code);
+/// <implements epic="0001" feature="F2" claim="AC-011" />
+public Task<int> RunReplayAsync(string eventId);
 
-/// <verifies epic="0001" feature="F2" claim="AC-020" />
-public Task ExpiredCode_IsRejectedBeforePayment();
+/// <verifies epic="0001" feature="F2" claim="AC-099" />
+public Task BusyStore_ReportsEnvironmentError();
 ```
 
 <v-click>
 
-**`SPCT0004`** · The test refers to `AC-020`, which the feature does not declare.
+**`SPCT0004`** · The test refers to `AC-099`, which the feature does not declare.
 
 </v-click>
 
 <!--
 Timing: 2 minutes.
 
-Illustrative C# declaration excerpts from separate files. Specht.CodeAnalysis supplies the selected spec inputs to Roslyn. The analyzer reads the XML links on the C# declarations and checks their targets against the claim catalogue. Here the feature is F2 in epic 0001, and AC-020 fits the configured grammar but does not exist.
+These adapted C# declarations show how I can use the analyzer with the replay claim. The mistyped target is illustrative. Specht.CodeAnalysis supplies the selected spec inputs to Roslyn. The analyzer reads the XML links on the C# declarations and checks their targets against the claim catalogue. Here the feature is F2 in epic 0001, and AC-099 fits the configured grammar but does not exist.
 
-Reveal the diagnostic. Compare the test with AC-002 and correct the link. A conditional code action can offer an eligible target. The developer or reviewer still chooses the one that expresses the test’s intent. Next check what actually ran.
+Reveal the diagnostic. Compare the test with AC-011 and correct the link. A conditional code action can offer an eligible target. The developer or reviewer still chooses the one that expresses the test’s intent. Next check what actually ran.
 
 Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/codeanalysis/docs/SPCT0004.md
 -->
@@ -921,7 +858,7 @@ transition: slide-up
 
 # A Link and a Run Are Different Evidence
 
-<ol class="sdd-handoff-flow" role="list" aria-label="Checkout evidence workflow">
+<ol class="sdd-handoff-flow" role="list" aria-label="Replay evidence workflow">
   <li><strong>Build</strong> Resolve claim links</li>
   <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Discover</strong> Find test cases</li>
   <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Run</strong> Record pass or fail</li>
@@ -933,16 +870,16 @@ transition: slide-up
 <!--
 Timing: 2 minutes.
 
-Use these commands to illustrate the sequence for a configured xUnit v2/VSTest project with the Specht logger. Start with the build so Roslyn can read the declarations. On a clean checkout, test recognition can be provisional until the project supplies current discovery and run evidence. Discovery records cases. Execution records their outcomes. The evidence command reads those artifacts and checks required links, input freshness, and results.
+Use these commands to illustrate the sequence for a configured xUnit v2/VSTest project with the Specht logger. Start with the build so Roslyn can read the declarations. On a fresh working copy, test recognition can be provisional until the project supplies current discovery and run evidence. Discovery records cases. Execution records their outcomes. The evidence command reads those artifacts and checks required links, input freshness, and results.
 
 Click through discovery, execution, and reconciliation, then reveal the stale evidence cue. If I edit the assertions after a passing run, I rerun against the new revision. A valid verifies link can survive that edit while the old pass goes stale.
 
-Checkout example commands
+Example commands for a configured replay test project
 
 ```sh
-dotnet build test/Checkout.Tests.csproj
-dotnet test test/Checkout.Tests.csproj --no-build --list-tests
-dotnet test test/Checkout.Tests.csproj --no-build
+dotnet build test/Replay.Tests.csproj
+dotnet test test/Replay.Tests.csproj --no-build --list-tests
+dotnet test test/Replay.Tests.csproj --no-build
 specht evidence test/obj/specht-test-evidence
 ```
 
@@ -978,7 +915,7 @@ Timing: 2 minutes.
 
 This is the public Specht repository at v0.4.2-preview. B-030 is Specht’s own claim. Reveal the scenario, exporter, and linked test, then show the matching XML links. The tagged example checks that the export includes the arithmetic claim and both example rows. TestEvidenceCatalogExporter projects the catalogue, and the explicitly linked collector test checks that the emitted artifact retains the catalogue. The XML lines come from separate source and test files.
 
-Consumers can choose tagged Gherkin as their native claim input. In that mode the selected .feature files supply the catalogue instead of the Markdown claims table. Checkout used Markdown with a tagged companion. Point out the same stable identity across the two workflows.
+Consumers can choose tagged Gherkin as their native claim input. In that mode the selected .feature files supply the catalogue instead of the Markdown claims table. My replay example used Markdown with a tagged companion. Point out the same stable identity across the two workflows.
 
 Sources:
 https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/analyzers/Bindings/Gherkin/.spec/README.md#L89
@@ -1032,7 +969,7 @@ Sources: https://github.com/RLittlesII/specht/pull/702 and https://github.com/RL
 transition: slide-up
 ---
 
-# I Can Sign Off on AC-002
+# I Can Sign Off on AC-011
 
 <ul class="sdd-signoff-evidence" role="list" aria-label="What I review">
   <li>Approved claim</li>
@@ -1040,10 +977,10 @@ transition: slide-up
   <li>Results for this revision</li>
 </ul>
 
-<ul class="sdd-visual-grid sdd-three sdd-signoff-results" role="list" aria-label="Passing checkout assertions">
-  <li v-click><strong>$50</strong> Cart total</li>
-  <li v-click><strong>“This code has expired”</strong> Shopper message</li>
-  <li v-click><strong>0</strong> Authorization calls</li>
+<ul class="sdd-visual-grid sdd-three sdd-signoff-results" role="list" aria-label="Evidence for the replay claim">
+  <li v-click><strong>StoreBusy</strong> Intake refusal</li>
+  <li v-click><strong>3</strong> Environment error</li>
+  <li v-click><strong>Store unavailable</strong> Error reported to the operator</li>
 </ul>
 
 <p v-click class="sdd-reveal-line">I can give the agent room to work and come back to evidence I can check.</p>
@@ -1051,7 +988,7 @@ transition: slide-up
 <!--
 Timing: 1.5 minutes.
 
-At sign-off I read the approved behavior, look at the implementation and test diff, and verify that the three assertions in ExpiredCode_IsRejectedBeforePayment ran on this revision. Reveal the $50 total, the shopper’s expiry message, and zero authorization calls in order. The test has replaced Missing in the traceability matrix. Click for the payoff. Product owns a change to the requirement. The tester challenges the example. Development repairs code and links. The reviewer decides whether the evidence is enough to accept.
+At sign-off I read the corrected behavior, look at the implementation and test diff, and ask for results from that revision. Reveal the injected StoreBusy refusal, the category 3 assertion, and the reported error. In the later delivery, the previously deferred scenario was bound and the traceability row was updated. Click for the payoff. Product owns a change to the requirement. The tester challenges the example. Development repairs code and links. The reviewer decides whether the evidence is enough to accept.
 
 “I give the agent room to work because we’ve agreed what the software should do and what evidence I’ll review. I spend less time steering each edit and more time making the decisions that matter.”
 
@@ -1102,7 +1039,7 @@ level: 2
 </ol>
 
 <!--
-Timing: 2 minutes.
+Timing: 1.5 minutes.
 
 Back to the review nightmare. A lesson about keeping signatures consistent managed to misquote both signatures. Wonderful. Now the next agent has a beautifully documented way to learn the wrong thing.
 
@@ -1117,7 +1054,7 @@ Reveal the three steps as an example response. First, a person verifies the find
 
 On the third click, show what the reviewer checks on the next run. Build and test results describe the code. The source comparison verifies the quote.
 
-Return the revision, source paths and symbols, repaired lesson diff, and actual results. The next reviewer opens those symbols at that revision and compares the quote. Still wrong? Return the finding and correct the procedure before repeating. The observed failure becomes a verified lesson, then a skill the next task applies and the reviewer can inspect. For AC-002, apply the same habit when the payment interface changes. Include the current interface, the checkout test that checks zero authorization calls, and the fresh result in the handoff.
+Return the revision, source paths and symbols, repaired lesson diff, and actual results. The next reviewer opens those symbols at that revision and compares the quote. Still wrong? Return the finding and correct the procedure before repeating. The observed failure becomes a verified lesson, then a skill the next task applies and the reviewer can inspect. For AC-011, apply the same habit when the replay intake changes. Include the current interface, the tests for the refusal and CLI mapping, and fresh results in the handoff.
 
 Load the procedure for relevant tasks; a skill sitting unread in a folder changes nothing. The checks and next reviewer make its application inspectable. Next, show what that handoff needs to carry.
 
@@ -1147,13 +1084,13 @@ class D,E sdd-step-4
 ```
 
 <ul>
-  <li>Start with the approved revision of <code>AC-002</code></li>
-  <li v-click="3">Link the test and checkout diff, with results from that code revision</li>
+  <li>Start with the approved revision of <code>AC-011</code></li>
+  <li v-click="3">Link the test and replay diff, with results from that code revision</li>
   <li v-click="4">Name who resolves a conflict before the next handoff</li>
 </ul>
 
 <!--
-Timing: 1.5 minutes.
+Timing: 1.25 minutes.
 
 Start with the approved claim. Reveal the scenario, test, and existing code in order, then show the two links out of the code. The next team needs the approved requirement and enough code context to find the affected implementation and dependencies. This graph is a conceptual map, not a Specht feature. Paths and symbols can supply the links.
 
@@ -1192,11 +1129,75 @@ transition: slide-up
 </div>
 
 <!--
-Timing: 1.5 minutes.
+Timing: 1 minute.
 
-The tradeoff is explicit in checkout. We spend time writing one good example and keeping the links current. The agent can reuse that decision instead of asking me to reconstruct it each time. Builds and tests take time, and repeated evidence should earn its place.
+The tradeoff is explicit in the replay review. We spend time writing one good example and keeping the links current. The agent can reuse that decision instead of asking me to reconstruct it each time. Builds and tests take time, and repeated evidence should earn its place.
 
-Optional anecdote. A buddy saw the first version of this talk and showed me working software three days later. That was the interval between our conversations. I have no comparison with how he would otherwise have worked.
+Optional anecdote if time allows. A buddy saw the first version of this talk and showed me working software three days later. That was the interval between our conversations. I have no comparison with how he would otherwise have worked.
+
+“I thought picking a tool would settle more of this. I still had to decide what the team would write down and how we’d keep it straight.”
+-->
+
+---
+transition: slide-up
+---
+
+# What Goes in the Spec?
+
+<div grid="~ cols-2 gap-8" m="t-4">
+<div>
+
+**Prose and examples**
+
+Describe the behavior and link to the approved section from the work item or PR.
+
+</div>
+<div>
+
+**Stable claim IDs**
+
+Carry the same ID from the spec into the scenario, test, and review evidence.
+
+</div>
+</div>
+
+- **Shared structure** · Agree where intent, scope, and acceptance criteria go.
+- **Companion documents** · Decide when a feature file or design decision record earns its own file.
+
+<!--
+Timing: 0.75 minutes.
+
+AC-011 is how I chose to link the artifacts. The team can use prose and point reviewers to the approved section, or give individual claims stable IDs when they need to follow a specific claim through tests and evidence. Either way, agree what a reviewer should expect to find in a spec. In the replay example, the design stayed in spec.md and the executable examples lived in a feature file. Give each companion document a job and link it from the spec so an editor knows what else to check when behavior changes.
+
+Once you use IDs across those files, you also have to decide how they’re assigned.
+-->
+
+---
+transition: slide-up
+---
+
+# Two Sessions Picked the Same ID
+
+<p class="sdd-eyebrow">Illustrative example · Both sessions start from the same spec</p>
+
+<ul class="sdd-visual-grid sdd-two" role="list" aria-label="Two sessions assign the same ID to different replay requirements">
+  <li><strong>Session A</strong> <code>AC-012</code> for retrying a busy write</li>
+  <li v-click><strong>Session B</strong> <code>AC-012</code> for recording who requested replay</li>
+</ul>
+
+<v-click>
+
+- **Assignment** · Reserve IDs centrally or give sessions distinct prefixes within the spec.
+- **Merge check** · Reject duplicate claims in the combined changes.
+
+</v-click>
+
+<!--
+Timing: 1 minute.
+
+I ran into ID collisions when I had more than one agent session going. The values and requirements on screen are illustrative. Both sessions see AC-011 and independently pick the next number. Each branch can look fine in isolation. Once the changes come together, a scenario tagged AC-012 could point to either requirement.
+
+The team needs an allocation rule for the scope where IDs must be unique. A shared allocator can reserve the number before either session writes. If sessions assign IDs independently, use distinct prefixes and keep issued IDs stable. Run the uniqueness check on the combined result against the latest target before merge. For an existing collision, keep the approved ID, assign a new one to the other claim, and update the scenario tags, tests, and traceability links that refer to that claim. These are example safeguards.
 -->
 
 ---
@@ -1211,25 +1212,23 @@ transition: slide-up
   <li v-click><strong>Repo owns it</strong><span>Approved commit</span><span aria-hidden="true">→</span><span>Agent + published tracker view</span></li>
 </ul>
 
-<p v-click class="sdd-reveal-line">Who can read and approve changes?</p>
-<p v-click class="sdd-reveal-line">Who resolves conflicts?</p>
+<p v-click class="sdd-reveal-line">Where does the team track work and status?</p>
+<p v-click class="sdd-reveal-line">Who can read and approve the current spec?</p>
 
 <!--
-Timing: 2.25 minutes.
+Timing: 1.75 minutes.
 
-Start with the repository, then reveal the tracker and the published tracker view. Reveal the access and approval question, then the conflict ownership question. Everything in my example lives in the repository. Your organization may have approved requirements in GitHub Issues, Azure DevOps, or a Trello board. We do not always own that choice. We may have to improvise around the source of truth we actually have.
+Start with the repository, then reveal the tracker and the published tracker view. Everything in my example lives in the repository. Your organization may have approved requirements in GitHub Issues, Azure DevOps, or a Trello board. Ask where the team will keep work items. Git can own the approved wording while the tracker owns delivery status. Decide which record governs when two copies disagree. Then ask how everyone who needs to review or approve a change gets access.
 
 If the repository owns the requirement, a commit pins the baseline alongside code and tests. The downside is access: people outside the repository, often people who are not developers, need a readable view and a way to propose and approve changes.
 
 If the tracker owns the requirement, retrieve the approved item. Keep its ID, link, and version with the context. If it lacks a useful revision identifier, capture the approved content and timestamp. Local excerpts point back to that source. Check for upstream changes before acceptance and have the owner resolve differences.
 
-Another option I have considered: the repository stays authoritative and a build task creates or updates Azure DevOps work items. Stable mappings let retries update the same item. Show the source revision and any failed or stale publication. The wider team gets a usable view. Route board edits back to the spec owner for approval, or we have made two competing sources of truth. Decide who owns requirement wording, work status, and approval. These are integration options, not Specht features or a pipeline I claim to have built.
-
-For a distributed team, name who resolves conflicts and make the approved version reachable by everyone who needs it. Synchronization is work in every variation.
+One option I’ve considered is keeping Git authoritative and publishing work items to Azure DevOps so the wider team has a view. Route proposed changes to the requirement wording back to the spec owner for approval. This is a possible integration.
 
 I am using SDD on a large existing project today. Start from available requirements wherever they live. When fixing a bug or changing an area, clarify its intent, add criteria and scenarios, and retain the checks. Backfill as you go. Examine existing behavior with its owner before treating it as a requirement. Coverage stays partial while you expand.
 
-“Once you know which requirement governs the change, decide what evidence you need before the handoff.”
+“Now that we know which record governs, when do we update the rest?”
 
 Source: Rodney's account of current use and proposed process variations, supplied for this talk. No measured benefit or completed tracker integration is claimed.
 -->
@@ -1238,25 +1237,44 @@ Source: Rodney's account of current use and proposed process variations, supplie
 transition: slide-up
 ---
 
-# When Does AC-002 Expire?
+# Keeping the Workflow Current
 
-<p class="sdd-feature-lead">What happens <strong>exactly at</strong> expiry?</p>
-
-<ol class="sdd-visual-grid sdd-three sdd-expiry-timeline" role="list" aria-label="Checkout attempts around the expiry instant">
-  <li><strong>Before</strong><span v-click="1">Pass expiry check</span></li>
-  <li class="sdd-exception"><strong>At expiry</strong><span v-click="1">Reject</span></li>
-  <li><strong>After</strong><span v-click="1">Reject</span></li>
-</ol>
-
-<p v-click="1" class="sdd-caption">Proposed expiry rule</p>
-<p v-click="2" class="sdd-reveal-line">Approve the change, test with a fixed clock, then verify fresh results.</p>
+- **When behavior changes** · The spec owner approves the revision. The person making the change updates the linked work item, examples, and tests.
+- **Before handoff** · The reviewer checks that the work item and test results point to the right revisions.
+- **After a recurring mistake** · The team turns a verified lesson into a shared instruction or check and reviews it on the next relevant change.
 
 <!--
-Timing: 2.5 minutes.
+Timing: 0.75 minutes.
 
-Ask the audience before clicking. Yesterday’s expired code did not settle equality at the expiry instant. Click 1 reveals the proposed expiry rule. Click 2 reveals approval and verification. Ask the domain owner to approve the exact boundary before updating the scenario, test, and code. Keep the same claim ID and retain the yesterday example. Test the exact boundary against a fixed clock. Run the relevant checks during the task and again in CI. Attach the approved spec revision and fresh results.
+Example team agreement. Keep these rules and a worked example where the team can find them and agents can load them. Give the team a place to propose changes to the rules, too. If Git publishes a view to a tracker, update the same linked item after approval, include the source revision, and flag failed publication for its owner. When a change starts in the tracker, refresh the approved item before accepting the work. If the records disagree, take it to the owner of the authoritative record.
 
-A demonstrated red test can be the handoff to implementation. The final handoff needs a green result for the agreed behavior. If the same failure repeats or a required check cannot run, pause and give its owner the baseline, latest finding, and attempted repair.
+The lesson about misquoted signatures is a reminder to fix the shared guidance people actually use. Ask a teammate to apply the revised instruction on the next relevant task and inspect what comes back. Now let’s try reviewing the replay requirement as a team.
+-->
+
+---
+transition: slide-up
+---
+
+# What If the Store Is Busy Once?
+
+<p class="sdd-feature-lead">The first write hits a busy store. What should replay do?</p>
+
+<div v-click="1" class="sdd-gate">
+  <p class="sdd-gate-owner"><strong>Retry once</strong></p>
+  <ul class="sdd-visual-grid sdd-two" role="list" aria-label="Outcomes of retrying the replay write">
+    <li><strong>Retry succeeds</strong> Request recorded</li>
+    <li><strong>Retry still busy</strong> Environment error · <b>3</b></li>
+  </ul>
+</div>
+
+<p v-click="2" class="sdd-reveal-line">Check the retry at the store and the exit category at the command.</p>
+
+<!--
+Timing: 1.75 minutes.
+
+Ask the audience before clicking. It matters whether the store is briefly busy or the write still can’t be recorded after the retry. Reveal the policy from the replay design and implementation. A busy write is retried once. If the second attempt records the request, the command can report acceptance. If both attempts are busy, the store reports a refusal and the command exits 3.
+
+Click for the two test boundaries. The intake unit test exercises both attempts; the command acceptance scenario supplies StoreBusy without creating a lock and checks the result. Ask for results from the revision that implements that policy.
 -->
 
 ---
@@ -1267,12 +1285,12 @@ transition: slide-up
 
 <p class="sdd-feature-lead">The test passed yesterday.<br />The code changed today.</p>
 
-<p v-click class="sdd-reveal-line"><strong>What would you ask for before accepting <code>AC-002</code>?</strong></p>
+<p v-click class="sdd-reveal-line"><strong>What would you ask for before accepting <code>AC-011</code>?</strong></p>
 
 <!--
 Timing: 0.5 minutes.
 
-Use AC-002 to make the review concrete. I check that this run shows the right total, the expired-code message, and zero calls to authorize payment.
+Use AC-011 to make the review concrete. I check that the current run reports the store refusal and exits 3, then look at the intake coverage for the retry itself.
 
 Pause for one answer. Ask for the approved claim, the current diff and checked links, and results from this revision. If the evidence falls short, name who owns the next decision.
 -->
@@ -1293,7 +1311,7 @@ transition: slide-up
 <!--
 Timing: 0.5 minutes.
 
-Come back to the question from the title slide. Start with the team and reveal the agent, the automated checks, and the reviewer. AI gave me a way to keep the spec current. The week of reviews taught me which checks I needed the build to run and which decisions still needed a person.
+Come back to the question from the title slide. Start with the team and reveal the agent, the automated checks, and the reviewer. I asked AI to keep the spec current. The replay claim taught me that it could carry the wrong answer into a second artifact. Specht took repeatable checks out of my review loop. I still had to decide what category the command should return and ask for a test that exercised it.
 
 Bring back the disclaimer. On your next change, pick one claim and follow it from agreement to a test result you can review. Then advance to Questions.
 -->

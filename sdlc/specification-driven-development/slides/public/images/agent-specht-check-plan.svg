@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 718 245" role="img" aria-labelledby="title desc">
-  <title id="title">Illustrative agent checklist for AC-002</title>
-  <desc id="desc">An agent has read the checkout claim and is checking its references. The edits, checkout test, Specht and Format checks, and pull request are queued.</desc>
+  <title id="title">Illustrative agent checklist for AC-011</title>
+  <desc id="desc">An agent has read the replay claim and is checking its references. The edits, replay test, Specht and Format checks, and pull request are queued.</desc>
   <rect x="1" y="1" width="716" height="243" rx="13" fill="#191d1e" stroke="#454e50"/>
   <rect x="12" y="158" width="694" height="34" rx="5" fill="#243536"/>
   <g fill="none" stroke-width="1.5">
@@ -16,10 +16,10 @@
     </g>
   </g>
   <g fill="#d5d7d2" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18">
-    <text x="47" y="38" fill="#acb5b2">Read AC-002 in .spec/README.md</text>
-    <text x="47" y="74">Check @AC-002 and ADR-0001</text>
+    <text x="47" y="38" fill="#acb5b2">Read AC-011 in spec.md</text>
+    <text x="47" y="74">Check @AC-011 and design § 7</text>
     <text x="47" y="110">Update the spec, feature file, and ADR as needed</text>
-    <text x="47" y="146">Run the AC-002 checkout test</text>
+    <text x="47" y="146">Run the AC-011 replay test</text>
     <text x="47" y="182" fill="#a1d4ce" font-weight="700">Run Specht and Format</text>
     <text x="47" y="218">Open PR with the diff and results</text>
   </g>

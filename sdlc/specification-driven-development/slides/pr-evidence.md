@@ -12,9 +12,9 @@ On November 5, 2026, Rodney clarified that frontmatter was also part of the
 specification-review problem that burned his tokens. This is his account of
 the incident. The evidence retained here does not identify the particular
 frontmatter key, invalid value, or corrective diff; the slides do not invent
-one. Slides 9–10 teach the chosen specification contract using the versioned
-0.3.0 template and frontmatter schema. Their checkout metadata is an illustrative
-excerpt, separate from the historical findings below.
+one. Slide 10 shows selected fields from the reviewed replay snapshot, with
+feature identifiers adapted. The snapshot shows draft agreement and blocked
+delivery. Those values are context, not a claim that either was the metadata defect.
 
 ## A wrong claim propagated into a scaffold — slide 19
 
@@ -40,6 +40,20 @@ Assert.Fail("not implemented — scaffold only");
 ```
 
 This is a specification-to-scaffold propagation error. It is not evidence of a passing test or a released runtime defect. The review caught the contradiction; it does not establish that every reviewer accepted the incorrect claim.
+
+## From the review correction to executable coverage
+
+The follow-up snapshot at `4e95b5b` records the review correction to category 3
+for store or configuration preconditions and busy or unreadable writes. The
+feature file adds the corresponding category-3 scenario. The command
+implementation at `29437f3e` routes a store precondition refusal through the
+environment-error branch. The delivery record at `89fc9735` describes enabling
+the previously deferred acceptance scenario and updating § 9. Its Given
+substitutes a replay intake that returns `StoreBusy`. The acceptance test checks
+the command's exit category and error without taking a database lock. Separate
+intake unit tests exercise busy retry and unreadable-store refusal. Slides 26,
+31, and 37 use these later artifacts. They do not present a historical
+red-to-green run from the draft scaffold.
 
 ## Missing rows and a mismatched claim tag — slide 20
 
@@ -106,7 +120,7 @@ Slide 33 focuses on the actual L-0009 finding, then supplies an illustrative res
 
 The origin is **SDD Inception**: Rodney was trying to fix the problem in the repository where the drift had occurred. In the fix request, he asked the agent to “think of the spec like a JSON Schema.” Specht grew out of that request, and SDD guided its development. On November 5, 2026, Rodney emphasized its purpose as an analysis tool he built to keep tabs on the specification process. This origin account was supplied by Rodney on October 28, 2026. The schema analogy means enforcing a checkable specification contract; it does not claim that schema validation establishes the meaning or truth of arbitrary claims. These PRs evidence the motivating failures; they do not document every step of Specht's construction.
 
-Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. The separate checkout walkthrough in slides 25–28 remains an illustrative explanation of the checker, not a replay of either hooked PR.
+Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. Slide 25 applies the pinned checker rules to the findings retrospectively. It does not present a captured run on either PR.
 
 ## An early result from sharing the talk — slide 35
 
