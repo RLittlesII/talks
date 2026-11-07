@@ -164,9 +164,9 @@ SDD_A11Y_DEPS=/tmp/sdd-a11y-tools node scripts/check-accessibility.mjs
 
 Optional environment variables: `SDD_A11Y_URL`, `SDD_A11Y_OUTPUT`,
 `SDD_AXE_SCRIPT`, `SDD_CHROMIUM_EXECUTABLE`, and `SDD_A11Y_SCREENSHOTS`.
-The `--interactions-only`
-option reruns the functional assertions without the full 114-state scan for the
-38-slide deck. The historical reviews below record earlier slide counts.
+The `--interactions-only` option reruns the functional assertions without
+scanning the initial, revealed, and reading states for every slide. The
+historical reviews below record earlier slide counts.
 
 On macOS, headless Chromium does not operate native select popups with key events;
 the script tests shortcut isolation and the Go action, while the native chooser

@@ -38,8 +38,9 @@ stays out of copied commands. Diff additions and removals retain their
 `+`/`-` markers and have text contrast of 8.53:1 and 9.14:1, respectively.
 Links stay underlined, keyboard focus has a visible
 outline, and transitions honor reduced-motion preferences. Fonts
-use local system fallbacks. Illustrations retain descriptive alt text, and all
-three diagrams have accessible titles and descriptions.
+use local system fallbacks. Illustrations have descriptive alt text. The
+infographics use selectable text in reading order, and Mermaid diagrams have
+accessible titles and descriptions.
 
 The audience controls provide Previous/Next steps, a titled slide chooser with
 an explicit Go action, fullscreen, and a presenter link. **Reading layout** makes
@@ -53,39 +54,53 @@ presenter's request. PDF/PPTX exports need separate review if distributed.
 
 ## Delivery notes
 
-The 38-slide deck runs for 50 minutes. Use the section cards to pause and cue the next part. Each of the four new cards takes 15 seconds within its section.
+The 42-slide deck has 47.5 minutes of prepared material in a 50-minute slot. Use the remaining 2.5 minutes for discussion. Each of the four section cards takes 15 seconds within its section.
 
 | Slides | Section                      | Minutes |
 | ------ | ---------------------------- | ------: |
-| 1–9    | The spec returns             | 7.5     |
-| 10–14  | One claim at work            | 6       |
-| 15–20  | My Precious Tokens           | 6.5     |
-| 21–30  | Who checks the spec?         | 16      |
-| 31–37  | Make it your workflow        | 11      |
-| 38     | Questions                    | 3       |
+| 1–10   | The spec returns             | 7.5     |
+| 11–15  | One claim at work            | 6       |
+| 16–21  | My Precious Tokens           | 6.5     |
+| 22–30  | Who checks the spec?         | 13.5    |
+| 31–41  | Make it your workflow        | 11      |
+| 42     | Questions                    | 3       |
 
 | Slide | Cue the next section                                                                           |
 | ----: | ---------------------------------------------------------------------------------------------- |
-| 3     | “Let’s start with how we wrote down what software should do.”                                  |
-| 10    | “Let’s turn that checkout claim into a feature file and record the design decision behind it.” |
-| 21    | “I kept paying for another review. What could I make the build catch?”                         |
+| 4     | “Let’s start with how we wrote down what software should do.”                                  |
+| 11    | “Let’s follow the replay claim into the feature file and the design behind it.” |
+| 22    | “I kept paying for another review. What could I make the build catch?”                         |
 | 31    | “You’ve seen what I get back. What would your team need before signing off?”                   |
 
-Slide 6 turns from the cost of keeping the binder current to the reason Rodney brought the spec back. AI can help maintain it as code changes. On slide 7, pause on the binder and say “old busted hotness.” Reveal the two AI panels, then open the checkout spec. Slide 14 turns from what AI maintains to what it maintained poorly. Slide 15 starts the private replay incident. Slide 20 keeps the pause before the realization that a program could check the recurring rules. Use the [private evidence notes](./pr-evidence.md) to distinguish reviewed artifacts from Rodney’s reported review effort.
+Slide 7 turns from the cost of keeping the binder current to the reason Rodney brought the spec back. AI can help maintain it as code changes. On slide 8, click once for each panel: the binder, AI chat, then AI maintaining the spec. Click a fourth time for the closing line. Slide 15 turns from what AI maintains to what it maintained poorly. Slide 16 starts the private replay incident. On slide 21, reveal the request for review, then the return path before showing the review counts. Use the [private evidence notes](./pr-evidence.md) to distinguish reviewed artifacts from Rodney’s reported review effort.
 
-Slide 22 reveals the four SDD Inception boxes in order. Each incoming arrow appears with its destination. The three bullets appear with boxes 2–4. Backward navigation reverses the reveals, and reading layout shows the complete diagram and bullets.
+Slide 23 reveals the four SDD Inception boxes in order. Each incoming arrow appears with its destination. The three bullets appear with boxes 2–4. Specht stays unnamed until the final box and closing bullet appear together on click 4. Backward navigation reverses the reveals, and reading layout shows the complete diagram and bullets.
 
-## Follow AC-002
+Keep replay as the running example throughout the deck, including the analyzer
+links and evidence examples on slides 27–29. Use `.spec/README.md` for the
+agreement and the adjacent `replay.feature` for scenarios. Keep original project
+names and historical paths in the private evidence notes. Slides 1–22, including
+their notes and accessibility text, do not name Specht.
 
-- **Follow the documents into the test.** Slides 8–9 open the spec and its frontmatter. Slides 11–12 create `checkout.feature` in Gherkin and record why checkout checks expiry before calling the payment gateway. Slide 13 binds the scenario and runs it red, then makes the same test pass. On slide 14, clicks 1–3 highlight `AC-002` in the spec, the Gherkin tag, and the ADR. Click 4 replaces the scenario tag with `@AC-020`, which the spec doesn’t declare.
-- **Check the links.** Slide 23 uses an illustrated agent checklist for `AC-002` to show Specht and Format queued after the edits and test. Slide 24 runs Specht against the same `@AC-020` tag shown on slide 14 and shows the `SPEC4002` diagnostic. Click once to show the passing rerun after restoring `@AC-002`. Point to the `Missing` test in the matrix to transition into TDD. On slide 25, reveal the failing `AC-002` test, the expiry guard diff, and the passing rerun with one click each. Slide 26 shows a mistyped C# claim link. The checkout excerpts are illustrative. The manifest assumes an `AC-` grammar. Schema 0.3.0 permits an approved agreement with a `Missing` test during delivery. `SPEC7001` reports missing coverage at delivery status `done`.
-- **Inspect the evidence.** Slide 27 separates Roslyn’s build-time checks from discovery and execution. `specht evidence` reconciles the supplied artifacts against current inputs. Slides 28–29 show the public Specht claim `0201-F7/B-030` and its own formatting workflow. The formatter applies eligible C# fixes locally, and CI verifies the policy.
-- **Accept and repeat.** Sign off on checkout at slide 30. Slides 32–35 cover lessons, a revision-specific handoff, the costs of maintenance, and where approved intent lives. Slide 36 proposes an exact expiry boundary and requires fresh approval and evidence. The friend’s three-day story is optional speaker narration on slide 34.
+## Follow AC-011
+
+- **Establish the behavior.** Slides 9–15 introduce the reviewed replay spec and its metadata, the follow-up Gherkin scenario, and the rule for a store that refuses a write. The displayed IDs and paths are adapted. Slide 14 describes the desired TDD workflow. The historical scaffold was unimplemented.
+- **Follow the drift.** Slides 18–21 contrast the design’s category 3 with category 1 in the revised claim and scaffold. The missing rows and wrong existing scenario tag are separate findings. The [presenter evidence notes](./pr-evidence.md) record the reviewed sources and distinguish them from the reported review cost.
+- **Apply the checks.** Slides 23–28 show how the review led to Specht, which structural rules apply to the findings, and how the corrected replay scenario later became an executable check. The rules are applied retrospectively. The acceptance test injects a busy-store refusal, while a separate intake unit test checks the retry.
+- **Review the evidence.** Slide 30 returns to the replay claim at sign-off. Slides 32–34 cover lessons, handoffs, and maintenance costs. Slides 35–38 cover the team's choices about spec structure, identifiers, where approved intent and work items live, and how the team keeps them current. The duplicate `AC-012` example on slide 36 illustrates a collision Rodney encountered with parallel agent sessions. Slide 39 asks what happens when the first replay write hits a busy store.
+
+The replay walkthrough uses `.spec/README.md` and the adjacent `replay.feature`
+as adapted display paths. The [private evidence notes](./pr-evidence.md) retain
+the historical review paths. Slide 17 illustrates the structure with replay
+names: `src/replay/.spec/` contains `README.md`, `replay.feature`, local
+architecture decisions in `adr/`, and feature decisions in `decisions/`.
+Global architecture decisions live in the root `.spec/adr/` directory, with
+shared lessons in `.spec/lessons/`.
 
 This is a slide-only walkthrough. Specht source links are pinned to `v0.4.2-preview`. Use the [Specht quick start](https://github.com/RLittlesII/specht#quick-start) for installation questions.
 
 ## Historical annotation
 
-The earlier walkthrough showed a real GitHub Actions warning from Specht PR #277. Under the older schema, `SPEC060` flagged the approved mirror spec for marking claim `B-010`’s test `Missing`. The Specht step succeeded. An integration test failed later in the job. The current checkout walkthrough uses schema 0.3.0 and a different missing-row finding. [Original PR annotation](https://github.com/RLittlesII/specht/pull/277/files#annotation_94350672913), [Actions run](https://github.com/RLittlesII/specht/actions/runs/40158738468)
+The earlier walkthrough showed a real GitHub Actions warning from Specht PR #277. Under the older schema, `SPEC060` flagged the approved mirror spec for marking claim `B-010`’s test `Missing`. The Specht step succeeded. An integration test failed later in the job. The replay walkthrough uses schema 0.3.0 to discuss the separate missing-row finding from the review. [Original PR annotation](https://github.com/RLittlesII/specht/pull/277/files#annotation_94350672913), [Actions run](https://github.com/RLittlesII/specht/actions/runs/40158738468)
 
 ![Specht warning SPEC060 on line 184 of the approved mirror spec, where B-010 has a missing test](./public/images/specht-spec060-github-warning.png)

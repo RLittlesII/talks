@@ -2,9 +2,28 @@
 
 Presenter provenance: these source links support the case study. The audience-facing deck uses anonymous original/follow-up PR labels and does not direct attendees to the private repository.
 
-The story slides use hooked PRs [#214](https://github.com/RLittlesII/hooked/pull/214) and [#215](https://github.com/RLittlesII/hooked/pull/215). The findings below distinguish reviewed artifacts, review observations, and subsequent corrections. The account of a week's worth of Claude Max tokens and the review-effort figures below come from Rodney; these PRs do not measure token consumption or capture reviews performed away from GitHub.
+The story slides use hooked PRs [#214](https://github.com/RLittlesII/hooked/pull/214) and [#215](https://github.com/RLittlesII/hooked/pull/215). The findings below distinguish reviewed artifacts, review observations, and subsequent corrections. The account of a week's worth of tokens and the review-effort figures below come from Rodney; these PRs do not measure token consumption or capture reviews performed away from GitHub.
 
 The slides display claim prefixes as `AC-` (acceptance criterion): source `B-011` becomes `AC-011`, for example. The tag correction and diagnostic are labeled as adapted identifiers. All original identifiers below remain unchanged.
+
+The replay walkthrough displays the agreement as `.spec/README.md` and its
+scenarios as the adjacent `replay.feature`, using the presenter's current layout.
+The historical review used `epics/0005-cli/F5b-event-inspection-recovery/spec.md`
+and `event-inspection-recovery.feature`. The original source links below retain
+those names. “The Files Behind the Workflow” illustrates the current `.spec/`
+structure with replay names, rather than reconstructing the historical directory
+or exposing either repository's identity to the audience.
+
+## Illustrative replay analyzer and evidence examples
+
+Slides 27–29 keep replay as the running example. The XML links, display IDs,
+and `Replay.Tests.csproj` are illustrative wiring and filenames,
+not captured changes or commands from the historical review. Slide 29 corrects
+the earlier illustrative `AC-099` link to `AC-011` and follows that claim from
+`.spec/README.md` through its scenario, command, and test.
+
+Analyzer link syntax comes from
+the [SPCT0004 documentation](https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/codeanalysis/docs/SPCT0004.md).
 
 ## Frontmatter was part of the review problem
 
@@ -12,11 +31,14 @@ On November 5, 2026, Rodney clarified that frontmatter was also part of the
 specification-review problem that burned his tokens. This is his account of
 the incident. The evidence retained here does not identify the particular
 frontmatter key, invalid value, or corrective diff; the slides do not invent
-one. Slides 8–9 teach the chosen specification contract using the versioned
-0.3.0 template and frontmatter schema. Their checkout metadata is an illustrative
-excerpt, separate from the historical findings below.
+one. Slide 10 shows selected fields from the reviewed replay snapshot, with
+feature identifiers adapted. The snapshot shows draft agreement and blocked
+delivery. Those values are context, not a claim that either was the metadata defect.
 
-## A wrong claim propagated into a scaffold — slide 18
+For comparison with the later checker schema, see the
+[v0.3.0 feature frontmatter schema](https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/tool/schema/v0.3.0/frontmatter/feature.schema.json).
+
+## A wrong claim propagated into a scaffold — slide 19
 
 At reviewed commit [`fdbae93`](https://github.com/RLittlesII/hooked/commit/fdbae932c81169920f2e3d2eba0f8b2f676e838f), `0005-F5b` claim `B-011` included store/config precondition and busy-timeout failures in exit category **1**. The same spec's design mapped `StoreBusy` and `StoreUnreadable` to category **3**.
 
@@ -41,7 +63,21 @@ Assert.Fail("not implemented — scaffold only");
 
 This is a specification-to-scaffold propagation error. It is not evidence of a passing test or a released runtime defect. The review caught the contradiction; it does not establish that every reviewer accepted the incorrect claim.
 
-## Missing rows and a mismatched claim tag — slide 19
+## From the review correction to executable coverage
+
+The follow-up snapshot at `4e95b5b` records the review correction to category 3
+for store or configuration preconditions and busy or unreadable writes. The
+feature file adds the corresponding category-3 scenario. The command
+implementation at `29437f3e` routes a store precondition refusal through the
+environment-error branch. The delivery record at `89fc9735` describes enabling
+the previously deferred acceptance scenario and updating § 9. Its Given
+substitutes a replay intake that returns `StoreBusy`. The acceptance test checks
+the command's exit category and error without taking a database lock. Separate
+intake unit tests exercise busy retry and unreadable-store refusal. Slides 26,
+30, and 39 use these later artifacts. They do not present a historical
+red-to-green run from the draft scaffold.
+
+## Missing rows and a mismatched claim tag — slide 20
 
 In #214, the [F4 review finding](https://github.com/RLittlesII/hooked/pull/214#discussion_r4150139963) identified five accepted claims (`B-001`–`B-005`) with no traceability rows. The requirement was one row per claim, permitting an explicit `Missing` value rather than omitting a row. This is distinct from deleting the claims themselves.
 
@@ -60,7 +96,7 @@ The [review finding](https://github.com/RLittlesII/hooked/pull/215#discussion_r4
 
 The [follow-up reply](https://github.com/RLittlesII/hooked/pull/215#discussion_r4212833570) identifies the same correction. Both IDs existed: reference resolution alone would not decide which claim expresses the scenario's meaning.
 
-## Reported review effort — slide 20
+## Reported review effort — slide 21
 
 Rodney supplied this account on October 28, 2026:
 
@@ -106,7 +142,7 @@ Slide 32 focuses on the actual L-0009 finding, then supplies an illustrative res
 
 The origin is **SDD Inception**: Rodney was trying to fix the problem in the repository where the drift had occurred. In the fix request, he asked the agent to “think of the spec like a JSON Schema.” Specht grew out of that request, and SDD guided its development. On November 5, 2026, Rodney emphasized its purpose as an analysis tool he built to keep tabs on the specification process. This origin account was supplied by Rodney on October 28, 2026. The schema analogy means enforcing a checkable specification contract; it does not claim that schema validation establishes the meaning or truth of arbitrary claims. These PRs evidence the motivating failures; they do not document every step of Specht's construction.
 
-Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. The separate checkout walkthrough in slides 24–27 remains an illustrative explanation of the checker, not a replay of either hooked PR.
+Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. Slide 25 applies the pinned checker rules to the findings retrospectively. It does not present a captured run on either PR.
 
 ## An early result from sharing the talk — slide 34
 
