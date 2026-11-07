@@ -16,7 +16,7 @@
     </g>
   </g>
   <g fill="#d5d7d2" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18">
-    <text x="47" y="38" fill="#acb5b2">Read AC-011 in spec.md</text>
+    <text x="47" y="38" fill="#acb5b2">Read AC-011 in .spec/README.md</text>
     <text x="47" y="74">Check @AC-011 and design § 7</text>
     <text x="47" y="110">Update the spec, feature file, and ADR as needed</text>
     <text x="47" y="146">Run the AC-011 replay test</text>

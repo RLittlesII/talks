@@ -147,7 +147,7 @@ transition: fade-out
 <div class="sdd-story">
   <img src="/images/binder-requirement.jpg" alt="Rodney opens a thick requirements binder and points to a highlighted line under a desk lamp." width="1254" height="1254" />
   <div>
-    <p class="sdd-eyebrow">Illustrative 1990s-style specification</p>
+    <p class="sdd-eyebrow">90s-style specification</p>
     <blockquote class="sdd-archive-quote">
       <p><code>REQ-3.2.4.2</code></p>
       <p>If the event store is unavailable, the replay utility SHALL report an environment error and exit with code 3.</p>
@@ -162,7 +162,6 @@ Timing: 1 minute.
 This is an illustrative 1990s-style Functional Requirements Specification. Picture the whole binder: purpose and scope, requirements, constraints, design, verification, and approval. This page is one requirement inside it. The numbered claims, SHALL language, upstream source, and downstream test references are the useful parts. I’ve put the replay requirement in the style of a 1990s binder. The binder page is fictional.
 
 Read REQ-3.2.4.2 out loud. That is a test. Written by someone who never wrote a test.
-
 -->
 
 ---
@@ -247,7 +246,7 @@ transition: slide-up
 
 # My Specification, 2026
 
-**`spec.md`** · The versioned agreement for a replay command
+**`.spec/README.md`** · The versioned agreement for a replay command
 
 <div grid="~ cols-2 gap-8" m="t-4">
 <div>
@@ -278,7 +277,7 @@ Timing: 1.5 minutes.
 
 Open the scrubbed replay spec. The command records a request for the runner. An accepted request does not mean the runner has carried it out. Walk through the intent, then point to the technical design’s category 3. We’ll look at the category the revised claim actually gave the test writer after we see how these pieces fit.
 
-The display ID AC-011 and file names are adapted. The document sections, behavior, and category distinction come from the reviewed replay artifacts.
+The display ID AC-011 and file names are adapted. The walkthrough uses .spec/README.md and replay.feature to show the layout I use now. The historical source paths remain in pr-evidence.md. The document sections, behavior, and category distinction come from the reviewed replay artifacts.
 -->
 
 ---
@@ -287,7 +286,7 @@ transition: slide-up
 
 # Frontmatter Is Part of the Contract
 
-**`spec.md`** · Agreement and delivery are tracked separately
+**`.spec/README.md`** · Agreement and delivery are tracked separately
 
 <div grid="~ cols-2 gap-8" m="t-4">
 <div>
@@ -324,7 +323,6 @@ These are selected fields from the reviewed replay snapshot. The agreement was i
 
 Next, compare the scenario that came out of the review with the technical design.
 
-For comparison with the later schema, see Specht src/tool/schema/v0.3.0/frontmatter/feature.schema.json.
 -->
 
 ---
@@ -355,7 +353,7 @@ class: claim-example
 
 ::right::
 
-**`replay.feature` · Follow-up excerpt**
+**`replay.feature`**
 
 ```gherkin
 Feature: Event replay
@@ -385,7 +383,7 @@ transition: slide-up
 
 # The Design Decision
 
-<p class="sdd-eyebrow"><code>spec.md</code> · Design § 7, <code>R3</code> / <code>R13</code></p>
+<p class="sdd-eyebrow"><code>.spec/README.md</code> · Design § 7, <code>R3</code> / <code>R13</code></p>
 
 <div class="sdd-gate">
   <p class="sdd-gate-owner"><strong>Replay</strong> tries to record a request</p>
@@ -448,7 +446,7 @@ clicks: 4
 <ul class="sdd-handoff-flow" role="list" aria-label="The replay claim, scenario, and design">
   <li>
     <strong>Spec document</strong>
-    <code>spec.md</code>
+    <code>.spec/README.md</code>
     <p><code class="sdd-claim-reference" :class="{ 'sdd-claim-highlight': $clicks >= 1 }">AC-011</code><br>Report a structured replay failure.</p>
   </li>
   <li v-click="2">
@@ -458,7 +456,7 @@ clicks: 4
   </li>
   <li v-click="3">
     <strong>Technical design</strong>
-    <code>spec.md § 7</code>
+    <code>.spec/README.md § 7</code>
     <p><code class="sdd-claim-reference sdd-claim-highlight">R3 / R13</code><br>Environment error, category <b>3</b>.</p>
   </li>
 </ul>
@@ -472,9 +470,10 @@ clicks: 4
 <!--
 Timing: 1.5 minutes.
 
-Click 1 highlights the replay failure claim. Click 2 reveals the category-3 scenario from the follow-up review. Click 3 shows the original design rule behind that outcome. This is the set of artifacts I wanted to keep aligned. The design lives in the same spec file as the claim, in a different section.
-
-Click 4 and ask what happens if the agent updates one of these pieces and carries the wrong expectation forward. Next, tell the review story.
+1. Click 1 highlights the replay failure claim.
+2. Click 2 reveals the category-3 scenario from the follow-up review.
+3. Click 3 shows the original design rule behind that outcome. This is the set of artifacts I wanted to keep aligned. The design lives in the same spec file as the claim, in a different section.
+4. Click 4 and ask what happens if the agent updates one of these pieces and carries the wrong expectation forward. Next, tell the review story.
 -->
 
 ---
@@ -493,7 +492,7 @@ transition: fade
 <!--
 Timing: 1 minute.
 
-This is my account of a private-project PR. I had asked AI to maintain the spec as the implementation changed. AI revised the documentation, and the agreement drifted. The review kept coming back to metadata, wording, and broken links. Here is what the surviving artifacts tell us about that review.
+This is my account of a private-project PR. I asked AI to maintain the spec as the implementation changed. AI revised the documentation, and the agreement drifted. The review kept coming back to metadata, wording, and broken links. Here is what the surviving artifacts tell us about that review.
 -->
 
 ---
@@ -503,19 +502,21 @@ class: artifacts
 
 # The Files Behind the Workflow
 
-**Review snapshot · paths shortened**
+**Replay · Files beside the implementation**
 
-<div role="group" aria-label="The replay feature contains a spec, its scenarios and draft test stubs. Lessons are in the documentation folder.">
+<div role="group" aria-label="Replay keeps its agreement, scenarios, local architecture decisions, and feature decisions in src/replay/.spec beside the implementation. Global architecture decisions and shared lessons live in .spec at the repository root.">
 
 ```text
 repo/
-├── specs/
-│   └── replay/
-│       ├── spec.md           Claim, design, traceability
+├── src/replay/
+│   └── .spec/
+│       ├── README.md         Agreement, design, traceability
 │       ├── replay.feature    Scenarios
-│       └── scaffold-stubs/   Draft tests
-└── docs/
-    └── lessons/              Review findings
+│       ├── adr/              Local architecture decisions
+│       └── decisions/        Feature decisions
+└── .spec/
+    ├── adr/                  Global architecture decisions
+    └── lessons/              Shared lessons
 ```
 
 </div>
@@ -523,7 +524,7 @@ repo/
 <!--
 Timing: 0.5 minutes.
 
-Use the tree to orient the room. The old layout put the replay spec, Gherkin scenarios, and test scaffolds together. The lessons lived in a separate documentation folder. The paths on screen are scrubbed. The checker came later.
+Use the tree to orient the room around replay. The agreement is .spec/README.md beside the implementation, with replay.feature, local architecture decisions in adr/, and feature decisions in decisions/ in the same .spec directory. Global architecture decisions live in the repository-root .spec/adr/ directory, alongside shared lessons in .spec/lessons/. The structure shows the workflow I use now, with names adapted for the replay walkthrough. The original historical review paths remain in the private evidence notes.
 -->
 
 ---
@@ -660,7 +661,7 @@ transition: fade
 <!--
 Timing: 0.25 minutes.
 
-“I kept paying for another review. What could I make the build catch?”
+“I kept paying for another review. What could I built to catch the problem and burn fewer tokens?”
 
 Pause, then advance.
 -->
@@ -674,11 +675,11 @@ clicks: 4
 
 ```mermaid {key: $clicks, scale: 0.75, themeCSS: ['.sdd-step-1', '.sdd-step-2, .flowchart-link[data-id=edgeAB]', '.sdd-step-3, .flowchart-link[data-id=edgeBC]', '.sdd-step-4, .flowchart-link[data-id=edgeCD]'].map((selector, index) => selector + ' { visibility: ' + ($clicks > index ? 'visible' : 'var(--sdd-unrevealed-diagram-content, hidden)') + '; }').join(' ')}
 graph LR
-accTitle: How Specht grew out of SDD
-accDescr: AI maintained the specification as the software changed. The specification and its links drifted. SDD guided the development of Specht so the build could check explicit rules.
+accTitle: How SDD led to automated checks
+accDescr: AI maintained the specification as the software changed. The specification and its links drifted. SDD guided the development of a checker for explicit rules in the build.
 A["Ask AI to<br/>maintain the spec"] edgeAB@--> B["Spec and<br/>links drift"]
-B edgeBC@--> C["Use SDD<br/>to build Specht"]
-C edgeCD@--> D["Check explicit<br/>rules in the build"]
+B edgeBC@--> C["Use SDD<br/>to build diagnostics"]
+C edgeCD@--> D["Specht reports<br/>errors AI can fix"]
 class A sdd-step-1
 class B sdd-step-2
 class C sdd-step-3
@@ -696,7 +697,7 @@ class D sdd-step-4
 <!--
 Timing: 1.25 minutes.
 
-Reveal the four boxes from left to right. The drift and repository-fix bullet appear together, then the schema request, then Specht. Pause on “Think of the spec like a JSON Schema.” I built Specht to check the parts of upkeep we could write down as rules, such as required fields and links. I still need to read the spec to decide whether the behavior is right. I used the same SDD approach to build the tool.
+Reveal the four boxes from left to right. The drift and repository-fix bullet appear together, then the schema request, then Specht. Keep the checker unnamed through click 3. Click 4 names Specht in the final box and the closing bullet together. Pause on “Think of the spec like a JSON Schema.” I built Specht to check the parts of upkeep we could write down as rules, such as required fields and links. I still need to read the spec to decide whether the behavior is right. I used the same SDD approach to build the tool.
 
 Return to the review findings. Missing rows are an explicit rule I can put in the build. Deciding whether the spec means category 1 or 3 still needs a person.
 -->
@@ -716,7 +717,7 @@ Specht checks spec structure and links as the code changes.
 <v-click>
 
 <figure>
-  <img src="/images/agent-specht-check-plan.svg" alt="Illustrative agent checklist for AC-011. The agent is checking the Gherkin tag and design. Specht and Format are queued after the edits and replay test and before opening the PR." style="width: 100%; height: auto;" />
+  <img src="/images/replay-agent-check-plan.svg" alt="Illustrative agent checklist for AC-011. The agent is checking the Gherkin tag and design. Specht and Format are queued after the edits and replay test and before opening the PR." style="width: 100%; height: auto;" />
   <figcaption style="margin-top: 0.5rem;">Example agent plan for <code>AC-011</code>.</figcaption>
 </figure>
 
@@ -826,7 +827,7 @@ transition: slide-up
 
 # Roslyn Checks the Links in C#
 
-**Illustrative analyzer wiring for the replay claim**
+**xml documentation for the replay claim**
 
 ```csharp
 /// <implements epic="0001" feature="F2" claim="AC-011" />
@@ -890,22 +891,22 @@ Source: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630b
 transition: slide-up
 ---
 
-# Specht Uses the Same Approach
+# Replay Claim Links
 
-<p class="sdd-eyebrow"><code>0201-F7/B-030</code></p>
+<p class="sdd-eyebrow"><code>.spec/README.md</code></p>
 
-<ol class="sdd-handoff-flow" role="list" aria-label="How Specht traces its own catalogue export claim">
-  <li><strong>Claim</strong> Export the Gherkin catalogue</li>
-  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Scenario</strong> <code>@B-030</code></li>
-  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Exporter</strong> Writes the catalogue</li>
-  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Linked test</strong> Reads it back</li>
+<ol class="sdd-handoff-flow" role="list" aria-label="How the replay failure claim links its scenario, command, and test">
+  <li><strong>Claim</strong> <code>AC-011</code></li>
+  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Scenario</strong> <code>@AC-011</code></li>
+  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Command</strong> Reports refusal</li>
+  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Linked test</strong> Checks error and exit</li>
 </ol>
 
 <v-click>
 
 ```xml
-<implements epic="0201" feature="F7" claim="B-030" />
-<verifies epic="0201" feature="F7" claim="B-030" />
+<implements epic="0001" feature="F2" claim="AC-011" />
+<verifies epic="0001" feature="F2" claim="AC-011" />
 ```
 
 </v-click>
@@ -913,15 +914,11 @@ transition: slide-up
 <!--
 Timing: 2 minutes.
 
-This is the public Specht repository at v0.4.2-preview. B-030 is Specht’s own claim. Reveal the scenario, exporter, and linked test, then show the matching XML links. The tagged example checks that the export includes the arithmetic claim and both example rows. TestEvidenceCatalogExporter projects the catalogue, and the explicitly linked collector test checks that the emitted artifact retains the catalogue. The XML lines come from separate source and test files.
+Bring together the illustrative replay wiring from the earlier analyzer slide. Start with AC-011 in .spec/README.md. Reveal its tagged scenario in the adjacent replay.feature, the command that reports the refusal, and the test that checks the store error and category 3.
 
-Consumers can choose tagged Gherkin as their native claim input. In that mode the selected .feature files supply the catalogue instead of the Markdown claims table. My replay example used Markdown with a tagged companion. Point out the same stable identity across the two workflows.
+Reveal the matching implements and verifies links. The test now names AC-011, correcting the earlier AC-099 example. The display IDs and C# wiring are adapted teaching examples. The later acceptance coverage supplies the behavior evidence described in the private evidence notes. Resolving the links and running the linked test are separate checks.
 
-Sources:
-https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/analyzers/Bindings/Gherkin/.spec/README.md#L89
-https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/analyzers/Bindings/Gherkin/.spec/gherkin.feature#L237
-https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/analyzers/TestEvidence/TestEvidenceCatalogExporter.cs#L9
-https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/test/testevidence.mtp.tests/TestEvidenceMtpCollectorCatalogTests.cs#L11
+Source for analyzer link syntax: https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/codeanalysis/docs/SPCT0004.md
 -->
 
 ---
@@ -930,19 +927,19 @@ transition: slide-up
 
 # Let dotnet format Do the Heavy Lifting
 
-**Specht’s C# policy · One-line XML summaries**
+**Replay C# policy example · One-line XML summaries**
 
 ```diff [$ git diff]
 -/// <summary>
--/// GitHub Actions related methods.
+-/// Records a replay request.
 -/// </summary>
-+/// <summary>GitHub Actions related methods.</summary>
++/// <summary>Records a replay request.</summary>
 ```
 
 <v-click>
 
 ```sh [Apply eligible fixes locally]
-dotnet format specht.slnx --no-restore
+dotnet format Replay.slnx --no-restore
 ```
 
 </v-click>
@@ -950,7 +947,7 @@ dotnet format specht.slnx --no-restore
 <v-click>
 
 ```sh [CI verifies the policy and reports drift]
-dotnet format specht.slnx --verify-no-changes --no-restore
+dotnet format Replay.slnx --verify-no-changes --no-restore
 ```
 
 </v-click>
@@ -958,11 +955,11 @@ dotnet format specht.slnx --verify-no-changes --no-restore
 <!--
 Timing: 2.5 minutes.
 
-This is the actual summary change in Specht PR #702. The repository opts into Roslynator RCS1253 in .editorconfig. Roslyn surfaces configured diagnostics and code fixes. Let dotnet format do the heavy lifting: it uses the configured policy and applies eligible batch fixes across the selected C# files. Review the resulting diff.
+This is an illustrative replay adaptation of a one-line XML summary fix. The example assumes a solution named Replay.slnx and Roslynator RCS1253 configured in .editorconfig. Roslyn surfaces configured diagnostics and code fixes. Let dotnet format do the heavy lifting: it uses the configured policy and applies eligible batch fixes across the selected C# files. Review the resulting diff.
 
-The second command is the C# part of the build’s verify-only Format target. CI reports changes it would make and leaves the files as they are. For the broken claim link on the earlier slide, choosing a target remains a separate decision. The test runner still supplies behavior evidence.
+Use the second command in CI to report changes it would make and leave the files as they are. For the broken claim link on the earlier slide, choosing a target remains a separate decision. The test runner still supplies behavior evidence.
 
-Sources: https://github.com/RLittlesII/specht/pull/702 and https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/building.md
+Source provenance: pr-evidence.md, “Illustrative replay analyzer and formatting examples.”
 -->
 
 ---
@@ -1167,7 +1164,7 @@ Carry the same ID from the spec into the scenario, test, and review evidence.
 <!--
 Timing: 0.75 minutes.
 
-AC-011 is how I chose to link the artifacts. The team can use prose and point reviewers to the approved section, or give individual claims stable IDs when they need to follow a specific claim through tests and evidence. Either way, agree what a reviewer should expect to find in a spec. In the replay example, the design stayed in spec.md and the executable examples lived in a feature file. Give each companion document a job and link it from the spec so an editor knows what else to check when behavior changes.
+AC-011 is how I chose to link the artifacts. The team can use prose and point reviewers to the approved section, or give individual claims stable IDs when they need to follow a specific claim through tests and evidence. Either way, agree what a reviewer should expect to find in a spec. In the adapted replay example, the design stays in .spec/README.md and the executable examples live in the adjacent replay.feature file. Give each companion document a job and link it from the spec so an editor knows what else to check when behavior changes.
 
 Once you use IDs across those files, you also have to decide how they’re assigned.
 -->
@@ -1350,5 +1347,5 @@ Thank the audience. Use the prompt if questions need a starting point: a missing
 
 Before wrapping up, invite the audience to twitch.tv/rlittlesii throughout December. I'll demonstrate this specification-driven approach live, with AI at the helm. It'll be boring because AI will be doing the work. :D
 
-If asked about installing, use the current README link and follow its current installation instructions. If asked whether validation solves wrong requirements, return to the exit-category contradiction in #214. It does not: humans review intent and tests exercise agreed behavior. If asked about the token bill, stick to the reported experience; no measured savings comparison was presented.
+If asked about installing, use the current README link and follow its current installation instructions. If asked whether validation solves wrong requirements, return to the exit-category contradiction in the original replay review. It does not: humans review intent and tests exercise agreed behavior. If asked about the token bill, stick to the reported experience; no measured savings comparison was presented.
 -->

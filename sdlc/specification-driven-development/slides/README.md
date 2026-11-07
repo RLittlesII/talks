@@ -74,7 +74,13 @@ The 43-slide deck runs for 50 minutes. Use the section cards to pause and cue th
 
 Slide 7 turns from the cost of keeping the binder current to the reason Rodney brought the spec back. AI can help maintain it as code changes. On slide 8, click once for each panel: the binder, AI chat, then AI maintaining the spec. Click a fourth time for the closing line. Slide 15 turns from what AI maintains to what it maintained poorly. Slide 16 starts the private replay incident. On slide 21, reveal the request for review, then the return path before showing the review counts. Use the [private evidence notes](./pr-evidence.md) to distinguish reviewed artifacts from Rodney’s reported review effort.
 
-Slide 23 reveals the four SDD Inception boxes in order. Each incoming arrow appears with its destination. The three bullets appear with boxes 2–4. Backward navigation reverses the reveals, and reading layout shows the complete diagram and bullets.
+Slide 23 reveals the four SDD Inception boxes in order. Each incoming arrow appears with its destination. The three bullets appear with boxes 2–4. Specht stays unnamed until the final box and closing bullet appear together on click 4. Backward navigation reverses the reveals, and reading layout shows the complete diagram and bullets.
+
+Keep replay as the running example throughout the deck, including the analyzer
+links and formatting examples on slides 27–30. Use `.spec/README.md` for the
+agreement and the adjacent `replay.feature` for scenarios. Keep original project
+names and historical paths in the private evidence notes. Slides 1–22, including
+their notes and accessibility text, do not name Specht.
 
 ## Follow AC-011
 
@@ -82,6 +88,14 @@ Slide 23 reveals the four SDD Inception boxes in order. Each incoming arrow appe
 - **Follow the drift.** Slides 18–21 contrast the design’s category 3 with category 1 in the revised claim and scaffold. The missing rows and wrong existing scenario tag are separate findings. The [presenter evidence notes](./pr-evidence.md) record the reviewed sources and distinguish them from the reported review cost.
 - **Apply the checks.** Slides 23–28 show how the review led to Specht, which structural rules apply to the findings, and how the corrected replay scenario later became an executable check. The rules are applied retrospectively. The acceptance test injects a busy-store refusal, while a separate intake unit test checks the retry.
 - **Review the evidence.** Slide 31 returns to the replay claim at sign-off. Slides 33–35 cover lessons, handoffs, and maintenance costs. Slides 36–39 cover the team's choices about spec structure, identifiers, where approved intent and work items live, and how the team keeps them current. The duplicate `AC-012` example on slide 37 illustrates a collision Rodney encountered with parallel agent sessions. Slide 40 asks what happens when the first replay write hits a busy store.
+
+The replay walkthrough uses `.spec/README.md` and the adjacent `replay.feature`
+as adapted display paths. The [private evidence notes](./pr-evidence.md) retain
+the historical review paths. Slide 17 illustrates the structure with replay
+names: `src/replay/.spec/` contains `README.md`, `replay.feature`, local
+architecture decisions in `adr/`, and feature decisions in `decisions/`.
+Global architecture decisions live in the root `.spec/adr/` directory, with
+shared lessons in `.spec/lessons/`.
 
 This is a slide-only walkthrough. Specht source links are pinned to `v0.4.2-preview`. Use the [Specht quick start](https://github.com/RLittlesII/specht#quick-start) for installation questions.
 

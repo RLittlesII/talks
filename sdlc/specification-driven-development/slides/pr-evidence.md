@@ -6,6 +6,30 @@ The story slides use hooked PRs [#214](https://github.com/RLittlesII/hooked/pull
 
 The slides display claim prefixes as `AC-` (acceptance criterion): source `B-011` becomes `AC-011`, for example. The tag correction and diagnostic are labeled as adapted identifiers. All original identifiers below remain unchanged.
 
+The replay walkthrough displays the agreement as `.spec/README.md` and its
+scenarios as the adjacent `replay.feature`, using the presenter's current layout.
+The historical review used `epics/0005-cli/F5b-event-inspection-recovery/spec.md`
+and `event-inspection-recovery.feature`. The original source links below retain
+those names. “The Files Behind the Workflow” illustrates the current `.spec/`
+structure with replay names, rather than reconstructing the historical directory
+or exposing either repository's identity to the audience.
+
+## Illustrative replay analyzer and formatting examples
+
+Slides 27–30 keep replay as the running example. The XML links, display IDs,
+`Replay.Tests.csproj`, and `Replay.slnx` are illustrative wiring and filenames,
+not captured changes or commands from the historical review. Slide 29 corrects
+the earlier illustrative `AC-099` link to `AC-011` and follows that claim from
+`.spec/README.md` through its scenario, command, and test.
+
+Slide 30 adapts the one-line XML summary fix from
+[Specht PR #702](https://github.com/RLittlesII/specht/pull/702) to replay wording.
+The example assumes Roslynator RCS1253 configured in `.editorconfig`; it does
+not claim that the historical replay project used that exact policy. The
+[pinned build documentation](https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/building.md)
+supplies the original apply/verify workflow. Analyzer link syntax comes from
+the [SPCT0004 documentation](https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/codeanalysis/docs/SPCT0004.md).
+
 ## Frontmatter was part of the review problem
 
 On November 5, 2026, Rodney clarified that frontmatter was also part of the
@@ -15,6 +39,9 @@ frontmatter key, invalid value, or corrective diff; the slides do not invent
 one. Slide 10 shows selected fields from the reviewed replay snapshot, with
 feature identifiers adapted. The snapshot shows draft agreement and blocked
 delivery. Those values are context, not a claim that either was the metadata defect.
+
+For comparison with the later checker schema, see the
+[v0.3.0 feature frontmatter schema](https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/tool/schema/v0.3.0/frontmatter/feature.schema.json).
 
 ## A wrong claim propagated into a scaffold — slide 19
 
