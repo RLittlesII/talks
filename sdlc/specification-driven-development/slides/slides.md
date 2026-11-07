@@ -1149,7 +1149,7 @@ transition: slide-up
 
 **Prose and examples**
 
-Describe the behavior and link to the approved section from the work item or PR.
+Describe the behavior. Link the work item or PR to the approved section.
 
 </div>
 <div>
@@ -1161,8 +1161,8 @@ Carry the same ID from the spec into the scenario, test, and review evidence.
 </div>
 </div>
 
-- **Shared structure** · Agree where intent, scope, and acceptance criteria go.
-- **Companion documents** · Decide when a feature file or design decision record earns its own file.
+- Agree where to record intent, scope, and acceptance criteria.
+- Decide when a feature file or design decision record belongs alongside the spec.
 
 <!--
 Timing: 0.75 minutes.
@@ -1178,7 +1178,7 @@ transition: slide-up
 
 # Two Sessions Picked the Same ID
 
-<p class="sdd-eyebrow">Illustrative example · Both sessions start from the same spec</p>
+<p class="sdd-eyebrow">Illustrative example. Both sessions start from the same spec.</p>
 
 <ul class="sdd-visual-grid sdd-two" role="list" aria-label="Two sessions assign the same ID to different replay requirements">
   <li><strong>Session A</strong> <code>AC-012</code> for retrying a busy write</li>
@@ -1187,8 +1187,8 @@ transition: slide-up
 
 <v-click>
 
-- **Assignment** · Reserve IDs centrally or give sessions distinct prefixes within the spec.
-- **Merge check** · Reject duplicate claims in the combined changes.
+- Reserve IDs centrally or give each session its own prefix.
+- Check the combined changes for duplicate IDs before merging.
 
 </v-click>
 
@@ -1239,9 +1239,9 @@ transition: slide-up
 
 # Keeping the Workflow Current
 
-- **When behavior changes** · The spec owner approves the revision. The person making the change updates the linked work item, examples, and tests.
-- **Before handoff** · The reviewer checks that the work item and test results point to the right revisions.
-- **After a recurring mistake** · The team turns a verified lesson into a shared instruction or check and reviews it on the next relevant change.
+- The **spec owner** approves behavior changes. The **author** updates the linked work item, examples, and tests.
+- The **reviewer** checks the work item and test results against the current revisions before handoff.
+- The **team** turns recurring mistakes into shared instructions or checks and reviews them on the next relevant change.
 
 <!--
 Timing: 0.75 minutes.
