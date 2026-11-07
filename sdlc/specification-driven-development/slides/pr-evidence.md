@@ -14,20 +14,15 @@ those names. “The Files Behind the Workflow” illustrates the current `.spec/
 structure with replay names, rather than reconstructing the historical directory
 or exposing either repository's identity to the audience.
 
-## Illustrative replay analyzer and formatting examples
+## Illustrative replay analyzer and evidence examples
 
-Slides 27–30 keep replay as the running example. The XML links, display IDs,
-`Replay.Tests.csproj`, and `Replay.slnx` are illustrative wiring and filenames,
+Slides 27–29 keep replay as the running example. The XML links, display IDs,
+and `Replay.Tests.csproj` are illustrative wiring and filenames,
 not captured changes or commands from the historical review. Slide 29 corrects
 the earlier illustrative `AC-099` link to `AC-011` and follows that claim from
 `.spec/README.md` through its scenario, command, and test.
 
-Slide 30 adapts the one-line XML summary fix from
-[Specht PR #702](https://github.com/RLittlesII/specht/pull/702) to replay wording.
-The example assumes Roslynator RCS1253 configured in `.editorconfig`; it does
-not claim that the historical replay project used that exact policy. The
-[pinned build documentation](https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/docs/building.md)
-supplies the original apply/verify workflow. Analyzer link syntax comes from
+Analyzer link syntax comes from
 the [SPCT0004 documentation](https://github.com/RLittlesII/specht/blob/ab13f3f6320cb14c7d8143c0d8630be279f2460c/src/codeanalysis/docs/SPCT0004.md).
 
 ## Frontmatter was part of the review problem
@@ -79,7 +74,7 @@ the previously deferred acceptance scenario and updating § 9. Its Given
 substitutes a replay intake that returns `StoreBusy`. The acceptance test checks
 the command's exit category and error without taking a database lock. Separate
 intake unit tests exercise busy retry and unreadable-store refusal. Slides 26,
-31, and 37 use these later artifacts. They do not present a historical
+30, and 39 use these later artifacts. They do not present a historical
 red-to-green run from the draft scaffold.
 
 ## Missing rows and a mismatched claim tag — slide 20
@@ -133,7 +128,7 @@ PR #215 was opened October 3, received further change requests, and merged Octob
 
 GitHub reply counts and references to review rounds are not a verified count of internal agent iterations. The retained history contains squashed or rewritten material. The PRs show the corrections and eventual outcome; Rodney supplies the internal workflow and token-cost account.
 
-## The lessons drifted too — slide 33
+## The lessons drifted too — slide 32
 
 The [L-0007 review](https://github.com/RLittlesII/hooked/pull/214#discussion_r4169482854) reports that searches for the lesson's claimed `Table C` / `row 2 of` incident found only the commit adding the lesson. It also identifies the lesson's incorrect treatment of stable `C-n` IDs as positional references. Attribute this history audit to the review; the slide revision did not independently repeat a search of every git branch.
 
@@ -141,7 +136,7 @@ A [later reply](https://github.com/RLittlesII/hooked/pull/214#discussion_r416983
 
 [The committed L-0012 record](https://github.com/RLittlesII/hooked/blob/d953cac46391bdf2fbfdcecd30bb6cc44819fc3a/docs/lessons/L-0012-lesson-register-integrity-collapse-during-pr-214-review.md) describes fabricated incidents, misquoted code, reversed facts, incomplete corrections, and lessons not being applied during review. It is a contemporary incident record, not proof that every proposed prevention measure was implemented.
 
-Slide 33 focuses on the actual L-0009 finding, then supplies an illustrative response: verify and correct the lesson, update a signature-change skill to compare quotes with source and run affected checks, and require the next reviewer to inspect the cited revision, paths, diff, and results. The skill procedure and next-run review are teaching examples, not evidence that this exact procedure was implemented or proved effective in the original project. The L-0007 evidence remains here for provenance.
+Slide 32 focuses on the actual L-0009 finding, then supplies an illustrative response: verify and correct the lesson, update a signature-change skill to compare quotes with source and run affected checks, and require the next reviewer to inspect the cited revision, paths, diff, and results. The skill procedure and next-run review are teaching examples, not evidence that this exact procedure was implemented or proved effective in the original project. The L-0007 evidence remains here for provenance.
 
 ## Connection to Specht
 
@@ -149,7 +144,7 @@ The origin is **SDD Inception**: Rodney was trying to fix the problem in the rep
 
 Specht can check explicit structural contracts such as required rows and reference validity. Do not imply that it can automatically decide the correct exit category, identify every semantically incorrect tag, or verify the truth of arbitrary lesson prose. Slide 25 applies the pinned checker rules to the findings retrospectively. It does not present a captured run on either PR.
 
-## An early result from sharing the talk — slide 35
+## An early result from sharing the talk — slide 34
 
 On November 5, 2026, Rodney reported that he gave the first iteration of this
 talk to a buddy, who showed him working software three days later. The speaker notes

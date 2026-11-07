@@ -925,47 +925,6 @@ Source for analyzer link syntax: https://github.com/RLittlesII/specht/blob/ab13f
 transition: slide-up
 ---
 
-# Let dotnet format Do the Heavy Lifting
-
-**Replay C# policy example · One-line XML summaries**
-
-```diff [$ git diff]
--/// <summary>
--/// Records a replay request.
--/// </summary>
-+/// <summary>Records a replay request.</summary>
-```
-
-<v-click>
-
-```sh [Apply eligible fixes locally]
-dotnet format Replay.slnx --no-restore
-```
-
-</v-click>
-
-<v-click>
-
-```sh [CI verifies the policy and reports drift]
-dotnet format Replay.slnx --verify-no-changes --no-restore
-```
-
-</v-click>
-
-<!--
-Timing: 2.5 minutes.
-
-This is an illustrative replay adaptation of a one-line XML summary fix. The example assumes a solution named Replay.slnx and Roslynator RCS1253 configured in .editorconfig. Roslyn surfaces configured diagnostics and code fixes. Let dotnet format do the heavy lifting: it uses the configured policy and applies eligible batch fixes across the selected C# files. Review the resulting diff.
-
-Use the second command in CI to report changes it would make and leave the files as they are. For the broken claim link on the earlier slide, choosing a target remains a separate decision. The test runner still supplies behavior evidence.
-
-Source provenance: pr-evidence.md, “Illustrative replay analyzer and formatting examples.”
--->
-
----
-transition: slide-up
----
-
 # I Can Sign Off on AC-011
 
 <ul class="sdd-signoff-evidence" role="list" aria-label="What I review">
@@ -1341,7 +1300,7 @@ It'll be boring. AI will be at the helm. &#58;D
 </div>
 
 <!--
-Timing: 3 minutes. End at 50 minutes including questions.
+Timing: 3 minutes, with up to 2.5 extra minutes for discussion within the 50-minute slot.
 
 Thank the audience. Use the prompt if questions need a starting point: a missing ID, broken relationship, stale reference, or dependency mismatch from their own process. Distinguish semantic disagreements from checks with an explicit rule and a reproducible answer.
 

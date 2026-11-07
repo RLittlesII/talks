@@ -9,12 +9,12 @@ const { chromium } = require('playwright')
 const axePath = process.env.SDD_AXE_SCRIPT || require.resolve('axe-core/axe.min.js')
 const base = process.env.SDD_A11Y_URL || 'http://localhost:3032'
 const output = resolve(process.env.SDD_A11Y_OUTPUT || '.cache/sdd-accessibility')
-const slideCount = 43
+const slideCount = 42
 const dividers = [
   [4, 'The Spec Returns', 'Let’s start with how we wrote down what software should do.'],
   [11, 'One Claim at Work', 'Let’s follow the replay claim into the feature file and the design behind it.'],
   [22, 'Who Checks the Spec?', 'I kept paying for another review. What could I make the build catch?'],
-  [32, 'Make It Your Workflow', 'You’ve seen what I get back. What would your team need before signing off?'],
+  [31, 'Make It Your Workflow', 'You’ve seen what I get back. What would your team need before signing off?'],
 ]
 await mkdir(output, { recursive: true })
 const browser = await chromium.launch({
@@ -239,8 +239,8 @@ try {
   assert.equal(await page.getByRole('main').getByRole('heading', { level: 1 }).count(), 1)
   checks.push('Changing slides resets reading position and removes the outgoing slide from the accessibility tree')
 
-  await page.goto(base + '/34?clicks=999', { waitUntil: 'networkidle' })
-  await ready(34)
+  await page.goto(base + '/33?clicks=999', { waitUntil: 'networkidle' })
+  await ready(33)
   await page.getByRole('button', { name: 'Reading layout', exact: true }).click()
   await page.setViewportSize({ width: 640, height: 400 })
   const diagram = page.getByRole('region', { name: /^Scrollable diagram:/ })
@@ -248,7 +248,7 @@ try {
   await page.keyboard.press('ArrowRight')
   await page.waitForTimeout(200)
   assert.ok(await diagram.evaluate(element => element.scrollLeft > 0))
-  assert.match(page.url(), /\/34\?clicks=4$/)
+  assert.match(page.url(), /\/33\?clicks=4$/)
   await page.setViewportSize({ width: 1280, height: 800 })
   checks.push('A focused enlarged diagram scrolls with arrow keys without changing the slide')
 
