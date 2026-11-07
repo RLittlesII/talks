@@ -487,7 +487,7 @@ transition: fade
   <blockquote>
     <p>“I burned a week’s worth of tokens trying to review a pull request.”</p>
   </blockquote>
-  <img src="/images/review-comment-pile.jpg" alt="Rodney and the robot agent peer over a laptop surrounded by piles of review comments." width="1254" height="1254" />
+  <img src="/images/token-gremlin.png" alt="Rodney watches with concern as a gleeful robot gremlin gobbles copper tokens from neat stacks beside his laptop." width="1254" height="1254" />
 </div>
 
 <!--
