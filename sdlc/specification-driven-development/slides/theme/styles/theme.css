@@ -425,7 +425,6 @@ html.sdd-reading .sdd-handoff-arrow {
   margin-inline: 0;
 }
 
-.sdd-route,
 .sdd-visual-grid {
   display: grid;
   grid-template-columns: repeat(var(--sdd-columns), minmax(0, 1fr));
@@ -436,14 +435,58 @@ html.sdd-reading .sdd-handoff-arrow {
 .sdd-three { --sdd-columns: 3; }
 .sdd-four { --sdd-columns: 4; }
 
-.slidev-layout .sdd-route {
-  --sdd-columns: 5;
-  margin-top: 4.5rem;
+.slidev-layout .sdd-agenda-lead {
+  color: var(--sdd-muted);
 }
 
-.sdd-route li {
+.sdd-agenda-road {
   position: relative;
+  margin-top: 9rem;
+}
+
+.sdd-claim-avatar {
+  position: absolute;
+  top: -6rem;
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  translate: -50% 0;
+  transition: left 500ms ease-in-out;
+}
+
+.slidev-layout .sdd-route {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+}
+
+.sdd-route::before,
+.sdd-route::after {
+  position: absolute;
+  top: 1.5rem;
+  inset-inline: 0;
+  translate: 0 -50%;
+  content: '';
+}
+
+.sdd-route::before {
+  height: 3.5rem;
+  border-block: 2px solid #697774;
+  background: var(--sdd-excerpt);
+}
+
+.sdd-route::after {
+  border-top: 2px dashed var(--sdd-muted);
+}
+
+.slidev-layout .sdd-route li {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
   font-weight: 700;
+  text-align: center;
 }
 
 .sdd-route li > span {
@@ -451,19 +494,21 @@ html.sdd-reading .sdd-handoff-arrow {
   place-items: center;
   width: 3rem;
   height: 3rem;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem;
   border: 2px solid var(--sdd-teal);
   border-radius: 50%;
+  background: var(--sdd-background);
   color: var(--sdd-teal);
 }
 
-.sdd-route li + li::before {
-  position: absolute;
-  top: 1.5rem;
-  left: calc(-100% + 2rem);
-  width: calc(100% - 2rem);
-  border-top: 2px solid var(--sdd-teal);
-  content: '';
+.sdd-route li[aria-current='step'] {
+  color: var(--sdd-copper);
+}
+
+.sdd-route li[aria-current='step'] > span {
+  border-color: var(--sdd-copper);
+  background: var(--sdd-copper);
+  color: var(--sdd-background);
 }
 
 .sdd-story {
@@ -625,18 +670,30 @@ html.sdd-reading .sdd-handoff-arrow {
   color: var(--sdd-copper);
 }
 
-html.sdd-reading :is(.sdd-route, .sdd-story, .sdd-visual-grid, .sdd-authority-map > li) {
+html.sdd-reading :is(.sdd-story, .sdd-visual-grid, .sdd-authority-map > li) {
   grid-template-columns: minmax(0, 1fr);
 }
 
-html.sdd-reading .sdd-route {
+html.sdd-reading .sdd-agenda-road {
   margin-top: 1rem;
+}
+
+html.sdd-reading .sdd-route {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+html.sdd-reading .sdd-claim-avatar,
+html.sdd-reading .sdd-route::before,
+html.sdd-reading .sdd-route::after {
+  display: none;
 }
 
 html.sdd-reading .sdd-route li {
   display: flex;
   align-items: center;
   gap: 1rem;
+  text-align: left;
 }
 
 html.sdd-reading .sdd-route li > span {
@@ -644,7 +701,7 @@ html.sdd-reading .sdd-route li > span {
   margin: 0;
 }
 
-html.sdd-reading :is(.sdd-route li, .sdd-gate :is(ul, li))::before,
+html.sdd-reading .sdd-gate :is(ul, li)::before,
 html.sdd-reading .sdd-gate .sdd-visual-grid:has(> li:not(.slidev-vclick-hidden))::before {
   content: none;
 }

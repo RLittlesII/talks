@@ -2,6 +2,11 @@ Generated with the built-in image generator. The original vignettes were encoded
 as JPEGs for the web deck. The token gremlin edit retains its PNG format.
 All slide text is authored separately.
 
+claim-avatar.png
+Generated with the built-in image generator and resized for the deck. The PNG retains its transparent background.
+
+Create one small transparent-background mascot asset for a dark charcoal software conference slide, a cute little living paper specification claim. Single centered cream-colored document with a folded upper right corner, two clear eyes looking to the right, a tiny confident smile, short thin arms and teal sneakers in a lively walking pose. Bold copper outline, black-brown facial marks, limited warm ivory, copper and muted teal palette, flat hand-inked editorial comic illustration. Recognizable at 64 pixels tall with a strong simple silhouette, no excessive details. Subject occupies almost all of square canvas with a small clear margin all around. Isolated, no text, no letters, no numbers, no props, no ground line, no drop shadow. Genuine alpha transparency surrounding the entire character.
+
 binder-requirement.jpg
 References for style and character: development-before-times.png and
 specification-old-busted-hotness.png.

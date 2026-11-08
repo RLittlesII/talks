@@ -11,10 +11,10 @@ const base = process.env.SDD_A11Y_URL || 'http://localhost:3032'
 const output = resolve(process.env.SDD_A11Y_OUTPUT || '.cache/sdd-accessibility')
 const slideCount = 42
 const dividers = [
-  [4, 'The Spec Returns', 'Let’s start with how we wrote down what software should do.'],
-  [11, 'One Claim at Work', 'Let’s follow the replay claim into the feature file and the design behind it.'],
-  [22, 'Who Checks the Spec?', 'I kept paying for another review. What could I make the build catch?'],
-  [31, 'Make It Your Workflow', 'You’ve seen what I get back. What would your team need before signing off?'],
+  [4, 'The Spec Returns', "Before we put AC-011 in front of an agent, let's see what its job would have looked like in a binder."],
+  [11, 'The Claim', 'Keep the camera on AC-011 as it walks out of the spec and into the feature file.'],
+  [22, 'My Response', 'I kept paying for another review. What could I make the build catch?'],
+  [31, 'What to Consider', 'Now imagine AC-011 shows up in your repo.'],
 ]
 await mkdir(output, { recursive: true })
 const browser = await chromium.launch({

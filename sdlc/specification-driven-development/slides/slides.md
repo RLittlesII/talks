@@ -29,29 +29,50 @@ Timing: 0.5 minutes.
 
 I like talking about my failures. They’re a surprisingly reliable source of material.
 
-“Who checks the spec?” I thought my review process had an answer. Then one replay claim gave the test writer the wrong answer. I’ll follow that claim through the review and show which checks I could move into the build.
+“Who checks the spec?” I thought my review process had an answer. Then one replay claim handed the test writer the wrong exit code. For the next fifty minutes, imagine we've got a camera on that claim. We can see what it says in every file, even when the files disagree.
 -->
 
 ---
 transition: slide-up
+clicks: 5
 ---
 
 # Agenda
 
-<ol class="sdd-route" role="list" aria-label="Five stops in the talk">
-  <li v-click><span aria-hidden="true">01</span>The spec returns</li>
-  <li v-click><span aria-hidden="true">02</span>One claim at work</li>
-  <li v-click><span aria-hidden="true">03</span>My precious tokens</li>
-  <li v-click><span aria-hidden="true">04</span>Who checks the spec?</li>
-  <li v-click><span aria-hidden="true">05</span>Make it your workflow</li>
-</ol>
+<p class="sdd-agenda-lead">Following replay claim <code>AC-011</code></p>
+
+<div class="sdd-agenda-road">
+  <img
+    class="sdd-claim-avatar"
+    src="/images/claim-avatar.png"
+    alt="AC-011 as a little walking sheet of paper"
+    width="90"
+    height="90"
+    :style="{ left: $clicks === 0 ? '4%' : (20 * $clicks - 10) + '%' }"
+  />
+  <ol class="sdd-route" role="list" aria-label="Five stops for replay claim AC-011">
+    <li :aria-current="$clicks === 1 ? 'step' : null"><span aria-hidden="true">01</span>The spec returns</li>
+    <li :aria-current="$clicks === 2 ? 'step' : null"><span aria-hidden="true">02</span>The claim</li>
+    <li :aria-current="$clicks === 3 ? 'step' : null"><span aria-hidden="true">03</span>My tokens!</li>
+    <li :aria-current="$clicks === 4 ? 'step' : null"><span aria-hidden="true">04</span>My response</li>
+    <li :aria-current="$clicks === 5 ? 'step' : null"><span aria-hidden="true">05</span>What to consider</li>
+  </ol>
+</div>
 
 <!--
 Timing: 0.5 minutes.
 
-Start with why I brought the spec back. Follow one replay requirement through the documents I asked AI to maintain. Then tell the story of where they disagreed, what review cost, and which checks I could take out of that loop. Explain the concerns I am solving in this process so you know how to consume it in your processes.
+Meet AC-011.
 
-Advance to the disclaimer, then the section card.
+[click] So I brought the spec back because AI can manage it, right? Wrong.
+
+[click] The claim. Watch what it tells the operator when the store refuses a replay write.
+
+[click] My tokens! The exit code changes. The test scaffold takes its cue from the claim.
+
+[click] My response. I put the rules I could spell out into the build.
+
+[click] What you need to consider if you use this process. Who gets to change the script on your team?
 -->
 
 ---
@@ -62,14 +83,14 @@ transition: fade
 
 # Disclaimer
 
+<img class="mx-auto max-w-full h-auto" src="/images/claim-avatar.png" alt="AC-011, a smiling sheet of paper in teal sneakers" width="180" height="180" />
+
 > Don't go to work tomorrow and pitch this process.
 
 <!--
 Timing: 0.25 minutes.
 
-Try this on one change you already have to make. One claim is enough to see what the extra upkeep buys you.
-
-I am going to tell you a very real story about how this can go wrong, this is not a silver bullet, I think AI empowers us to use a good artifact from the past.  Not without pitfalls!
+AC-011 is a real claim from real software. I changed its number to protect its identity. The only thing harmed in the making of this talk was the week’s worth of tokens I spent trying to define it.
 -->
 
 ---
@@ -85,9 +106,7 @@ transition: fade
 <!--
 Timing: 0.25 minutes.
 
-“Let’s start with how we wrote down what software should do.”
-
-Pause, then advance.
+Before we put AC-011 in front of an agent, let's see what its job would have looked like in a binder.
 -->
 
 ---
@@ -161,7 +180,7 @@ Timing: 1 minute.
 
 This is an illustrative 1990s-style Functional Requirements Specification. Picture the whole binder: purpose and scope, requirements, constraints, design, verification, and approval. This page is one requirement inside it. The numbered claims, SHALL language, upstream source, and downstream test references are the useful parts. I’ve put the replay requirement in the style of a 1990s binder. The binder page is fictional.
 
-Read REQ-3.2.4.2 out loud. That is a test. Written by someone who never wrote a test.
+Read REQ-3.2.4.2 out loud. That's AC-011 in its period costume. It already tells the test writer what to look for.
 -->
 
 ---
@@ -237,7 +256,7 @@ The middle panel is what happened when I asked AI for code and kept the decision
 
 “I give the agent room to work because we’ve agreed what the software should do and what evidence I’ll review. I spend less time steering each edit and more time making the decisions that matter.”
 
-Advance directly to “My Specification, 2026.” Open the first of the files I ask the agent to maintain.
+Cut to the replay spec. The binder is a file now. Let's see where our claim lives.
 -->
 
 ---
@@ -275,7 +294,7 @@ transition: slide-up
 <!--
 Timing: 1.5 minutes.
 
-Open the scrubbed replay spec. The command records a request for the runner. An accepted request does not mean the runner has carried it out. Walk through the intent, then point to the technical design’s category 3. We’ll look at the category the revised claim actually gave the test writer after we see how these pieces fit.
+Here's our first close-up of AC-011 in the replay spec. Its job is to tell the operator what happened when they asked to replay an event. The command records the request. The runner acts on it later. Keep an eye on the design's exit category, 3. We'll see what number makes it into the test scaffold.
 
 The display ID AC-011 and file names are adapted. The walkthrough uses .spec/README.md and replay.feature to show the layout I use now. The historical source paths remain in pr-evidence.md. The document sections, behavior, and category distinction come from the reviewed replay artifacts.
 -->
@@ -331,14 +350,12 @@ class: text-center
 transition: fade
 ---
 
-# One Claim at Work
+# The Claim
 
 <!--
 Timing: 0.25 minutes.
 
-“Let’s follow the replay claim into the feature file and the design behind it.”
-
-Pause, then advance.
+Keep the camera on AC-011 as it walks out of the spec and into the feature file. What will the test writer expect to see?
 -->
 
 ---
@@ -370,9 +387,9 @@ Feature: Event replay
 <!--
 Timing: 1.5 minutes.
 
-This is the scenario added in the follow-up review, with names and wording shortened. The original scenario also covers an unreadable store. The busy case means busy past both write attempts. The Then clauses pin the structured failure and category 3. The AC-011 tag links the scenario to the agreement. Given sets up the store refusal, When runs the replay command, and Then gives the test writer something observable.
+There's our claim in the tag. In this scene the store stays busy past both attempts. The command reports a structured failure and exits 3. Given sets up the refusal, When runs replay, and Then tells the test writer what to look for.
 
-We’ll see the earlier draft test expect category 1. First, where did the design draw the boundary?
+You're seeing the scenario added in the follow-up review, with names and wording shortened. The original also covers an unreadable store. We'll cut back to the earlier draft in a minute. First, where did the 3 come from?
 
 Source: https://cucumber.io/docs/gherkin/reference/
 -->
@@ -383,12 +400,12 @@ transition: slide-up
 
 # The Design Decision
 
-<p class="sdd-eyebrow"><code>.spec/README.md</code> · Design § 7, <code>R3</code> / <code>R13</code></p>
+<p class="sdd-eyebrow"><code>.spec/README.md</code> · Design § 7</p>
 
 <div class="sdd-gate">
   <p class="sdd-gate-owner"><strong>Replay</strong> tries to record a request</p>
   <ul class="sdd-visual-grid sdd-two" role="list" aria-label="Outcomes of recording the replay request">
-    <li v-click="1" class="sdd-exception"><strong>Store refuses</strong> Environment error · <b>3</b></li>
+    <li v-click="1" class="sdd-exception"><strong>Store busy or unreadable</strong> Environment error · <b>3</b></li>
     <li v-click="2"><strong>Request recorded</strong> Accepted · <b>0</b></li>
   </ul>
 </div>
@@ -457,7 +474,7 @@ clicks: 4
   <li v-click="3">
     <strong>Technical design</strong>
     <code>.spec/README.md § 7</code>
-    <p><code class="sdd-claim-reference sdd-claim-highlight">R3 / R13</code><br>Environment error, category <b>3</b>.</p>
+    <p>Store busy or unreadable<br>Environment error, category <b>3</b>.</p>
   </li>
 </ul>
 
@@ -472,15 +489,15 @@ Timing: 1.5 minutes.
 
 1. Click 1 highlights the replay failure claim.
 2. Click 2 reveals the category-3 scenario from the follow-up review.
-3. Click 3 shows the original design rule behind that outcome. This is the set of artifacts I wanted to keep aligned. The design lives in the same spec file as the claim, in a different section.
-4. Click 4 and ask what happens if the agent updates one of these pieces and carries the wrong expectation forward. Next, tell the review story.
+3. Click 3 shows the design in § 7 of the same spec. R3 defines the environment-error rule for precondition failures. R13's outcome table carries that rule forward. The refusal mapping in § 7 names a busy or unreadable store as category 3.
+4. Click 4. “From up here we can see the claim, the scenario, and the design at once. The test writer takes their cue from the file in front of them. Watch what happens when that file changes.”
 -->
 
 ---
 transition: fade
 ---
 
-# My Precious Tokens
+# My Tokens!
 
 <div class="sdd-story sdd-token-story">
   <blockquote>
@@ -492,7 +509,7 @@ transition: fade
 <!--
 Timing: 1 minute.
 
-This is my account of a private-project PR. I asked AI to maintain the spec as the implementation changed. AI revised the documentation, and the agreement drifted. The review kept coming back to metadata, wording, and broken links. Here is what the surviving artifacts tell us about that review.
+Roll back to the private PR. I asked the agent to keep the spec current while it changed the code. From my chair, it was another round of metadata, wording, and links. From the camera on AC-011, you can see the claim change and the test scaffold pick up the new line. My tokens! I spent a week's worth on this review.
 -->
 
 ---
@@ -542,7 +559,7 @@ Watch what happens to claim `AC-011` when the spec is revised.
 <!--
 Timing: 0.5 minutes.
 
-Come back to the rule in the technical design. A busy or unreadable store that prevents the write is an environment failure, category 3. A general failure such as an event that can’t be found belongs to category 1. This is the expected answer before we look at what the revised claim said.
+Freeze the frame on the design. If the store is busy or unreadable and we can't record the request, the environment prevented the write. That's category 3. A general failure, like an event that can't be found, belongs to category 1. Remember which scene we're in when that 1 shows up.
 -->
 
 ---
@@ -571,15 +588,15 @@ Assert.Fail("not implemented — scaffold only");
 
 </v-click>
 
-<p v-click="2" class="sdd-exception-line">Design § 7 (<code>R3</code> / <code>R13</code>) still said <strong>category 3</strong>.</p>
+<p v-click="2" class="sdd-exception-line">The refusal mapping in Design § 7 still said <strong>category 3</strong>.</p>
 <p v-click="3">A reviewer caught the contradiction in the unimplemented scaffold.</p>
 
 <!--
 Timing: 1.5 minutes.
 
-Start with the revised claim. It put a busy or unreadable store in category 1. Click to see the test scaffold inherit that expectation. Read the Then comment and point to Assert.Fail. This is a draft expectation in a stub that failed as unimplemented.
+Look at AC-011 now. Same busy or unreadable store. Different number. It says 1. Click. Cut to the test scaffold. There's the same 1 in the Then comment. Point to Assert.Fail. We're looking at the script for a test that still has to be written.
 
-Click to compare it with the spec’s design. R3 and R13 still mapped the same failure to category 3. Click again for the review finding. A reviewer caught the contradiction. The draft shows how the wrong expectation traveled from the spec into the test scaffold.
+Click. Back in the design, the refusal mapping still says 3 for a busy or unreadable store. We can see both shots side by side now. Click again. This is where the reviewer stopped the scene.
 
 Source provenance: pr-evidence.md, “A wrong claim propagated into a scaffold.”
 -->
@@ -641,7 +658,7 @@ transition: fade
 <!--
 Timing: 1.5 minutes.
 
-Start with the author updating the branch. Click once to send it to the reviewer, then click for the change request and the cost of another pass.
+Cut to the review room. The author updates the branch. Click to send it to the reviewer. Click again for the change request. Back to the author. Same loop, more tokens.
 
 Click through the four highlights. The counts are my account of the review and branch history. Reviews and the rounds inside them are separate. The longest review I recall took 18 rounds. The original PR closed, and the follow-up eventually merged.
 
@@ -656,14 +673,12 @@ class: text-center
 transition: fade
 ---
 
-# Who Checks the Spec?
+# My Response
 
 <!--
 Timing: 0.25 minutes.
 
-“I kept paying for another review. What could I built to catch the problem and burn fewer tokens?”
-
-Pause, then advance.
+I kept paying for another review. What could I make the build catch? If AC-011 walks out of the spec without a traceability row, I can check that before a person even opens the PR.
 -->
 
 ---
@@ -744,7 +759,7 @@ Logo: Specht’s existing dark-background SVG.
 transition: slide-up
 ---
 
-# What Specht Could Check
+# What Specht Can Check
 
 **Two findings from the review**
 
@@ -944,7 +959,7 @@ transition: slide-up
 <!--
 Timing: 1.5 minutes.
 
-At sign-off I read the corrected behavior, look at the implementation and test diff, and ask for results from that revision. Reveal the injected StoreBusy refusal, the category 3 assertion, and the reported error. In the later delivery, the previously deferred scenario was bound and the traceability row was updated. Click for the payoff. Product owns a change to the requirement. The tester challenges the example. Development repairs code and links. The reviewer decides whether the evidence is enough to accept.
+One last close-up for this part. The spec says category 3. Follow AC-011 into the running test. Reveal the injected StoreBusy refusal, the category 3 assertion, and the error the operator sees. In the later delivery, the previously deferred scenario was bound and the traceability row was updated. At sign-off, I read the corrected behavior and the diff, then ask for a result from that revision. Click for the payoff. Product owns a change to the requirement. The tester challenges the example. Development repairs code and links. The reviewer decides whether the evidence is enough to accept.
 
 “I give the agent room to work because we’ve agreed what the software should do and what evidence I’ll review. I spend less time steering each edit and more time making the decisions that matter.”
 
@@ -957,14 +972,12 @@ class: text-center
 transition: fade
 ---
 
-# Make It Your Workflow
+# What to Consider
 
 <!--
 Timing: 0.25 minutes.
 
-“You’ve seen what I get back. What would your team need before signing off?”
-
-Pause, then advance.
+Now imagine AC-011 shows up in your repo. Where does its approved wording live? Who gets to change it? What would your team need before signing off?
 -->
 
 ---
@@ -1228,7 +1241,7 @@ transition: slide-up
 <!--
 Timing: 1.75 minutes.
 
-Ask the audience before clicking. It matters whether the store is briefly busy or the write still can’t be recorded after the retry. Reveal the policy from the replay design and implementation. A busy write is retried once. If the second attempt records the request, the command can report acceptance. If both attempts are busy, the store reports a refusal and the command exits 3.
+Your turn in the review room. The first write hits a busy store. Does AC-011 tell the command to exit 3 already? Take an answer, then click. Replay tries once more. If that write records the request, the command reports acceptance. If both attempts are busy, the command reports an environment error and exits 3.
 
 Click for the two test boundaries. The intake unit test exercises both attempts; the command acceptance scenario supplies StoreBusy without creating a lock and checks the result. Ask for results from the revision that implements that policy.
 -->
@@ -1267,7 +1280,7 @@ transition: slide-up
 <!--
 Timing: 0.5 minutes.
 
-Come back to the question from the title slide. Start with the team and reveal the agent, the automated checks, and the reviewer. I asked AI to keep the spec current. The replay claim taught me that it could carry the wrong answer into a second artifact. Specht took repeatable checks out of my review loop. I still had to decide what category the command should return and ask for a test that exercised it.
+Our camera has followed AC-011 from a line in the spec to a result I can review. So who checks the spec? Start with the team and reveal the agent, the automated checks, and the reviewer. The agent can carry the same answer into the next file. The build can check the links. At the end of the road, I still have to look at what replay does when the store refuses a write.
 
 Bring back the disclaimer. On your next change, pick one claim and follow it from agreement to a test result you can review. Then advance to Questions.
 -->

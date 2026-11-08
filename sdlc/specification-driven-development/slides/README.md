@@ -59,18 +59,22 @@ The 42-slide deck has 47.5 minutes of prepared material in a 50-minute slot. Use
 | Slides | Section                      | Minutes |
 | ------ | ---------------------------- | ------: |
 | 1–10   | The spec returns             | 7.5     |
-| 11–15  | One claim at work            | 6       |
-| 16–21  | My Precious Tokens           | 6.5     |
-| 22–30  | Who checks the spec?         | 13.5    |
-| 31–41  | Make it your workflow        | 11      |
+| 11–15  | The claim                    | 6       |
+| 16–21  | My tokens!                   | 6.5     |
+| 22–30  | My response                  | 13.5    |
+| 31–41  | What to consider             | 11      |
 | 42     | Questions                    | 3       |
 
 | Slide | Cue the next section                                                                           |
 | ----: | ---------------------------------------------------------------------------------------------- |
-| 4     | “Let’s start with how we wrote down what software should do.”                                  |
-| 11    | “Let’s follow the replay claim into the feature file and the design behind it.” |
+| 4     | “Before we put AC-011 in front of an agent, let's see what its job would have looked like in a binder.” |
+| 11    | “Keep the camera on AC-011 as it walks out of the spec and into the feature file.” |
 | 22    | “I kept paying for another review. What could I make the build catch?”                         |
-| 31    | “You’ve seen what I get back. What would your team need before signing off?”                   |
+| 31    | “Now imagine AC-011 shows up in your repo.”                                                   |
+
+On slide 2, use the normal advance control to move AC-011 through stops 01–05.
+Each stop has a matching cue in Presenter view. The next advance opens the
+disclaimer. Reading layout shows all five stops as a list.
 
 Slide 7 turns from the cost of keeping the binder current to the reason Rodney brought the spec back. AI can help maintain it as code changes. On slide 8, click once for each panel: the binder, AI chat, then AI maintaining the spec. Click a fourth time for the closing line. Slide 15 turns from what AI maintains to what it maintained poorly. Slide 16 starts the private replay incident. On slide 21, reveal the request for review, then the return path before showing the review counts. Use the [private evidence notes](./pr-evidence.md) to distinguish reviewed artifacts from Rodney’s reported review effort.
 
