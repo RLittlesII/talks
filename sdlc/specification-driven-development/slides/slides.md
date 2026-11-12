@@ -1316,16 +1316,10 @@ transition: fade-out
 
 <div style="margin-top: 2rem;">
 
-**What would you check, what evidence would you keep, and who would act?**
-
-</div>
-
-<div style="margin-top: 2rem;">
-
 **Live SDD demos on Twitch this December**<br>
 [twitch.tv/rlittlesii](https://twitch.tv/rlittlesii)
 
-It'll be boring. AI will be at the helm. &#58;D
+It'll be boring. AI will be at the helm.
 
 </div>
 
