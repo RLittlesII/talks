@@ -954,7 +954,7 @@ clicks: 4
 </section>
 <section v-click="1" aria-label="Linked acceptance scenario">
 
-<p><Link to="/29?clicks=4"><strong>Linked acceptance test</strong></Link></p>
+<p><Link :to="$route.query.controls === '1' ? '/29?clicks=4&controls=1' : '/29?clicks=4'"><strong>Linked acceptance test</strong></Link></p>
 
 Store refuses the replay write. The test injects `StoreBusy`.
 

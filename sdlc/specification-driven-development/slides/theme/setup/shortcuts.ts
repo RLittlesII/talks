@@ -2,7 +2,7 @@ import { defineShortcutsSetup } from '@slidev/types'
 import { useNav } from '@slidev/client'
 
 export default defineShortcutsSetup((navigation, shortcuts) => {
-  // The audience uses the labelled slide selector and reading-layout button.
+  // The audience can opt into the labelled slide selector and reading-layout button.
   // Keep the authoring shortcuts in the presenter view.
   if (!useNav().isPlaying.value)
     return shortcuts

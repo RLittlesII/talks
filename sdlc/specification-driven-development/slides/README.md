@@ -50,10 +50,11 @@ use local system fallbacks. Illustrations have descriptive alt text. The
 infographics use selectable text in reading order, and Mermaid diagrams have
 accessible titles and descriptions.
 
-The audience controls provide Previous/Next steps, a titled slide chooser with
-an explicit Go action, fullscreen, and a presenter link. **Reading layout** makes
-the slide fluid for browser zoom: text wraps, columns stack, and diagrams can be
-scrolled with the keyboard.
+The regular deck link opens with the bottom bar hidden. Use the arrow keys,
+Page Up and Page Down, or swipe to navigate. Add `?controls=1` to the deck URL
+(before `#` on the published site) to show Previous/Next, the slide chooser,
+fullscreen, and the presenter link. **Reading layout** makes the slide fluid for
+browser zoom so text wraps, columns stack, and diagrams scroll with the keyboard.
 
 The [accessibility review](accessibility-review.md) records browser scans,
 structural and keyboard checks, a Safari 200% zoom review, contrast results, and

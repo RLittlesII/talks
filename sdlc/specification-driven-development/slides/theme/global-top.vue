@@ -3,6 +3,10 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useNav } from '@slidev/client'
 
 const nav = useNav()
+const showControls = computed(() => nav.isPlaying.value && !nav.isPrintMode.value && (
+  nav.currentRoute.value.query.controls === '1'
+  || new URLSearchParams(window.location.search).get('controls') === '1'
+))
 const reading = ref(false)
 const selectedSlide = ref(nav.currentSlideNo.value)
 const fullscreen = ref(false)
@@ -125,6 +129,10 @@ function navigateFromFocusedControl(event: KeyboardEvent) {
 }
 
 watch([nav.currentSlideNo, nav.clicks, nav.isPlaying, reading], update, { flush: 'post' })
+watch(showControls, enabled => {
+  if (!enabled)
+    reading.value = false
+})
 watch(nav.currentSlideNo, () => {
   selectedSlide.value = nav.currentSlideNo.value
   if (reading.value)
@@ -135,8 +143,14 @@ onMounted(() => {
     const height = navigationElement.value?.getBoundingClientRect().height || 0
     document.documentElement.style.setProperty('--sdd-navigation-height', height + 'px')
   })
-  if (navigationElement.value)
-    navigationObserver.observe(navigationElement.value)
+  watch(navigationElement, (element, previous) => {
+    if (previous)
+      navigationObserver?.unobserve(previous)
+    if (element)
+      navigationObserver?.observe(element)
+    else
+      document.documentElement.style.removeProperty('--sdd-navigation-height')
+  }, { flush: 'post', immediate: true })
   diagramObserver = new ResizeObserver(decorate)
   update()
   observer = new MutationObserver(decorate)
@@ -159,8 +173,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Teleport to="body">
-    <div v-if="nav.isPlaying.value" ref="navigationElement" class="sdd-navigation">
+  <Teleport v-if="nav.isPlaying.value" to="body">
+    <div v-if="showControls" ref="navigationElement" class="sdd-navigation">
       <nav aria-label="Presentation">
         <button type="button" :disabled="reading ? nav.currentSlideNo.value <= 1 : !nav.hasPrev.value" aria-label="Previous step or slide" @click="reading ? nav.prevSlide() : nav.prev()">
           Previous
@@ -185,7 +199,7 @@ onBeforeUnmount(() => {
         </button>
         <a :href="presenterHref">Presenter view</a>
       </nav>
-      <p class="sdd-status" role="status" aria-live="polite" aria-atomic="true">{{ announcement }}</p>
     </div>
+    <p class="sdd-status" role="status" aria-live="polite" aria-atomic="true">{{ announcement }}</p>
   </Teleport>
 </template>
