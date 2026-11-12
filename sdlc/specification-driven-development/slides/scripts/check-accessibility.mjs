@@ -11,8 +11,8 @@ const base = process.env.SDD_A11Y_URL || 'http://localhost:3032'
 const output = resolve(process.env.SDD_A11Y_OUTPUT || '.cache/sdd-accessibility')
 const slideCount = 42
 const dividers = [
-  [4, 'The Spec Returns', "Before we put AC-011 in front of an agent, let's see what its job would have looked like in a binder."],
-  [11, 'The Claim', 'Keep the camera on AC-011 as it walks out of the spec and into the feature file.'],
+  [4, 'The Spec Returns', "Before we get to replay, let's see what we kept from the binder."],
+  [11, 'The Claim', 'Find the same designation in the feature file.'],
   [22, 'My Response', 'I kept paying for another review. What could I make the build catch?'],
   [31, 'What to Consider', 'Now imagine AC-011 shows up in your repo.'],
 ]
@@ -87,7 +87,9 @@ try {
             language: document.documentElement.lang,
             duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
             images: [...element.querySelectorAll('img')].map(image => ({
-              alt: image.alt, loaded: image.complete && image.naturalWidth > 0,
+              alt: image.alt,
+              decorative: image.hasAttribute('alt') && image.getAttribute('role') === 'presentation',
+              loaded: image.complete && image.naturalWidth > 0,
             })),
             headers: [...element.querySelectorAll('thead th')].map(header => header.getAttribute('scope')),
             diagrams: [...element.querySelectorAll('.mermaid')].map(host => {
@@ -102,7 +104,7 @@ try {
         })
         assert.equal(structure.language, 'en')
         assert.deepEqual(structure.duplicateIds, [])
-        assert.ok(structure.images.every(image => image.alt.trim() && image.loaded))
+        assert.ok(structure.images.every(image => image.loaded && (image.alt.trim() || image.decorative)))
         assert.ok(structure.headers.every(scope => scope === 'col'))
         assert.ok(structure.diagrams.every(diagram => diagram.title && diagram.description))
         semantics.push({ slide: no, ...structure })

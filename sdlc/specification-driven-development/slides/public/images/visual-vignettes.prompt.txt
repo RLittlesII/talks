@@ -2,6 +2,16 @@ Generated with the built-in image generator. The original vignettes were encoded
 as JPEGs for the web deck. The token gremlin edit retains its PNG format.
 All slide text is authored separately.
 
+schema-token-gobbler.jpg
+Built-in image generator. Reference for likeness and rendering: token-gremlin.png.
+
+Generate a NEW single-scene square editorial comic illustration for a conference slide. The supplied image is a reference for likeness and rendering only. Match Rodney exactly in style and appearance (closely shaved head, warm medium tan-brown skin, black rectangular clear glasses, slight chin facial hair, muted teal hoodie), and match the cheerful cream mechanical Token Gobbler with small swept-out ears, black faceplate and cyan eyes. Rodney is actively explaining a solution to the curious gobbler. Make the visual causal story instantly legible: three abstract cyan horizontal table rows stream left-to-right toward a bright upright teal holographic schema grid, the intact row passes cleanly through and the row with a conspicuously empty slot is stopped at the grid with a copper-orange stop light. Rodney points right at the empty slot. Gobbler, mouth empty, listens with a copper token poised in one hand. Compose as a clean square-crop workbench vignette, two expressive visible faces and one large legible grid with very few elements, clear negative space around key silhouettes, charcoal-navy shadows, muted teal, copper rim light, warm cream, bold hand-inked editorial comic lines and restrained paper grain. Different pose and scene from reference. Absolutely no text, letters, numbers, badges, brand marks, paper characters or logos. No chart text or decorative text. Single scene, no panel frames.
+
+considerations-rodney.jpg
+Built-in image generator. Reference for likeness and rendering: token-gremlin.png.
+
+Generate a NEW single-scene square editorial comic illustration for a dark software conference slide. Reference image is for Rodney's likeness and style only. Same Rodney (closely shaved head, warm medium tan-brown skin, rectangular black glasses, slight chin facial hair, muted teal hoodie). Rodney alone at a modern workshop desk, thoughtfully deciding whether a software change is ready, looking at a central tilted dark monitor with a simple glowing horizontal teal trace line linking three plain geometric nodes and a short abstract code excerpt. One hand rests by the keyboard and one holds a pencil poised above a small open notebook with abstract lines. Intent expression, readable face in three-quarter view, quiet practical mood, straightforward visual hierarchy. Same hand-inked editorial comic style and limited dark navy-charcoal, teal, cream and copper palette with warm desk lamp, clear silhouettes, subtle paper grain, projection contrast. Keep key details clear within a square crop. No robot, no mascot, absolutely no readable text, letters, numbers, logos, watermarks, or decorative glyphs. Single scene edge to edge.
+
 claim-avatar.png
 Generated with the built-in image generator and resized for the deck. The PNG retains its transparent background.
 

@@ -21,7 +21,8 @@ What it cost me to let AI drive the spec
 </div>
 
 <div v-click class="sdd-subtitle">
-  Who checks the spec?
+  <span>Who checks the spec?</span>
+  <code class="sdd-designation">AC-011</code>
 </div>
 
 <!--
@@ -29,7 +30,7 @@ Timing: 0.5 minutes.
 
 I like talking about my failures. They’re a surprisingly reliable source of material.
 
-“Who checks the spec?” I thought my review process had an answer. Then one replay claim handed the test writer the wrong exit code. For the next fifty minutes, imagine we've got a camera on that claim. We can see what it says in every file, even when the files disagree.
+“Who checks the spec?” I thought my review process had an answer. Then the test scaffold picked up the wrong exit code. We can follow the designation AC-011 from the spec into the test and see exactly where the two diverge.
 -->
 
 ---
@@ -39,30 +40,21 @@ clicks: 5
 
 # Agenda
 
-<p class="sdd-agenda-lead">Following replay claim <code>AC-011</code></p>
-
-<div class="sdd-agenda-road">
-  <img
-    class="sdd-claim-avatar"
-    src="/images/claim-avatar.png"
-    alt="AC-011 as a little walking sheet of paper"
-    width="90"
-    height="90"
-    :style="{ left: $clicks === 0 ? '4%' : (20 * $clicks - 10) + '%' }"
-  />
-  <ol class="sdd-route" role="list" aria-label="Five stops for replay claim AC-011">
-    <li :aria-current="$clicks === 1 ? 'step' : null"><span aria-hidden="true">01</span>The spec returns</li>
-    <li :aria-current="$clicks === 2 ? 'step' : null"><span aria-hidden="true">02</span>The claim</li>
-    <li :aria-current="$clicks === 3 ? 'step' : null"><span aria-hidden="true">03</span>My tokens!</li>
-    <li :aria-current="$clicks === 4 ? 'step' : null"><span aria-hidden="true">04</span>My response</li>
-    <li :aria-current="$clicks === 5 ? 'step' : null"><span aria-hidden="true">05</span>What to consider</li>
+<div class="sdd-agenda">
+  <code class="sdd-designation sdd-agenda-designation" :style="{ '--sdd-agenda-position': (20 * Math.min(5, Math.max(1, $clicks)) - 10) + '%' }">AC-011</code>
+  <ol class="sdd-route" role="list" aria-label="Talk sections">
+    <li :aria-current="$clicks === 1 ? 'step' : null">The spec returns</li>
+    <li :aria-current="$clicks === 2 ? 'step' : null">The claim</li>
+    <li :aria-current="$clicks === 3 ? 'step' : null">My tokens!</li>
+    <li :aria-current="$clicks === 4 ? 'step' : null">My response</li>
+    <li :aria-current="$clicks === 5 ? 'step' : null">What to consider</li>
   </ol>
 </div>
 
 <!--
 Timing: 0.5 minutes.
 
-Meet AC-011.
+AC-011 is the designation to watch. We'll pick up its trace in the matrix.
 
 [click] So I brought the spec back because AI can manage it, right? Wrong.
 
@@ -83,14 +75,14 @@ transition: fade
 
 # Disclaimer
 
-<img class="mx-auto max-w-full h-auto" src="/images/claim-avatar.png" alt="AC-011, a smiling sheet of paper in teal sneakers" width="180" height="180" />
+<p class="sdd-designation-line"><code class="sdd-designation">AC-011</code></p>
 
 > Don't go to work tomorrow and pitch this process.
 
 <!--
 Timing: 0.25 minutes.
 
-AC-011 is a real claim from real software. I changed its number to protect its identity. The only thing harmed in the making of this talk was the week’s worth of tokens I spent trying to define it.
+AC-011 is the designation I'm using for a real replay requirement. The only thing harmed in the making of this talk was my token budget.
 -->
 
 ---
@@ -106,7 +98,7 @@ transition: fade
 <!--
 Timing: 0.25 minutes.
 
-Before we put AC-011 in front of an agent, let's see what its job would have looked like in a binder.
+Before we get to replay, let's see what we kept from the binder.
 -->
 
 ---
@@ -180,7 +172,7 @@ Timing: 1 minute.
 
 This is an illustrative 1990s-style Functional Requirements Specification. Picture the whole binder: purpose and scope, requirements, constraints, design, verification, and approval. This page is one requirement inside it. The numbered claims, SHALL language, upstream source, and downstream test references are the useful parts. I’ve put the replay requirement in the style of a 1990s binder. The binder page is fictional.
 
-Read REQ-3.2.4.2 out loud. That's AC-011 in its period costume. It already tells the test writer what to look for.
+Read REQ-3.2.4.2 out loud. This is the same replay behavior written as a binder requirement. It already tells the test writer what to look for.
 -->
 
 ---
@@ -256,47 +248,33 @@ The middle panel is what happened when I asked AI for code and kept the decision
 
 “I give the agent room to work because we’ve agreed what the software should do and what evidence I’ll review. I spend less time steering each edit and more time making the decisions that matter.”
 
-Cut to the replay spec. The binder is a file now. Let's see where our claim lives.
+The binder is a file now. Open the replay spec at its traceability matrix.
 -->
 
 ---
 transition: slide-up
 ---
 
-# My Specification, 2026
+# Traceability Matrix
 
-**`.spec/README.md`** · The versioned agreement for a replay command
+<p class="sdd-eyebrow"><code>.spec/README.md</code> · §9</p>
 
-<div grid="~ cols-2 gap-8" m="t-4">
-<div>
-
-**Intent and boundaries**
-
-- **Goal** · Let an operator request another attempt at a stored event.
-- **Claim `AC-011`** · Report a structured failure when replay cannot proceed.
-- **Constraint** · If the store refuses the write, no request is recorded.
-- **Out of scope** · The runner decides whether and when to apply a request.
-
-</div>
-<div>
-
-**Design and evidence**
-
-- **§ 7 · Technical design** · Store failures map to environment error, category **3**.
-- **§ 8 · Testing strategy** · Exercise the refusal path.
-- **§ 9 · Traceability** · Link `AC-011` to its scenario and test.
-
-</div>
-</div>
-
-**SDD** gives the agent an agreement to work from and update with me.
+<table class="sdd-traceability" aria-label="Example replay traceability matrix">
+  <thead>
+    <tr><th scope="col">Claim ID</th><th scope="col">Scenario</th><th scope="col">Test</th><th scope="col">Status</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row"><code>AC-010</code></th><td>Event ID is unknown</td><td>Unknown-event test</td><td>Scaffolded</td></tr>
+    <tr class="sdd-traceability-focus"><th scope="row"><code>AC-011</code></th><td>Store refuses the replay write</td><td>Store-refusal test</td><td>Scaffolded</td></tr>
+  </tbody>
+</table>
 
 <!--
 Timing: 1.5 minutes.
 
-Here's our first close-up of AC-011 in the replay spec. Its job is to tell the operator what happened when they asked to replay an event. The command records the request. The runner acts on it later. Keep an eye on the design's exit category, 3. We'll see what number makes it into the test scaffold.
+Start on the second row. AC-011 is the designation for the replay behavior we’re following. When the store refuses the write, the operator gets a structured failure and no request is recorded. The runner handles recorded requests later. The matrix gives me a path from the claim to the scenario and its test. Here the test was scaffolded. Keep that status in mind when we get to sign-off.
 
-The display ID AC-011 and file names are adapted. The walkthrough uses .spec/README.md and replay.feature to show the layout I use now. The historical source paths remain in pr-evidence.md. The document sections, behavior, and category distinction come from the reviewed replay artifacts.
+These are two shortened rows from the reviewed snapshot. The display IDs and spec path are adapted. The historical source paths are in pr-evidence.md.
 -->
 
 ---
@@ -338,7 +316,9 @@ Reviewed snapshot · IDs adapted
 <!--
 Timing: 1 minute.
 
-These are selected fields from the reviewed replay snapshot. The agreement was in draft and delivery was blocked. I can ask the agent to keep delivery metadata current while I review changes to the agreement. I also spent review time on frontmatter in this incident. I don’t have a field-level example from that review to show.
+Front matter matters because it tells the agent which spec it opened and what it can act on. I tell the agent to read the YAML when it loads the spec. The id and epic identify feature F2 in epic 0001. The spec_status says the agreement is still in draft, so the agent can flag wording that needs the owner's approval. The status says delivery is blocked, so I ask it to surface the blocker before moving the work forward. I can ask it to update delivery metadata while I review changes to the agreement.
+
+These are selected fields from the reviewed snapshot. Front matter came up in the review. The exact field that prompted review is unknown.
 
 Next, compare the scenario that came out of the review with the technical design.
 
@@ -352,10 +332,12 @@ transition: fade
 
 # The Claim
 
+<p class="sdd-designation-line"><code class="sdd-designation">AC-011</code></p>
+
 <!--
 Timing: 0.25 minutes.
 
-Keep the camera on AC-011 as it walks out of the spec and into the feature file. What will the test writer expect to see?
+Find the same designation in the feature file. What will the test writer expect to see?
 -->
 
 ---
@@ -509,7 +491,7 @@ transition: fade
 <!--
 Timing: 1 minute.
 
-Roll back to the private PR. I asked the agent to keep the spec current while it changed the code. From my chair, it was another round of metadata, wording, and links. From the camera on AC-011, you can see the claim change and the test scaffold pick up the new line. My tokens! I spent a week's worth on this review.
+Roll back to the private PR. I asked the agent to keep the spec current while it changed the code. From my chair, it was another round of metadata, wording, and links. Compare AC-011 across revisions and you can see the wording change and the scaffold pick it up. My tokens! I spent a week's worth on this review.
 -->
 
 ---
@@ -639,14 +621,17 @@ transition: fade
 # Author. Reviewer. Repeat.
 
 <div class="sdd-review-loop-diagram">
-  <img v-click.hide="1" src="/images/review-loop.svg#author" width="868" height="238" alt="The author updates the branch." />
-  <img v-click="[1, 2]" src="/images/review-loop.svg#reviewer" width="868" height="238" alt="The author requests review. The reviewer checks the changes." />
-  <img v-click="2" src="/images/review-loop.svg" width="868" height="238" alt="The author updates the branch and requests a review. The reviewer checks the changes and requests revisions. The author revises and sends it back, burning more tokens on every pass." />
+  <img v-click.hide="1" src="/images/review-loop.svg#author" width="868" height="196" alt="The author updates the branch." />
+  <img v-click="[1, 2]" src="/images/review-loop.svg#reviewer" width="868" height="196" alt="The author requests review. The reviewer checks the changes." />
+  <img v-click="2" src="/images/review-loop.svg" width="868" height="196" alt="The reviewer requests changes. The arrow returns to the author, who updates the branch and sends it back for another review." />
 </div>
 
-<p class="sdd-review-loop-summary">The author updates the branch and requests a review. The reviewer checks the changes and requests revisions. The author revises and sends it back, burning more tokens on every pass.</p>
+<p class="sdd-review-loop-summary">The author updates the branch and requests a review. The reviewer checks the changes and requests revisions. The author revises and sends it back.</p>
 
-<h2 v-click="3">Highlights</h2>
+<p v-click="2" class="sdd-review-punchline">
+  <img src="/images/burning-cash.svg" width="72" height="58" alt="" role="presentation" />
+  <strong>Burning tokens like cash to keep warm</strong>
+</p>
 
 <ul class="sdd-review-highlights" role="list">
   <li v-click="3"><strong>200+</strong> comments posted to a single PR</li>
@@ -658,7 +643,7 @@ transition: fade
 <!--
 Timing: 1.5 minutes.
 
-Cut to the review room. The author updates the branch. Click to send it to the reviewer. Click again for the change request. Back to the author. Same loop, more tokens.
+The author updates the branch. Click to send it to the reviewer. Click again for the change request and the cash reveal. “Burning tokens like cash to keep warm.” Give that a beat before showing the counts.
 
 Click through the four highlights. The counts are my account of the review and branch history. Reviews and the rounds inside them are separate. The longest review I recall took 18 rounds. The original PR closed, and the follow-up eventually merged.
 
@@ -668,17 +653,23 @@ Source provenance: pr-evidence.md preserves the reviewed artifacts and an earlie
 -->
 
 ---
-layout: center
-class: text-center
 transition: fade
 ---
 
 # My Response
 
+<div class="sdd-story sdd-illustrated-divider">
+  <div>
+    <p class="sdd-divider-lead">Give the spec a schema.</p>
+    <p>Catch missing traceability rows before review.</p>
+  </div>
+  <img src="/images/schema-token-gobbler.jpg" width="1000" height="1000" alt="Rodney shows the Token Gobbler a glowing schema grid. Complete rows pass through and an orange stop light holds back the incomplete row." />
+</div>
+
 <!--
 Timing: 0.25 minutes.
 
-I kept paying for another review. What could I make the build catch? If AC-011 walks out of the spec without a traceability row, I can check that before a person even opens the PR.
+I kept paying for another review. What could I make the build catch? Point to the empty slot in the grid. If the spec has AC-011, the schema can require a traceability row for it. The build can report that omission before a person even opens the PR.
 -->
 
 ---
@@ -908,13 +899,11 @@ transition: slide-up
 
 # Replay Claim Links
 
-<p class="sdd-eyebrow"><code>.spec/README.md</code></p>
-
-<ol class="sdd-handoff-flow" role="list" aria-label="How the replay failure claim links its scenario, command, and test">
-  <li><strong>Claim</strong> <code>AC-011</code></li>
-  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Scenario</strong> <code>@AC-011</code></li>
-  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Command</strong> Reports refusal</li>
-  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><strong>Linked test</strong> Checks error and exit</li>
+<ol class="sdd-handoff-flow sdd-artifact-links" role="list" aria-label="How the replay failure claim links its scenario, command, and test">
+  <li><code class="sdd-artifact-filename">.spec/README.md</code><strong>Claim</strong> <code>AC-011</code></li>
+  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><code class="sdd-artifact-filename">replay.feature</code><strong>Scenario</strong> <code>@AC-011</code></li>
+  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><code class="sdd-artifact-filename">ReplayEventCommand.cs</code><strong>Command</strong> Reports refusal</li>
+  <li v-click><span class="sdd-handoff-arrow" aria-hidden="true">→</span><code class="sdd-artifact-filename">ReplaySteps.cs</code><strong>Test</strong> Checks error and exit</li>
 </ol>
 
 <v-click>
@@ -929,7 +918,7 @@ transition: slide-up
 <!--
 Timing: 2 minutes.
 
-Bring together the illustrative replay wiring from the earlier analyzer slide. Start with AC-011 in .spec/README.md. Reveal its tagged scenario in the adjacent replay.feature, the command that reports the refusal, and the test that checks the store error and category 3.
+Bring together the illustrative replay wiring from the earlier analyzer slide. Start with AC-011 in .spec/README.md. Reveal its tagged scenario in the adjacent replay.feature, the ReplayEventCommand.cs file that reports the refusal, and ReplaySteps.cs, which binds the refusal and error checks. The scenario’s shared exit-code step checks category 3.
 
 Reveal the matching implements and verifies links. The test now names AC-011, correcting the earlier AC-099 example. The display IDs and C# wiring are adapted teaching examples. The later acceptance coverage supplies the behavior evidence described in the private evidence notes. Resolving the links and running the linked test are separate checks.
 
@@ -938,28 +927,48 @@ Source for analyzer link syntax: https://github.com/RLittlesII/specht/blob/ab13f
 
 ---
 transition: slide-up
+clicks: 4
 ---
 
 # I Can Sign Off on AC-011
 
-<ul class="sdd-signoff-evidence" role="list" aria-label="What I review">
-  <li>Approved claim</li>
-  <li>Code diff and test link</li>
-  <li>Results for this revision</li>
+<div class="sdd-signoff">
+<section aria-label="Command diff">
+
+**Command diff**
+
+```diff [ReplayEventCommand.cs]
++_writer.WriteFailure(
++    $"Event store unavailable: {reason}.",
++    ExitCategory.EnvironmentError,
++    new StorePreconditionOutput(
++        reason, detail),
++    Json.StorePreconditionOutput,
++    EventsViews.Precondition);
++return (int)ExitCategory.EnvironmentError;
+```
+
+</section>
+<section v-click="1" aria-label="Linked acceptance scenario">
+
+<p><Link to="/29?clicks=4"><strong>Linked acceptance test</strong></Link></p>
+
+Store refuses the replay write. The test injects `StoreBusy`.
+
+<ul class="sdd-test-checks" role="list">
+  <li v-click="2">Exit code <code>3</code></li>
+  <li v-click="3"><code>ERROR: Event store unavailable: StoreBusy.</code></li>
 </ul>
 
-<ul class="sdd-visual-grid sdd-three sdd-signoff-results" role="list" aria-label="Evidence for the replay claim">
-  <li v-click><strong>StoreBusy</strong> Intake refusal</li>
-  <li v-click><strong>3</strong> Environment error</li>
-  <li v-click><strong>Store unavailable</strong> Error reported to the operator</li>
-</ul>
+</section>
+</div>
 
-<p v-click class="sdd-reveal-line">I can give the agent room to work and come back to evidence I can check.</p>
+<p v-click="4" class="sdd-reveal-line"><strong>Verified rerun</strong> · Replay acceptance scenario passed at this revision.</p>
 
 <!--
 Timing: 1.5 minutes.
 
-One last close-up for this part. The spec says category 3. Follow AC-011 into the running test. Reveal the injected StoreBusy refusal, the category 3 assertion, and the error the operator sees. In the later delivery, the previously deferred scenario was bound and the traceability row was updated. At sign-off, I read the corrected behavior and the diff, then ask for a result from that revision. Click for the payoff. Product owns a change to the requirement. The tester challenges the example. Development repairs code and links. The reviewer decides whether the evidence is enough to accept.
+Start with the diff that added the environment-error path. The command reports why the write was refused and returns category 3. Reveal the linked scenario and its injected StoreBusy refusal, then the two assertions. The test covers the command's response. The retry has its own intake test. In the later delivery, the previously deferred scenario was bound and the matrix was updated. Reveal the fresh rerun. The busy-store acceptance scenario passed at the revision that enabled it, with the command code shown here. That’s the result I want for sign-off.
 
 “I give the agent room to work because we’ve agreed what the software should do and what evidence I’ll review. I spend less time steering each edit and more time making the decisions that matter.”
 
@@ -967,12 +976,22 @@ If a check fails repeatedly, send the exact finding and attempted fixes to the p
 -->
 
 ---
-layout: center
-class: text-center
 transition: fade
 ---
 
 # What to Consider
+
+<div class="sdd-story sdd-illustrated-divider">
+  <div>
+    <p><code class="sdd-designation">AC-011</code></p>
+    <ul class="sdd-considerations">
+      <li>Where does the approved wording live?</li>
+      <li>Who can change it?</li>
+      <li>What evidence earns sign-off?</li>
+    </ul>
+  </div>
+  <img src="/images/considerations-rodney.jpg" width="1000" height="1000" alt="Rodney pauses with a pencil at his workbench while reviewing a trace from the requirement through its linked artifacts." />
+</div>
 
 <!--
 Timing: 0.25 minutes.
@@ -1111,32 +1130,29 @@ Optional anecdote if time allows. A buddy saw the first version of this talk and
 transition: slide-up
 ---
 
-# What Goes in the Spec?
+# When Does a Claim Need an ID?
 
 <div grid="~ cols-2 gap-8" m="t-4">
 <div>
 
-**Prose and examples**
+**Link to a section**
 
-Describe the behavior. Link the work item or PR to the approved section.
+Reviewers can cite one approved passage for the behavior.
 
 </div>
 <div>
 
-**Stable claim IDs**
+**Give the claim a stable ID**
 
-Carry the same ID from the spec into the scenario, test, and review evidence.
+Scenarios, code, and tests each need to refer to <code>AC-011</code>.
 
 </div>
 </div>
-
-- Agree where to record intent, scope, and acceptance criteria.
-- Decide when a feature file or design decision record belongs alongside the spec.
 
 <!--
 Timing: 0.75 minutes.
 
-AC-011 is how I chose to link the artifacts. The team can use prose and point reviewers to the approved section, or give individual claims stable IDs when they need to follow a specific claim through tests and evidence. Either way, agree what a reviewer should expect to find in a spec. In the adapted replay example, the design stays in .spec/README.md and the executable examples live in the adjacent replay.feature file. Give each companion document a job and link it from the spec so an editor knows what else to check when behavior changes.
+If the reviewers can point to one approved passage, I can link that section from the work item and be done. In replay, the scenario, command, and acceptance test each need to refer to the same refusal behavior. A stable AC-011 gives each artifact a target I can check even if the spec is reorganized. That pays for keeping the links current when the requirement changes.
 
 Once you use IDs across those files, you also have to decide how they’re assigned.
 -->
@@ -1173,29 +1189,27 @@ The team needs an allocation rule for the scope where IDs must be unique. A shar
 transition: slide-up
 ---
 
-# Where the Source of Truth Lives
+# Which AC-011 Should the Agent Use?
 
-<ul class="sdd-authority-map" role="list" aria-label="Three ways to deliver approved intent to the agent">
-  <li><strong>Repo owns it</strong><span>Approved commit</span><span aria-hidden="true">→</span><span>Agent</span></li>
-  <li v-click><strong>Tracker owns it</strong><span>Versioned item</span><span aria-hidden="true">→</span><span>Agent</span></li>
-  <li v-click><strong>Repo owns it</strong><span>Approved commit</span><span aria-hidden="true">→</span><span>Agent + published tracker view</span></li>
+<p class="sdd-eyebrow">Illustrative disagreement on the replay exit code</p>
+
+<ul class="sdd-visual-grid sdd-two" role="list" aria-label="Two records for the same replay behavior">
+  <li class="sdd-exception"><strong>Work tracker</strong> Exit <b>1</b></li>
+  <li><strong>Approved spec in Git</strong> Exit <b>3</b></li>
 </ul>
 
-<p v-click class="sdd-reveal-line">Where does the team track work and status?</p>
-<p v-click class="sdd-reveal-line">Who can read and approve the current spec?</p>
+<ul class="sdd-source-decisions" role="list">
+  <li v-click><strong>Behavior</strong> · Agent uses the approved spec revision in Git.</li>
+  <li v-click><strong>Delivery status</strong> · Keep it in the spec or a linked work item.</li>
+  <li v-click><strong>Disagreement</strong> · The spec owner resolves changes to the wording.</li>
+</ul>
 
 <!--
 Timing: 1.75 minutes.
 
-Start with the repository, then reveal the tracker and the published tracker view. Everything in my example lives in the repository. Your organization may have approved requirements in GitHub Issues, Azure DevOps, or a Trello board. Ask where the team will keep work items. Git can own the approved wording while the tracker owns delivery status. Decide which record governs when two copies disagree. Then ask how everyone who needs to review or approve a change gets access.
+Ask what happens if the agent starts from the work item. It can faithfully write a test for exit 1 and repeat the same problem we saw earlier. This example is illustrative. In my replay workflow the repository holds the approved wording, and I can pin the commit alongside the diff and tests. The YAML records delivery status. If the team tracks delivery outside Git, the work item can carry status and link to the spec. I’ve considered publishing a view to Azure DevOps so more people can read it. Any proposed behavior change goes back to the spec owner.
 
-If the repository owns the requirement, a commit pins the baseline alongside code and tests. The downside is access: people outside the repository, often people who are not developers, need a readable view and a way to propose and approve changes.
-
-If the tracker owns the requirement, retrieve the approved item. Keep its ID, link, and version with the context. If it lacks a useful revision identifier, capture the approved content and timestamp. Local excerpts point back to that source. Check for upstream changes before acceptance and have the owner resolve differences.
-
-One option I’ve considered is keeping Git authoritative and publishing work items to Azure DevOps so the wider team has a view. Route proposed changes to the requirement wording back to the spec owner for approval. This is a possible integration.
-
-I am using SDD on a large existing project today. Start from available requirements wherever they live. When fixing a bug or changing an area, clarify its intent, add criteria and scenarios, and retain the checks. Backfill as you go. Examine existing behavior with its owner before treating it as a requirement. Coverage stays partial while you expand.
+If your tracker owns approved requirements, carry the approved item’s ID, link, and revision into the agent’s context. Give everyone who can propose or approve a change a way to reach that record. Check it again before sign-off.
 
 “Now that we know which record governs, when do we update the rest?”
 
@@ -1280,7 +1294,7 @@ transition: slide-up
 <!--
 Timing: 0.5 minutes.
 
-Our camera has followed AC-011 from a line in the spec to a result I can review. So who checks the spec? Start with the team and reveal the agent, the automated checks, and the reviewer. The agent can carry the same answer into the next file. The build can check the links. At the end of the road, I still have to look at what replay does when the store refuses a write.
+We’ve traced the same AC-011 from the matrix through the scenario, the command, and the checks. So who checks the spec? Start with the team and reveal the agent, the automated checks, and the reviewer. The agent can carry the same answer into the next file. The build can check the links. I still have to look at what replay does when the store refuses a write.
 
 Bring back the disclaimer. On your next change, pick one claim and follow it from agreement to a test result you can review. Then advance to Questions.
 -->

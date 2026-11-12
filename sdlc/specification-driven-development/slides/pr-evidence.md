@@ -6,6 +6,9 @@ The story slides use hooked PRs [#214](https://github.com/RLittlesII/hooked/pull
 
 The slides display claim prefixes as `AC-` (acceptance criterion): source `B-011` becomes `AC-011`, for example. The tag correction and diagnostic are labeled as adapted identifiers. All original identifiers below remain unchanged.
 
+Slide 9 shortens the `B-010` and `B-011` traceability rows at the reviewed
+snapshot. Both rows were marked `Scaffolded`. [Reviewed matrix rows](https://github.com/RLittlesII/hooked/blob/4e95b5b7bdddeab266f8d0f7631b0a13307ca76d/epics/0005-cli/F5b-event-inspection-recovery/spec.md#L2650-L2651)
+
 The replay walkthrough displays the agreement as `.spec/README.md` and its
 scenarios as the adjacent `replay.feature`, using the presenter's current layout.
 The historical review used `epics/0005-cli/F5b-event-inspection-recovery/spec.md`
@@ -76,6 +79,29 @@ the command's exit category and error without taking a database lock. Separate
 intake unit tests exercise busy retry and unreadable-store refusal. Slides 26,
 30, and 39 use these later artifacts. They do not present a historical
 red-to-green run from the draft scaffold.
+
+Slide 30 shows the added `WriteFailure` call and `EnvironmentError` return from
+the command diff, with indentation and wrapping adjusted for projection. The command file
+has identical contents at `29437f3e` and `89fc9735`. [Implementation diff](https://github.com/RLittlesII/hooked/commit/29437f3ea3af95b62ffc2f9221b6b061e14209f2), [command at the acceptance revision](https://github.com/RLittlesII/hooked/blob/89fc97358d280c24605cf9c57d7059bdc4c9738f/src/Tool/Cli/Features/Events/ReplayEventCommand.cs#L159-L168)
+
+The busy-or-unreadable scenario runs with an intake that reports `StoreBusy`.
+`ReplaySteps.cs` supplies that refusal and checks the operator error.
+`ListingSteps.cs` supplies the shared exit-category assertion. The traceability
+row records a November 5 pass. [Scenario](https://github.com/RLittlesII/hooked/blob/89fc97358d280c24605cf9c57d7059bdc4c9738f/epics/0005-cli/F5b-event-inspection-recovery/event-inspection-recovery.feature#L292-L301), [refusal setup](https://github.com/RLittlesII/hooked/blob/89fc97358d280c24605cf9c57d7059bdc4c9738f/test/Acceptance/Features/Cli/Events/ReplaySteps.cs#L95-L102), [operator error check](https://github.com/RLittlesII/hooked/blob/89fc97358d280c24605cf9c57d7059bdc4c9738f/test/Acceptance/Features/Cli/Events/ReplaySteps.cs#L173-L175), [exit-category check](https://github.com/RLittlesII/hooked/blob/89fc97358d280c24605cf9c57d7059bdc4c9738f/test/Acceptance/Features/Cli/Events/ListingSteps.cs#L23-L31), [delivery record](https://github.com/RLittlesII/hooked/blob/89fc97358d280c24605cf9c57d7059bdc4c9738f/epics/0005-cli/F5b-event-inspection-recovery/spec.md#L1982)
+
+On November 11, 2026, a fresh build of `test/Acceptance/Acceptance.csproj`
+from an isolated archive of `89fc9735` ran the busy-store scenario with the
+project's pinned .NET SDK. The focused xUnit run recorded one test with result
+`Pass`, zero failed, and zero skipped. The scenario also passed in the full
+acceptance run, which reported 622 passed and 85 skipped. Slide 30 shows the
+focused result. To reproduce it from that revision after restore and build, run
+the acceptance assembly with the exact scenario filter:
+
+```sh
+dotnet test/Acceptance/bin/Debug/net11.0/Hooked.Acceptance.dll \
+  -method 'Hooked.Acceptance.Features.Cli.Events.EventInspectionRecoveryFeature.EventsReplayExitsInTheEnvironment_ErrorCategoryWhenTheStoreRefusesTheRequestForBeingBusyOrUnreadable' \
+  -result-xml replay-acceptance.xml
+```
 
 ## Missing rows and a mismatched claim tag — slide 20
 

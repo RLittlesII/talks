@@ -67,16 +67,14 @@ The 42-slide deck has 47.5 minutes of prepared material in a 50-minute slot. Use
 
 | Slide | Cue the next section                                                                           |
 | ----: | ---------------------------------------------------------------------------------------------- |
-| 4     | “Before we put AC-011 in front of an agent, let's see what its job would have looked like in a binder.” |
-| 11    | “Keep the camera on AC-011 as it walks out of the spec and into the feature file.” |
+| 4     | “Before we get to replay, let's see what we kept from the binder.” |
+| 11    | “Find the same designation in the feature file.” |
 | 22    | “I kept paying for another review. What could I make the build catch?”                         |
 | 31    | “Now imagine AC-011 shows up in your repo.”                                                   |
 
-On slide 2, use the normal advance control to move AC-011 through stops 01–05.
-Each stop has a matching cue in Presenter view. The next advance opens the
-disclaimer. Reading layout shows all five stops as a list.
+On slide 2, use the normal advance control to move the `AC-011` designation across the five sections. Each section has a matching cue in Presenter view. The next advance opens the disclaimer. Reading layout shows the designation above the full list.
 
-Slide 7 turns from the cost of keeping the binder current to the reason Rodney brought the spec back. AI can help maintain it as code changes. On slide 8, click once for each panel: the binder, AI chat, then AI maintaining the spec. Click a fourth time for the closing line. Slide 15 turns from what AI maintains to what it maintained poorly. Slide 16 starts the private replay incident. On slide 21, reveal the request for review, then the return path before showing the review counts. Use the [private evidence notes](./pr-evidence.md) to distinguish reviewed artifacts from Rodney’s reported review effort.
+Slide 7 turns from the cost of keeping the binder current to the reason Rodney brought the spec back. AI can help maintain it as code changes. On slide 8, click once for each panel: the binder, AI chat, then AI maintaining the spec. Click a fourth time for the closing line. Slide 9 picks up `AC-011` in the traceability matrix. Slide 15 turns from what AI maintains to what it maintained poorly. Slide 16 starts the private replay incident. On slide 21, reveal the request for review, then the return path and burning-cash punchline. Pause before showing the review counts. [Private evidence notes](./pr-evidence.md)
 
 Slide 23 reveals the four SDD Inception boxes in order. Each incoming arrow appears with its destination. The three bullets appear with boxes 2–4. Specht stays unnamed until the final box and closing bullet appear together on click 4. Backward navigation reverses the reveals, and reading layout shows the complete diagram and bullets.
 
@@ -91,7 +89,7 @@ their notes and accessibility text, do not name Specht.
 - **Establish the behavior.** Slides 9–15 introduce the reviewed replay spec and its metadata, the follow-up Gherkin scenario, and the rule for a store that refuses a write. The displayed IDs and paths are adapted. Slide 14 describes the desired TDD workflow. The historical scaffold was unimplemented.
 - **Follow the drift.** Slides 18–21 contrast the design’s category 3 with category 1 in the revised claim and scaffold. The missing rows and wrong existing scenario tag are separate findings. The [presenter evidence notes](./pr-evidence.md) record the reviewed sources and distinguish them from the reported review cost.
 - **Apply the checks.** Slides 23–28 show how the review led to Specht, which structural rules apply to the findings, and how the corrected replay scenario later became an executable check. The rules are applied retrospectively. The acceptance test injects a busy-store refusal, while a separate intake unit test checks the retry.
-- **Review the evidence.** Slide 30 returns to the replay claim at sign-off. Slides 32–34 cover lessons, handoffs, and maintenance costs. Slides 35–38 cover the team's choices about spec structure, identifiers, where approved intent and work items live, and how the team keeps them current. The duplicate `AC-012` example on slide 36 illustrates a collision Rodney encountered with parallel agent sessions. Slide 39 asks what happens when the first replay write hits a busy store.
+- **Review the evidence.** Slide 30 pairs the command diff with the acceptance scenario and its assertions. The test link opens slide 29 fully revealed. Slides 32–34 cover lessons, handoffs, and maintenance costs. Slide 35 asks when a stable ID pays for itself, then slide 36 illustrates a collision Rodney encountered with parallel agent sessions. Slide 37 shows why agents need the approved revision when the tracker and spec disagree. Slide 38 covers upkeep, and slide 39 asks what happens when the first replay write hits a busy store.
 
 The replay walkthrough uses `.spec/README.md` and the adjacent `replay.feature`
 as adapted display paths. The [private evidence notes](./pr-evidence.md) retain
