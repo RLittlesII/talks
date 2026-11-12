@@ -19,6 +19,7 @@ while IFS= read -r talk_dir; do
 
   mkdir -p "${OUTPUT_DIR}/${name}"
   cp -r "${CACHE_DIR}/${name}/." "${OUTPUT_DIR}/${name}/"
+  rm -f "${OUTPUT_DIR}/${name}/.source-hash"
   talk_dirs+=("$talk_dir")
   echo "==> Assembled ${name}"
 done < <("$SCRIPT_DIR/find-talks.sh")

@@ -9,14 +9,13 @@ mkdir -p "$CACHE_DIR"
 source_hash() {
   local dir="$1"
   # Shared build settings and dependencies affect every deck's output.
-  find "$dir" "$SCRIPT_DIR/build-talk.sh" package.json pnpm-workspace.yaml pnpm-lock.yaml \
-    -not -path "*/node_modules/*" \
-    -not -path "*/dist/*" \
+  find "$dir" "$SCRIPT_DIR/build-talk.sh" "$SCRIPT_DIR/sync-talks.sh" package.json pnpm-workspace.yaml pnpm-lock.yaml \
+    -type d \( -name node_modules -o -name dist \) -prune -o \
     -type f \
     -print0 \
     | sort -z \
-    | xargs -0 sha256sum 2>/dev/null \
-    | sha256sum \
+    | xargs -0 shasum -a 256 \
+    | shasum -a 256 \
     | cut -d' ' -f1
 }
 
@@ -25,7 +24,7 @@ source_hash() {
   current_hash=$(source_hash "$talk_dir")
   cached_hash=$(cat "${CACHE_DIR}/${name}/.source-hash" 2>/dev/null || echo "")
 
-  if [ "$current_hash" = "$cached_hash" ] && [ -d "${CACHE_DIR}/${name}" ]; then
+  if [ "$current_hash" = "$cached_hash" ] && [ -s "${CACHE_DIR}/${name}/index.html" ]; then
     echo "==> ${name}: unchanged — skipping build"
   else
     echo "==> ${name}: changed or uncached — building"

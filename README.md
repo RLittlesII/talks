@@ -53,7 +53,7 @@ Talk titles link to their abstracts. **Presentation** opens a published deck; **
 | Talk | What it covers | Materials |
 | --- | --- | --- |
 | [Behavior Driven Practices](./sdlc/bdd/README.MD) | Use behavior-driven design and development to clarify boundaries and reduce friction. | [Keynote](./sdlc/bdd/slides/behavior.driven.software.key) |
-| [Specification Driven Development](./sdlc/sdd/README.md) | Write specifications an agent can build from, backed by tests, lessons, and skills. | Abstract only |
+| [Specification Driven Development](./sdlc/specification-driven-development/README.md) | Write specifications an agent can build from, backed by tests, lessons, and skills. | [Presentation](https://rlittlesii.github.io/talks/specification-driven-development/) · [Presenter view](https://rlittlesii.github.io/talks/specification-driven-development/#/presenter/1) · [Slide source](./sdlc/specification-driven-development/slides/slides.md) |
 
 ## Samples & demos
 
@@ -63,6 +63,64 @@ Talk titles link to their abstracts. **Presentation** opens a published deck; **
 | [Mediator Sample](./mediator/README.md) | .NET Core MVC and the MediatR library. |
 
 ## Presenting & local development
+
+### Always-available local talks (macOS)
+
+With Homebrew, Node.js, pnpm, and `jq` installed, run this once from the repository root:
+
+```bash
+pnpm local:setup
+```
+
+Setup installs Caddy if needed, builds all Slidev decks, and registers a user-level
+Homebrew service that starts at login. Open [the local talks index](http://localhost:3030/talks/)
+or [Specification Driven Development](http://localhost:3030/talks/specification-driven-development/).
+VS Code and Terminal can be closed. The Mac must be awake and you must be logged in.
+The server binds only to this computer's IPv4 and IPv6 loopback interfaces.
+
+After editing, publish the latest local sources explicitly:
+
+```bash
+pnpm local:deploy
+```
+
+Only changed decks rebuild. A deployment becomes visible after every deck and the
+index succeed; failures leave the last successful release available. Refresh open
+browser tabs after deployment. No Git push is required.
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm local:status` | Show service state, current/previous releases, logs, and HTTP readiness. |
+| `pnpm local:stop` | Stop serving and disable startup at login. |
+| `pnpm local:start` | Start serving and enable startup at login again. |
+| `pnpm local:rollback` | Switch to the previous release; run again to switch back. |
+| `pnpm test:local` | Exercise deployment behavior in an isolated temporary directory. |
+
+Build caches, releases, Caddy configuration, and logs live under
+`~/Library/Application Support/Talks/`. Releases are retained; older directories
+under `releases/` can be removed when neither `current` nor `previous` points to
+them. The `current` symlink switches atomically, so deployment does not restart
+Caddy. All new automation is Bash; Node/pnpm are needed to build, while serving
+uses only Caddy. An existing unrelated Homebrew Caddy service is left unchanged.
+Use these commands to manage the custom service rather than a plain
+`brew services restart caddy`, which can select Homebrew's default configuration.
+
+Port **3030** belongs to the static server. For live editing, use **3031**:
+
+```bash
+pnpm --filter specification-driven-development run dev --port 3031
+```
+
+Setup/start report any process occupying 3030 without stopping it. If an abruptly
+terminated deploy leaves `.deploy-lock`, check its `pid` file and confirm that
+process is no longer running before removing the lock directory. Advanced testing
+can override storage with an absolute `TALKS_LOCAL_HOME`; use the same value for
+all commands. Only one Caddy service/port is supported per user.
+
+Presenter view uses the deck URL followed by `#/presenter/1`. Use two windows of
+the same browser profile for audience/presenter synchronization. Keynote and
+PowerPoint talks are not converted automatically; some decks still use remote
+images, so fully offline presentation is not guaranteed.
 
 <details>
 <summary>Present a published deck from any laptop</summary>
@@ -85,8 +143,9 @@ pnpm install --frozen-lockfile
 Start the deck you want to work on:
 
 ```bash
-pnpm --filter composition run dev
-pnpm --filter dynamic.data run dev
+pnpm --filter composition run dev --port 3031
+pnpm --filter dynamic.data run dev --port 3031
+pnpm --filter specification-driven-development run dev --port 3031
 ```
 
 Slidev decks are built and published to GitHub Pages on each push to `master`. The site automatically lists every published Slidev workspace. Keep `presenter: true` in a deck's `slides.md` headmatter to include presenter mode in the published build.

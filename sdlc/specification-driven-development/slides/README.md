@@ -1,10 +1,18 @@
 # Welcome to [Slidev](https://github.com/slidevjs/slidev)!
 
-To start the slide show:
+To present the deployed slide show, run `pnpm local:setup` from the repository
+root once, then open <http://localhost:3030/talks/specification-driven-development/>.
+Publish edits with `pnpm local:deploy`. Presenter view is available at
+<http://localhost:3030/talks/specification-driven-development/#/presenter/1>.
 
-- `npm install`
-- `npm run dev`
-- visit <http://localhost:3030>
+For live editing, run these commands from the repository root:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm --filter specification-driven-development run dev --port 3031
+```
+
+Visit <http://localhost:3031>. Port 3030 is reserved for the background static server.
 
 Edit the [slides.md](./slides.md) to see the changes.
 

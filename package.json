@@ -2,5 +2,14 @@
   "name": "talks",
   "private": true,
   "type": "module",
+  "scripts": {
+    "local:setup": "bash .github/scripts/local-talks.sh setup",
+    "local:deploy": "bash .github/scripts/local-talks.sh deploy",
+    "local:rollback": "bash .github/scripts/local-talks.sh rollback",
+    "local:status": "bash .github/scripts/local-talks.sh status",
+    "local:start": "bash .github/scripts/local-talks.sh start",
+    "local:stop": "bash .github/scripts/local-talks.sh stop",
+    "test:local": "bash .github/scripts/test-local-talks.sh"
+  },
   "packageManager": "pnpm@11.27.1"
 }

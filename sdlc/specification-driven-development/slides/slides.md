@@ -8,6 +8,7 @@ drawings:
   persist: false
   presenterOnly: true
 record: false
+presenter: true
 contextMenu: false
 transition: slide-left
 comark: true
@@ -724,7 +725,6 @@ Specht checks spec structure and links as the code changes.
 
 <figure>
   <img src="/images/replay-agent-check-plan.svg" alt="Illustrative agent checklist for AC-011. The agent is checking the Gherkin tag and design. Specht and Format are queued after the edits and replay test and before opening the PR." style="width: 100%; height: auto;" />
-  <figcaption style="margin-top: 0.5rem;">Example agent plan for <code>AC-011</code>.</figcaption>
 </figure>
 
 </v-click>
@@ -877,7 +877,10 @@ transition: slide-up
 <!--
 Timing: 2 minutes.
 
-Use these commands to illustrate the sequence for a configured xUnit v2/VSTest project with the Specht logger. Start with the build so Roslyn can read the declarations. On a fresh working copy, test recognition can be provisional until the project supplies current discovery and run evidence. Discovery records cases. Execution records their outcomes. The evidence command reads those artifacts and checks required links, input freshness, and results.
+Use these commands to illustrate the sequence for a configured xUnit v2/VSTest project with the Specht logger. Start with the build so Roslyn can read the declarations. On a fresh working copy, test recognition can be provisional until the project supplies current discovery and run evidence.
+- Discovery records cases.
+- Execution records their outcomes.
+- The evidence command reads those artifacts and checks required links, input freshness, and results.
 
 Click through discovery, execution, and reconciliation, then reveal the stale evidence cue. If I edit the assertions after a passing run, I rerun against the new revision. A valid verifies link can survive that edit while the old pass goes stale.
 
