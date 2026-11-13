@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-find . -name "package.json" \
-  -not -path "*/node_modules/*" \
-  -not -path "*/.git/*" \
+find . -type d \( -name node_modules -o -name .git -o -name .pnpm-store -o -name .cache -o -name dist \) -prune -o \
+  -type f -name "package.json" \
   -exec grep -l '"@slidev/cli"' {} \; \
   | sed 's|/package.json$||' \
   | sort

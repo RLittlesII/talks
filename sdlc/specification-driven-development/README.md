@@ -1,6 +1,6 @@
 ---
 title: Specification Driven Development
-description: Follow a checkout claim from agreed intent through the code, tests, and evidence you review
+description: Follow one replay claim through an AI-assisted spec review and its eventual test
 difficulty: Beginner
 prerequisites:
     - Artificial Intelligence
@@ -13,8 +13,8 @@ prerequisites:
 
 Old and busted. The 1998 requirements spec. I brought it back because AI can help keep it current as the code changes. Then I spent a week’s worth of tokens reviewing a change after the agent revised the spec poorly.
 
-Follow one checkout claim through the spec document, a Gherkin feature file, and an architecture decision. Run the example red and use it to drive the code change. Then see how a review full of drift led me to build Specht for the parts of spec upkeep a build can check, and how Roslyn and `dotnet format` handle repeatable checks and cleanup.
+Follow one replay claim through the spec, the design, and the test scaffold that inherited the wrong exit category. I’ll show what it took to untangle that contradiction, what eventually ran as an acceptance test, and where I used Specht and Roslyn to move repeatable checks out of review.
 
 ### Short Abstract
 
-AI made it practical for me to maintain a spec again. Follow one checkout claim through the spec, feature file, and architecture decision, then see what went wrong in a real review and how Specht helps catch broken links.
+AI made it practical for me to maintain a spec again. One replay claim showed me how a wrong expectation could spread from the spec into a test scaffold. Follow the review and see where Specht helped me check the artifacts.

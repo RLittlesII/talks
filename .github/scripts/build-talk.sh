@@ -14,6 +14,12 @@ echo "==> Building ${name}"
 # NOTE: no `--` separator — pnpm swallows it and the flag never reaches slidev.
 pnpm --filter "$name" run build --base "/talks/${name}/" --router-mode hash
 
-mkdir -p "${CACHE_DIR}/${name}"
-cp -r "${TALK_DIR}/dist/." "${CACHE_DIR}/${name}/"
+test -s "${TALK_DIR}/dist/index.html"
+mkdir -p "$CACHE_DIR"
+staging=$(mktemp -d "${CACHE_DIR}/.build.XXXXXX")
+trap 'rm -rf "$staging"' EXIT
+cp -R "${TALK_DIR}/dist/." "$staging/"
+# A successful replacement must not retain deleted assets from an older build.
+rm -rf "${CACHE_DIR:?}/${name:?}"
+mv "$staging" "${CACHE_DIR}/${name}"
 echo "==> Cached ${name}"

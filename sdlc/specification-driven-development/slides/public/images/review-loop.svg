@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 868 196" width="868" height="196">
+  <style>
+    /* A fragment shows the loop through the named step. */
+    svg:has(#author:target) :is(#reviewer, #return),
+    svg:has(#reviewer:target) #return {
+      visibility: hidden;
+    }
+  </style>
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0v24" fill="none" stroke="#acb5b2" stroke-opacity=".09"/>
+    </pattern>
+    <marker id="forward-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="m1 1 8 4-8 4" fill="none" stroke="#83bdb7" stroke-width="1.8"/>
+    </marker>
+    <marker id="return-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="m1 1 8 4-8 4" fill="none" stroke="#dca58a" stroke-width="1.8"/>
+    </marker>
+  </defs>
+
+  <rect x=".5" y=".5" width="867" height="195" rx="10" fill="#1b1e1e" stroke="#515a57"/>
+  <rect x="1" y="1" width="866" height="194" rx="9" fill="url(#grid)"/>
+  <g id="author" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">
+    <rect x="76" y="39" width="238" height="82" rx="8" fill="#2b3031" stroke="#83bdb7" stroke-width="1.5"/>
+    <text x="195" y="75" fill="#d5d7d2" font-size="28" font-weight="700">Author</text>
+    <text x="195" y="101" fill="#acb5b2" font-size="18">Update the branch</text>
+  </g>
+
+  <g id="reviewer" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">
+    <path d="M314 80H547" fill="none" stroke="#83bdb7" stroke-width="2" marker-end="url(#forward-arrow)"/>
+    <rect x="554" y="39" width="238" height="82" rx="8" fill="#2b3031" stroke="#83bdb7" stroke-width="1.5"/>
+    <text x="673" y="75" fill="#d5d7d2" font-size="28" font-weight="700">Reviewer</text>
+    <text x="673" y="101" fill="#acb5b2" font-size="18">Review the changes</text>
+    <text x="434" y="68" fill="#83bdb7" font-size="18">Request review</text>
+  </g>
+
+  <g id="return" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">
+    <path d="M673 121v25q0 20-20 20H215q-20 0-20-20v-19" fill="none" stroke="#dca58a" stroke-width="2" marker-end="url(#return-arrow)"/>
+    <text x="434" y="152" fill="#dca58a" font-size="18">Changes requested</text>
+  </g>
+</svg>

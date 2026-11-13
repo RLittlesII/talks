@@ -1,10 +1,10 @@
-/* Replace the upstream audience toolbar with native, separately focusable controls. */
+/* Hide Slidev's toolbar in the audience view. */
 html.sdd-audience #slide-container > div:has(> nav) {
   display: none;
 }
 
 html.sdd-audience #page-root {
-  height: calc(100dvh - var(--sdd-navigation-height, 74px));
+  height: calc(100dvh - var(--sdd-navigation-height, 0px));
 }
 
 #slidev-goto-dialog.op0 {
@@ -66,6 +66,8 @@ html.sdd-audience .slidev-code-copy:focus-visible {
 
 .sdd-status {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 1px;
   height: 1px;
   padding: 0;
