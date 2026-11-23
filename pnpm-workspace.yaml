@@ -10,7 +10,7 @@ catalog:
   "@slidev/theme-seriph": ^0.25.0
   "slidev-theme-dracula": ^0.2.5
   "slidev-theme-nord": ^0.1.2
-  "vue": ^3.5.45
+  "vue": ^3.5.46
 
 shamefullyHoist: true
 
